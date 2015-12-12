@@ -1,0 +1,35 @@
+//Setup
+if not @findalias 'pet1' or not inrange 'pet1' 20
+  headmsg 'Select first pet'
+  promptalias 'pet1'
+endif
+if not @findalias 'pet2' or not inrange 'pet2' 20
+  headmsg 'Select second pet'
+  promptalias 'pet2'
+endif
+//Heal the lowest HP pet
+if diffhits 'pet1' > diffhits 'pet2'
+  @setalias 'healpet' 'pet1'
+else
+  @setalias 'healpet' 'pet2'
+endif
+while not inrange 'healpet' 1
+  headmsg 'Get closer.'
+  pause 2000
+endwhile
+if diffhits 'healpet' <= 0
+  headmsg 'Pet full health.'
+  pause 3000
+endif
+if @findtype 0xe21
+  useobject 'found'
+  autotargetobject 'healpet'
+else
+  headmsg 'No bandages found!' 38
+  stop
+endif
+if @injournal 'not damaged' 'system'
+  headmsg 'Pet not damaged' 38
+  pause 2000
+endif
+pause 6800

@@ -1,0 +1,68 @@
+//Experience
+//Heals 2 pets.
+//Included weight check on self
+@cleartargetqueue
+@clearjournal
+if dead 'self'
+  stop
+endif
+//Setup
+if not findalias 'pet1'
+  headmsg 'Select first pet'
+  promptalias 'pet1'
+endif
+if not findalias 'pet2'
+  headmsg 'Select second pet'
+  promptalias 'pet2'
+endif
+//Feed pets
+if not timerexists 'feed'
+  createtimer 'feed'
+endif
+if timer 'feed' > 600000
+  if @inrange 'pet1' 1 or @inrange 'pet2' 1
+    headmsg 'Feeding Pets!!!'
+    pause 600
+    feed 'pet1' '0x9f1' 'any' '1'
+    pause 700
+    feed 'pet2' '0x9f1' 'any' '1'
+    settimer 'feed' 0
+  endif
+endif
+//Heal them to full
+while hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2'
+  pause 50
+endwhile
+if diffhits 'pet1' > diffhits 'pet2'
+  if inrange 'pet1' 1
+    bandage
+    autotargetobject 'pet1'
+    pause 6100
+  endif
+else
+  if inrange 'pet2' 1
+    bandage
+    autotargetobject 'pet2'
+    pause 6100
+  endif
+endif
+if not @injournal 'finish' 'system'
+  pause 1100
+  replay
+else if @injournal 'finish' 'system'
+  @clearjournal
+  replay
+elseif @injournal 'too far away' 'system'
+  @clearjournal
+  replay
+elseif @injournal 'stay close enough' 'system'
+  @clearjournal
+  replay
+endif
+if mana > 25
+  while weight >= maxweight
+    cast 'bless'
+    autotargetself!
+    pause 1500
+  endwhile
+endif

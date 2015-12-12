@@ -1,0 +1,386 @@
+//Nothing special, just the first macro I made. 
+//Split into 2 macros for easier maintenance: CreateLists to //define what items belong in which container and //StashAndRestock to do the actual work. If you change the //names, make sure to alter the macro code accordingly. Don't //forget to create an organizer named "Restock" to do the //actual restocking 
+
+CreateLists: 
+// Supplies
+if listexists 'Supplies'
+  removelist 'Supplies'
+endif
+createlist 'Supplies'
+// Regs
+pushlist 'Supplies' 0xf7a  // Black Pearl
+pushlist 'Supplies' 0xf7b  // Blood Moss
+pushlist 'Supplies' 0xf86  // Mandrake Root
+pushlist 'Supplies' 0xf84  // Garlic
+pushlist 'Supplies' 0xf85  // Ginseng
+pushlist 'Supplies' 0xf88  // Nightshade
+pushlist 'Supplies' 0xf8d  // Spider's Silk
+pushlist 'Supplies' 0xf8c  // Sulphurous Ash
+// Other stuff
+pushlist 'Supplies' 0x1bfb  // Bolt
+pushlist 'Supplies' 0xf3f   // Arrow
+pushlist 'Supplies' 0x14fc  // Lockpick
+pushlist 'Supplies' 0xe21   // Bandage
+// Skill Scrolls
+if listexists 'SkillScrolls'
+  removelist 'SkillScrolls'
+endif
+createlist 'SkillScrolls'
+pushlist 'SkillScrolls' 0x2260 // Skill scrolls
+// Leather/Scales/Bone
+if listexists 'CraftMats'
+  removelist 'CraftMats'
+endif
+createlist 'CraftMats'
+pushlist 'CraftMats' 0x1081 // Leather
+pushlist 'CraftMats' 0x26b4 // Scales
+pushlist 'CraftMats' 0xf7e  // Bone
+// Gems
+if listexists 'Gems'
+  removelist 'Gems'
+endif
+createlist 'Gems'
+pushlist 'Gems' 0xf16 // Amethyst
+pushlist 'Gems' 0xf15 // Citrine
+pushlist 'Gems' 0xf19 // Sapphire
+pushlist 'Gems' 0xf25 // Amber
+pushlist 'Gems' 0xf21 // Star Sapphire
+pushlist 'Gems' 0xf10 // Emerald
+pushlist 'Gems' 0xf26 // Diamond
+pushlist 'Gems' 0xf2d // Tourmaline
+pushlist 'Gems' 0xf13 // Ruby
+// Magic Weapons
+if listexists 'MagicsKeep'
+  removelist 'MagicsKeep'
+endif
+createlist 'MagicsKeep'
+// Axes
+pushlist 'MagicsKeep' 0xf43
+pushlist 'MagicsKeep' 0xf45
+pushlist 'MagicsKeep' 0x13fb
+pushlist 'MagicsKeep' 0x1443
+pushlist 'MagicsKeep' 0xf49
+pushlist 'MagicsKeep' 0xf47
+pushlist 'MagicsKeep' 0x143e
+pushlist 'MagicsKeep' 0xf4b
+// Swords
+pushlist 'MagicsKeep' 0xf5e
+pushlist 'MagicsKeep' 0x13ff
+pushlist 'MagicsKeep' 0x13b6
+pushlist 'MagicsKeep' 0x13b9
+pushlist 'MagicsKeep' 0xf5e
+pushlist 'MagicsKeep' 0x1441
+pushlist 'MagicsKeep' 0xf61
+pushlist 'MagicsKeep' 0xf61
+pushlist 'MagicsKeep' 0xec3
+pushlist 'MagicsKeep' 0xe86
+// Fencing
+pushlist 'MagicsKeep' 0x1403
+pushlist 'MagicsKeep' 0xf62
+pushlist 'MagicsKeep' 0x1401
+pushlist 'MagicsKeep' 0x1405
+// Bows
+pushlist 'MagicsKeep' 0x26c3
+pushlist 'MagicsKeep' 0x13fd
+pushlist 'MagicsKeep' 0x26c2
+pushlist 'MagicsKeep' 0x13b2
+// Maces
+pushlist 'MagicsKeep' 0x143d
+pushlist 'MagicsKeep' 0xe89
+pushlist 'MagicsKeep' 0x1407
+pushlist 'MagicsKeep' 0x13b4
+pushlist 'MagicsKeep' 0x1439
+pushlist 'MagicsKeep' 0x13b0
+pushlist 'MagicsKeep' 0xf5c
+pushlist 'MagicsKeep' 0xdf0
+pushlist 'MagicsKeep' 0x13f8
+if listexists 'MagicsSell'
+  removelist 'MagicsSell'
+endif
+createlist 'MagicsSell'
+// Metal Hats
+pushlist 'MagicsSell' 0x140a
+pushlist 'MagicsSell' 0x2b6e
+pushlist 'MagicsSell' 0x1412
+pushlist 'MagicsSell' 0x140c
+pushlist 'MagicsSell' 0x13bb
+pushlist 'MagicsSell' 0x2b71
+pushlist 'MagicsSell' 0x1451
+pushlist 'MagicsSell' 0x1408
+pushlist 'MagicsSell' 0x2b72
+pushlist 'MagicsSell' 0x140e
+pushlist 'MagicsSell' 0x2b70
+pushlist 'MagicsSell' 0x1db9
+pushlist 'MagicsSell' 0x2b6f
+pushlist 'MagicsSell' 0x2b73
+// Neck
+pushlist 'MagicsSell' 0x13c7
+pushlist 'MagicsSell' 0x2b69
+pushlist 'MagicsSell' 0x1413
+pushlist 'MagicsSell' 0x2fc7
+pushlist 'MagicsSell' 0x2b76
+// Gloves
+pushlist 'MagicsSell' 0x1414
+pushlist 'MagicsSell' 0x2b75
+pushlist 'MagicsSell' 0x13eb
+pushlist 'MagicsSell' 0x2b6a
+pushlist 'MagicsSell' 0x2fc6
+// Arms
+pushlist 'MagicsSell' 0x13ee
+pushlist 'MagicsSell' 0x2b6c
+pushlist 'MagicsSell' 0x2fc8
+pushlist 'MagicsSell' 0x2b77
+pushlist 'MagicsSell' 0x1410
+// Chest
+pushlist 'MagicsSell' 0x1415
+pushlist 'MagicsSell' 0x13bf
+pushlist 'MagicsSell' 0x13ec
+pushlist 'MagicsSell' 0x2b74
+pushlist 'MagicsSell' 0x2b67
+pushlist 'MagicsSell' 0x2fc5
+pushlist 'MagicsSell' 0x144f
+// Legs
+pushlist 'MagicsSell' 0x2fc9
+pushlist 'MagicsSell' 0x13f0
+pushlist 'MagicsSell' 0x2fca
+pushlist 'MagicsSell' 0x2b78
+pushlist 'MagicsSell' 0x1411
+pushlist 'MagicsSell' 0x13be
+pushlist 'MagicsSell' 0x2b6b
+// Female armor
+pushlist 'MagicsSell' 0x1c04
+pushlist 'MagicsSell' 0x1c0a
+pushlist 'MagicsSell' 0x1c0c
+pushlist 'MagicsSell' 0x1c02
+pushlist 'MagicsSell' 0x1c06
+// Shields
+pushlist 'MagicsSell' 0x1b76
+pushlist 'MagicsSell' 0x1b7b
+pushlist 'MagicsSell' 0x1b72
+pushlist 'MagicsSell' 0x1b73
+pushlist 'MagicsSell' 0x1b74
+pushlist 'MagicsSell' 0x1b79
+pushlist 'MagicsSell' 0x1b7a
+// Weapons we don't want
+pushlist 'MagicsSell' 0xf4d  // Bardiche
+pushlist 'MagicsSell' 0xe87  // Pitchfork
+pushlist 'MagicsSell' 0xf50  // Crossbow
+pushlist 'MagicsSell' 0x143b // Maul
+pushlist 'MagicsSell' 0xec4  // Skinning Knife
+pushlist 'MagicsSell' 0x13f6  // Butcher Knife
+// Trash
+if listexists 'Trash'
+  removelist 'Trash'
+endif
+createlist 'Trash'
+// Spell Scrolls
+pushlist 'Trash' 0x1f2d // Reactive Armor
+pushlist 'Trash' 0x1f2e // Clumsy
+pushlist 'Trash' 0x1f2f // Create Food
+pushlist 'Trash' 0x1f30 // Feeblemind
+pushlist 'Trash' 0x1f31 // Heal
+pushlist 'Trash' 0x1f32 // Magic Arrow
+pushlist 'Trash' 0x1f33 // Night Sight
+pushlist 'Trash' 0x1f34 // Weaken
+pushlist 'Trash' 0x1f35 // Agility
+pushlist 'Trash' 0x1f36 // Cunning
+pushlist 'Trash' 0x1f37 // Cure
+pushlist 'Trash' 0x1f38 // Harm
+pushlist 'Trash' 0x1f39 // Magic Trap
+pushlist 'Trash' 0x1f3a // Magic Untrap
+pushlist 'Trash' 0x1f3b // Protection
+pushlist 'Trash' 0x1f3c // Strength
+pushlist 'Trash' 0x1f3d // Bless
+pushlist 'Trash' 0x1f3e // Fireball
+pushlist 'Trash' 0x1f3f // Magic Lock
+pushlist 'Trash' 0x1f40 // Poison
+pushlist 'Trash' 0x1f41 // Telekinesis
+pushlist 'Trash' 0x1f42 // Teleport
+pushlist 'Trash' 0x1f43 // Unlock
+pushlist 'Trash' 0x1f44 // Wall of Stone
+pushlist 'Trash' 0x1f45 // Arch Cure
+pushlist 'Trash' 0x1f46 // Arch Protection
+pushlist 'Trash' 0x1f47 // Curse
+pushlist 'Trash' 0x1f48 // Fire Field
+pushlist 'Trash' 0x1f49 // Greater Heal
+pushlist 'Trash' 0x1f4a // Lightning
+pushlist 'Trash' 0x1f4b // Mana Drain
+pushlist 'Trash' 0x1f4d // Blade Spirit
+pushlist 'Trash' 0x1f4e // Dispel Field
+pushlist 'Trash' 0x1f4f // Incognito
+pushlist 'Trash' 0x1f50 // Magic Reflection
+pushlist 'Trash' 0x1f51 // Mind Blast
+pushlist 'Trash' 0x1f52 // Paralyze
+pushlist 'Trash' 0x1f53 // Poison Field
+pushlist 'Trash' 0x1f54 // Summon Creature
+pushlist 'Trash' 0x1f55 // Dispel
+pushlist 'Trash' 0x1f56 // Energy Bolt
+pushlist 'Trash' 0x1f57 // Explosion
+pushlist 'Trash' 0x1f58 // Invisibility
+pushlist 'Trash' 0x1f59 // Mark
+pushlist 'Trash' 0x1f5a // Mass Curse
+pushlist 'Trash' 0x1f5b // Paralyze Field
+pushlist 'Trash' 0x1f5c // Reveal
+pushlist 'Trash' 0x1f5d // Chain Lightning
+pushlist 'Trash' 0x1f5e // Energy Field
+pushlist 'Trash' 0x1f5f // Flamestrike
+pushlist 'Trash' 0x1f60 // Gate Travel
+pushlist 'Trash' 0x1f61 // Mana Vampire
+pushlist 'Trash' 0x1f62 // Mass Dispel
+pushlist 'Trash' 0x1f63 // Meteor Swarm
+pushlist 'Trash' 0x1f64 // Polymorph
+pushlist 'Trash' 0x1f65 // Earthquake
+pushlist 'Trash' 0x1f66 // Energy Vortex
+pushlist 'Trash' 0x1f67 // Ressurrection
+pushlist 'Trash' 0x1f68 // Summon Air Elemental
+pushlist 'Trash' 0x1f69 // Summon Daemon
+pushlist 'Trash' 0x1f6a // Summon Earth Elemental
+pushlist 'Trash' 0x1f6b // Summon Fire Elemental
+pushlist 'Trash' 0x1f6c // Summon Water Elemental
+// Cloth hats
+pushlist 'Trash' 0x1544
+pushlist 'Trash' 0x1540
+pushlist 'Trash' 0x1713
+pushlist 'Trash' 0x1715
+pushlist 'Trash' 0x1714
+pushlist 'Trash' 0x1716
+pushlist 'Trash' 0x1717
+pushlist 'Trash' 0x1718
+pushlist 'Trash' 0x1719
+pushlist 'Trash' 0x171a
+pushlist 'Trash' 0x171b
+pushlist 'Trash' 0x171c
+pushlist 'Trash' 0x2306
+// Skirt shorts
+pushlist 'Trash' 0x1c08
+pushlist 'Trash' 0x1c00
+// Bear masks deer masks
+pushlist 'Trash' 0x1545
+pushlist 'Trash' 0x1547
+// Useless weapons
+pushlist 'Trash' 0xe81
+// Other stuff that doesn't sell
+pushlist 'Trash' 0x13cc
+pushlist 'Trash' 0x13d6
+pushlist 'Trash' 0x13dc
+pushlist 'Trash' 0x1452
+pushlist 'Trash' 0x1450  // Bone Gloves
+pushlist 'Trash' 0x13cb  // Leather Legs
+pushlist 'Trash' 0x13da  // Studded Legs
+pushlist 'Trash' 0x13d5  // Studded Gloves
+pushlist 'Trash' 0x13c6  // Leather Gloves
+pushlist 'Trash' 0x13cd  // Leather Sleeves
+pushlist 'Trash' 0x13db  // studded tunic
+pushlist 'Trash' 0x1f0b  // Orc Helm
+pushlist 'Trash' 0x144e  // Bone Arms
+// Call the callback
+playmacro 'Callback[0]'
+
+StashAndRestock: 
+if listexists 'Callback'
+  removelist 'Callback'
+else
+  createlist 'Callback'
+  pushlist 'Callback' 'StashAndRestock' // THIS macro's name
+  playmacro 'CreateLists'
+endif
+headmsg 'Starting loot sorting and restocking' 38
+// Set the different bags to move loot to
+while not @findobject 'GoldContainer'
+  headmsg 'Gold? (house/bank)'
+  promptalias 'GoldContainer'
+endwhile
+useobject 'GoldContainer'
+pause 1000
+while not @findobject 'RegBag'
+  headmsg 'Regs?(backpack)'
+  promptalias 'RegBag'
+endwhile
+while not @findobject 'SuppliesContainer'
+  headmsg 'Supplies? (house/bank)'
+  promptalias 'SuppliesContainer'
+endwhile
+useobject 'SuppliesContainer'
+while not @findobject 'SkillScrollsContainer'
+  headmsg 'Skillscrolls? (house/bank)'
+  promptalias 'SkillScrollsContainer'
+endwhile
+while not @findobject 'CraftMatsContainer'
+  headmsg 'Crafting Material? (house/bank)'
+  promptalias 'CraftMatsContainer'
+endwhile
+while not @findobject 'MagicKeepContainer'
+  headmsg 'Magic weapons you wanna keep? (house/bank)'
+  promptalias 'MagicKeepContainer'
+endwhile
+while not @findobject 'MagicSellContainer'
+  headmsg 'Magic weapons you wanna sell? (house/bank)'
+  promptalias 'MagicSellContainer'
+endwhile
+while not @findobject 'GemsContainer'
+  headmsg 'Gems? (house/bank)'
+  promptalias 'GemsContainer'
+endwhile
+while not @findobject 'TrashContainer'
+  headmsg 'Trash? (house/bank)'
+  promptalias 'TrashContainer'
+endwhile
+// Just to see what ends up here:
+useobject 'TrashContainer'
+// move gold
+while @findtype 0xeed 'any' 'backpack' 0
+  @moveitem 'found' 'GoldContainer'
+endwhile
+// Move skill scrolls
+for 0 to 'SkillScrolls'
+  while @findtype 'SkillScrolls[]' 'any' 'backpack' 0
+    @moveitem 'found' 'SkillScrollsContainer'
+  endwhile
+endfor
+// move gems
+for 0 to 'Gems'
+  while @findtype 'Gems[]' 'any' 'backpack' 0
+    @moveitem 'found' 'GemsContainer'
+  endwhile
+endfor
+// move crafting material
+for 0 to 'CraftMats'
+  while @findtype 'CraftMats[]' 'any' 'backpack' 0
+    @moveitem 'found' 'CraftMatsContainer'
+  endwhile
+endfor
+// move magic weapons
+for 0 to 'MagicsKeep'
+  while @findtype 'MagicsKeep[]' 'any' 'backpack' 0
+    @moveitem 'found' 'MagicKeepContainer'
+  endwhile
+endfor
+for 0 to 'MagicsSell'
+  while @findtype 'MagicsSell[]' 'any' 'backpack' 0
+    @moveitem 'found' 'MagicSellContainer'
+  endwhile
+endfor
+// move trash
+for 0 to 'Trash'
+  while @findtype 'Trash[]' 'any' 'backpack' 0
+    @moveitem 'found' 'TrashContainer'
+  endwhile
+endfor
+// Move supplies
+for 0 to 'Supplies'
+  while @findtype 'Supplies[]' 'any' 'backpack' 0
+    @moveitem 'found' 'SuppliesContainer'
+  endwhile
+endfor
+// finally restock
+pause 1500
+useobject 'SuppliesContainer'
+pause 1500
+organizer 'Restock' 'SuppliesContainer' 'RegBag'
+pause 5000
+// remove the callback
+if listexists 'Callback'
+  removelist 'Callback'
+endif
+headmsg 'Restock done!' 38
+
