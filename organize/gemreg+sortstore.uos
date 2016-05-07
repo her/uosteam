@@ -1,0 +1,89 @@
+// $$$$$$$ Gem/Reg Sort and store $$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V1.3
+// ???????????????????????????????????????
+// ?? This macro will search your main pack
+// ?? and all bags / containers for gems and
+// ?? Reg's, and sort them into bag/s or
+// ?? container/s assigned by you.
+// ??
+// ???????????????????????????????????????
+// ??
+// ?? USAGE:
+// ?? Currently this macro requires at least 1
+// ?? bag in the main pack to function.
+// ?? Simply run the macro. You will be prompted
+// ?? to select a bag or container where the
+// ?? gems will be stored. A 2nd prompt will
+// ?? ask you to target the Regent storage
+// ?? container .
+// ?? !!DO NOT!! Target a bag in your main
+// ?? pack as a storage container , this would
+// ?? silly results and could invoke a singularity
+// ?? if not carefull !!
+// ??
+// ???????????????????????????????????????
+//
+// !! Clear data
+unsetalias 'gem_storage'
+unsetalias 'reg_storage'
+// !! Create Sort lists
+if not listexists 'gems'
+  createlist 'gems'
+  //Gems
+  pushlist 'gems' 0xf16 // Amethyst
+  pushlist 'gems' 0xf15 // Citrine
+  pushlist 'gems' 0xf19 // Sapphire
+  pushlist 'gems' 0xf25 // Amber
+  pushlist 'gems' 0xf21 // Star Sapphire
+  pushlist 'gems' 0xf10 // Emerald
+  pushlist 'gems' 0xf26 // Diamond
+  pushlist 'gems' 0xf2d // Tourmaline
+  pushlist 'gems' 0xf13 // Ruby
+endif
+if not listexists 'regs'
+  createlist 'regs'
+  //Regents
+  pushlist 'regs' 0xf7a  // Black Pearl
+  pushlist 'regs' 0xf7b  // Blood Moss
+  pushlist 'regs' 0xf86  // Mandrake Root
+  pushlist 'regs' 0xf84  // Garlic
+  pushlist 'regs' 0xf85  // Ginseng
+  pushlist 'regs' 0xf88  // Nightshade
+  pushlist 'regs' 0xf8d  // Spider's Silk
+  pushlist 'regs' 0xf8c  // Sulphurous Ash
+endif
+// !! User Input set Target Gem storage
+headmsg 'Please Select Gem Storage' '2124'
+if not findalias 'gem_storage'
+  promptalias 'gem_storage'
+endif
+// !! User Input set Target Reg storage
+headmsg 'Please Select Regent Storage' '2124'
+if not findalias 'reg_storage'
+  promptalias 'reg_storage'
+endif
+clearignorelist
+// !! Start sorting !!
+while @findtype 0xe76 'any' 'backpack'
+  setalias 'current_bag' 'found'
+  useobject 'current_bag'
+  pause 600
+  ignoreobject 'current_bag'
+  for 0 to 'regs'
+    while @findtype 'regs[]' 'current_bag'
+      moveitem 'found' 'reg_storage'
+      pause 600
+    endwhile
+  endfor
+  for 0 to 'gems'
+    while @findtype 'gems[]' 'current_bag'
+      moveitem 'found' 'gem_storage'
+      pause 600
+    endwhile
+  endfor
+  pause 600
+endwhile
+clearignorelist
+headmsg 'Done Sorting' '89'

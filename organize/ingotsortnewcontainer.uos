@@ -1,0 +1,19 @@
+if not listexists 'CraftingIngots'
+  createlist 'CraftingIngots'
+  pushlist 'CraftingIngots' 0x1bf2 // Ingots
+endif
+if not findalias 'slayerbag'
+  promptalias 'slayerbag'
+endif
+clearignorelist
+while @findtype 0xe79 'any' 'backpack'
+  setalias 'current_bag' 'found'
+  ignoreobject 'current_bag'
+  for 0 to 'CraftingIngots'
+    while @findtype 'CraftingIngots[]' 'current_bag'
+      moveitem 'found' 'slayerbag'
+      pause 600
+    endwhile
+  endfor
+endwhile
+clearignorelist

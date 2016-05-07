@@ -1,0 +1,853 @@
+// $$$$$$$$$$$$$ Leather Armor Manager   $$$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V2.1
+// ??????????????????????????????????????????????????
+// ??
+// ?? This Macro will sort all the leather and studded
+// ?? pieces of armor from a targeted container into 6
+// ?? other containers, 1 for each type of armor piece.
+// ?? The macro will also dye the leather armor based on
+// ?? its protective quality as outlined below:
+// ?? > invulnerable will be dyed red.
+// ?? > fortification will be dyed blue.
+// ?? > Hardening will be dyed blackish.
+// ?? > Guarding will be dyed Green.
+// ?? > Defence will be dyed Brown.
+// ?? > anything else dyed gray.
+// ??
+// ?? USAGE:
+// ?? A LEATHER DYE TUB and Dyes are required.
+// ?? 1 source cointainer and at least 1 (up to 6)
+// ?? destination container/s.
+// ?? Both the leather dye tub and dyes should be
+// ?? in your main pack before running this macro.
+// ??
+// ?? Simply run the macro and follow the prompts.
+// ???????????????????????????????????????
+//
+// !!*** Init Data ***!!
+unsetalias 'frombag'
+//
+unsetalias 'dyes'
+unsetalias 'tub'
+unsetalias 'toheadbag'
+unsetalias 'tohandsbag'
+unsetalias 'toarmsbag'
+unsetalias 'tochestbag'
+unsetalias 'tolegsbag'
+unsetalias 'toneckbag'
+//
+//
+if not @findobject 'dyes'
+  headmsg 'Select Dyes' '2124'
+  promptalias 'dyes'
+endif
+pause 700
+if not @findobject 'tub'
+  headmsg 'Select LEATHER Dye Tub' '2124'
+  promptalias 'tub'
+endif
+pause 700
+if not @findobject 'frombag'
+  headmsg 'Select From Bag' '2124'
+  promptalias 'frombag'
+endif
+pause 700
+if not @findobject 'toheadbag'
+  headmsg 'Select Cap Bag' '2124'
+  promptalias 'toheadbag'
+endif
+pause 700
+if not @findobject 'tohandsbag'
+  headmsg 'Select Gloves Bag' '2124'
+  promptalias 'tohandsbag'
+endif
+pause 700
+if not @findobject 'toarmsbag'
+  headmsg 'Select Sleeves Bag' '2124'
+  promptalias 'toarmsbag'
+endif
+pause 700
+if not @findobject 'tochestbag'
+  headmsg 'Select Tunic Bag' '2124'
+  promptalias 'tochestbag'
+endif
+pause 700
+if not @findobject 'tolegsbag'
+  headmsg 'Select Pant Bag' '2124'
+  promptalias 'tolegsbag'
+endif
+pause 700
+if not @findobject 'toneckbag'
+  headmsg 'Select Gorget Bag' '2124'
+  promptalias 'toneckbag'
+endif
+pause 700
+//
+if not listexists 'LeatherArticle'
+  createlist 'LeatherArticle'
+endif
+useobject 'frombag'
+pause 250
+useobject 'toheadbag'
+pause 250
+useobject 'tohandsbag'
+pause 250
+useobject 'toarmsbag'
+pause 250
+useobject 'tochestbag'
+pause 250
+useobject 'tolegsbag'
+pause 250
+useobject 'toneckbag'
+pause 250
+//
+clearlist 'LeatherArticle'
+//Leather
+@pushlist 'LeatherArticle' 0x13c6 //Leather Gloves
+@pushlist 'LeatherArticle' 0x13cd //Leather Sleeves
+@pushlist 'LeatherArticle' 0x13cc //Leather Tunic
+@pushlist 'LeatherArticle' 0x13cb //Leather Pants
+@pushlist 'LeatherArticle' 0x13c7 //Leather Gorget
+@pushlist 'LeatherArticle' 0x1db9 //Leather Cap
+//Studded
+@pushlist 'LeatherArticle' 0x13da //Studded Leggings
+@pushlist 'LeatherArticle' 0x13db //Studded Tunic
+@pushlist 'LeatherArticle' 0x13d5 //Studded Gloves
+@pushlist 'LeatherArticle' 0x13d6 //Studded Gorget
+@pushlist 'LeatherArticle' 0x13dc //Studded Sleeves
+//
+for 0 to 'LeatherArticle'
+  while @findtype 'LeatherArticle[]' 'any' 'frombag'
+    @clearjournal
+    //
+    clickobject found
+    //
+    pause 1500
+    if @injournal 'Cap' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Invulnerability Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'toheadbag'
+        headmsg 'Cap'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    elseif @injournal 'Gloves' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Invulnerability Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'tohandsbag'
+        headmsg 'Gloves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    elseif @injournal 'Sleeves' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Invulnerability Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'toarmsbag'
+        headmsg 'Sleeves'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    elseif @injournal 'Tunic' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Invulnerability Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'tochestbag'
+        headmsg 'Tunic'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    elseif @injournal 'Leggings' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Invulnerability Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'tolegsbag'
+        headmsg 'Leggings'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    elseif @injournal 'Gorget' 'system'
+      if @injournal 'Invulnerability' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Invulnerability Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 68
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Fortification' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 69
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Hardening' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 1
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Guarding' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 10
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Defence' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 25
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      elseif @injournal 'Exceptional' 'system'
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 0
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+      else
+        moveitem found 'toneckbag'
+        headmsg 'Gorget'
+        @clearjournal
+        pause 1500
+        //
+        useobject! 'dyes'
+        waitfortarget 1500
+        target! 'tub'
+        waitforgump 0x2d16f829 1500
+        replygump 0x2d16f829 1 64
+        pause 500
+        useobject! 'tub'
+        waitfortarget 1500
+        target! found
+        pause 500
+        //
+      endif
+    endif
+    @clearjournal
+  endwhile
+endfor
+headmsg 'Whew!! all done!' '2124'
+stop

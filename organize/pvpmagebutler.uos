@@ -1,0 +1,124 @@
+//set container with Regs, Bottles, Bandages
+if not @findalias 'Regs_box'
+  promptalias 'Regs_box'
+endif
+pause 2000
+//set container with Potions Kegs
+if not @findalias 'Potions_box'
+  promptalias 'Potions_box'
+endif
+pause 2000
+// Opening Potions_box container
+useobject! 'Potions_box'
+pause 1000
+//set Heal_keg
+while not @findobject 'heal_keg'
+  headmsg 'Heal Keg?'
+  promptalias 'heal_keg'
+endwhile
+//set Cure_keg
+while not @findobject 'cure_keg'
+  headmsg 'Cure Keg?'
+  promptalias 'cure_keg'
+endwhile
+//set Refresh_keg
+while not @findobject 'refresh_keg'
+  headmsg 'Refresh Keg?'
+  promptalias 'refresh_keg'
+endwhile
+//set Strength_keg
+while not @findobject 'str_keg'
+  headmsg 'Strength Keg?'
+  promptalias 'str_keg'
+endwhile
+//set Agility_keg
+while not @findobject 'agil_keg'
+  headmsg 'Agility Keg?'
+  promptalias 'agil_keg'
+endwhile
+//set Explosion_keg
+while not @findobject 'expl_keg'
+  headmsg 'Explosion Keg?'
+  promptalias 'expl_keg'
+endwhile
+// Opening 'Regs_box'
+useobject! 'Regs_box'
+pause 1000
+//put Regs, Bottles, Bandages in backpack
+organizer 'Butler Resources'
+    while organizing
+    endwhile
+headmsg "Resources in backpack"
+//put Heal Pots in backpack
+while counttype 0xf0c 'any' 'backpack' < 3
+  @useobject! 'heal_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Heal keg is empty!' 38
+    unsetalias 'heal_keg'
+    headmsg 'Heal Keg?'
+    promptalias 'heal_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+//put Cure Pots in backpack
+while counttype 0xf07 'any' 'backpack' < 3
+  @useobject! 'cure_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Cure keg is empty!' 38
+    unsetalias 'cure_keg'
+    headmsg 'Cure Keg?'
+    promptalias 'cure_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+//put Refresh Pots in backpack
+while counttype 0xf0b 'any' 'backpack' < 3
+  @useobject! 'refresh_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Refresh keg is empty!' 38
+    unsetalias 'refresh_keg'
+    headmsg 'Refresh Keg?'
+    promptalias 'refresh_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+//put Strength Pots in backpack
+while counttype 0xf09 'any' 'backpack' < 3
+  @useobject! 'str_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Strength keg is empty!' 38
+    unsetalias 'str_keg'
+    headmsg 'Strength Keg?'
+    promptalias 'str_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+//put Agility Pots in backpack
+while counttype 0xf08 'any' 'backpack' < 3
+  @useobject! 'agil_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Agility keg is empty!' 38
+    unsetalias 'agil_keg'
+    headmsg 'Agility Keg?'
+    promptalias 'agil_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+//put Explosion Pots in backpack
+while counttype 0xf0d 'any' 'backpack' < 3
+  @useobject! 'expl_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Explosion keg is empty!' 38
+    unsetalias 'expl_keg'
+    headmsg 'Explosion Keg?'
+    promptalias 'expl_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+headmsg 'Butler Macro COMPLETE!'

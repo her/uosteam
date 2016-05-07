@@ -1,0 +1,364 @@
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$ Sort Yer Shit
+//$$ By: Amonseti
+//$$ V 2.5
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//
+//?????????????????????????????????????????????????????????????????????
+//??? USAGE GUIDE LINES:
+//??? This macro requires the character to have Item Identification
+//??? skill, it is recomended to be 100. not haveing guranteed id's
+//??? could be costly ..
+//???
+//??? Macro will sort thru all items of one container and separate
+//??? all weapons and armor into 2 bags. A Junk bag and a Keeper Bag.
+//???
+//??? have ready 3 bags the first bag is the source bag containing all
+//??? the items you want sorted. the 2nd bag is the junk bag, any
+//??? weapons or armor that is id'ed and not meeting the keep requirments
+//??? is placed into this bag to be sold or trashed what ever you want
+//??? to do with it.
+//???
+//??? and finally the 3rd bag is the keeper bag.. items placed into
+//??? this bag must meet any 1 of the following conditions:
+//???   A) Any weapons that are Vanquishing.
+//???   B) Any Weapons that are Power.
+//???   C) Any Weapons with a Slayer attribute.
+//???   D) Any armor or shield of Invulnerability.
+//???   E) All leather or studded armor reguardless of quality.
+//???
+//??? Run the Macro and follow the prompting instructions.
+//???
+//?????????????????????????????????????????????????????????????????????
+// !!*** Init Data ***!!
+@clearjournal
+unsetalias 'bagtosort'
+unsetalias 'stufftosell'
+unsetalias 'stufftokeep'
+// !! user Input
+if not @findobject 'bagtosort'
+  headmsg 'Select From Bag' '2124'
+  promptalias 'bagtosort'
+endif
+pause 700
+// !! user Input
+if not @findobject 'stufftosell'
+  headmsg 'Select Junk Bag' '38'
+  promptalias 'stufftosell'
+endif
+pause 700
+// !! user Input
+if not @findobject 'stufftokeep'
+  headmsg 'Select Keeper Bag' '58'
+  promptalias 'stufftokeep'
+endif
+pause 700
+//
+// !! Static Data
+if not listexists 'ItemTypes'
+  createlist 'ItemTypes'
+endif
+useobject 'bagtosort'
+useobject 'stufftosell'
+useobject 'stufftokeep'
+clearlist 'ItemTypes'
+//Shields
+@pushlist 'ItemTypes' 0x1b72 //BronzeShields
+@pushlist 'ItemTypes' 0x1b73 //Buckler
+@pushlist 'ItemTypes' 0x1b7b //MetalShield
+@pushlist 'ItemTypes' 0x1b74 //Metal Kite Shield
+@pushlist 'ItemTypes' 0x1b79 //Tear Kite Shield
+@pushlist 'ItemTypes' 0x1b7a //WoodenShield
+@pushlist 'ItemTypes' 0x1b76 //HeaterShield
+//Bone Armor
+@pushlist 'ItemTypes' 0x1451 //Bone Helmet
+@pushlist 'ItemTypes' 0x144f //Bone Armor
+@pushlist 'ItemTypes' 0x1452 //Bone Leggings
+@pushlist 'ItemTypes' 0x144e //Bone Arms
+@pushlist 'ItemTypes' 0x1450 //Bone Gloves
+//Platemail
+@pushlist 'ItemTypes' 0x1408 //Close Helmet
+@pushlist 'ItemTypes' 0x1410 //Platemail Arms
+@pushlist 'ItemTypes' 0x1411 //Platemail Legs
+@pushlist 'ItemTypes' 0x1412 //Plate Helm
+@pushlist 'ItemTypes' 0x1413 //Plate Gorget
+@pushlist 'ItemTypes' 0x1414 //Platemail Gloves
+@pushlist 'ItemTypes' 0x1415 //Plate Chest
+@pushlist 'ItemTypes' 0x140a //Helmet
+@pushlist 'ItemTypes' 0x140c //Bascinet
+@pushlist 'ItemTypes' 0x140e //Norse Helm
+//Chainmail
+@pushlist 'ItemTypes' 0x13bb //Chainmail Coif
+@pushlist 'ItemTypes' 0x13be //Chainmail Leggins
+@pushlist 'ItemTypes' 0x13bf //Chainmail Tunic
+//Ringmail
+@pushlist 'ItemTypes' 0x13ee //Ringmail Sleeves
+@pushlist 'ItemTypes' 0x13eb //Ringmail Gloves
+@pushlist 'ItemTypes' 0x13ec //Ringmail Tunic
+@pushlist 'ItemTypes' 0x13f0 //Ringmail Leggins
+//Studded
+@pushlist 'ItemTypes' 0x13da //Studded Leggings
+@pushlist 'ItemTypes' 0x13db //Studded Tunic
+@pushlist 'ItemTypes' 0x13d5 //Studded Gloves
+@pushlist 'ItemTypes' 0x13d6 //Studded Gorget
+@pushlist 'ItemTypes' 0x13dc //Studded Sleeves
+//Leather
+@pushlist 'ItemTypes' 0x13c6 //Leather Gloves
+@pushlist 'ItemTypes' 0x13cd //Leather Sleeves
+@pushlist 'ItemTypes' 0x13cc //Leather Tunic
+@pushlist 'ItemTypes' 0x13cb //Leather Pants
+@pushlist 'ItemTypes' 0x13c7 //Leather Gorget
+@pushlist 'ItemTypes' 0x1db9 //Leather Cap
+//Female Armor
+@pushlist 'ItemTypes' 0x1c04 //Female Plate
+@pushlist 'ItemTypes' 0x1c0c //Female Studded Bustier
+@pushlist 'ItemTypes' 0x1c02 //Female Studded Armor
+@pushlist 'ItemTypes' 0x1c00 //Female Leather Shorts
+@pushlist 'ItemTypes' 0x1c08 //Female Leather Skirt
+@pushlist 'ItemTypes' 0x1c06 //Female Leather Armor
+@pushlist 'ItemTypes' 0x1c0a //Female Leather Bustier
+//Fencing
+@pushlist 'ItemTypes' 0xf62  //Spear
+@pushlist 'ItemTypes' 0x1403 //Short Spear
+@pushlist 'ItemTypes' 0xe87  //Pitchfork
+@pushlist 'ItemTypes' 0x1405 //Warfork
+@pushlist 'ItemTypes' 0x1401 //Kryss
+@pushlist 'ItemTypes' 0xf52  //Dagger
+//Macing
+@pushlist 'ItemTypes' 0x13b0 //War axe
+@pushlist 'ItemTypes' 0xdf0  //Black Staff
+@pushlist 'ItemTypes' 0x1439 //War Hammer
+@pushlist 'ItemTypes' 0x1407 //War Mace
+@pushlist 'ItemTypes' 0xe89  //Quarter Staff
+@pushlist 'ItemTypes' 0x143d //Hammer Pick
+@pushlist 'ItemTypes' 0x13b4 //Club
+@pushlist 'ItemTypes' 0xe81  //Shepherds Crook
+@pushlist 'ItemTypes' 0x13f8 //Gnarled Staff
+@pushlist 'ItemTypes' 0xf5c  //Mace
+@pushlist 'ItemTypes' 0x143b //Maul
+//Swords
+@pushlist 'ItemTypes' 0x13b9 //Viking Sword
+@pushlist 'ItemTypes' 0xf61  //Longsword
+@pushlist 'ItemTypes' 0x1441 //Cutlass
+@pushlist 'ItemTypes' 0x13b6 //Scimitar
+@pushlist 'ItemTypes' 0xec4  //Skinning Knife
+@pushlist 'ItemTypes' 0x13f6 //Butcher Knife
+@pushlist 'ItemTypes' 0xf5e  //Broadsword
+@pushlist 'ItemTypes' 0x13ff //Katana
+@pushlist 'ItemTypes' 0xec3  //Cleaver
+//Axes
+@pushlist 'ItemTypes' 0xf43 //Hatchet
+@pushlist 'ItemTypes' 0xf45 //Executioner's Axe
+@pushlist 'ItemTypes' 0xf4d //Bardiche
+@pushlist 'ItemTypes' 0xf4b  //Double Axe
+@pushlist 'ItemTypes' 0x143e //Halberd
+@pushlist 'ItemTypes' 0x13fb //Large Battle Axe
+@pushlist 'ItemTypes' 0x1443 //Two Handed Axe
+@pushlist 'ItemTypes' 0xf47  //Battle Axe
+@pushlist 'ItemTypes' 0xf49  //Axe
+@pushlist 'ItemTypes' 0xe85  //Pickaxe
+@pushlist 'ItemTypes' 0xe86  //Pickaxe
+//Bows
+@pushlist 'ItemTypes' 0x13fd //HeavyXbow
+@pushlist 'ItemTypes' 0xf50  //Xbow
+@pushlist 'ItemTypes' 0x13b2 //bow
+// !!*** End of Data Init ***!!
+//
+//
+//
+// !! cycle all items listed in var ItemTypes
+for 0 to 'ItemTypes'
+  // !! Process all items found of current cyucled ItemType
+  while @findtype 'ItemTypes[]' 'any' 'bagtosort'
+    @clearjournal
+    moveitem found 'stufftosell'
+    // !! Id the item using Item ID Skill
+    pause 1500
+    useskill 'Item Identification'
+    waitfortarget 15000
+    target! found
+    pause 1500
+    //
+    // !!*** Item to do conditionals ***!!
+    // !!*** If any of these conditions are true
+    // !!*** The Item is a keeper , (Sure wish we
+    // !!*** Could use switchs bleh )
+    // !!*****************************************!!
+    if @injournal 'Silver' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Silver' '2213'
+      @clearjournal
+    elseif @injournal 'Vanquishing' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Vanquishing' '2213'
+      @clearjournal
+    elseif @injournal 'Power' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Power' '2213'
+      @clearjournal
+    elseif @injournal 'Exorcism' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Exorcisim' '2213'
+      @clearjournal
+    elseif @injournal 'Air' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Air' '2213'
+      @clearjournal
+    elseif @injournal 'Daemon' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Daemon' '2213'
+      @clearjournal
+    elseif @injournal 'Gargoyle' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Gargoyle' '2213'
+      @clearjournal
+    elseif @injournal 'Fey' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Fey' '2213'
+      @clearjournal
+    elseif @injournal 'Respond' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Respond' '2213'
+      @clearjournal
+    elseif @injournal 'Repond' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Repond' '2213'
+      @clearjournal
+    elseif @injournal 'Vacuum' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Vacuum' '2213'
+      @clearjournal
+    elseif @injournal 'Flame' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Flame' '2213'
+      @clearjournal
+    elseif @injournal 'Elemental' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Elemental' '2213'
+      @clearjournal
+    elseif @injournal 'Earth' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Earth' '2213'
+      @clearjournal
+    elseif @injournal 'Water' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Water' '2213'
+      @clearjournal
+    elseif @injournal 'Ogre' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Ogre' '2213'
+      @clearjournal
+    elseif @injournal 'Orc' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Orc' '2213'
+      @clearjournal
+    elseif @injournal 'Arachnid' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Arachnid' '2213'
+      @clearjournal
+    elseif @injournal 'Spider' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Spider' '2213'
+      @clearjournal
+    elseif @injournal 'Scorpion' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Scorpion' '2213'
+      @clearjournal
+    elseif @injournal 'Terathan' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Terathan' '2213'
+      @clearjournal
+    elseif @injournal 'Reptile' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Reptile' '2213'
+      @clearjournal
+    elseif @injournal 'Dragon' 'system'
+      headmsg 'Dragon' '2213'
+      moveitem found 'stufftokeep'
+      @clearjournal
+    elseif @injournal 'Lizardman' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Lizardman' '2213'
+      @clearjournal
+    elseif @injournal 'Ophidian' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Ophidan' '2213'
+      @clearjournal
+    elseif @injournal 'Snake' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Snake' '2213'
+      @clearjournal
+    elseif @injournal 'Undead' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Undead' '2213'
+      @clearjournal
+    elseif @injournal 'Blood' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Blood' '2213'
+      @clearjournal
+    elseif @injournal 'Poison' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Poison' '2213'
+      @clearjournal
+    elseif @injournal 'Troll' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Troll' '2213'
+      @clearjournal
+    elseif @injournal 'Fire' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Fire' '2213'
+      @clearjournal
+    elseif @injournal 'Snow' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Snow' '2213'
+      @clearjournal
+    elseif @injournal 'Demon' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Demon' '2213'
+      @clearjournal
+    elseif @injournal 'Balron' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Balron' '2213'
+      @clearjournal
+      //
+    elseif @injournal 'Invulnerability' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Invulnerability' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Gloves' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Gloves' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Sleeves' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Sleeves' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Tunic' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Tunic' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Leggings' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Leggings' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Gorget' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Gorget' '2213'
+      @clearjournal
+    elseif @injournal 'Leather Cap' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Leather Cap' '2213'
+      @clearjournal
+    elseif @injournal 'studded' 'system'
+      moveitem found 'stufftokeep'
+      headmsg 'Studded Armor!!' '2213'
+      @clearjournal
+    endif
+    @clearjournal
+  endwhile
+endfor
+msg '[e whistle'
+headmsg 'All Done' '2124'
+stop

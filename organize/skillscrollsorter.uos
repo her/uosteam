@@ -1,0 +1,260 @@
+// $$$$$$$$ Skill Scroll Sorter   $$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V1.3
+// ??????????????????????????????????????????????????
+// ??
+// ?? Macro will sort all Skill scrolls by color , and +0.1
+// ?? skill scrolls sorted into its own bulk container.
+// ??
+// ?? USAGE:
+// ?? All that is required for this macro is at least
+// ?? 1 destination container. The macro will ask you for
+// ?? 7, one for each skill catagory and 1 for all +0.1
+// ?? Skill scrolls. Simply run the macro and follow the
+// ?? Prompts.
+// ??
+// ???????????????????????????????????????
+//
+// !!*** Init Data ***!!
+unsetalias 'frombag'
+//**** Uncomment the following code to have macro
+//**** Ask everytime for destination containers
+//
+//unsetalias 'minorSSBag'
+//unsetalias 'brownBag'
+//unsetalias 'redBag'
+//unsetalias 'purpleBag'
+//unsetalias 'greenBag'
+//unsetalias 'blackBag'
+//unsetalias 'blazeBag'
+//
+//************************************************
+//
+if not @findobject 'frombag'
+  headmsg 'Select From Bag' '2124'
+  promptalias 'frombag'
+endif
+pause 700
+//
+if not @findobject 'minorSSBag'
+  headmsg 'Select the +0.1 SS Bag' '2124'
+  promptalias 'minorSSBag'
+endif
+pause 700
+//
+//
+if not @findobject 'brownBag'
+  headmsg 'Select the Brown +1 SS Bag' '1355'
+  promptalias 'brownBag'
+endif
+pause 700
+//
+if not @findobject 'redBag'
+  headmsg 'Select the Red +1 SS Bag' '37'
+  promptalias 'redBag'
+endif
+pause 700
+//
+if not @findobject 'purpleBag'
+  headmsg 'Select the Purple +1 SS Bag' '1376'
+  promptalias 'purpleBag'
+endif
+pause 700
+//
+if not @findobject 'greenBag'
+  headmsg 'Select the Green +1 SS Bag' '1368'
+  promptalias 'greenBag'
+endif
+pause 700
+//
+if not @findobject 'blackBag'
+  headmsg 'Select the Black +1 SS Bag' '1904'
+  promptalias 'blackBag'
+endif
+pause 700
+//
+if not @findobject 'blazeBag'
+  headmsg 'Select the Blaze +1 SS Bag' '1161'
+  promptalias 'blazeBag'
+endif
+pause 700
+//
+//
+//
+///////////////////////////////////////////////////////////
+useobject 'frombag'
+pause 200
+useobject 'minorSSBag'
+pause 200
+useobject 'brownBag'
+pause 200
+useobject 'redBag'
+pause 200
+useobject 'purpleBag'
+pause 200
+useobject 'greenBag'
+pause 200
+useobject 'blackBag'
+pause 200
+useobject 'blazeBag'
+pause 200
+//
+//
+while @findtype '0x2260' 'any' 'frombag'
+  @clearjournal
+  //
+  clickobject found
+  //
+  pause 1500
+  if @injournal '+0.1' 'system'
+    moveitem found 'minorSSBag'
+    headmsg 'a +0.1 ss' '2498'
+    @clearjournal
+  elseif @injournal 'Lumberjacking' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Lumberjacking ss' '1355'
+    @clearjournal
+  elseif @injournal 'Alchemy' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Alchemy ss' '1355'
+    @clearjournal
+  elseif @injournal 'Fishing' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Fishing ss' '1355'
+    @clearjournal
+  elseif @injournal 'Inscribe' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Inscribe ss' '1355'
+    @clearjournal
+  elseif @injournal 'Tailoring' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Tailoring ss' '1355'
+    @clearjournal
+  elseif @injournal 'Mining' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Mining ss' '1355'
+    @clearjournal
+  elseif @injournal 'Blacksmith' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Blacksmith ss' '1355'
+    @clearjournal
+  elseif @injournal 'Carpentry' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Carpentry ss' '1355'
+    @clearjournal
+  elseif @injournal 'Tinkering' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Tinkering ss' '1355'
+    @clearjournal
+  elseif @injournal 'Lockpicking' 'system'
+    moveitem found 'brownBag'
+    headmsg '+1 Lockpicking ss' '1355'
+    @clearjournal
+    //
+  elseif @injournal 'MagicResist' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 MagicResist ss' '37'
+    @clearjournal
+  elseif @injournal 'Anatomy' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Anatomy ss' '37'
+    @clearjournal
+  elseif @injournal 'Wrestling' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Wrestling ss' '37'
+    @clearjournal
+  elseif @injournal 'Macing' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Macing ss' '37'
+    @clearjournal
+  elseif @injournal 'Tactics' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Tactics ss' '37'
+    @clearjournal
+  elseif @injournal 'EvalInt' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 EvalInt ss' '37'
+    @clearjournal
+  elseif @injournal 'Parry' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Parry ss' '37'
+    @clearjournal
+  elseif @injournal 'Meditation' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Meditation ss' '37'
+    @clearjournal
+  elseif @injournal 'Fencing' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Fencing ss' '37'
+    @clearjournal
+  elseif @injournal 'Swords' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Swords ss' '37'
+    @clearjournal
+  elseif @injournal 'Healing' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Healing ss' '37'
+    @clearjournal
+  elseif @injournal 'Magery' 'system'
+    moveitem found 'redBag'
+    headmsg '+1 Magery ss' '37'
+    @clearjournal
+    //
+  elseif @injournal 'Provocation' 'system'
+    moveitem found 'purpleBag'
+    headmsg '+1 Provocation ss' '1376'
+    @clearjournal
+  elseif @injournal 'Peacemaking' 'system'
+    moveitem found 'purpleBag'
+    headmsg '+1 Peacemaking ss' '1376'
+    @clearjournal
+  elseif @injournal 'Discordance' 'system'
+    moveitem found 'purpleBag'
+    headmsg '+1 Discordance ss' '1376'
+    @clearjournal
+    //
+  elseif @injournal 'Herding' 'system'
+    moveitem found 'greenBag'
+    headmsg '+1 Herding ss' '1368'
+    @clearjournal
+  elseif @injournal 'Begging' 'system'
+    moveitem found 'greenBag'
+    headmsg '+1 Begging ss' '1368'
+    @clearjournal
+  elseif @injournal 'Fletching' 'system'
+    moveitem found 'greenBag'
+    headmsg '+1 Fletching ss' '1368'
+    @clearjournal
+  elseif @injournal 'Archery' 'system'
+    moveitem found 'greenBag'
+    headmsg '+1 Archery ss' '1368'
+    @clearjournal
+    //
+  elseif @injournal 'Stealing' 'system'
+    moveitem found 'blackBag'
+    headmsg '+1 Stealing ss' '1904'
+    @clearjournal
+  elseif @injournal 'Stealth' 'system'
+    moveitem found 'blackBag'
+    headmsg '+1 Stealth ss' '1904'
+    @clearjournal
+  elseif @injournal 'Hiding' 'system'
+    moveitem found 'blackBag'
+    headmsg '+1 Hiding ss' '1904'
+    @clearjournal
+  elseif @injournal 'Poisoning' 'system'
+    moveitem found 'blackBag'
+    headmsg '+1 Poisoning ss' '1904'
+    @clearjournal
+    //
+  elseif @injournal 'AnimalTaming' 'system'
+    moveitem found 'blazeBag'
+    headmsg '+1 AnimalTaming ss' '1161'
+    @clearjournal
+  endif
+  pause 1000
+endwhile
+stop
+headmsg 'done' '58'
+msg '[e whistle'
