@@ -10,6 +10,7 @@ Scripts for UOSteam, an Ultima Online Assistant.
 * Resource - Crafting and Resource Gathering
 * Skill - Skill Trainers and Assistants
 * UOS - Documentation and UO Steam Binary!
+* ***Nearly 200 Scripts!***
 
 ## Other Resources and Links
 
