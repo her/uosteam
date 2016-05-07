@@ -13,9 +13,16 @@ Scripts for UOSteam, an Ultima Online Assistant.
 
 ## Other Resources and Links
 
+### Documentation and Guides
+
 * [UOSteam Documentation and Syntax](http://uosteam.28394.n7.nabble.com/file/n65/Documentation.pdf)
+* [kdivers Guide to Script Writing with Text Editor](http://www.uoforum.com/threads/notepad-user-defined-language-pack-for-uosteam.78361/)
+
+### Script Communities and Libraries
+
 * [The Foaming Squirrels Ultima Online | UOSteam](http://dfiexperience.wix.com/foamingsquirrels#!steam/c24dh)
 * [Macros for UOSteam | UOMacro](http://greeduo.wix.com/uomacro#!macros-for-uosteam/c1kh5)
+* [UOForever UOSteam Forum and Community](http://www.uoforum.com/forums/uosteam.55/)
 
 ## Notes and Credits
 
