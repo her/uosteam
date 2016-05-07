@@ -1,0 +1,35 @@
+//////////////////////////////////// 
+//   This macro is designed for   // 
+//  training arms lore from 0. I  // 
+//  typically target my dagger.   // 
+//                                // 
+//  Turn on loop and click play!  // 
+//                                // 
+//      ~~Made by kdivers~~       // 
+//////////////////////////////////// 
+
+if not @findalias 'lore' 
+
+  headmsg 'Select the item to train arms lore on' 
+
+  promptalias 'lore' 
+
+endif 
+
+if skill 'arms lore' < 100 
+
+  useskill 'arms lore' 
+
+  waitfortarget 2000 
+
+  target! 'lore' 
+
+  pause 1000 
+
+else 
+
+  headmsg 'Arms Lore Complete!' 
+
+  stop 
+
+endif

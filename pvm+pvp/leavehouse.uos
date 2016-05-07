@@ -1,0 +1,8 @@
+// Leave House Hotkey by kdivers
+// Set to a hotkey
+clearjournal
+contextmenu 'self' 2
+pause 100
+if @injournal 'monster kill title' 'system'
+  contextmenu 'self' 2
+endif

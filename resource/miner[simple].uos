@@ -1,0 +1,72 @@
+////////////
+// This macro was made to ease the pain of mining.
+// It will target the tile in the direction that you're facing.
+// It will use sturdy shovels first, then shovels, then pickaxes.
+// It assumes that the organizing agent "orebeetle" exists.
+// The "orebeetle" organizer should include each of the 4 ore types, ingots, and granite rocks (if applicable)
+// It also assumes that your beetle is set as your mount.
+// This macro was crafted with love and sealed with a kiss by Bagger
+////////////
+
+if @injournal 'There is no metal'
+  if mounted 'self'
+    useobject 'self'
+  endif
+  sysmsg "HOLD UP! Vein is empty. Clearing your backpack..." "1358"
+  pause 200
+  @organizer 'orebeetle'
+  while organizing
+    pause 600
+  endwhile
+  useobject 'mount'
+  pause 200
+  sysmsg "DONE! You're now free to proceed to your next mining spot." "1260"
+  clearjournal
+  stop
+elseif @injournal "You can't mine"
+  sysmsg "TIP: You can only dig moutain tiles or cave tiles, silly human!" "1260"
+  clearjournal
+  stop
+elseif @injournal "cannot be seen."
+  sysmsg "TIP: Try facing another direction?" "1260"
+  clearjournal
+  stop
+else
+  if diffweight < 20
+    if mounted 'self'
+      useobject 'self'
+    endif
+    sysmsg "HOLD UP! Your backpack is full..." "1358"
+    pause 200
+    organizer 'orebeetle'
+    while organizing
+      pause 600
+    endwhile
+    useobject 'mount'
+    pause 700
+    sysmsg "CONTINUING..." "1260"
+  endif
+endif
+if not @findobject 'tool'
+  if @findtype 0xf39 2419 'any' 'backpack'
+    @setalias 'tool' 'found'
+  elseif @findtype 0xf39 'any' 'backpack'
+    @setalias 'tool' 'found'
+  elseif @findtype 0xe86 'any' 'backpack'
+    @setalias 'tool' 'found'
+  elseif @findtype 0xe85 'any' 'backpack'
+    @setalias 'tool' 'found'
+  else
+    headmsg " Can't find any shovels or pickaxes."
+    sysmsg "TIP: If you have your digging tools stored in a container, open the container and try again." "1260"
+    sysmsg "Otherwise, it's time to go grab some more shovels and/or pickaxes!" "1359"
+    @unsetalias 'tool'
+    stop
+  endif
+else
+  useobject 'tool'
+  waitfortarget '5000'
+  targettilerelative 'self' 1 'false'
+  pause 600
+  @unsetalias 'tool'
+endif

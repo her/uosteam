@@ -1,0 +1,131 @@
+f not findobject 'Weapon'
+
+  promptalias 'Weapon'
+
+endif
+
+clickobject 'Weapon'
+
+pause 800
+
+if @injournal 'Poison' 'system' and @injournal '15' 'system'
+
+  headmsg 'Max charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '14' 'system'
+
+  headmsg '14 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '13' 'system'
+
+  headmsg '13 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '12' 'system'
+
+  headmsg '12 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '11' 'system'
+
+  headmsg '11 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '10' 'system'
+
+  headmsg '10 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '9' 'system'
+
+  headmsg '9 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '8' 'system'
+
+  headmsg '8 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '7' 'system'
+
+  headmsg '7 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '6' 'system'
+
+  headmsg '6 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '5' 'system'
+
+  headmsg '5 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '4' 'system'
+
+  headmsg '4 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '3' 'system'
+
+  headmsg '3 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '2' 'system'
+
+  headmsg '2 Charges'
+
+  @clearjournal
+
+elseif @injournal 'Poison' 'system' and @injournal '1' 'system'
+
+  headmsg '1 Charge'
+
+  headmsg 'Re-charging!'
+
+  @clearjournal
+
+  useskill 'poisoning'
+
+  waitfortarget 5000
+
+  targettype '0xf0a' '0' '1'
+
+  waitfortarget 5000
+
+  target! 'Weapon'
+
+  pause 600
+
+elseif not @injournal 'Poison' 'system'
+
+  headmsg 'Re-Charging'
+
+  useskill 'poisoning'
+
+  waitfortarget 5000
+
+  targettype '0xf0a' '0' '1'
+
+  waitfortarget 5000
+
+  target! 'Weapon'
+
+  pause 600
+
+endif

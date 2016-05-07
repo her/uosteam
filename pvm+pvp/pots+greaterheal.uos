@@ -1,0 +1,8 @@
+//Greater Heal self or cure pot if poisoned//
+Cast 'Greater Heal'
+if poisoned 'self'
+  usetype! 0xf07
+endif
+if diffhits > 30
+  target! 'Self'
+endif

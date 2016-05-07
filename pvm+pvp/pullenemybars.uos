@@ -1,0 +1,18 @@
+////////////////////////////////////
+//    This macro will pull the    //
+// healthbar of a random 'enemy'  //
+//    General rule of thumb is    //
+//  horizontal screen resolution  //
+//    minus 40. It may require    //
+//   additional tweaking on your  //
+//              end.              //
+//                                //
+//  Set this macro to a hotkey!   //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+getenemy 'murderer' 'enemy' 'criminal' 'gray' 'humanoid' 'transformation'
+paperdoll 'enemy'
+pause 100
+//    Change   ↓   x value based on your screen resolution
+clickscreen! 1400 860

@@ -1,0 +1,31 @@
+//This checks health to make sure you don't die
+
+while not dead
+  if mana < 80
+    useskill 'meditation'
+    while not mana == maxmana
+    endwhile
+  endif
+  if hits < 30
+    pause 7000
+    while not hits == maxhits
+    endwhile
+  endif
+  //Set Goal
+  if skill 'Magery' == 100
+    stop
+  endif
+  if skill 'Magery' >= 30 and skill 'Magery' < 50
+    cast 'Bless' 'self'
+  endif
+  if skill 'Magery' >= 50 and skill 'Magery' < 62.9
+    cast 'Lightning' 'self'
+  endif
+  if skill 'Magery' >= 62.9 and skill 'Magery' < 82.9
+    cast 'Energy Bolt' 'self'
+  endif
+  if skill 'Magery' >= 82.9 and skill 'Magery' < 100
+    cast 'Flame Strike'
+  endif
+  pause '2700'
+endwhile

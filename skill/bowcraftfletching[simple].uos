@@ -1,0 +1,93 @@
+if not listexists 'tools_container'
+  createlist 'tools_container'
+  promptalias 'tools_container'
+endif
+for 2
+  movetype 0x1022 'tools_container' 'backpack' 1
+  pause 1000
+endfor
+for 10
+  usetype 0x1022
+  waitforgump 'any' 5000
+  if skill 'bowcraft' < 35
+    replygump 0x54f4539b 1
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 16
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 55
+    replygump 0x54f4539b 15
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 2
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 60
+    replygump 0x54f4539b 8
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 16
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 70
+    replygump 0x54f4539b 15
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 16
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 80
+    replygump 0x54f4539b 15
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 30
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 90
+    replygump 0x54f4539b 15
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 23
+    waitforgump 0x54f4539b 5000
+  elseif skill 'bowcraft' < 100
+    replygump 0x54f4539b 15
+    waitforgump 0x54f4539b 5000
+    replygump 0x54f4539b 37
+    waitforgump 0x54f4539b 5000
+  endif
+endfor
+msg '.hunger'
+pause 1000
+if @injournal 'you are very hungry'
+  usetype 0x160a
+  pause 1500
+  clearjournal
+endif
+pause 600
+if skill 'bowcraft' < 35
+  while @findtype 0x1bd4 'any' 'backpack'
+    movetype 0x1bd4 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 55
+  while @findtype 0x13b2 'any' 'backpack'
+    movetype 0x13b2 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 60
+  while @findtype 0x2806 'any' 'backpack'
+    movetype 0x2806 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 70
+  while @findtype 0xf50 'any' 'backpack'
+    movetype 0xf50 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 80
+  while @findtype 0x26c2 'any' 'backpack'
+    movetype 0x26c2 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 90
+  while @findtype 0x13fd 'any' 'backpack'
+    movetype 0x13fd 'backpack' 'destination'
+  endwhile
+elseif skill 'bowcraft' < 100
+  while @findtype 0x26c3 'any' 'backpack'
+    movetype 0x26c3 'backpack' 'destination'
+  endwhile
+endif
+if @findtype 0x1bd7 'any' 'backpack'
+  movetype 0x1bd7 'backpack' 'resource_container'
+  pause 2000
+endif
+while @findtype 0x1022 'any' 'backpack'
+  movetype 0x1022 'backpack' 'tools_container'
+endwhile
+

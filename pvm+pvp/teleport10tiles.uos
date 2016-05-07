@@ -1,0 +1,5 @@
+//Teleport 10 tiles in characters facing direction//
+autotargettilerelative 'self' 10
+cast "Teleport"
+if not 'hidden'
+endif

@@ -1,0 +1,18 @@
+if not @inrange 'last' 12
+  sysmsg 'Last target not found!' 25
+  stop
+endif
+if @usetype! 0xf0d
+  pause 1500
+  if @injournal '4' 'YOUR NAME HERE'
+    // Edit pause accordingly to your ping
+    pause 2425
+  else
+    // Same pauses as above minus 1 second
+    pause 1425
+  endif
+  target! 'last'
+  clearjournal
+else
+  sysmsg 'Out of explosion potions!' 25
+endif

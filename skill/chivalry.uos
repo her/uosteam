@@ -1,0 +1,16 @@
+if skill "Chivalry" < 40
+  cast "Consecrate Weapon"
+  pause 7000
+  ELSEIF skill "Chivalry" < 55
+  cast "Divine Fury"
+  pause 7000
+  ELSEif skill "Chivalry" < 69
+  cast "Enemy of One"
+  pause 7000
+  ELSEIF skill "Chivalry" < 88
+  cast "Holy Light"
+  pause 7000
+  ELSEIF skill "Chivalry" < 115
+  cast "Noble Sacrifice"
+  pause 7000
+endif

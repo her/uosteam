@@ -1,0 +1,9 @@
+//Use object inspector on the item type while equipped to 
+//grab graphic and layer value and then replace those on 
+//the macro. Do not forget to remove the parentheses.
+
+// Check if layer slot is empty and search for weapon type on backpack
+if not @findlayer 'self' (layer) and @findtype (graphic) 'any' 'backpack'
+ // Find type will return an alias called 'found', pointing to a specific object serial
+ equipitem 'found' (layer)
+endif

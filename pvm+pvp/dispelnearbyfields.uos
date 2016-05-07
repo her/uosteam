@@ -1,0 +1,22 @@
+//Dispel Nearby Fields by Greed
+//This macro dispels nearby paralyze fields, poison fields, and other dispellable fields
+if not listexists 'fields'
+  createlist 'fields'
+endif
+clearlist 'fields'
+@pushlist 'fields' '0xf6c'
+@pushlist 'fields' '0x3956'
+@pushlist 'fields' '0x3979'
+@pushlist 'fields' '0x3967'
+@pushlist 'fields' '0x3922'
+@pushlist 'fields' '0x3996'
+@pushlist 'fields' '0x80'
+for 0 to 'fields'
+  if @findtype fields[] '0x0' 'ground' 1 8
+    setalias 'foundfield' 'found'
+    break
+  endif
+endfor
+@autotargetobject 'foundfield'
+cast 'dispel field'
+    

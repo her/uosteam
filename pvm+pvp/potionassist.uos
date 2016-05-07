@@ -1,0 +1,53 @@
+// Author: Kraz 
+
+// Description: drink refresh, cure and heal potions when needed, also eat enchanted apples if mortalled 
+
+if not timerexists 'Heal Potion' 
+
+  createtimer 'Heal Potion' 
+
+endif 
+
+if not timerexists 'Enchanted Apple' 
+
+  createtimer 'Enchanted Apple' 
+
+endif 
+
+if stam < 10 
+
+  // Refresh potion 
+
+  usetype! 0xf0b 
+
+endif 
+
+if poisoned 'self' 
+
+  // Cure potion 
+
+  usetype! 0xf07 
+
+endif 
+
+if not yellowhits 'self' 
+
+  if diffhits >= 30 and timer 'Heal Potion' >= 10250 
+
+    // Heal potion 
+
+    if usetype! 0xf0c 
+
+      settimer 'Heal Potion' 0 
+
+    endif 
+
+  endif 
+
+  // Enchanted apple 
+
+elseif timer 'Enchanted Apple' >= 30250 and usetype! 0x2fd8 
+
+  settimer 'Enchanted Apple' 0 
+
+endif

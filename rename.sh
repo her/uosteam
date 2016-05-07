@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in *.js
+for file in *.uos
 do
- mv "$file" "${file%.js}.uos"
+ mv "$file" "${file%.uos}.uos"
 done

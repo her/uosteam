@@ -1,0 +1,23 @@
+while not @findtype '0xa' '0' 'ground' 'any' '5' 
+
+  cast 'summon daemon' 
+
+  pause 4000 
+
+endwhile 
+
+@findtype '0xa' '0' 'ground' 'any' '5' 
+
+if name 'found' == 'name' 
+
+  headmsg "Hi, I'm name" "43" "found" 
+
+  stop 
+
+else 
+
+  @rename 'found' 'name' 
+
+  headmsg "Hi, I'm name" "43" "found" 
+
+endif 

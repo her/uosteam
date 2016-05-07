@@ -1,0 +1,279 @@
+removelist 'Regs'
+
+removelist 'Loot'
+
+removelist 'Trash'
+
+if not @findobject 'Reg Bag'
+
+  headmsg 'Where would you like to store your regs?'
+
+  promptalias 'Reg Bag'
+
+endif
+
+if not @findobject 'Loot'
+
+  headmsg 'Where would you like to store your loot?'
+
+  promptalias 'Loot'
+
+endif
+
+if not listexists 'Loot'
+
+  createlist 'Loot'
+
+endif
+
+if not listexists 'Regs'
+
+  createlist 'Regs'
+
+endif
+
+//Regs
+
+pushlist 'Regs' 0xf7a  // Black Pearl
+
+pushlist 'Regs' 0xf7b  // Blood Moss
+
+pushlist 'Regs' 0xf86  // Mandrake Root
+
+pushlist 'Regs' 0xf84  // Garlic
+
+pushlist 'Regs' 0xf85  // Ginseng
+
+pushlist 'Regs' 0xf88  // Nightshade
+
+pushlist 'Regs' 0xf8d  // Spider's Silk
+
+pushlist 'Regs' 0xf8c  // Sulphurous Ash
+
+//Gold
+
+pushlist 'Loot' 0xeed // Gold
+
+//Gems
+
+pushlist 'Loot' 0xf16 // Amethyst
+
+pushlist 'Loot' 0xf15 // Citrine
+
+pushlist 'Loot' 0xf19 // Sapphire
+
+pushlist 'Loot' 0xf25 // Amber
+
+pushlist 'Loot' 0xf21 // Star Sapphire
+
+pushlist 'Loot' 0xf10 // Emerald
+
+pushlist 'Loot' 0xf26 // Diamond
+
+pushlist 'Loot' 0xf2d // Tourmaline
+
+pushlist 'Loot' 0xf13 // Ruby
+
+@pushlist 'Loot' 0xf43
+
+@pushlist 'Loot' 0xf45
+
+@pushlist 'Loot' 0x13fb
+
+@pushlist 'Loot' 0x1443
+
+@pushlist 'Loot' 0xf49
+
+@pushlist 'Loot' 0xf47
+
+@pushlist 'Loot' 0xf4d
+
+@pushlist 'Loot' 0x143e
+
+@pushlist 'Loot' 0xf4b
+
+// Swords
+
+@pushlist 'Loot' 0xf5e
+
+@pushlist 'Loot' 0x13ff
+
+@pushlist 'Loot' 0x13b6
+
+@pushlist 'Loot' 0x13b9
+
+@pushlist 'Loot' 0xf5e
+
+@pushlist 'Loot' 0x1441
+
+@pushlist 'Loot' 0xf61
+
+@pushlist 'Loot' 0xf61
+
+// Fencing
+
+@pushlist 'Loot' 0x1403
+
+@pushlist 'Loot' 0xf62
+
+@pushlist 'Loot' 0x1401
+
+@pushlist 'Loot' 0x1405
+
+@pushlist 'Loot' 0xf52
+
+// Bows
+
+@pushlist 'Loot' 0xf50
+
+@pushlist 'Loot' 0x26c3
+
+@pushlist 'Loot' 0x13fd
+
+@pushlist 'Loot' 0x26c2
+
+@pushlist 'Loot' 0x13b2
+
+// Maces
+
+@pushlist 'Loot' 0x143d
+
+@pushlist 'Loot' 0xe89
+
+@pushlist 'Loot' 0x1407
+
+@pushlist 'Loot' 0x13b4
+
+@pushlist 'Loot' 0x1439
+
+@pushlist 'Loot' 0x143b
+
+@pushlist 'Loot' 0x13b0
+
+@pushlist 'Loot' 0xf5c
+
+@pushlist 'Loot' 0xdf0
+
+@pushlist 'Loot' 0x13f8
+
+// Shields
+
+@pushlist 'Loot' 0x1b76
+
+@pushlist 'Loot' 0x1b7b
+
+@pushlist 'Loot' 0x1b72
+
+@pushlist 'Loot' 0x1b73
+
+@pushlist 'Loot' 0x1b74
+
+@pushlist 'Loot' 0x1b79
+
+@pushlist 'Loot' 0x1b7a
+
+//Platemail
+
+@pushlist 'Loot' 0x1408 //Close Helmet
+
+@pushlist 'Loot' 0x1410 //Platemail Arms
+
+@pushlist 'Loot' 0x1411 //Platemail Legs
+
+@pushlist 'Loot' 0x1412 //Plate Helm
+
+@pushlist 'Loot' 0x1413 //Plate Gorget
+
+@pushlist 'Loot' 0x1414 //Platemail Gloves
+
+@pushlist 'Loot' 0x1415 //Plate Chest
+
+@pushlist 'Loot' 0x140a //Helmet
+
+@pushlist 'Loot' 0x140c //Bascinet
+
+@pushlist 'Loot' 0x140e //Norse Helm
+
+//Chainmail
+
+@pushlist 'Loot' 0x13bb //Chainmail Coif
+
+@pushlist 'Loot' 0x13be //Chainmail Leggins
+
+@pushlist 'Loot' 0x13bf //Chainmail Tunic
+
+//Ringmail
+
+@pushlist 'Loot' 0x13ee //Ringmail Sleeves
+
+@pushlist 'Loot' 0x13eb //Ringmail Gloves
+
+@pushlist 'Loot' 0x13ec //Ringmail Tunic
+
+@pushlist 'Loot' 0x13f0 //Ringmail Leggins
+
+//Studded
+
+@pushlist 'Loot' 0x13da //Studded Leggings
+
+@pushlist 'Loot' 0x13db //Studded Tunic
+
+@pushlist 'Loot' 0x13d5 //Studded Gloves
+
+@pushlist 'Loot' 0x13d6 //Studded Gorget
+
+@pushlist 'Loot' 0x13dc //Studded Sleeves
+
+//Leather
+
+@pushlist 'Loot' 0x13c6 //Leather Gloves
+
+@pushlist 'Loot' 0x13cd //Leather Sleeves
+
+@pushlist 'Loot' 0x13cc //Leather Tunic
+
+@pushlist 'Loot' 0x13cb //Leather Pants
+
+@pushlist 'Loot' 0x13c7 //Leather Gorget
+
+@pushlist 'Loot' 0x1db9 //Leather Cap
+
+//Female Armor
+
+@pushlist 'Loot' 0x1c04 //Female Plate
+
+@pushlist 'Loot' 0x1c0c //Female Studded Bustier
+
+@pushlist 'Loot' 0x1c02 //Female Studded Armor
+
+@pushlist 'Loot' 0x1c00 //Female Leather Shorts
+
+@pushlist 'Loot' 0x1c08 //Female Leather Skirt
+
+@pushlist 'Loot' 0x1c06 //Female Leather Armor
+
+@pushlist 'Loot' 0x1c0a //Female Leather Bustier
+
+for 0 to Loot
+
+  if @movetype Loot[] 'backpack' 'Loot'
+
+    pause 1000
+
+  endif
+
+endfor
+
+for 0 to Regs
+
+  if @movetype Regs[] 'backpack' 'Reg Bag'
+
+    pause 1000
+
+  endif
+
+endfor
+
+headmsg 'Macro Done'
+
+stop

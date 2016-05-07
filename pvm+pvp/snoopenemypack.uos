@@ -1,0 +1,36 @@
+//This macro opens all the bags in your opponent's  backpack. 
+//It however does not open trapped pouches. It  even works on pack animals.
+
+
+//Find Enemy Pack to Snoop
+getenemy 'friend' 'innocent' 'murderer' 'enemy' 'criminal' 'gray' 'closest'
+if @inrange 'enemy' 1 and @findlayer 'enemy' 21
+@setalias 'Enemypack' 'found'
+@pushlist 'bags' 'Enemypack'
+else
+@unsetalias 'Enemypack'
+endif
+if @findalias 'Enemypack'
+//Snoop Found Pack
+useobject! 'Enemypack'
+for 0 to 'containers'
+//Snoop All Bags inside Pack
+while @findtype containers[] 'any' 'Enemypack'
+pause 200
+@pushlist 'bags' 'found'
+setalias 'inside' 'found'
+useobject! 'inside'
+pause 600
+//Snoop 2nd Level of Bags
+while @findtype containers[] 'any' 'inside'
+pause 200
+@pushlist 'bags' 'found'
+useobject! 'found'
+pause 400
+ignoreobject 'found'
+endwhile
+ignoreobject 'inside'
+endwhile
+endfor
+@clearignorelist
+    

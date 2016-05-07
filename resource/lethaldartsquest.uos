@@ -1,0 +1,118 @@
+// Author: Kraz 
+// Description: Lethal Darts Quest Maker 
+if not listexists 'Fletching Recipes' 
+  @createlist 'Fletching Recipes' 
+  @pushlist 'Fletching Recipes' 'yok yok' 
+endif 
+if not listexists 'Talismans' 
+  @createlist 'Talismans' 
+  @pushlist 'Talismans' 0x2f58 
+  @pushlist 'Talismans' 0x2f59 
+  @pushlist 'Talismans' 0x2f5a 
+  @pushlist 'Talismans' 0x2f5b 
+endif 
+if not listexists 'Skills' 
+  @createlist 'Skills' 
+  @pushlist 'Skills' 'Alchemy Bonus' 
+  @pushlist 'Skills' 'Blacksmithing Bonus' 
+  @pushlist 'Skills' 'Carpentry Bonus' 
+  @pushlist 'Skills' 'Inscription Bonus' 
+  @pushlist 'Skills' 'Fletching Bonus' 
+  @pushlist 'Skills' 'Tailoring Bonus' 
+  @pushlist 'Skills' 'Tinkering Bonus' 
+endif 
+if not @findobject 'Fletching Quest Giver' 
+  promptalias 'Fletching Quest Giver' 
+endif 
+if not @findobject 'Restock' 
+  promptalias 'Restock' 
+elseif serial 'Restock' != serial 'self' and serial 'Restock' != serial 'backpack' 
+  if not timerexists 'feedPet' 
+    createtimer 'feedPet' 
+  endif 
+  // Hourly feed pet 
+  if timer 'feedPet' >= 3600000 
+    feed 'Restock' 'Meat' 0 1 
+    pause 1000 
+    settimer 'feedPet' 0 
+  endif 
+endif 
+if not @findobject 'Reward Box' 
+  promptalias 'Reward Box' 
+endif 
+if not @findobject 'Trash Barrel' 
+  promptalias 'Trash Barrel' 
+endif 
+if @findtype 0x1bfb 'any' 'backpack' 10 
+  if @useobject! 'Fletching Quest Giver' 
+    waitforgump 0x19bc4061 5000 
+    if @ingump 0x19bc4061 'crossbow bolt' 
+      replygump 0x19bc4061 1 
+      if color 'found' == 0 
+        waitforcontext 'self' 4 5000 
+        waitfortarget 5000 
+        @target! 'found' 
+        waitfortarget 5000 
+        @canceltarget 
+        pause 800 
+      endif 
+      @useobject! 'Fletching Quest Giver' 
+      waitforgump 0xdf31ecf8 5000 
+      replygump 0xdf31ecf8 4 
+      waitforgump 0x96626c6e 5000 
+      replygump 0x96626c6e 1 
+      pause 2000 
+      // Handle reward bags 
+      while @findtype 0xe75 'any' 'backpack' 
+        @setalias 'trash' 'found' 
+        @useobject! 'trash' 
+        pause 1000 
+        waitforcontents 'trash' 5000 
+        // Runics 
+        while @findtype 0x1022 'any' 'trash' 
+          @moveitem! 'found' 'Reward Box' 
+          pause 1000 
+        endwhile 
+        // Fletching Recipes 
+        while @findtype 0x2831 0 'trash' 
+          waitforproperties 'found' 5000 
+          for 0 to 'Fletching Recipes' 
+            if @property 'Fletching Recipes[]' 'found' 
+              @moveitem! 'found' 'Reward Box' 80 
+              pause 1000 
+              break 
+            endif 
+          endfor 
+          ignoreobject 'found' 
+        endwhile 
+        // Talismans 
+        for 0 to 'Talismans' 
+          while @findtype Talismans[] 0 'trash' 
+            waitforproperties 'found' 5000 
+            if @property 'Exceptional Bonus' 'found' >= 18 
+              for 0 to 'Skills' 
+                if @property Skills[] 'found' >= 18 
+                  @moveitem! 'found' 'Reward Box' 160 
+                  pause 1000 
+                  break 
+                endif 
+              endfor 
+            endif 
+            ignoreobject 'found' 
+          endwhile 
+        endfor 
+        @moveitem! 'trash' 'Trash Barrel' 
+        pause 1000 
+      endwhile 
+    else 
+      replygump 0x19bc4061 2 
+    endif 
+  endif 
+  pause 1000 
+elseif @movetype 0x1bfb 'Restock' 'backpack' 0 0 0 0 200 
+  pause 1000 
+else 
+  sysmsg 'Out of bolts!' 25 
+  stop 
+endif 
+clearignorelist  

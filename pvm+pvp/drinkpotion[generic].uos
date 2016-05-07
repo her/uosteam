@@ -1,0 +1,16 @@
+//
+//It checks to see if you have something equipped in your left 
+//hand (like a 2-handed weapon) and if you do, it un-equips 
+//it, uses a potion (cure in this example), then requips. else 
+//if you don't have anything in your left hand then it just 
+//uses the potion.
+//
+if @findlayer 'self' 2
+  togglehands 'left'
+  pause 600
+  usetype! 0xf07
+  pause 600
+  togglehands 'left'
+else
+  usetype! 0xf07
+endif

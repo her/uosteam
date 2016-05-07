@@ -1,0 +1,10 @@
+//Potions + Miniheal//
+if poisoned 'self'
+  usetype! 0xf07
+endif
+if diffhits >= 20
+  usetype! 0xf0c
+endif
+if diffhits >= 20
+  miniheal 'self'
+endif

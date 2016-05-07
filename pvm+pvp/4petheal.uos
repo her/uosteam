@@ -1,0 +1,95 @@
+if not timerexists 'PetHeal'
+
+  createtimer 'PetHeal'
+
+  settimer 'PetHeal' '0'
+
+endif
+
+if not @findtype '0xe21' 'any' 'backpack' 'any' '2'
+
+headmsg 'You need bandages...'
+
+endif
+
+if not @findobject 'Pet1'
+
+  promptalias 'Pet1'
+
+endif
+
+if not @findobject 'Pet2'
+
+  promptalias 'Pet2'
+
+endif
+
+if not @findobject 'Pet3'
+
+  promptalias 'Pet3'
+
+endif
+
+if not @findobject 'Pet4'
+
+  promptalias 'Pet4'
+
+endif
+
+if hits 'Pet1' < maxhits 'Pet1' and diffhits 'Pet1' > diffhits 'Pet2'
+
+  setalias 'Heal1' 'Pet1'
+
+elseif hits 'Pet2' < maxhits 'Pet2' and diffhits 'Pet2' > diffhits 'Pet1'
+
+  setalias 'Heal1' 'Pet2'
+
+endif
+
+if hits 'Pet3' < maxhits 'Pet3' and diffhits 'Pet3' > diffhits 'Pet4'
+
+  setalias 'Heal2' 'Pet3'
+
+elseif hits 'Pet4' < maxhits 'Pet4' and diffhits 'Pet4' > diffhits 'Pet3'
+
+  setalias 'Heal2' 'Pet4'
+
+endif
+if @findobject 'Heal1' and @findobject 'Heal2'
+
+if hits 'Heal1' < maxhits 'Heal1' or hits 'Heal2' < maxhits 'Heal2'
+
+  if diffhits 'Heal1' > diffhits 'Heal2' and timer 'PetHeal' > 6300
+headmsg 'Applying Bandage'
+if @inrange 'Heal1' 1
+
+    bandage
+
+    autotargetobject 'Heal1'
+
+    settimer 'PetHeal' 0
+
+    @cleartargetqueue
+
+  endif
+endif
+
+  if diffhits 'Heal2' > diffhits 'Heal1' and timer 'PetHeal' > 6300
+headmsg 'Applying Bandage'
+if @inrange 'Heal2'
+    bandage
+
+    autotargetobject 'Heal2'
+
+    settimer 'PetHeal' 0
+
+    @cleartargetqueue
+endif
+  endif
+endif
+endif
+if @findobject 'Heal1' and @findobject 'Heal2'
+if hits 'Heal1' == maxhits 'Heal1' and hits 'Heal2' == maxhits 'Heal2'
+headmsg '100%'
+endif
+endif

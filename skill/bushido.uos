@@ -1,0 +1,10 @@
+IF skill "Bushido" < 60
+cast "Confidence"
+pause 7000
+ELSEIF skill "Bushido" < 75
+cast "Counter Attack"
+pause 7000
+ELSEIF skill "Bushido" < 97.5
+cast "Evasion"
+pause 7000
+ENDIF

@@ -1,0 +1,47 @@
+// harvest bright orange poppies and cut plants
+usetype 0xc86 0x2b 'ground' 4
+waitforgump 0x7492 15000
+replygump 0x7492 1
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 8
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 6
+waitforgump 0x56ce 15000
+replygump 0x56ce 2
+waitforgump 0xa5b6 15000
+replygump 0xa5b6 1
+pause 1000
+usetype 0xdfc
+waitfortarget 15000
+targettype 0xc86 0x2b 5
+pause 1000

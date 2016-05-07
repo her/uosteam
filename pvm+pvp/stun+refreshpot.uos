@@ -1,0 +1,13 @@
+//Prime Stun - Drink refresh if needed//
+clearjournal
+if stam < 30
+usetype! 0xf0b
+pause 600
+endif
+setability 'stun'
+attack 'enemy'
+while not @injournal 'You successfully'
+pause 100
+endwhile
+clearjournal
+partymsg 'stunned'

@@ -1,0 +1,69 @@
+if not @findobject 'Wep1' and not @inrange 'Wep1' 2
+
+promptalias 'Wep1'
+
+endif
+
+if not @findobject 'Wep2' and not @inrange 'Wep2' 2
+
+promptalias 'Wep2'
+
+endif
+
+
+
+
+
+
+
+if not listexists 'swapweapons'
+
+
+
+createlist 'swapweapons'
+
+
+
+endif
+
+
+
+if list 'swapweapons' < 1
+
+
+
+pushlist 'swapweapons' 'Wep1'
+
+pushlist 'swapweapons' 'Wep2'
+
+
+
+endif
+
+
+
+if findobject 'lefthand'
+
+
+
+clearhands 'both'
+
+
+
+pause 500
+
+
+
+endif
+
+
+
+equipitem swapweapons[0] 1 
+
+sysmsg 'swapweapons' 33
+
+    sysmsg swapweapons[] 33
+
+
+
+poplist 'swapweapons' 'front'

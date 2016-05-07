@@ -1,0 +1,25 @@
+//Disarm and Steal Weapon by Sigan
+//Automatically disarms and steals the weapon of an attacking opponent
+getenemy 'criminal' 'gray' 'murderer' 'closest'
+if @inrange 'enemy' 1 and @findlayer 'enemy' 21
+  @setalias 'Enemypack' 'found'
+else
+  @unsetalias 'Enemypack'
+endif
+if @findlayer 'enemy' 1 or @findlayer 'enemy' 2
+  @setalias 'weapon' 'found'
+else
+  @unsetalias 'weapon'
+endif
+clearhands 'both'
+clearjournal
+attack 'enemy'
+pause 300
+if @findalias 'Enemypack'
+  useobject! 'Enemypack'
+  if @inrange 'enemy' 1
+    autotargetobject 'weapon'
+    useskill 'Stealing'
+    stop
+  endif
+endif

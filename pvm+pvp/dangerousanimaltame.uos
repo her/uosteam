@@ -1,0 +1,27 @@
+if not @findobject 'enemy' any ground 1 3 
+
+  @getenemy 'enemy' 'criminal' 'gray' 'closest'. 
+
+endif 
+
+if @findobject 'enemy' any ground and @inrange 'enemy' 3 
+
+  @useskill 'Animal Taming' 
+
+  @autotargetobject 'enemy' 
+
+else 
+
+  //============================================================ 
+
+  //=This Warning above your head is not visible to anyone else= 
+
+  //============================================================ 
+
+  headmsg '=!!Get closer to Tame!!=' '45' 
+
+  stop 
+
+endif 
+
+pause 200 

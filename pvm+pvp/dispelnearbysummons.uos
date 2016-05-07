@@ -1,0 +1,7 @@
+//Dispel Nearby Summons by Greed
+//This macro dispels nearby daemons, blade spirits, and other dispellable summons
+cast "Dispel"
+waitfortarget 2200
+targettype 0x23e red
+targettype 0xa4 red
+targettype 0xa red

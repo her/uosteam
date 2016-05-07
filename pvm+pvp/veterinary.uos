@@ -1,0 +1,201 @@
+if not listexists 'petlist'
+
+createlist 'petlist'
+
+endif
+
+//add an entry for each pet you hunt with:
+
+@pushlist 'petlist' '' // Beetle
+
+@pushlist 'petlist' '' // meta
+
+@pushlist 'petlist' '' // white wyrm
+
+@pushlist 'petlist' '' //NightDragon
+
+//Removes pets if mounted, stabled or you get too far away
+
+if findalias 'pet1' and not @findobject 'pet1'
+
+unsetalias 'pet1'
+
+endif
+
+if findalias 'Pet2' and not @findobject 'pet2'
+
+unsetalias 'pet2'
+
+endif
+
+//makes sure the pets never equal each other
+
+if findalias 'pet1' and findalias 'pet2'
+
+if serial 'pet1' == serial 'pet2'
+
+unsetalias 'pet2'
+
+endif
+
+endif
+
+//Searches for your pets when you don't have 2 active
+
+if not @findobject 'pet1' or not @findobject 'pet2'
+
+for 0 to 'petlist'
+
+if @findobject petlist[] 'any' 'ground' 0 30
+
+if not @findobject 'pet1'
+
+setalias 'pet1' petlist[]
+
+elseif not @findobject 'pet2' and serial 'pet1' != 'petlist[]'
+
+setalias 'pet2' petlist[]
+
+endif
+
+endif
+
+endfor
+
+endif
+
+//Experience
+
+//Heals 2 pets.
+
+//Included health/weight check on self
+
+@cleartargetqueue
+
+@clearjournal
+
+if dead 'self'
+
+stop
+
+endif
+
+if not timerexists 'VetBandage'
+
+createtimer 'VetBandage'
+
+settimer 'VetBandage' 0
+
+endif
+
+//Setup
+
+if not findalias 'pet1'
+
+headmsg 'Select first pet'
+
+promptalias 'pet1'
+
+endif
+
+if not findalias 'pet2'
+
+headmsg 'Select second pet'
+
+promptalias 'pet2'
+
+endif
+
+//Heal them to full
+
+while not @inrange 'pet1' 2 and not @inrange 'pet2' 2
+
+headmsg "Get closer"
+
+pause 300
+
+endwhile
+
+while hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2'
+
+if weight > maxweight
+
+cast 'bless'
+
+autotargetself
+
+endif
+
+pause 500
+
+endwhile
+
+if diffhits 'pet1' > diffhits 'pet2'
+
+if @inrange 'pet1' 1 and timer 'VetBandage' >= '6300'
+
+bandage
+
+autotargetobject! 'pet1'
+
+settimer 'VetBandage' 0
+
+if poisoned 'pet1'
+
+pause 1200
+
+endif
+
+@cleartargetqueue
+
+endif
+
+else
+
+if @inrange 'pet2' 1 and timer 'VetBandage' >= '6300'
+
+bandage
+
+autotargetobject! 'pet2'
+
+settimer 'VetBandage' 0
+
+if poisoned 'pet2'
+
+pause 1200
+
+endif
+
+@cleartargetqueue
+
+endif
+
+endif
+
+if not @injournal 'finish' 'system'
+
+pause 1100
+
+replay
+
+elseif @injournal 'finish' 'system'
+
+@clearjournal
+
+replay
+
+elseif @injournal 'too far away' 'system'
+
+@clearjournal
+
+replay
+
+elseif @injournal 'stay close enough' 'system'
+
+@clearjournal
+
+replay
+
+endif
+
+@clearjournal

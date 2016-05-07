@@ -1,0 +1,12 @@
+if @findtype 0xbd2 'any' 'ground'
+  clickobject 'found'
+  waitforjournal 'danger' 1000 'system'
+  if @injournal 'danger' 'system'
+    guildmsg 'Found a house in danger of collapsing'
+    snapshot
+    pause 500
+    clearjournal
+    // Ignore this sign so it does not repeat until next login
+    ignoreobject 'found'
+  endif
+endif
