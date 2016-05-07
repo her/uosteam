@@ -1,0 +1,83 @@
+//More Info: http://www.uoforum.com/threads/meta-mage-trainer.68429/
+//create timers
+if not timerexists 'Focus'
+  createtimer 'Focus'
+  settimer 'Focus'  60000
+endif
+if not timerexists 'Vivify'
+  createtimer 'Vivify'
+  settimer 'Vivify' 60000
+endif
+if not timerexists 'Shadow'
+  createtimer 'Shadow'
+  settimer 'Shadow'  60000
+endif
+//meditate if mana low
+clearjournal
+if mana < 10
+  useskill 'meditation'
+  while mana < 80
+    pause 1000
+  endwhile
+endif
+//start magic arrow loop
+while timer 'Shadow' >= 42000
+  //timer 'Focus' >= 47000 or
+  clearjournal
+  //if out of ash, skip this part
+  if not @findtype 0xf8c 'any' 'backpack'
+    break
+  endif
+  //get the enemy and cast magic arrow
+  getenemy   'criminal'  'enemy' 'gray'
+  cast 'magic arrow'
+  target enemy
+  pause 2500
+  //if relics are down, wait
+  if @injournal 'rest''system'
+    pause 60000
+    break
+  endif
+  //if relics proc, reset their timer
+  if @injournal 'Focus: Activated.' 'system'
+    settimer 'Focus' 0
+  endif
+  if @injournal 'Shadow Disciple: Activated.' 'system'
+    settimer 'Shadow' 0
+  endif
+endwhile
+//start vivify loop (need mandrake root to run this part)
+//check for mandrake root
+if @findtype 0xf86 'any' 'backpack'
+  while timer 'Vivify' >= 50000
+    clearjournal
+    //meditate if < 50 mana
+    if mana < 50
+      useskill 'meditation'
+      while mana < 90
+        pause 1000
+      endwhile
+    endif
+    //use daemon scrolls if you have them, else use regs
+    if @findtype 0x1f69 'any' 'backpack'
+      usetype 0x1f69 any 'backpack'
+    else
+      cast "Summon Daemon"
+    endif
+    pause 4000
+    //release the daemon if found
+    if @findtype 0xa 'any' 'ground' 1 2
+      @setalias 'daemon' 'found'
+      waitforcontext 'daemon' 5 15000
+      pause 1000
+    endif
+    //reset Vivify timer if it procs
+    if @injournal 'Vivify: Activated.' 'system'
+      settimer 'Vivify' 0
+    endif
+    clearjournal
+    if not @findtype 0xf86 'any' 'backpack'
+      break
+    endif
+  endwhile
+endif
