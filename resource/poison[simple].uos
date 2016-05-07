@@ -1,0 +1,15 @@
+//You can see that I have a counter that I check for a 
+//count of my potions. I have a swap weapon hotkey that 
+//sets the alias of "1hweapon", so you can either use 
+//the same alias or put your own in there.
+
+if counter 'cntr-16' < 1
+  headmsg 'OUT OF POISONS'
+else
+  useskill 'Poisoning'
+  waitfortarget 1500
+  findtype 0xf0a
+  target! 'found'
+  waitfortarget 1500
+  target! '1hweapon'
+endif

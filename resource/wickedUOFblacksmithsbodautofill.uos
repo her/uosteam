@@ -1,0 +1,855 @@
+// $$$$$$$$ UOF Auto Blacksmith SBOD filler   $$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? QA Assisted by Wizx13
+// ??
+// ?? V3.8d
+// ?? Update 3.7: Nov 29/2015 < Fixed issue with Bronze
+// ??                           Shield BOD using Bronze
+// ??                           ore only >
+// ?? Update 3.8: Jan 8/2016 < added mining skill check before
+// ??                           attempting to smelt non
+// ??                           exceptional crafts (must be gm to smelt) >
+// ?? Update 3.8b: Jan 10/2016 < fixed issue with trashbag
+// ?? Update 3.8d: Jan 12/2016 < fixed issue smelt targeting
+// ??????????????????????????????????????????????????
+// ??
+// ?? This Macro will fill several Small BODS of any
+// ?? ore type.
+// ??
+// ?? USAGE:
+// ?? Obviously Blacksmithing skill is required.
+// ?? Mining is a Plus for smelting falez.
+// ?? This macro will auto make tool (Tongs) Tinkering Required
+// ?? for smithing items.
+//
+//!!!!!!!!!!!!!!!! IMPORTANT BEFORE RUNNING THIS MACRO !!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!! > Each container MUST be unique and not a sub container
+//!!!!!!!! > There must be no other BOD's in your main pack or any
+//!!!!!!!!   other sub containers in your main pack
+//!!!!!!!! > Please insure all containers are accessible * test this
+//!!!!!!!!   by placing an item in, and then removing from the container
+//!!!!!!!!   while standing in the spot you will be during macro runtime.
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+// ?? 5 unique/seprate Containers are required
+// ?? as follows:
+// ??  - A Source BOD Container with all the unfilled
+// ??    sbods you want processed.
+// ??  - A Container where the fully completed sbods
+// ??    will be placed.
+// ??  - A Container where any sbod the macro was unable
+// ??    to complete will go.
+// ??  - A Container filled with all types of ingots
+// ??    that will be used to create smithy items to
+// ??    fill bods with.
+// ??  - and finally a trash Container for trash .
+// ??
+// ?? Thats it run the macro and follow the prompts.
+// ??
+// ???????????????????????????????????????
+//
+// !!*** Init Data ***!!
+unsetalias 'sourceBODS'
+if not @findobject 'sourceBODS'
+  headmsg 'Select source BODS Bag' '2124'
+  promptalias 'sourceBODS'
+endif
+//
+unsetalias 'completedBODS'
+if not @findobject 'completedBODS'
+  headmsg 'Select completed BODS Bag' '58'
+  promptalias 'completedBODS'
+endif
+//
+unsetalias 'unfinishedBODS'
+if not @findobject 'unfinishedBODS'
+  headmsg 'Select unfinished BODS Bag' '48'
+  promptalias 'unfinishedBODS'
+endif
+//
+unsetalias 'ingotsbag'
+if not @findobject 'ingotsbag'
+  headmsg 'Select ingots Bag' '2124'
+  promptalias 'ingotsbag'
+endif
+//
+unsetalias 'trashbag'
+if not @findobject 'trashbag'
+  headmsg 'Select trash Bag' '38'
+  promptalias 'trashbag'
+endif
+// ***
+headmsg 'One Moment Please' '2124'
+pause 200
+useobject 'sourceBODS'
+pause 700
+useobject 'completedBODS'
+pause 700
+useobject 'unfinishedBODS'
+pause 700
+useobject 'ingotsbag'
+pause 700
+useobject 'trashbag'
+pause 700
+// ***
+//---------------------------------------------------------
+@clearjournal
+// !!*** Vars for item
+@clearlist 'ingotColor'
+@createlist 'ingotColor'
+//
+@clearlist 'CraftInfoBS'
+@createlist 'CraftInfoBS'
+// !!*** array (object hack)blueprint:
+// !!  index [0] is the graphic id
+// !!  index [1] is the bs tool gump 1st click (catagory)
+// !!  index [2] is the bs tool gump 2nd click (Item)
+// !!  index [3] is the ingot color
+// !!  index [4] is the number of ingots required
+//---------------------------------------------------------
+//
+// !!*** Cycle thru all BOD's found in the bod source bag.
+while @findtype 0x14ef 'any' 'sourceBODS'
+  @setalias 'bod' 'found'
+  moveitem 'bod' 'backpack'
+  pause 1000
+  useobject! 'bod'
+  waitforgump 0x5afbd742 5000
+  //
+  if @ingump 0xa125b54a 'a large'
+    moveitem 'bod' 'unfinishedBODS'
+    pause 250
+    headmsg 'This is a large bod moving to incomplete container' '48'
+    unsetalias 'bod'
+  else
+    // ########### set ore type ###############
+    @clearlist 'ingotColor'
+    @createlist 'ingotColor'
+    pause 250
+    // !!*** Check for Tongs and make 1 if needed
+    if not @findtype '0xfbb' '0' 'backpack' 'any' '2'
+      headmsg 'No Tongs Found' '2498'
+      //
+      if @movetype 0x1BF2 'ingotsbag' 'backpack' 0 0 0 '0' '1'
+        pause 600
+        if @usetype 0x1eb8 'any' 'backpack'
+          headmsg 'Making Tongs' '2124'
+          pause 1000
+          useobject 0x405a4d7d
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 86
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 0
+          pause 2000
+        else
+          headmsg 'No tinker tools found' '38'
+          headmsg 'BOD Operation stopped' '38'
+          stop
+        endif
+      else
+        headmsg 'Totally Out of Iron Ore' '38'
+        headmsg 'BOD Operation stopped' '38'
+        stop
+      endif
+      //
+      //
+    else
+      // headmsg 'Tongs avalible'
+    endif
+    //--------------------------------------------
+    // !!*** Open smithing gump to set Ore type
+    if usetype 0xfbb 'any' 'backpack'
+      if @ingump 0x5afbd742 'dull copper'
+        headmsg 'set to dull copper' '1045'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 13
+        pause 250
+        @pushlist 'ingotColor' 1045
+      elseif @ingump 0x5afbd742 'shadow'
+        headmsg 'set to Shadow Iron' '1109'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 20
+        pause 250
+        @pushlist 'ingotColor' 1109
+      elseif @ingump 0x5afbd742 'copper'
+        headmsg 'set to Copper' '1119'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 27
+        pause 250
+        @pushlist 'ingotColor' 1119
+      elseif @ingump 0x5afbd742 'gold'
+        headmsg 'set to Gold' '1719'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 41
+        pause 250
+        @pushlist 'ingotColor' 1719
+      elseif @ingump 0x5afbd742 'agapite'
+        headmsg 'set to Agapite' '2430'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 48
+        pause 250
+        @pushlist 'ingotColor' 2430
+      elseif @ingump 0x5afbd742 'verite'
+        headmsg 'set to Verite' '2002'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 55
+        pause 250
+        @pushlist 'ingotColor' 2002
+      elseif @ingump 0x5afbd742 'valorite'
+        headmsg 'set to Valorite' '1348'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 62
+        pause 250
+        @pushlist 'ingotColor' 1348
+      elseif @ingump 0x5afbd742 'bronze ingots'
+        headmsg 'set to Bronze' '1752'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 34
+        pause 250
+        @pushlist 'ingotColor' 1752
+      else
+        headmsg 'set to Iron' '896'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 7
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 6
+        pause 250
+        @pushlist 'ingotColor' 0
+      endif
+      //
+      ////--------
+      // !!*** Set Array (Object) Params
+      @clearlist 'CraftInfoBS'
+      @createlist 'CraftInfoBS'
+      //
+      if @ingump 0x5afbd742 'ringmail gloves'
+        headmsg 'ringmail gloves' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13eb
+        @pushlist 'CraftInfoBS' 8
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'ringmail leggings'
+        headmsg 'ringmail leggings' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13f0
+        @pushlist 'CraftInfoBS' 8
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'ringmail sleeves'
+        headmsg 'ringmail sleeves' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13ee
+        @pushlist 'CraftInfoBS' 8
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'ringmail tunic'
+        headmsg 'ringmail tunic' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13ec
+        @pushlist 'CraftInfoBS' 8
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 18
+        // -------------------------------
+        //
+        //
+        // Chainmail
+      elseif @ingump 0x5afbd742 'chainmail coif'
+        headmsg 'chainmail coif' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13bb
+        @pushlist 'CraftInfoBS' 15
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'chainmail leggings'
+        headmsg 'chainmail leggings' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13be
+        @pushlist 'CraftInfoBS' 15
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 18
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'chainmail tunic'
+        headmsg 'chainmail tunic' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13bf
+        @pushlist 'CraftInfoBS' 15
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 20
+        // -------------------------------
+        //
+        //
+        //
+        //
+        //
+        // Platemail
+      elseif @ingump 0x5afbd742 'platemail arms'
+        headmsg 'platemail arms' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1410
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 18
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'platemail gloves'
+        headmsg 'platemail gloves' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1414
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'platemail gorget'
+        headmsg 'platemail gorget' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1413
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'platemail legs'
+        headmsg 'platemail legs' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1411
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 20
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'platemail tunic'
+        headmsg 'platemail tunic' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1415
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 25
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'female plate'
+        headmsg 'female plate' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1c04
+        @pushlist 'CraftInfoBS' 22
+        @pushlist 'CraftInfoBS' 37
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 20
+        // -------------------------------
+        //
+        // Helmets
+      elseif @ingump 0x5afbd742 'bascinet'
+        headmsg 'bascinet' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x140c
+        @pushlist 'CraftInfoBS' 29
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 15
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'close helmet'
+        headmsg 'close helmet' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1408
+        @pushlist 'CraftInfoBS' 29
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 15
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'helmet'
+        headmsg 'helmet' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x140a
+        @pushlist 'CraftInfoBS' 29
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 15
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'norse helm'
+        headmsg 'norse helm' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x140e
+        @pushlist 'CraftInfoBS' 29
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 15
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'plate helm'
+        headmsg 'plate helm' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1412
+        @pushlist 'CraftInfoBS' 29
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 15
+        // -------------------------------
+        //
+        // Shields
+      elseif @ingump 0x5afbd742 'buckler'
+        headmsg 'buckler' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b73
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'bronze shield'
+        headmsg 'bronze shield' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b72
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'heater shield'
+        headmsg 'heater shield' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b76
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 18
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'metal shield'
+        headmsg 'metal shield' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b7b
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'metal kite shield'
+        headmsg 'metal kite shield' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b74
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'tear kite shield'
+        headmsg 'tear kite shield' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1b79
+        @pushlist 'CraftInfoBS' 36
+        @pushlist 'CraftInfoBS' 37
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 8
+        // -------------------------------
+        //
+        // Bladed
+      elseif @ingump 0x5afbd742 'broadsword'
+        headmsg 'broadsword' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf5e
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'cutlass'
+        headmsg 'cutlass' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1441
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 8
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'dagger'
+        headmsg 'dagger' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf52
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 3
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'katana'
+        headmsg 'katana' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13ff
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 8
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'kryss'
+        headmsg 'kryss' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1401
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 8
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'longsword'
+        headmsg 'longsword' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf61
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 37
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'scimitar'
+        headmsg 'scimitar' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13b6
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 44
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'viking sword'
+        headmsg 'viking sword' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13b9
+        @pushlist 'CraftInfoBS' 43
+        @pushlist 'CraftInfoBS' 51
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+        //
+        // Axes
+      elseif @ingump 0x5afbd742 'large battle axe'
+        headmsg 'large battle axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13fb
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'double axe'
+        headmsg 'double axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf4b
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 "executioner's axe"
+        headmsg "executioners axe" '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf45
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'battle axe'
+        headmsg 'battle axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf47
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'two handed axe'
+        headmsg 'two handed axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1443
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 37
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'war axe'
+        headmsg 'war axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x13b0
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 44
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'axe'
+        headmsg 'axe' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf49
+        @pushlist 'CraftInfoBS' 50
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+        //
+        // Polearms
+      elseif @ingump 0x5afbd742 'bardiche'
+        headmsg 'bardiche' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf4d
+        @pushlist 'CraftInfoBS' 57
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 18
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'halberd'
+        headmsg 'halberd' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x143e
+        @pushlist 'CraftInfoBS' 57
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 20
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'short spear'
+        headmsg 'short spear' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1403
+        @pushlist 'CraftInfoBS' 57
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 6
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'spear'
+        headmsg 'spear' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf62
+        @pushlist 'CraftInfoBS' 57
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'war fork'
+        headmsg 'war fork' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1405
+        @pushlist 'CraftInfoBS' 57
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 12
+        // -------------------------------
+        //
+        // Bashing
+      elseif @ingump 0x5afbd742 'war mace'
+        headmsg 'war mace' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1407
+        @pushlist 'CraftInfoBS' 64
+        @pushlist 'CraftInfoBS' 23
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 14
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'hammer pick'
+        headmsg 'hammer pick' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x143d
+        @pushlist 'CraftInfoBS' 64
+        @pushlist 'CraftInfoBS' 2
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'mace'
+        headmsg 'mace' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0xf5c
+        @pushlist 'CraftInfoBS' 64
+        @pushlist 'CraftInfoBS' 9
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 6
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'maul'
+        headmsg 'maul' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x143b
+        @pushlist 'CraftInfoBS' 64
+        @pushlist 'CraftInfoBS' 16
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 10
+        // -------------------------------
+      elseif @ingump 0x5afbd742 'war hammer'
+        headmsg 'war hammer' '2124'
+        // ---Data------------------------
+        @pushlist 'CraftInfoBS' 0x1439
+        @pushlist 'CraftInfoBS' 64
+        @pushlist 'CraftInfoBS' 30
+        @pushlist 'CraftInfoBS' ingotColor[0]
+        @pushlist 'CraftInfoBS' 16
+        // -------------------------------
+        //
+      else
+        moveitem 'bod' 'unfinishedBODS'
+        pause 250
+        headmsg 'Not a valid bod' '48'
+        unsetalias 'bod'
+        // !!*** send to unfinshed
+      endif
+      // ########### End of Set Item Data
+      //******************************************************************
+      //******************************************************************
+      //*************** Create item and fill bod with it *****************
+      //******************************************************************
+      //******************************************************************
+      while not @injournal 'The maximum' 'system'
+        replygump 0x5afbd742 2
+        waitforgump 0x5afbd742 500
+        headmsg 'Checking if BOD is filled. One moment' '2124'
+        // !!*** Check if the bod has been filled alredy
+        if @injournal 'The maximum' 'system'
+          headmsg 'This BOD Has Been Filled.' '58'
+        else
+          // !!*** bod has not been filled
+          // !!*** backup Check for Tongs and make 1 if needed
+          if not @findtype '0xfbb' '0' 'backpack' 'any' '2'
+            headmsg 'No Tongs Found' '2498'
+            if @movetype 0x1BF2 'ingotsbag' 'backpack' 0 0 0 '0' '1'
+              pause 600
+              if @usetype 0x1eb8 'any' 'backpack'
+                headmsg 'Making Tongs' '2498'
+                pause 1000
+                useobject 0x405a4d7d
+                waitforgump 0x38920abd 15000
+                replygump 0x38920abd 86
+                waitforgump 0x38920abd 15000
+                replygump 0x38920abd 0
+                pause 1000
+              else
+                headmsg 'No tinker tools found' '38'
+                headmsg 'BOD Operation stopped' '38'
+                stop
+              endif
+            else
+              headmsg 'Totally Out of Iron Ore' '38'
+              headmsg 'BOD Operation stopped' '38'
+              stop
+            endif
+          else
+            //headmsg 'Tongs avalible'
+          endif
+          //--------------------------------------------
+          // !!*** get ingots
+          if @movetype 0x1BF2 'ingotsbag' 'backpack' 0 0 0 CraftInfoBS[3] CraftInfoBS[4]
+            // !!*** Make item
+            ///////////////////////
+            if usetype 0xfbb 'any' 'backpack'
+              waitforgump 0x38920abd 15000
+              replygump 0x38920abd CraftInfoBS[1]
+              waitforgump 0x38920abd 15000
+              replygump 0x38920abd CraftInfoBS[2]
+              pause 2500
+            endif
+            // !!*** Item made
+            if @ingump 0x38920abd 'failed to create the item'
+              headmsg 'You suck!!' '38'
+            else
+              headmsg 'good job' '58'
+              //
+              pause 500
+            //
+              // !!*** check if made item was supposed to be exceptional
+              if  @ingump 0x5afbd742  'All items must be exceptional' and not @ingump 0x38920abd 'exceptional'
+                if skill 'Mining' >= 99
+                  headmsg 'Smelt away your failz' '38'
+                  // !!*** Smelt the shit
+                  @canceltarget
+                  pause 1000
+                  replygump 0x38920abd 14
+                  waitfortarget 5000
+                  pause 250
+                  @targettype! CraftInfoBS[0] 'any' 'backpack'
+                  pause 1500
+                  if @movetype 0x1BF2 'backpack' 'ingotsbag'  0 0 0 'any'
+                  endif
+                  pause 500
+                else
+                  headmsg 'Cleaning Work station' '38'
+                  //
+                  // if @findobject CraftInfoBS[0] 'any' 'backpack'
+                  // @moveitem! 'found' 'trashbag'
+                  // pause 1500
+                  // endif
+                  while findtype CraftInfoBS[0] 'any' 'backpack'
+                    headmsg 'moving item to trash' '38'
+                    @moveitem! 'found' 'trashbag'
+                    pause 500
+                  endwhile
+                endif
+              else
+                //
+                //
+                //
+                // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                // !!*** Fill bod with created item
+                headmsg 'target item to fill bod' '2124'
+                waitfortarget 15000
+                @targettype! CraftInfoBS[0] 'any' 'backpack'
+                pause 500
+                // $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                //
+                //
+                //
+              endif
+              ///
+            endif
+            pause 500
+            //<<<<<<<<<<<<<<<
+          else
+            sysmsg 'Out of ingots!' 25
+            @canceltarget
+            moveitem 'bod' 'unfinishedBODS'
+            pause 250
+            headmsg 'Not enough ingots to complete this bod' '48'
+            unsetalias 'bod'
+            break
+          endif
+        endif
+        //
+        //
+        canceltarget
+        headmsg '2 sec pause'
+        pause 2000
+      endwhile
+      @clearjournal
+      //******************************************************************
+      //******************************************************************
+    else
+      headmsg 'would help if you had tongs fool'
+    endif
+    pause 500
+    ///
+  endif
+  //------------------------------------------------
+  pause 1000
+  if @findobject 'bod'
+    moveitem 'bod' 'completedBODS'
+    pause 1000
+  endif
+  headmsg 'next bod'
+endwhile
+headmsg '!! --- Done --- !!' '58'
+msg '[e whistle'

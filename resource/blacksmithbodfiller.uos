@@ -1,0 +1,368 @@
+// Author: Kraz
+// Description: Blacksmith BOD Filler
+// v2.0: (1) easier to update, read and edit craft info, (2) search, recycle and combine existing items before crafting, (3) faster crafting due to gump category swap improvements, (4) added resource handler
+if not @findobject 'Bulk Source'
+  promptalias 'Bulk Source'
+endif
+if not @findobject 'Bulk Destination'
+  promptalias 'Bulk Destination'
+endif
+if not @findobject 'Restock'
+  promptalias 'Restock'
+endif
+if not @findobject 'Trash BODs Destination'
+  promptalias 'Trash BODs Destination'
+endif
+if not @findobject 'Trash Barrel'
+  promptalias 'Trash Barrel'
+endif
+// Craft info placeholder
+if not listexists 'Craft'
+  @createlist 'Craft'
+  // 0: Category, 1: Button, 2: Graphic, 3: Resource Button, 4: Resource Color
+endif
+// Search for a BOD to fill
+if @findtype 0x2258 0x44E 'backpack' and @property 'small' 'found'
+  // Reset craft state
+  @clearlist 'Craft'
+  @unsetalias 'crafting'
+  // Define and open new BOD
+  @setalias 'bod' 'found'
+  useobject! 'bod'
+  waitforgump 0x5afbd742 15000
+  // Combine items
+  if not targetexists 'server'
+    replygump 0x5afbd742 2
+    waitforgump 0x5afbd742 15000
+    waitfortarget 5000
+  endif
+  // Check for tools
+  if @findtype 0xfbb 0 'backpack' or @findtype 0x13e3 0 'backpack'
+    pause 1500
+    @setalias 'tool' 'found'
+    useobject! 'tool'
+    waitforgump 0x38920abd 15000
+    // Craft
+    while targetexists 'server'
+      if not @findalias 'crafting'
+        // Ringmail
+        if @ingump 0x5afbd742 'ringmail gloves'
+          @pushlist 'Craft' 1
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x13eb
+        elseif @ingump 0x5afbd742 'ringmail leggings'
+          @pushlist 'Craft' 1
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0x13f0
+        elseif @ingump 0x5afbd742 'ringmail sleeves'
+          @pushlist 'Craft' 1
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x13ee
+        elseif @ingump 0x5afbd742 'ringmail tunic'
+          @pushlist 'Craft' 1
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x13ec
+          // Chainmail
+        elseif @ingump 0x5afbd742 'chainmail coif'
+          @pushlist 'Craft' 8
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x13bb
+        elseif @ingump 0x5afbd742 'chainmail leggings'
+          @pushlist 'Craft' 8
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0x13be
+        elseif @ingump 0x5afbd742 'chainmail tunic'
+          @pushlist 'Craft' 8
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x13bf
+          // Platemail
+        elseif @ingump 0x5afbd742 'platemail arms'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x1410
+        elseif @ingump 0x5afbd742 'platemail gloves'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0x1414
+        elseif @ingump 0x5afbd742 'platemail gorget'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x1413
+        elseif @ingump 0x5afbd742 'platemail legs'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x1411
+        elseif @ingump 0x5afbd742 'platemail tunic'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0x1415
+        elseif @ingump 0x5afbd742 'female plate'
+          @pushlist 'Craft' 15
+          @pushlist 'Craft' 37
+          @pushlist 'Craft' 0x1c04
+          // Helmets
+        elseif @ingump 0x5afbd742 'bascinet'
+          @pushlist 'Craft' 22
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x140c
+        elseif @ingump 0x5afbd742 'close helmet'
+          @pushlist 'Craft' 22
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0x1408
+        elseif @ingump 0x5afbd742 'helmet'
+          @pushlist 'Craft' 22
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x140a
+        elseif @ingump 0x5afbd742 'norse helm'
+          @pushlist 'Craft' 22
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x140e
+        elseif @ingump 0x5afbd742 'plate helm'
+          @pushlist 'Craft' 22
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0x1412
+          // Shields
+        elseif @ingump 0x5afbd742 'buckler'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x1b73
+        elseif @ingump 0x5afbd742 'bronze shield'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0x1b72
+        elseif @ingump 0x5afbd742 'heater shield'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x1b76
+        elseif @ingump 0x5afbd742 'metal shield'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x1b7b
+        elseif @ingump 0x5afbd742 'metal kite shield'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0x1b74
+        elseif @ingump 0x5afbd742 'tear kite shield'
+          @pushlist 'Craft' 29
+          @pushlist 'Craft' 37
+          @pushlist 'Craft' 0x1b79
+          // Bladed
+        elseif @ingump 0x5afbd742 'broadsword'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0xf5e
+        elseif @ingump 0x5afbd742 'cutlass'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x1441
+        elseif @ingump 0x5afbd742 'dagger'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0xf52
+        elseif @ingump 0x5afbd742 'katana'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 37
+          @pushlist 'Craft' 0x13ff
+        elseif @ingump 0x5afbd742 'kryss'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 44
+          @pushlist 'Craft' 0x1401
+        elseif @ingump 0x5afbd742 'longsword'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 51
+          @pushlist 'Craft' 0xf61
+        elseif @ingump 0x5afbd742 'scimitar'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 58
+          @pushlist 'Craft' 0x13b6
+        elseif @ingump 0x5afbd742 'viking sword'
+          @pushlist 'Craft' 36
+          @pushlist 'Craft' 65
+          @pushlist 'Craft' 0x13b9
+          // Axes
+        elseif @ingump 0x5afbd742 'large battle axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0x13fb
+        elseif @ingump 0x5afbd742 'double axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0xf4b
+        elseif @ingump 0x5afbd742 "executioner's axe"
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0xf45
+        elseif @ingump 0x5afbd742 'battle axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0xf47
+        elseif @ingump 0x5afbd742 'two handed axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 37
+          @pushlist 'Craft' 0x1443
+        elseif @ingump 0x5afbd742 'war axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 44
+          @pushlist 'Craft' 0x13b0
+        elseif @ingump 0x5afbd742 'axe'
+          @pushlist 'Craft' 43
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0xf49
+          // Polearms
+        elseif @ingump 0x5afbd742 'bardiche'
+          @pushlist 'Craft' 50
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0xf4d
+        elseif @ingump 0x5afbd742 'halberd'
+          @pushlist 'Craft' 50
+          @pushlist 'Craft' 23
+          @pushlist 'Craft' 0x143e
+        elseif @ingump 0x5afbd742 'short spear'
+          @pushlist 'Craft' 50
+          @pushlist 'Craft' 44
+          @pushlist 'Craft' 0x1403
+        elseif @ingump 0x5afbd742 'spear'
+          @pushlist 'Craft' 50
+          @pushlist 'Craft' 58
+          @pushlist 'Craft' 0xf62
+        elseif @ingump 0x5afbd742 'war fork'
+          @pushlist 'Craft' 50
+          @pushlist 'Craft' 65
+          @pushlist 'Craft' 0x1405
+          // Bashing
+        elseif @ingump 0x5afbd742 'war mace'
+          @pushlist 'Craft' 57
+          @pushlist 'Craft' 30
+          @pushlist 'Craft' 0x1407
+        elseif @ingump 0x5afbd742 'hammer pick'
+          @pushlist 'Craft' 57
+          @pushlist 'Craft' 2
+          @pushlist 'Craft' 0x143d
+        elseif @ingump 0x5afbd742 'mace'
+          @pushlist 'Craft' 57
+          @pushlist 'Craft' 9
+          @pushlist 'Craft' 0xf5c
+        elseif @ingump 0x5afbd742 'maul'
+          @pushlist 'Craft' 57
+          @pushlist 'Craft' 16
+          @pushlist 'Craft' 0x143b
+        elseif @ingump 0x5afbd742 'war hammer'
+          @pushlist 'Craft' 57
+          @pushlist 'Craft' 37
+          @pushlist 'Craft' 0x1439
+        else
+          break
+        endif
+        // Define resource
+        if @ingump 0x5afbd742 'valorite'
+          @pushlist 'Craft' 62
+          @pushlist 'Craft' 2219
+        elseif @ingump 0x5afbd742 'verite'
+          @pushlist 'Craft' 55
+          @pushlist 'Craft' 2207
+        elseif @ingump 0x5afbd742 'agapite'
+          @pushlist 'Craft' 48
+          @pushlist 'Craft' 2425
+        elseif @ingump 0x5afbd742 'gold'
+          @pushlist 'Craft' 41
+          @pushlist 'Craft' 2213
+        elseif @ingump 0x5afbd742 'bronze ingots'
+          @pushlist 'Craft' 34
+          @pushlist 'Craft' 2418
+        elseif @ingump 0x5afbd742 'shadow iron'
+          @pushlist 'Craft' 20
+          @pushlist 'Craft' 2406
+        elseif @ingump 0x5afbd742 'dull copper'
+          @pushlist 'Craft' 13
+          @pushlist 'Craft' 2419
+        elseif @ingump 0x5afbd742 'copper'
+          @pushlist 'Craft' 27
+          @pushlist 'Craft' 2413
+        else
+          @pushlist 'Craft' 6
+          @pushlist 'Craft' 0
+        endif
+      endif
+      // Check for ingots
+      if @counttype 0x1bf2 Craft[4] 'backpack' < 50
+        while @movetype 0x1bf2 'backpack' 'Restock'
+          pause 1500
+        endwhile
+        if @movetype 0x1bf2 'Restock' 'backpack' 0 0 0 Craft[4] 100
+          pause 1500
+        else
+          sysmsg 'Out of ingots!' 25
+          @canceltarget
+          stop
+        endif
+      endif
+      // Search for existing items
+      while @findtype Craft[2] Craft[4] 'backpack'
+        target! 'found'
+        waitfortarget 5000
+        if not targetexists 'server' and @injournal 'must be exceptional' 'system'
+          // Recycle this item
+          replygump 0x38920abd 14
+          waitfortarget 5000
+          target! 'found'
+          pause 1500
+          // Unable to recycle, trash item
+          if @findobject 'found'
+            @moveitem! 'found' 'Trash Barrel'
+            pause 1500
+          endif
+          replygump 0x5afbd742 2
+          waitforgump 0x5afbd742 15000
+          waitfortarget 5000
+          clearjournal
+        endif
+      endwhile
+      // Craft new items if necessary
+      if targetexists 'server'
+        // Check tool before craft
+        if not @findobject 'tool'
+          break
+        endif
+        // Swap resource and category only once per BOD
+        if not @findobject 'crafting' 'any' 'backpack'
+          @setalias 'crafting' 'bod'
+          // Resource
+          if list 'Craft' == 5
+            replygump 0x38920abd 7
+            waitforgump 0x38920abd 5000
+            replygump 0x38920abd Craft[3]
+            waitforgump 0x38920abd 5000
+          endif
+          // Category
+          replygump 0x38920abd Craft[0]
+          waitforgump 0x38920abd 5000
+        endif
+        replygump 0x38920abd Craft[1]
+        waitforgump 0x38920abd 5000
+        pause 250
+      endif
+    endwhile
+    // BOD is complete, move to destination
+    if not targetexists 'server'
+      @moveitem 'bod' 'Bulk Destination'
+      // Trash BOD or missing definitions
+    elseif not @findalias 'crafting'
+      @moveitem 'bod' 'Trash BODs Destination'
+    endif
+    // Out of tools
+  elseif not @movetype 0xfbb 'Restock' 'backpack' and not @movetype 0x13e3 'Restock' 'backpack'
+    sysmsg 'Out of tongs and smith hammers!' 25
+    @canceltarget
+    stop
+  endif
+  pause 1500
+elseif not property 'Deeds In Book: 0' 'Bulk Source'
+  useobject! 'Bulk Source'
+  waitforgump 0x54f555df 15000
+  replygump 0x54f555df 5
+  pause 1500
+else
+  sysmsg 'Unable to find BODs to fill.' 64
+  @canceltarget
+  stop
+endif

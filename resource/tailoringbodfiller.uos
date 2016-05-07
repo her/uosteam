@@ -1,0 +1,406 @@
+// Author: Kraz
+// Description: Tailoring BOD Filler
+// v2.1: fixed issue where it could not craft footwear
+// v2.0: (1) easier to update, read and edit craft info, (2) search, recycle and combine existing items before crafting, (3) faster crafting due to gump category swap improvements, (4) added resource handler
+if not @findobject 'Bulk Source'
+  promptalias 'Bulk Source'
+endif
+if not @findobject 'Bulk Destination'
+  promptalias 'Bulk Destination'
+endif
+if not @findobject 'Restock'
+  promptalias 'Restock'
+endif
+if not @findobject 'Trash BODs Destination'
+  promptalias 'Trash BODs Destination'
+endif
+if not @findobject 'Trash Barrel'
+  promptalias 'Trash Barrel'
+endif
+// Craft info placeholder
+if not listexists 'Craft'
+  @createlist 'Craft'
+  // 0: Category, 1: Button, 2: Graphic, 3: Resource Button, 4: Resource Color
+endif
+// Search for a BOD to fill
+if @findtype 0x2258 0x483 'backpack' and @property 'small' 'found'
+  // Reset craft state
+  @clearlist 'Craft'
+  @unsetalias 'crafting'
+  // Define and open new BOD
+  @setalias 'bod' 'found'
+  useobject! 'bod'
+  waitforgump 0x5afbd742 15000
+  // Combine items
+  if not targetexists 'server'
+    replygump 0x5afbd742 2
+    waitforgump 0x5afbd742 15000
+    waitfortarget 5000
+  endif
+  // Check for tools
+  if @findtype 0xf9d 0 'backpack'
+    pause 1500
+    @setalias 'tool' 'found'
+    useobject! 'tool'
+    waitforgump 0x38920abd 15000
+    // Craft
+    while targetexists 'server'
+      // Define BOD material type
+      @setalias 'cloth' 'bod'
+      if @ingump 0x5afbd742 'leather' or @ingump 0x5afbd742 'studded'
+        @unsetalias 'cloth'
+      elseif @ingump 0x5afbd742 'boots' and not @ingump 0x5afbd742 'fur boots'
+        @unsetalias 'cloth'
+      elseif @ingump 0x5afbd742 'shoes' or @ingump 0x5afbd742 'sandals'
+        @unsetalias 'cloth'
+      endif
+      // Craft requirements
+      if @findalias 'cloth'
+        // Check for cut cloths
+        if @counttype 0x1766 'any' 'backpack' < 50 and @counttype 0x1767 'any' 'backpack' < 50
+          if @movetype 0x1766 'Restock' 'backpack' 0 0 0 'any' 100 or @movetype 0x1767 'Restock' 'backpack' 0 0 0 'any' 100
+            pause 1500
+          else
+            sysmsg 'Out of cloths!' 25
+            @canceltarget
+            stop
+          endif
+        endif
+        if not @findalias 'crafting'
+          // Hats
+          if @ingump 0x5afbd742 'skullcap'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x1544
+          elseif @ingump 0x5afbd742 'bandana'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x1540
+          elseif @ingump 0x5afbd742 'floppy hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x1713
+          elseif @ingump 0x5afbd742 'cap'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x1715
+          elseif @ingump 0x5afbd742 'wide-brim hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x1714
+          elseif @ingump 0x5afbd742 'tall straw hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 44
+            @pushlist 'Craft' 0x1716
+          elseif @ingump 0x5afbd742 'straw hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 37
+            @pushlist 'Craft' 0x1717
+          elseif @ingump 0x5afbd742 "wizard's hat"
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 51
+            @pushlist 'Craft' 0x1718
+          elseif @ingump 0x5afbd742 'bonnet'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 58
+            @pushlist 'Craft' 0x1719
+          elseif @ingump 0x5afbd742 'feathered hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 65
+            @pushlist 'Craft' 0x171a
+          elseif @ingump 0x5afbd742 'tricorne hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 72
+            @pushlist 'Craft' 0x171b
+          elseif @ingump 0x5afbd742 'jester hat'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 79
+            @pushlist 'Craft' 0x171c
+          elseif @ingump 0x5afbd742 'flower garland'
+            @pushlist 'Craft' 1
+            @pushlist 'Craft' 86
+            @pushlist 'Craft' 0x2306
+            // Shirts
+          elseif @ingump 0x5afbd742 'doublet'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x1f7b
+          elseif @ingump 0x5afbd742 'fancy shirt'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x1efd
+          elseif @ingump 0x5afbd742 'formal shirt'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 86
+            @pushlist 'Craft' 0x2310
+          elseif @ingump 0x5afbd742 'shirt'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x1517
+          elseif @ingump 0x5afbd742 'tunic'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x1fa1
+          elseif @ingump 0x5afbd742 'surcoat'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x1ffd
+          elseif @ingump 0x5afbd742 'plain dress'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 37
+            @pushlist 'Craft' 0x1f01
+          elseif @ingump 0x5afbd742 'fancy dress'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 44
+            @pushlist 'Craft' 0x1f00
+          elseif @ingump 0x5afbd742 'cloak'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 51
+            @pushlist 'Craft' 0x1515
+          elseif @ingump 0x5afbd742 'robe'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 58
+            @pushlist 'Craft' 0x1f03
+          elseif @ingump 0x5afbd742 'jester suit'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 65
+            @pushlist 'Craft' 0x1f9f
+          elseif @ingump 0x5afbd742 'fur cape'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 72
+            @pushlist 'Craft' 0x230a
+          elseif @ingump 0x5afbd742 'gilded dress'
+            @pushlist 'Craft' 8
+            @pushlist 'Craft' 79
+            @pushlist 'Craft' 0x230e
+            // Pants
+          elseif @ingump 0x5afbd742 'short pants'
+            @pushlist 'Craft' 15
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x152e
+          elseif @ingump 0x5afbd742 'long pants'
+            @pushlist 'Craft' 15
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x1539
+          elseif @ingump 0x5afbd742 'kilt'
+            @pushlist 'Craft' 15
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x1537
+          elseif @ingump 0x5afbd742 'skirt'
+            @pushlist 'Craft' 15
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x1516
+            // Miscellaneous
+          elseif @ingump 0x5afbd742 'body sash'
+            @pushlist 'Craft' 22
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x1541
+          elseif @ingump 0x5afbd742 'half apron'
+            @pushlist 'Craft' 22
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x153b
+          elseif @ingump 0x5afbd742 'full apron'
+            @pushlist 'Craft' 22
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x153d
+            // Footwear
+          elseif @ingump 0x5afbd742 'fur boots'
+            @pushlist 'Craft' 29
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x2307
+          else
+            break
+          endif
+        endif
+      else
+        if not @findalias 'crafting'
+          // Leather
+          if @ingump 0x5afbd742 'leather gorget'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x13c7
+          elseif @ingump 0x5afbd742 'leather cap'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x1db9
+          elseif @ingump 0x5afbd742 'leather gloves'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 37
+            @pushlist 'Craft' 0x13c6
+          elseif @ingump 0x5afbd742 'leather sleeves'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 44
+            @pushlist 'Craft' 0x13cd
+          elseif @ingump 0x5afbd742 'leather leggings'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 51
+            @pushlist 'Craft' 0x13cb
+          elseif @ingump 0x5afbd742 'leather tunic'
+            @pushlist 'Craft' 36
+            @pushlist 'Craft' 58
+            @pushlist 'Craft' 0x13cc
+            // Studded
+          elseif @ingump 0x5afbd742 'studded gorget'
+            @pushlist 'Craft' 43
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x13d6
+          elseif @ingump 0x5afbd742 'studded gloves'
+            @pushlist 'Craft' 43
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x13d5
+          elseif @ingump 0x5afbd742 'studded sleeves'
+            @pushlist 'Craft' 43
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x13dc
+          elseif @ingump 0x5afbd742 'studded leggings'
+            @pushlist 'Craft' 43
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x13da
+          elseif @ingump 0x5afbd742 'studded tunic'
+            @pushlist 'Craft' 43
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x13db
+            // Female Armor
+          elseif @ingump 0x5afbd742 'leather shorts'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 2
+            @pushlist 'Craft' 0x1c00
+          elseif @ingump 0x5afbd742 'leather skirt'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 9
+            @pushlist 'Craft' 0x1c08
+          elseif @ingump 0x5afbd742 'leather bustier'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 16
+            @pushlist 'Craft' 0x1c0a
+          elseif @ingump 0x5afbd742 'studded bustier'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 23
+            @pushlist 'Craft' 0x1c0c
+          elseif @ingump 0x5afbd742 'female leather armor'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x1c06
+          elseif @ingump 0x5afbd742 'studded armor'
+            @pushlist 'Craft' 50
+            @pushlist 'Craft' 37
+            @pushlist 'Craft' 0x1c02
+          elseif @ingump 0x5afbd742 'thigh boots'
+            @pushlist 'Craft' 29
+            @pushlist 'Craft' 51
+            @pushlist 'Craft' 0x1711
+          elseif @ingump 0x5afbd742 'shoes'
+            @pushlist 'Craft' 29
+            @pushlist 'Craft' 37
+            @pushlist 'Craft' 0x170f
+          elseif @ingump 0x5afbd742 'sandals'
+            @pushlist 'Craft' 29
+            @pushlist 'Craft' 30
+            @pushlist 'Craft' 0x170d
+          elseif @ingump 0x5afbd742 'boots'
+            @pushlist 'Craft' 29
+            @pushlist 'Craft' 44
+            @pushlist 'Craft' 0x170b
+          else
+            break
+          endif
+          // Define resource
+          if @ingump 0x5afbd742 'barbed'
+            @pushlist 'Craft' 27
+            @pushlist 'Craft' 2129
+          elseif @ingump 0x5afbd742 'horned'
+            @pushlist 'Craft' 20
+            @pushlist 'Craft' 2117
+          elseif @ingump 0x5afbd742 'spined'
+            @pushlist 'Craft' 13
+            @pushlist 'Craft' 2220
+          else
+            @pushlist 'Craft' 6
+            @pushlist 'Craft' 0
+          endif
+        endif
+        // Check for leathers
+        if @counttype 0x1081 Craft[4] 'backpack' < 50
+          while @movetype 0x1081 'backpack' 'Restock'
+            pause 1500
+          endwhile
+          if @movetype 0x1081 'Restock' 'backpack' 0 0 0 Craft[4] 100
+            pause 1500
+          else
+            sysmsg 'Out of leathers!' 25
+            @canceltarget
+            stop
+          endif
+        endif
+      endif
+      // Search for existing items
+      while @findtype Craft[2] 'any' 'backpack'
+        target! 'found'
+        waitfortarget 5000
+        if not targetexists 'server' and @injournal 'must be exceptional' 'system'
+          // Recycle this item
+          if usetype! 0xf9f
+            waitfortarget 5000
+            target! 'found'
+            pause 1500
+          endif
+          // Unable to recycle, trash item
+          if @findobject 'found'
+            @moveitem! 'found' 'Trash Barrel'
+            pause 1500
+          endif
+          replygump 0x5afbd742 2
+          waitforgump 0x5afbd742 15000
+          waitfortarget 5000
+          clearjournal
+        endif
+      endwhile
+      // Craft new items if necessary
+      if targetexists 'server'
+        // Check tool before craft
+        if not @findobject 'tool'
+          break
+        endif
+        // Swap resource and category only once per BOD
+        if not @findobject 'crafting' 'any' 'backpack'
+          @setalias 'crafting' 'bod'
+          // Resource
+          if list 'Craft' == 5
+            replygump 0x38920abd 7
+            waitforgump 0x38920abd 5000
+            replygump 0x38920abd Craft[3]
+            waitforgump 0x38920abd 5000
+          endif
+          // Category
+          replygump 0x38920abd Craft[0]
+          waitforgump 0x38920abd 5000
+        endif
+        replygump 0x38920abd Craft[1]
+        waitforgump 0x38920abd 5000
+        pause 250
+      endif
+    endwhile
+    // BOD is complete, move to destination
+    if not targetexists 'server'
+      @moveitem 'bod' 'Bulk Destination'
+      // Trash BOD or missing definitions
+    elseif not @findalias 'crafting'
+      @moveitem 'bod' 'Trash BODs Destination'
+    endif
+    // Out of tools
+  elseif not @movetype 0xf9d 'Restock' 'backpack'
+    sysmsg 'Out of sewing kits!' 25
+    @canceltarget
+    stop
+  endif
+  pause 1500
+elseif not property 'Deeds In Book: 0' 'Bulk Source'
+  useobject! 'Bulk Source'
+  waitforgump 0x54f555df 15000
+  replygump 0x54f555df 5
+  pause 1500
+else
+  sysmsg 'Unable to find BODs to fill.' 64
+  @canceltarget
+  stop
+endif

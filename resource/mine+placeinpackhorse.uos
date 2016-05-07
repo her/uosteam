@@ -1,0 +1,88 @@
+if not @findalias 'Beetle3'
+  promptalias 'Beetle3'
+endif
+if counttype 0x19b9 'any' 'backpack' < 188
+  movetype 0x19b9 'backpack' 'Beetle3'
+endif
+if not listexists 'miningerrormessages'
+  createlist 'miningerrormessages'
+  pushlist 'miningerrormessages' 'no metal here'
+  pushlist 'miningerrormessages' "You can't mine there"
+  pushlist 'miningerrormessages' "Target cannot be seen"
+  pushlist 'miningerrormessages' "You can't mine that"
+endif
+if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+  useobject 'found'
+else
+  sysmsg "You do not have any digging tools!"
+  stop
+endif
+waitfortarget 500
+if direction == 0
+  targettileoffset 0 -1 0
+elseif direction == 1
+  targettileoffset 1 -1 0
+elseif direction == 2
+  targettileoffset 1 0 0
+elseif direction == 3
+  targettileoffset 1 1 0
+elseif direction == 4
+  targettileoffset 0 1 0
+elseif direction == 5
+  targettileoffset -1 1 0
+elseif direction == 6
+  targettileoffset -1 0 0
+elseif direction == 7
+  targettileoffset -1 -1 0
+endif
+pause 200
+if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+  useobject 'found'
+else
+  sysmsg "You do not have any digging tools!"
+  stop
+endif
+waitfortarget 500
+if direction == 1
+  targettileoffset 0 -1 0
+elseif direction == 2
+  targettileoffset 1 -1 0
+elseif direction == 3
+  targettileoffset 1 0 0
+elseif direction == 4
+  targettileoffset 1 1 0
+elseif direction == 5
+  targettileoffset 0 1 0
+elseif direction == 6
+  targettileoffset -1 1 0
+elseif direction == 7
+  targettileoffset -1 0 0
+elseif direction == 0
+  targettileoffset -1 -1 0
+endif
+pause 200
+if @findtype 0xe86 'any' 'backpack' or @findtype 0xf39 'any' 'backpack'
+  useobject 'found'
+else
+  sysmsg "You do not have any digging tools!"
+  stop
+endif
+waitfortarget 500
+if direction == 7
+  targettileoffset 0 -1 0
+elseif direction == 0
+  targettileoffset 1 -1 0
+elseif direction == 1
+  targettileoffset 1 0 0
+elseif direction == 2
+  targettileoffset 1 1 0
+elseif direction == 3
+  targettileoffset 0 1 0
+elseif direction == 4
+  targettileoffset -1 1 0
+elseif direction == 5
+  targettileoffset -1 0 0
+elseif direction == 6
+  targettileoffset -1 -1 0
+endif
+pause 10

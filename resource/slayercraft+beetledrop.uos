@@ -1,0 +1,37 @@
+if counter 'smithshammer' < 2
+  usetype 0x1eb8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 93
+  waitforgump 0x38920abd 15000
+  pause 2000
+endif
+//36 23 0x13ff Katana
+//43 23 0xf45 Executioner's Axe
+usetype 0x13e3
+waitforgump 0x38920abd 15000
+replygump 0x38920abd 43
+waitforgump 0x38920abd 15000
+replygump 0x38920abd 23
+pause 2000
+if @injournal 'slayer' 'system'
+  sysmsg '* * * * ---> Slayer Weapon! <--- * * * *' 53
+  @findtype 0x13ff 'any' 'backpack'
+  useobject 0x61b6b
+  pause 1000
+  waitforcontext 0x9a393 10 15000
+  pause 500
+  moveitem 'found' 0x412b284a 112 95 0
+  pause 600
+  useobject 0x9a393
+  clearjournal
+endif
+pause 1000
+if @findtype 0x13ff 'any' 'backpack'
+  usetype 0x13e3
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 14
+  waitfortarget 15000
+  target! 'found'
+  waitforgump 0x38920abd 15000
+  pause 500
+endif

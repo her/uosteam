@@ -1,0 +1,57 @@
+// $$$$$$$$ Cut Corpse  (Beta) $$$$$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V1.0b
+// ??????????????????????????????????????????????????
+// ??
+// ?? Macro will Disembowel a corpse using any bladed
+// ?? weapon in you main pack and collect the head.
+// ??
+// ?? Usage:\
+// ?? Pack must have at least 1 bladed weapon.
+// ?? set a hotkey for optimal usage
+// ?? run the macro it will ask you to target a
+// ?? corpse. thats it . the head will be collected
+// ?? automatically.
+//
+// ???????????????????????????????????????
+//
+// !!*** Init Data ***!!
+if not @listexists 'Blade'
+  @createlist 'Blade'
+endif
+@clearlist 'Blade'
+@pushlist 'Blade' 0x13b9 //Viking Sword
+@pushlist 'Blade' 0xf61  //Longsword
+@pushlist 'Blade' 0x1441 //Cutlass
+@pushlist 'Blade' 0x13b6 //Scimitar
+@pushlist 'Blade' 0xf5e  //Broadsword
+@pushlist 'Blade' 0x13ff //Katana
+@pushlist 'Blade' 0x1401 //Kryss
+@pushlist 'Blade' 0xf52  //Dagger
+@pushlist 'Blade' 0xec4  //Skinning Knife
+@pushlist 'Blade' 0x13f6 //Butcher Knife
+//
+for 0 to 'Blade'
+  if @findtype 'Blade[]' 'any' 'backpack'
+    @unsetalias 'BLA'
+    @setalias 'BLA' 'found'
+  endif
+endfor
+//
+headmsg 'Select Corpse' '2498'
+@useobject 'BLA'
+//
+// !! a timeout for decapitated head collection
+for 0 to '2000'
+  if not @findtype '0x1ce1' 'any' 'ground' '1' '2'
+    // waiting for severed head
+  else
+    moveitem 'found' 'backpack'
+    headmsg 'Head Collected !!' '2498'
+    pause 100
+    stop
+  endif
+endfor
+//
+headmsg '-- Head Not Avalible --' '37'

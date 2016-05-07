@@ -1,0 +1,319 @@
+//More Info:
+//http://www.uoforum.com/threads/alchey-factory-automated-multiple-potion-keg-filler.72558/
+//
+// $$$$$$$$ Alchey Factory $$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V3.6
+// ???????????????????????????????????????
+// ?? Ultimate Alchemy pot maker
+// ?? keg fill and dye, Organzer.
+// ??
+// ?? REQUIRMENTS:
+// ?? This macro will first ask you to
+// ?? make the first pot, and then will
+// ?? continue filling kegs of that pot
+// ?? type until resource supply is used
+// ?? up, or there are no more empty kegs.
+// ??  - Your will need 5 unique containers
+// ??    !Please insure you can put and pull
+// ??    items from each container.!
+// ??    > 1st container containing supply of
+// ??      Regs to make the pots.
+// ??    > 2nd container should be your main
+// ??      back pack, and is used by the macro
+// ??      to work in.
+// ??    > 3rd container is where all the empty
+// ??      kegs are stored. (TIP: if you want to
+// ??      only make 10 full kegs then just put
+// ??      10 empty kegs in this container)
+// ??    > 4th container is where the filled kegs
+// ??      will be stored.
+// ??    > 5th containers is where your failz go.
+// ??      dont ask i just always make a trash bag k.
+// ?? - Morters, lots of them. This macro will not refill
+// ??   or make new morters. if you run out of morters
+// ??   the macro will stop production.
+// ?? - You will need a Furnature dye tub to paint
+// ??   the kegs. (yes the macro will set the color
+// ??   and do this all automagically for you)
+// ?? - and of course some dyes , to color the dye silly!
+// ??
+// ?? Simply run the macro and follow the prompts.
+// ??
+// ?? Warning: the macro will not automate until the first potion is
+// ??          Made Succesfully. you will know this once you see the
+// ??          message prompt "Potion is set, one moment". Once you
+// ??          see that message sit back watch some porn enjoy life!
+// ???????????????????????????????????????/##############################################################################
+// Initial set up of vars
+//
+//
+unsetalias 'targetDyes'
+if @findtype 0xfa9 'any' 'backpack'
+  setalias 'targetDyes' 'found'
+  headmsg 'Have Dyes' '64'
+else
+  headmsg 'Please select Dyes' '49'
+  promptalias 'targetDyes'
+endif
+pause 600
+//--------- check for dye tub
+unsetalias 'targetDyetub'
+if @findtype 0xfab 'any' 'backpack'
+  setalias 'targetDyetub' 'found'
+  headmsg 'Have Furny tub' '64'
+else
+  headmsg 'Please select Furnature Dye Tub' '49'
+  promptalias 'targetDyetub'
+endif
+pause 600
+//
+//
+//
+//
+@clearjournal
+unsetalias 'regBag'
+if not @findobject 'regBag'
+  headmsg 'Select the Reg Bag' '49'
+  promptalias 'regBag'
+endif
+pause 100
+//
+unsetalias 'workingKegBag'
+if not @findobject 'workingKegBag'
+  headmsg 'Select the Working Keg Bag' '49'
+  promptalias 'workingKegBag'
+endif
+pause 100
+//
+unsetalias 'emptyKegBag'
+if not @findobject 'emptyKegBag'
+  headmsg 'Select the Empty Keg Bag' '49'
+  promptalias 'emptyKegBag'
+endif
+pause 100
+//
+unsetalias 'fullKegBag'
+if not @findobject 'fullKegBag'
+  headmsg 'Select the Full Keg Bag' '49'
+  promptalias 'fullKegBag'
+endif
+pause 100
+unsetalias 'trashBag'
+if not @findobject 'trashBag'
+  headmsg 'Select the trash Bag' '49'
+  promptalias 'trashBag'
+endif
+pause 600
+//------------------
+//------------------
+if not listexists 'PotionList'
+  createlist 'PotionList'
+endif
+clearlist 'PotionList'
+//...
+@pushlist 'PotionList' 0xf07
+@pushlist 'PotionList' 0xf0b
+@pushlist 'PotionList' 0xf08
+@pushlist 'PotionList' 0xf0c
+@pushlist 'PotionList' 0xf09
+@pushlist 'PotionList' 0xf0a
+@pushlist 'PotionList' 0xf0d
+//
+for 0 to 'PotionList'
+  while @findtype 'PotionList[]' 'any' 'backpack'
+    headmsg '*sigh* doing some house cleaning first tsk tsk' '49'
+    pause 1500
+    moveitem found 'trashBag'
+  endwhile
+endfor
+//------------------
+headmsg 'Please create the first potion manually' '1272'
+//while not @ingump 0x38920abd 'You create'
+while not @ingump 0x38920abd 'You pour'
+  //
+  if @findtype 0xe9b 'any' 'backpack'
+    useobject 'found'
+  else
+    msg '[e groan'
+    headmsg 'You need Morters in your main pack.' '37'
+    stop
+  endif
+  //
+  waitforgump 0x38920abd 15000
+  pause 1000
+  //
+  if @ingump 0x38920abd 'You do not have'
+    msg '[e groan'
+    headmsg 'You will need the proper regs to make the potion' '49'
+    //stop
+  endif
+  //
+  if @ingump 0x38920abd 'You create'
+    break
+  endif
+  //
+endwhile
+//
+//-----
+//
+headmsg 'Potion is set, one moment' '1272'
+pause 3000
+// !! init data
+if not listexists 'PotionType'
+  createlist 'PotionType'
+endif
+clearlist 'PotionType'
+/// !! Find potion type being made and set
+//
+if @findtype 0xf07 'any' 'backpack'
+  // set to cure
+  @pushlist 'PotionType' 0xf07 //cure potions
+  @pushlist 'PotionType' 0xf84 //Garlic
+  @pushlist 'PotionType' '43' //color
+  headmsg 'Making Cure Pots' '43'
+elseif @findtype 0xf0b 'any' 'backpack'
+  // set to refresh
+  @pushlist 'PotionType' 0xf0b //refresh potions
+  @pushlist 'PotionType' 0xf7a //black peril
+  @pushlist 'PotionType' '133' //color
+  headmsg 'Making Refresh Pots' '133'
+elseif @findtype 0xf08 'any' 'backpack'
+  // set to agility
+  @pushlist 'PotionType' 0xf08 //agility potions
+  @pushlist 'PotionType' 0xf7b //bloodmoss
+  @pushlist 'PotionType' '298' //color
+  headmsg 'Making Agility Pots' '298'
+elseif @findtype 0xf0c 'any' 'backpack'
+  // set to Heal
+  @pushlist 'PotionType' 0xf0c //heal potions
+  @pushlist 'PotionType' 0xf85 //ginsing
+  @pushlist 'PotionType' '53' //color
+  headmsg 'Making Heal Pots' '53'
+elseif @findtype 0xf09 'any' 'backpack'
+  // set to Strength
+  @pushlist 'PotionType' 0xf09 //strength potions
+  @pushlist 'PotionType' 0xf86 //mandrake
+  @pushlist 'PotionType' '991' //color
+  headmsg 'Making Strength Pots' '991'
+elseif @findtype 0xf0a 'any' 'backpack'
+  // set to Poison
+  @pushlist 'PotionType' 0xf0a //poison potions
+  @pushlist 'PotionType' 0xf88 //nightshade
+  @pushlist 'PotionType' '64' //color
+  headmsg 'Making Poison Pots' '64'
+elseif @findtype 0xf0d 'any' 'backpack'
+  // set to Explo
+  @pushlist 'PotionType' 0xf0d //Explo potions
+  @pushlist 'PotionType' 0xf8c //ash
+  @pushlist 'PotionType' '18' //color
+  headmsg 'Making OP Bombs' '18'
+endif
+//???????????????????????????????????
+// Select first Keg:
+// finds keg placed into pack from agent and
+// moves it to the workingKegBag
+//--------------------------------------------
+if @findtype 0x1940 'any' 'emptyKegBag'
+  setalias 'targetKeg' 'found'
+  pause 600
+  moveitem 'targetKeg' 'workingKegBag'
+else
+  if @findtype 0x1940 'any' 'backpack'
+    setalias 'targetKeg' 'found'
+  else
+    msg '[e groan'
+    headmsg 'There are no Kegs avalible.' '37'
+    stop
+  endif
+endif
+pause 600
+//
+autocolorpick 'PotionType[2]'
+useobject! 'targetDyes'
+waitfortarget 1000
+target! 'targetDyetub'
+pause 600
+//
+useobject! 'targetDyetub'
+waitfortarget 1500
+target! 'targetKeg'
+pause 600
+//##############################################################################
+//##############################################################################
+//
+//!! <make potion code loop start >
+while @findtype 0xe9b 'any' 'backpack'
+  @clearjournal
+  useobject 'found'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 21
+  pause 2000
+  if @ingump 0x38920abd 'You do not have'
+    headmsg 'Getting more Regs' '2708'
+    //&&&&
+    if @findtype 'PotionType[1]' 'any' 'regBag'
+      if @counttype 'PotionType[1]' 'any' 'regBag' < 300
+        moveitem 'found' 'backpack' 0 0 0
+        pause 600
+      else
+        moveitem 'found' 'backpack' 0 0 0 300
+        pause 600
+      endif
+    else
+      headmsg 'OUT OF REGS!'
+      stop
+    endif
+    //&&&&
+  endif
+  //
+  //
+  // Move newly created potion into targetKeg
+  //--------------------------------------------
+  while @findtype 'PotionType[0]' 'any' 'backpack'
+    @clearjournal
+    moveitem 'found' 'targetKeg'
+    pause 1500
+    if @injournal 'You decide that' 'system'
+      headmsg 'Wrong keg type for this potion. replacing'
+      // Replace wrong keg type with a new empty keg
+      moveitem 'targetKeg' 'trashBag'
+      pause 2500
+      if @findtype 0x1940 'any' 'emptyKegBag'
+        setalias 'targetKeg' 'found'
+        pause 600
+        moveitem 'targetKeg' 'workingKegBag'
+        pause 600
+        useobject! 'targetDyetub'
+        waitfortarget 1500
+        target! 'targetKeg'
+        pause 600
+      else
+        headmsg 'There are no more empty kegs'
+        stop
+      endif
+    elseif @injournal 'The keg will not' 'system'
+      headmsg 'Keg is full replacing with new keg'
+      // Replace full keg with a new empty keg
+      moveitem 'targetKeg' 'fullKegBag'
+      pause 2500
+      if @findtype 0x1940 'any' 'emptyKegBag'
+        setalias 'targetKeg' 'found'
+        pause 600
+        moveitem 'targetKeg' 'workingKegBag'
+        pause 600
+        useobject! 'targetDyetub'
+        waitfortarget 1500
+        target! 'targetKeg'
+        pause 600
+      else
+        headmsg 'There are no more empty kegs'
+        stop
+      endif
+    endif
+  endwhile
+  //!! <make potion code loop end here>
+endwhile
+//
+headmsg 'ALL DONE!!'

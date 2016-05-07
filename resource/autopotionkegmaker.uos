@@ -1,0 +1,234 @@
+// $$$$$$$$$$$$ UOF Auto Potion Keg Maker $$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V0.9r001 (Beta)
+// ?? TRACKING:
+// ?? + r001 {11/25/15}
+// ??   - Replaced for loops with more intellegent CFS
+// ??     using counttype conditionals.
+// ??
+// ??????????????????????????????????????????????????
+// ??
+// ?? This Macro will auto build potion kegs from scratch
+// ??
+// ?? USAGE:
+// ?? - Tinker and Carpentry skills must be GM
+// ?? - Macro will create hammers but not tinker tools please
+// ??   be sure to have enough tinker tools in your main backpack.
+// ?? - You will need 2 seprate containers 1 to hold building
+// ??   resources and one to hold the completed kegs.
+// ?? - Each Keg requires 23 Logs , 7 Iron and 10 empty bottles
+// ??   remember this when filling the resource container , please
+// ??   also add an additional 20 iron ingots for the macro to
+// ??   make hammers when required.
+// ?? - Run the macro follow the prompts ..
+//
+// !!*** Init Data ***!!
+unsetalias 'Mats'
+if not @findobject 'Mats'
+  headmsg 'Select resources container' '49'
+  promptalias 'Mats'
+endif
+//
+unsetalias 'ProductCont'
+if not @findobject 'ProductCont'
+  headmsg 'Select completed Keg output container' '49'
+  promptalias 'ProductCont'
+endif
+pause 1000
+//
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+//
+while @findtype '0x1eb8' 'any' 'backpack'
+  //
+  // **** get required mats ****
+  // > get logs
+  if @movetype 0x1bdd 'Mats' 'backpack' 0 0 0 '0' '23'
+    // %logs are loaded
+  else
+    msg '[e groan'
+    headmsg 'No Logs avalible' '38'
+    stop
+  endif
+  pause 500
+  //
+  // > get iron
+  if @movetype 0x1BF2 'Mats' 'backpack' 0 0 0 '0' '7'
+    // %iron is loaded
+  else
+    msg '[e groan'
+    headmsg 'No Iron avalible' '38'
+    stop
+  endif
+  pause 500
+  // > get bottles
+  if @movetype 0xf0e 'Mats' 'backpack' 0 0 0 '0' '10'
+    // %bottles loaded
+  else
+    msg '[e groan'
+    headmsg 'No Bottles avalible' '38'
+    stop
+  endif
+  pause 500
+  //
+  //**** Make Staves ****
+  while @counttype '0x1eb1' 'any' 'backpack' < 3
+    //--- start of check for hammer
+    if not @findtype '0x102a' '0' 'backpack' 'any' '2'
+      headmsg 'Need a hammer dumb ass'
+      pause 250
+      if @movetype 0x1BF2 'Mats' 'backpack' 0 0 0 '0' '1'
+        pause 500
+        if usetype '0x1eb8' 'any' 'backpack'
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 8
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 79
+          waitforgump 0x38920abd 15000
+          pause 500
+        else
+          msg '[e groan'
+          headmsg 'Missing tinker tools' '38'
+          stop
+        endif
+      else
+        msg '[e groan'
+        headmsg 'It appears you are out of iron' '38'
+        stop
+      endif
+    endif
+    //--- End of check for hammer
+    usetype '0x102a' 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 15000
+    headmsg 'BarrelStave made' '2708'
+    pause 2000
+  endwhile
+  //**** Make Barrel lids ****
+  while @counttype '0x1db8' 'any' 'backpack' < 2
+    //--- start of check for hammer
+    if not @findtype '0x102a' '0' 'backpack' 'any' '2'
+      headmsg 'Need a hammer dumb ass'
+      pause 250
+      if @movetype 0x1BF2 'Mats' 'backpack' 0 0 0 '0' '1'
+        pause 500
+        if usetype '0x1eb8' 'any' 'backpack'
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 8
+          waitforgump 0x38920abd 15000
+          replygump 0x38920abd 79
+          waitforgump 0x38920abd 15000
+          pause 500
+        else
+          msg '[e groan'
+          headmsg 'Missing tinker tools' '38'
+          stop
+        endif
+      else
+        msg '[e groan'
+        headmsg 'It appears you are out of iron' '38'
+        stop
+      endif
+    endif
+    //--- End of check for hammer
+    usetype '0x102a' 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 15000
+    headmsg 'Barrel lid made' '2708'
+    pause 2000
+  endwhile
+  //**** Make Barrel hoop ****
+  if usetype '0x1eb8' 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 37
+    waitforgump 0x38920abd 15000
+    headmsg 'Barrel hoop made' '2591'
+    pause 2000
+  else
+    msg '[e groan'
+    headmsg 'Missing tinker tools' '38'
+    stop
+  endif
+  //**** Make Barrel tap ****
+  if usetype '0x1eb8' 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 15000
+    headmsg 'Barrel tap made' '2591'
+    pause 2000
+  else
+    msg '[e groan'
+    headmsg 'Missing tinker tools' '38'
+    stop
+  endif
+  //**** Make empty keg ****
+  //--- start of check for hammer
+  if not @findtype '0x102a' '0' 'backpack' 'any' '2'
+    headmsg 'Need a hammer dumb ass'
+    pause 250
+    if @movetype 0x1BF2 'Mats' 'backpack' 0 0 0 '0' '1'
+      pause 500
+      if usetype '0x1eb8' 'any' 'backpack'
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 8
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 79
+        waitforgump 0x38920abd 15000
+        pause 500
+      else
+        msg '[e groan'
+        headmsg 'Missing tinker tools' '38'
+        stop
+      endif
+    else
+      msg '[e groan'
+      headmsg 'It appears you are out of iron' '38'
+      stop
+    endif
+  endif
+  //--- End of check for hammer
+  usetype '0x102a' 'any' 'backpack'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 163
+  waitforgump 0x38920abd 15000
+  headmsg 'Empty keg made' '2708'
+  pause 2000
+  //**** Make potion keg ****
+  if usetype '0x1eb8' 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 43
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 44
+    waitforgump 0x38920abd 15000
+    headmsg 'Potion Keg COMPLETED !!' '1272'
+    pause 2000
+  else
+    msg '[e groan'
+    headmsg 'Missing tinker tools' '38'
+    stop
+  endif
+  //-----
+  //**** move made keg to ProductCont ****
+  if @movetype 0x1940 'backpack' 'ProductCont' 0 0 0 '0' '1'
+    msg '[e applaud'
+  else
+    msg '[e huh'
+    msg '....?....'
+  endif
+  pause 2000
+  //break << Uncomment this if you want the macro to run as single use only >>
+endwhile
+msg '[e yawn'
+msg 'My Work here is DONE!!'

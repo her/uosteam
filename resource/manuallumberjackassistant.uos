@@ -1,0 +1,135 @@
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$ Manual Lumberjacking assistant
+//$$ By: Amonseti
+//$$ V 1.8
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+//
+//?????????????????????????????????????????????????????????????????????
+//??? USAGE GUIDE LINES:
+//??? Simply create a new macro. give it an appropreate name,
+//??? Any will do.
+//???
+//??? Run the macro. with an axe equiped or in your backpack
+//??? The macro will look for a tree first tile west
+//??? of where your character is standing.
+//??? The macro will tell you when to move onto the next
+//??? tree until your weight has exceeded 380stones. ( This
+//??? is based off of assuming your lumberjacker has 100strength)
+//??? There are some trees that due to terrain height are unchoppable
+//??? if for some reason you find yourself just standing there not
+//??? Collecting wood ... Then move on to next tree.
+//???
+//???
+//?????????????????????????????????????????????????????????????????????
+//
+//
+// !! Find and equip any axe in backpack ***
+if not listexists 'AxeList'
+  createlist 'AxeList'
+endif
+
+// !! axe data
+@clearlist 'AxeList'
+@pushlist 'AxeList' 0xf43 //Hatchet
+@pushlist 'AxeList' 0xf45 //Executioner's Axe
+@pushlist 'AxeList' 0xf4b  //Double Axe
+@pushlist 'AxeList' 0x13fb //Large Battle Axe
+@pushlist 'AxeList' 0x1443 //Two Handed Axe
+@pushlist 'AxeList' 0xf47  //Battle Axe
+@pushlist 'AxeList' 0xf49  //Axe
+//
+// !! Equip Axe
+for 0 to 'AxeList'
+  if @findtype 'AxeList[]' 'any' 'backpack'
+    unsetalias 'AXE'
+    setalias 'AXE' 'found'
+  endif
+endfor
+//******************************************
+//
+// !! Main chopping routine
+while weight < 380
+  clearjournal
+  if not @findlayer 'self' 2
+    equipitem 'AXE' 2
+    pause 600
+  endif
+  //
+  useobject 'LeftHand'
+  waitfortarget 1000
+  targettileoffset -1 0 0
+  pause 500
+  //
+  //
+  //****** Wait for it **********************
+  // !! System hickup insurance loop
+  for 60
+    if @injournal 'enough wood here' 'system'
+      break
+    elseif @injournal 'You chop' 'system'
+      break
+    elseif @injournal "fail to" "system"
+      break
+    elseif @injournal "You can't" "system"
+      break
+    elseif @injournal "You can" "system"
+      break
+    elseif not @findlayer 'self' 2
+      break
+    else
+      pause 100
+    endif
+  endfor
+  //
+  //******************************************
+  //
+  //*** Display proper feedback
+  if @injournal "You can't" "system"
+    pause 500
+  endif
+  if @injournal 'enough wood here' 'system'
+    headmsg 'NO MORE WOOD' '2124'
+    headmsg 'go to next tree' '2124'
+    msg '[e whistle'
+    pause 2000
+  endif
+  if @injournal 'some ordinary' 'system'
+    headmsg '--Ordinary wood--' '1150'
+    clearjournal
+  endif
+  if @injournal 'some oak' 'system'
+    headmsg '--OAK--' '2010'
+    clearjournal
+  endif
+  if @injournal 'some ash' 'system'
+    headmsg '--ASH--' '1191'
+    clearjournal
+  endif
+  if @injournal 'some yew' 'system'
+    headmsg '--YEW--' '1192'
+    msg '[e ah'
+    clearjournal
+  endif
+  if @injournal 'some heartwood' 'system'
+    headmsg '>!!!--HEARTWOOD--!!!<' '1193'
+    msg '[e yea'
+    clearjournal
+  endif
+  if @injournal 'some bloodwood' 'system'
+    headmsg '>!!!--BLOODWOOD--!!!<' '1194'
+    msg '[e woohoo'
+    clearjournal
+  endif
+  if @injournal 'some frostwood' 'system'
+    headmsg '>!!!--FROSTWOOD--!!!<' '1151'
+    msg '[e woohoo'
+    clearjournal
+  endif
+  //******************************************
+  //
+  //
+endwhile
+headmsg 'Over Weight Fatty !' '89'
+headmsg 'go home and unload!' '89'
