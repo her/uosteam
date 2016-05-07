@@ -4,14 +4,16 @@ Scripts for UOSteam, an Ultima Online Assistant.
 
 ## Contents Include
 
-* Crafting and Resource Gathering
-* Skill Training
-* Item Organization
-* PvM & PvP Assist
+* General - Miscellaneous, Interesting and Useful Macros
+* Organize - Items, Resources and Loot Organization
+* PvM+PvP -  Defensive, Offensive, Hunting, Survival and Taming Scripts
+* Resource - Crafting and Resource Gathering
+* Skill - Skill Trainers and Assistants
+* UOS - Documentation and UO Steam Binary!
 
 ## Other Resources and Links
 
-* [UOSteam Scripting Documentation and Syntax](http://uosteam.28394.n7.nabble.com/file/n65/Documentation.pdf)
+* [UOSteam Documentation and Syntax](http://uosteam.28394.n7.nabble.com/file/n65/Documentation.pdf)
 * [The Foaming Squirrels Ultima Online | UOSteam](http://dfiexperience.wix.com/foamingsquirrels#!steam/c24dh)
 * [Macros for UOSteam | UOMacro](http://greeduo.wix.com/uomacro#!macros-for-uosteam/c1kh5)
 
@@ -19,8 +21,11 @@ Scripts for UOSteam, an Ultima Online Assistant.
 
 UOSteam is a closed source assistant that is not allowed
 on every UO server. Using this assistant where prohibited
-may result in bans, items, and character loss. Use at your
+may result in bans, item and character loss. Use at your
 own risk!
+
+Fork and submit Pull Requests for additions. Create Issues
+for questions, feedback, or help.
 
 Credit belongs to the individuals who wrote the scripts.
 This is a repository to preserve the work that has been done
@@ -30,5 +35,6 @@ creating these scripts.
 
 UOSteam was abandoned by it's original developers. It's
 currently in a deprecated state and is not receiving
-updates. **If anyone knows where to find the source code
+updates. The latest release is considered stable.
+**If anyone knows where to find the source code
 please let me know.**
