@@ -1,0 +1,42 @@
+// $$$$$$$$$$$ Stam Pot Chugger $$$$$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V2.0
+// ???????????????????????????????????????
+// ?? This macro only requires that there
+// ?? be Stamina pots in the Main pack or
+// ?? any bag in the main.
+// ??
+// ?? Macro will first check if you are
+// ?? holding a weapon and clear your hands
+// ?? to allow for pot chuggins.
+// ??
+// ?? When done the macro will automatically
+// ?? re-equip the weapon you were using..
+// ??
+// ???????????????????????????????????????
+//
+// !! Check if holding a weapon !!
+if @findlayer 'self' 2
+  // !! Unequip wep
+  togglehands 'left'
+  pause 600
+  //
+  if @findtype 0xf0b 0 'backpack'
+    @setalias 'Potion' 'found'
+    useobject! 'Potion'
+  else
+    headmsg 'OUT!!! of Stamina potions'
+  endif
+  //
+  pause 600
+  // !! Re-Equip Weapon player was holding
+  togglehands 'left'
+else
+  if @findtype 0xf0b 0 'backpack'
+    @setalias 'Potion' 'found'
+    useobject! 'Potion'
+  else
+    headmsg 'OUT!!! of Stamina potions'
+  endif
+endif

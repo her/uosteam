@@ -1,0 +1,43 @@
+while not dead
+
+if not timerexists 'Bandage Timer'
+
+createtimer 'Bandage Timer'
+
+settimer 'Bandage Timer' 10250
+
+endif
+
+// Check the bandage timer to see if enough time has elapsed
+
+if timer 'Bandage Timer' < 10250
+
+// Small delay to slow down the loop. 100 milliseconds means we will not miss
+
+// a bandage.
+
+pause 100
+
+// We need to wait for our current bandage to finish so start the while
+
+// loop from the beginning
+
+continue
+
+endif
+
+// If we are poisoned or don't have full health
+
+if poisoned 'self' or hits < maxhits
+
+// Enough time has elapsed lets apply a bandage.
+
+bandageself
+
+// Reset the timer.
+
+settimer 'Bandage Timer' 0
+
+endif
+
+endwhile

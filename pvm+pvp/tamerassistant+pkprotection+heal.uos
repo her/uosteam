@@ -1,0 +1,151 @@
+//More info:
+//http://www.uoforum.com/threads/sussex-tamer-assistant-relax.79183/ 
+//
+//1. PK Protection + health warning + Auto attack colosest mob/animal
+//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Auto Strength Buff if carrying too much
+if @injournal 'to move' 'system'
+  cast 'Strength'
+  waitfortarget 3000
+  target! 'self'
+  clearjournal
+endif
+//Auto Protection
+if not timerexists 'Protect'
+  createtimer 'Protect'
+  settimer 'Protect' 300000
+endif
+if timer 'Protect' >= 300000
+  cast 'Protection'
+  settimer 'Protect' 0
+endif
+// Set Pet
+if not findalias 'pet'
+  promptalias 'pet'
+endif
+//Find RuneBook
+if not findalias 'Escape Book'
+  promptalias 'Escape Book'
+endif
+// Pk Recall Routine
+@unsetalias 'friend'
+getfriend 'murderer' 'humanoid' 'closest'
+while @inrange 'friend' 28
+  cast "Recall"
+  msg 'all follow me'
+  pause 200
+  msg 'all follow me'
+  pause 50
+  msg 'all follow me'
+  pause 50
+  msg 'all follow me'
+  pause 50
+  msg 'all follow me'
+  waitfortarget 2000
+  target! 0x406afe4f
+  @unsetalias 'friend'
+endwhile
+// 2. Autoheal Pet(s) //------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//Health check of your pets
+//----------------------------------------------------------------------------
+//Strength if carrying to much
+while  @diffhits 'pet' > 0
+  // Auto Strength Buff if carrying too much
+  if @injournal 'to move'  'system'
+    cast 'Strength'
+    waitfortarget 3000
+    target! 'self'
+    clearjournal
+  endif
+  while inrange 'pet' 1
+    if @injournal 'close enough' 'system'
+      clearjournal
+      playmacro 'Champ Script'
+    endif
+    if @findtype 0xe21 'backpack'
+      useobject 'found'
+      waitfortarget 2000
+      target! 'pet'
+    else headmsg 'no bandages'
+    endif
+    //time adding loop
+    while not @injournal 'finish applying' 'system'
+      pause 50
+      // Auto Strength Buff if carrying too much
+      if @injournal 'too much' 'system'
+        cast 'Strength'
+        waitfortarget 3000
+        target! 'self'
+        clearjournal
+      endif
+      // headmsg 'Time adding'
+      // PK recall routine for protection during time adding loop--------
+      @unsetalias 'friend'
+      getfriend 'murderer' 'humanoid' 'closest'
+      while @inrange 'friend' 28
+        cast "Recall"
+        msg 'all follow me'
+        pause 200
+        msg 'all follow me'
+        pause 50
+        msg 'all follow me'
+        pause 50
+        msg 'all follow me'
+        pause 50
+        msg 'all follow me'
+        autotargetobject '0x406afe4f'
+        pause 500
+        @unsetalias 'friend'
+      endwhile
+      // to avoid getting lost in the time adding routine if pet is moving
+      if not inrange 'pet' 2
+        playmacro 'Champ Script'
+      endif
+      if @injournal 'not damaged' 'system'
+        clearjournal
+        playmacro 'Champ Script'
+      endif
+      //endwhile time adding until message in journal
+    endwhile
+    clearjournal
+    @unsetalias 'friend'
+    getfriend 'murderer' 'humanoid' 'closest'
+    while @inrange 'friend' 28
+      cast "Recall"
+      msg 'all follow me'
+      pause 200
+      msg 'all follow me'
+      pause 50
+      msg 'all follow me'
+      pause 50
+      msg 'all follow me'
+      pause 50
+      msg 'all follow me'
+      waitfortarget 2000
+      target! 0x406afe4f
+      @unsetalias 'enemy'
+    endwhile
+    //endwhile inrange
+  endwhile
+  @unsetalias 'friend'
+  getfriend 'murderer' 'humanoid' 'closest'
+  while @inrange 'friend' 28
+    cast "Recall"
+    msg 'all follow me'
+    pause 200
+    msg 'all follow me'
+    pause 50
+    msg 'all follow me'
+    pause 50
+    msg 'all follow me'
+    pause 50
+    msg 'all follow me'
+    waitfortarget 2000
+    target! 0x406afe4f
+    @unsetalias 'friend'
+    //endwhile pk protection
+  endwhile
+  //endwhile pet-health check
+endwhile

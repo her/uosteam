@@ -1,0 +1,83 @@
+//Rather than the traditional pet heal macros this one 
+//operates on lists so you never have to retarget your pets. 
+//If you mount, stable or claim a new pet it automatically picks 
+//it up (provided its serial is in your list). Works very well with mounts.
+//
+//I also added provoke / "all kill" protection, 
+//where if you have a cursor up it will not hijack the cursor.
+
+
+
+if not listexists 'petlist'
+  createlist 'petlist'
+  //add an entry for each pet you hunt with:
+  @pushlist 'petlist' 0x176ca2 // rare white horse
+  @pushlist 'petlist' 0x1572d2 // meta
+  @pushlist 'petlist' 0x2627 // white wyrm
+endif
+//Removes pets if mounted, stabled or you get too far away
+if findalias 'Pet1' and not @findobject 'Pet1'
+  unsetalias 'Pet1'
+endif
+if findalias 'Pet2' and not @findobject 'Pet2'
+  unsetalias 'Pet2'
+endif
+//makes sure the pets never equal each other
+if findalias 'Pet1' and findalias 'Pet2'
+  if serial 'Pet1' == serial 'Pet2'
+    unsetalias 'Pet2'
+  endif
+endif
+//Searches for your pets when you don't have 2 active
+if not @findobject 'Pet1' or not @findobject 'Pet2'
+  for 0 to 'petlist'
+    if @findobject petlist[] 'any' 'ground' 0 30
+      if not @findobject 'Pet1'
+        setalias 'Pet1' petlist[]
+      elseif not @findobject 'Pet2' and serial 'Pet1' != 'petlist[]'
+        setalias 'Pet2' petlist[]
+      endif
+    endif
+  endfor
+endif
+// sets backup bandie timer just in case
+if not timerexists 'bandie'
+  settimer 'bandie' 10000
+endif
+// provoke protection if target cursor exists
+if not targetexists
+  //Starts healing your pets
+  if @injournal 'finish applying' 'system' or timer 'bandie' >= 10000
+    if @findobject 'Pet1' and @findobject 'Pet2'
+      if hits 'Pet1' < 90 or hits 'Pet2' < 90
+        if diffhits 'Pet1' > diffhits 'Pet2' and @inrange 'Pet1' 1
+          usetype 0xe21 'any' 'backpack'
+          waitfortarget 3500
+          target! 'Pet1'
+          settimer 'bandie' 0
+        elseif @inrange 'Pet2' 1 and hits 'Pet2' < 90
+          usetype 0xe21 'any' 'backpack'
+          waitfortarget 3500
+          target! 'Pet2'
+          settimer 'bandie' 0
+        endif
+        clearjournal
+        pause 1000
+      endif
+    elseif @findobject 'Pet1' or @findobject 'Pet2'
+      if hits 'found' < 90 and @inrange 'found' 1
+        usetype 0xe21 'any' 'backpack'
+        waitfortarget 3500
+        target! 'found'
+        settimer 'bandie' 0
+        clearjournal
+        pause 1000
+      endif
+    endif
+  endif
+endif
+if @injournal 'too far away' 'system'
+  @clearjournal
+elseif @injournal 'stay close enough' 'system'
+  @clearjournal
+endif

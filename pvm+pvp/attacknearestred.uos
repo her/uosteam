@@ -1,0 +1,10 @@
+getenemy 'closest' 'murderer'
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  if murderer 'enemy'
+    attack! 'enemy'
+    target! 'enemy'
+    @clearusequeue
+    @cancelautotarget
+    stop
+  endif

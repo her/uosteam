@@ -1,0 +1,28 @@
+//For mor information visit
+//http://www.uoforum.com/threads/recall-multi-character-account-escape-macro.68278/
+//
+
+if not listexists 'home'
+  createlist 'home'
+  pushlist 'home' 0x401fb957 //serial for runebook for char 1
+  pushlist 'home' 0x4048cd67 //serial for runebook for char 2
+  pushlist 'home' 0x40725d1b //serial for runebook for char 3
+  pushlist 'home' 0x41b25eac //serial for runebook for char 4
+  pushlist 'home' 0x4048603a //serial for etc
+endif
+while @findtype 0x22c5 'any' 'backpack'
+  ignoreobject 'found'
+  for 0 to 'home'
+    if @serial 'found' == serial 'home[]'
+      if @serial 'found' == serial 0x41b25eac //for tamers, remove if statement if your not a tamer
+        msg 'all come'
+        msg 'all come'
+      endif
+      cast "Recall"
+      waitfortarget 2000
+      target! 'found'
+      break
+    endif
+  endfor
+endwhile
+clearignorelist

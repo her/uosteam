@@ -1,0 +1,21 @@
+//Assign and equip weapon / sheild Great for after 
+//recalling or getting disarmed
+//
+
+if not @findlayer 'self' 1
+equipitem 'weapon' 1
+pause 100
+if not @findlayer 'self' 1
+promptalias 'weapon'
+equipitem 'weapon' 1
+endif
+endif
+
+if not @findlayer 'self' 2
+equipitem 'sheild' 2
+pause 100
+if not @findlayer 'self' 2
+promptalias 'sheild'
+equipitem 'sheild' 2
+endif
+endif

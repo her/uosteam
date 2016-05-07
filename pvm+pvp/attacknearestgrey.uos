@@ -1,0 +1,19 @@
+//Get Enemy Grey Only
+getenemy 'gray''criminal''closest'
+if @findobject 'enemy'
+  autotargetobject! 'enemy'
+  if criminal 'enemy'
+    attack! 'enemy'
+    target! 'enemy'
+    @clearusequeue
+    @cancelautotarget
+    stop
+  endif
+  if gray 'enemy'
+    attack! 'enemy'
+    target! 'enemy'
+    @clearusequeue
+    @cancelautotarget
+    stop
+  endif
+endif

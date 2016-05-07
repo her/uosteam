@@ -1,0 +1,36 @@
+//Clear Mobs
+unsetalias 'provoke1'
+unsetalias 'provoke2'
+//Get first mob
+if getenemy 'gray' 'criminal' 'enemy' 'nearest'
+@setalias 'provoke1' 'enemy'
+else
+sysmsg 'No Mobs within range to provoke'
+stop
+endif
+//Get Second mob - because 'nearest' is used, it will not select the same mob as above as nearest cycles through the two closest mobs
+if getenemy 'gray' 'criminal' 'enemy' 'nearest'
+@setalias 'provoke2' 'enemy'
+else
+sysmsg 'No Mobs within range to provoke'
+stop
+endif
+if getenemy 'murderer' 'humanoid'
+setalias 'asshat' 'enemy'
+headmsg 'Found Murderer'
+endif
+useskill 'Provocation'
+pause 600
+waitfortarget 1500
+target! 'provoke1'
+waitfortarget 1500
+if findalias 'asshat'
+target! 'asshat'
+pause 600
+msg 'all kill'
+waitfortarget 1500
+target! 'asshat'
+unsetalias 'asshat'
+else
+target! 'provoke2'
+endif

@@ -1,0 +1,70 @@
+// $$$$$$$$ Cure Heal Pot Chugger $$$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? V2.1
+// ???????????????????????????????????????
+// ?? This macro only requires that there
+// ?? be Cure and / or Heal pots in the
+// ?? Main pack or any bag in the main.
+// ??
+// ?? Macro will first check if you are
+// ?? holding a weapon and clear your hands
+// ?? to allow for pot chuggins. It will
+// ?? then do a check to see if you are
+// ?? Poisoned and attempt to cure it.
+// ?? with a cure pot. other wise it will
+// ?? chug a heal pot.
+// ??
+// ?? When done the macro will automatically
+// ?? re-equip the weapon you were using..
+// ??
+// ???????????????????????????????????????
+// !! Check if holding a weapon !!
+if @findlayer 'self' 2
+  // !! Unequip wep
+  togglehands 'left'
+  pause 600
+  //
+  // !! Check poison state
+  if poisoned 'self'
+    // !! Player is poisoned: Cure it
+    if @findtype 0xf07 0 'backpack'
+      @setalias 'Potion' 'found'
+      useobject! 'Potion'
+    else
+      headmsg 'OUT!!! of Cure potions'
+    endif
+  else
+    // !! Not poisoned: Heal wounds
+    if @findtype 0xf0c 0 'backpack'
+      @setalias 'Potion' 'found'
+      useobject! 'Potion'
+    else
+      headmsg 'OUT!!! of Heal potions'
+    endif
+  endif
+  //
+  pause 600
+  // !! Re-Equip Weapon player was holding
+  togglehands 'left'
+else
+  // !! Check poison state
+  if poisoned 'self'
+    // !! Player is poisoned: Cure it
+    if @findtype 0xf07 0 'backpack'
+      @setalias 'Potion' 'found'
+      useobject! 'Potion'
+    else
+      headmsg 'OUT!!! of Cure potions'
+    endif
+  else
+    // !! Not poisoned: Heal wounds
+    if @findtype 0xf0c 0 'backpack'
+      @setalias 'Potion' 'found'
+      useobject! 'Potion'
+    else
+      headmsg 'OUT!!! of Heal potions'
+    endif
+  endif
+endif
+// !! Enjoy !!

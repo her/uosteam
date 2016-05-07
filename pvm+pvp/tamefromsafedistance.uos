@@ -1,0 +1,42 @@
+//in the interest of taming high end creatures 
+//where it's important to move AWAY from the creature, not towards it.
+//
+//keeps tamer 2 tiles away
+//
+//Made by Experience
+
+headmsg 'Target creature to tame'
+promptalias 'Tame'
+pause 250
+@clearjournal
+while @inrange 'Tame' '15'
+  if inrange 'Tame' '3' and not @injournal 'You start to tame the creature' 'system'
+    useskill 'animal taming'
+    waitfortarget 5000
+    target! 'last'
+    pause 1000
+    while @inrange 'Tame' '2'
+      if @x 'Tame' > x 'self' and @y 'Tame' > y 'self'
+        run 'Northeast'
+      elseif @x 'Tame' < x 'self' and @y 'Tame' > y 'self'
+        run 'Northwest'
+      elseif @x 'Tame' > x 'self' and @y 'Tame' < y 'self'
+        run 'Southeast'
+      elseif @x 'Tame' < x 'self' and @y 'Tame' < y 'self'
+        run 'Southwest'
+      elseif @x 'Tame' > x 'self' and @y 'Tame' == y 'self'
+        run 'east'
+      elseif @x 'Tame' < x 'self' and @y 'Tame' == y 'self'
+        run 'west'
+      elseif @x 'Tame' == x 'self' and @y 'Tame' > y 'self'
+        run 'north'
+      elseif @x 'Tame' == x 'self' and @y 'Tame' < y 'self'
+        run 'south'
+      endif
+    endwhile
+  endif
+  if @injournal 'It seems to accept you as master' 'system'
+    headmsg "It's Tame"
+    stop
+  endif
+endwhile

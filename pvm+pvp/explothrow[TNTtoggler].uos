@@ -1,0 +1,42 @@
+// $$$$$$$$ TNT TOGGLER   $$$$$$$
+// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// ?? By Amonseti
+// ?? VB0.1
+// ??????????????????????????????????????????????????
+// ??
+// ?? This Macro is an auto toggle to use with explosion
+// ?? pots. has 2 phases phase 1 (first click) to start
+// ?? count down and phase 2 (2nd click) to toss the pot.
+// ?? Usage: Obviously you need explo pots , and You will
+// ?? also need a current target
+// ??
+// ???????????????????????????????????????
+//
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!! Commented out code:
+//!! Not sure why this condition is not catching
+//!! is needed to reset journal in the event
+//!! A pot was not tossed, (Blowed up in hand)
+//if @injournal 'Target cancelled' 'system'
+//@clearjournal
+//endif
+//!! Right now if the pot blows up in hand
+//!! the next pot will be thrown at last target emediatly
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+if @injournal 'You should throw it now' 'system'
+  //?? Phase 2 toss the pot at last target
+  usetype '0xf0d' 'any' 'backpack' '2'
+  waitfortarget 35000
+  pause 100
+  attack 'enemy'
+  target! 'last'
+  @clearjournal
+else
+  //?? Phase 1 start pot countdown and clear cursor
+  usetype '0xf0d' 'any' 'backpack' '2'
+  pause 100
+  @canceltarget
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!! Could add functionality to obtain target here
+  //!! I left out as
+endif

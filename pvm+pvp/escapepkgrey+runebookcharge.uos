@@ -1,0 +1,14 @@
+//Experience
+//Detects enemies and escapes!
+//Home rune needs to be in slot 1
+if not findalias 'Escape Book'
+headmsg 'Select Escape Book'
+promptalias 'Escape Book'
+endif
+getenemy 'Murderer' 'Criminal' 'humanoid' 'closest'
+if @inrange 'Enemy' '15'
+useobject 'Escape Book'
+waitforgump 0x554b87f3 5000
+replygump 0x554b87f3 2
+pause 1500
+endif
