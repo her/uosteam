@@ -24,19 +24,21 @@ Scripts for UOSteam, an Ultima Online Assistant.
 * [Macros for UOSteam | UOMacro](http://greeduo.wix.com/uomacro#!macros-for-uosteam/c1kh5)
 * [UOForever UOSteam Forum and Community](http://www.uoforum.com/forums/uosteam.55/)
 
-## Notes and Credits
+## Credits and Notes
+
+*Credit belongs to the authors who wrote the scripts*.
+This is a repository to preserve the work that has been done
+creating these scripts.
 
 UOSteam is a closed source assistant that is not allowed
 on every UO server. Using this assistant where prohibited
 may result in bans, item and character loss. Use at your
 own risk!
 
+### Contributing
+
 Fork and submit Pull Requests for additions. Create Issues
 for questions, feedback, or help.
-
-Credit belongs to the individuals who wrote the scripts.
-This is a repository to preserve the work that has been done
-creating these scripts.
 
 ## Deprecation Warning
 
