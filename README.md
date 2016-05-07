@@ -33,8 +33,9 @@ creating these scripts.
 
 ## Deprecation Warning
 
-UOSteam was abandoned by it's original developers. It's
-currently in a deprecated state and is not receiving
-updates. The latest release is considered stable.
+UOSteam was abandoned by it's original developers
+(Diego Alcåntara, Diogo Palma). It's currently in a
+deprecated state and is not receiving
+updates. The latest release(v1.0.5) is considered stable.
 **If anyone knows where to find the source code
 please let me know.**
