@@ -2,7 +2,7 @@ if not @findobject 'dagger' 'any' 'backpack'
   headmsg 'Select a dagger'
   promptalias 'dagger'
 endif
-while not 'poisoned 'self
+while not 'poisoned' 'self'
   useskill 'Poisoning'
   waitfortarget 2000
   targettype! 0xf0a 0x0 'backpack'
