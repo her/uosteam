@@ -1,4 +1,4 @@
-# 🎮 UOSteam | 🖥  Scripts
+# 🖥  UOSteam | Scripts
 
 Scripts for UOSteam, an Ultima Online Assistant.
 
