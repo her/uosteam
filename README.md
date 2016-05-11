@@ -1,25 +1,25 @@
-# UOSteam Script Library
+# UOSteam | Scripts
 
 Scripts for UOSteam, an Ultima Online Assistant.
 
 ## Contents Include
 
-* General - Miscellaneous, Interesting and Useful Macros
-* Organize - Items, Resources and Loot Organization
-* PvM+PvP -  Defensive, Offensive, Hunting, Survival and Taming Scripts
-* Resource - Crafting and Resource Gathering
-* Skill - Skill Trainers and Assistants
-* UOS - Documentation and UO Steam Binary!
+* **General** - Miscellaneous, Interesting and Useful Macros
+* **Organize** - Items, Resources and Loot Organization
+* **PvM+PvP** -  Defensive, Offensive, Hunting, Survival and Taming Scripts
+* **Resource** - Crafting and Resource Gathering
+* **Skill** - Skill Trainers and Assistants
+* **UOS** - Documentation and UO Steam Binary!
 * ***Nearly 200 Scripts!***
 
 ## Other Resources and Links
 
 ### Documentation and Guides
 
-* [UOSteam Documentation and Syntax](http://uosteam.28394.n7.nabble.com/file/n65/Documentation.pdf)
-* [kdivers Guide to Script Writing with Text Editor](http://www.uoforum.com/threads/notepad-user-defined-language-pack-for-uosteam.78361/)
+* [UOSteam Documentation and Syntax](https://github.com/her/uosteam/blob/master/uos/UOSteamDocumentation.pdf)
+* [kdivers Guide for  Writing Scripts With Text Editors](http://www.uoforum.com/threads/notepad-user-defined-language-pack-for-uosteam.78361/)
 
-### Script Communities and Libraries
+### UOS Communities
 
 * [The Foaming Squirrels Ultima Online | UOSteam](http://dfiexperience.wix.com/foamingsquirrels#!steam/c24dh)
 * [Macros for UOSteam | UOMacro](http://greeduo.wix.com/uomacro#!macros-for-uosteam/c1kh5)
