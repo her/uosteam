@@ -1,15 +1,27 @@
-# UOSteam | Scripts
+# 🎮 UOSteam | 🖥  Scripts
 
 Scripts for UOSteam, an Ultima Online Assistant.
 
 ## Contents Include
 
-* **General** - Miscellaneous, Interesting and Useful Macros
-* **Organize** - Items, Resources and Loot Organization
-* **PvM+PvP** -  Defensive, Offensive, Hunting, Survival and Taming Scripts
-* **Resource** - Crafting and Resource Gathering
-* **Skill** - Skill Trainers and Assistants
-* **UOS** - Documentation and UO Steam Binary!
+* [**General**](https://github.com/her/uosteam/tree/master/general) -
+ Miscellaneous, Useful, Interesting
+
+* [**Organize**](https://github.com/her/uosteam/tree/master/organize) -
+ Items, Resources, Loot
+
+* [**PvM+PvP**](https://github.com/her/uosteam/tree/master/pvm%2Bpvp) -
+ Defense, Offense, Hunting
+
+* [**Resource**](https://github.com/her/uosteam/tree/master/resource) -
+ Crafting, Resource Gathering
+
+* [**Skill**](https://github.com/her/uosteam/tree/master/skill) -
+ Skill Trainers, Assistants
+
+* [**UOS**](https://github.com/her/uosteam/tree/master/uos) -
+ Documentation and UO Steam Binary!
+
 * ***Nearly 200 Scripts!***
 
 ## Other Resources and Links
@@ -41,7 +53,7 @@ own risk!
 Fork and submit Pull Requests for additions. Create Issues
 for questions, feedback, or help.
 
-## Deprecation Warning
+## ⚠️  Deprecation Warning
 
 UOSteam was abandoned by it's original developers
 (Diego Alcåntara, Diogo Palma). It's currently in a
