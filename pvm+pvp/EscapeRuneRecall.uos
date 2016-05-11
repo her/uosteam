@@ -1,0 +1,21 @@
+////////////////////////
+// Escape Rune Recall //
+//     By Elavee      //
+////////////////////////
+if not @findalias 'Escape Rune'
+  headmsg "**Escape rune lost!**" 334
+  pause 1000
+  headmsg "Select a new escape rune." 11
+  promptalias "Escape Rune"
+elseif @findalias "Escape Rune"
+  cast "Recall"
+  waitfortarget 15000
+  target! "found"
+endif
+if not @findtype 0x1f14 0x0 'backpack'
+  unsetalias "Escape Rune"
+  headmsg "**Escape rune lost!**" 334
+  pause 1000
+  headmsg "Select a new escape rune." 11
+  promptalias "Escape Rune"
+endif
