@@ -1,6 +1,5 @@
-//this steals bandaids from 1 bag deep
+//this steals wands from 1 bag deep
 getenemy 'friend' 'innocent''murderer''enemy''criminal''gray''closest' 'humanoid'
-// creating variable 'bags'
 if not listexists 'bags'
   @createlist 'bags'
   @pushlist 'bags' 0xe76
@@ -10,28 +9,32 @@ if not listexists 'bags'
   @pushlist 'bags' 0xe7d
   @pushlist 'bags' 0xe77
 endif
-// getting backpack layer and setting as enemypack
 if @inrange 'enemy' 1 and @findlayer 'enemy' 21
   @setalias 'enemypack' 'found'
 endif
-// if i find bandaisd in main backpack, steal it.
-if @findtype 0xe21 'any' 'enemypack' 'any' and @inrange 'enemy' 1
-  headmsg 'found bandaids'
+if @findtype 0xf84 'any' 'enemypack' 'any' and @inrange 'enemy' 1
+  //useobject 'found'
+  pause 200
+  headmsg 'found garlic'
   useskill 'stealing'
   waitfortarget 1500
   target! 'found'
   headmsg 'stole it!'
 endif
-if @findalias 'Enemypack'
+if @findalias 'enemypack'
+  // start scanning all bags for wands
   for 0 to 'bags'
-    while @findtype bags[] 'any' 'Enemypack'
+    //looping bags
+    while @findtype bags[] 'any' 'enemypack'
       pause 100
       @pushlist 'bags' 'found'
       @setalias 'inside' 'found'
+      useobject 'inside'
       pause 100
-      if @findtype 0xe21 'any' 'found' 'any' 'any' and @inrange 'enemy' 1
+      if @findtype 0xf84 'any' 'inside' 'any' and @inrange 'enemy' 1
         headmsg 'SKILL'
-        useskill 'stealing
+        useobject 'inside'
+        useskill 'stealing'
         waitfortarget 1500
         target! 'found'
         headmsg 'stole it!'
@@ -47,10 +50,9 @@ if @findalias 'Enemypack'
         target! 'found'
         headmsg 'stole it!'
         ignoreobject 'found'
-        endif
-        ignoreobject 'found'
       endwhile
       ignoreobject 'inside'
     endwhile
+    @clearignorelist
   endfor
-  @clearignorelist
+endif
