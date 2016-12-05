@@ -11,13 +11,12 @@ if not listexists 'bags'
 endif
 if @inrange 'enemy' 1 and @findlayer 'enemy' 21
   @setalias 'enemypack' 'found'
-  useobject 'found'
 endif
 if @findwand 'any' 'enemypack' 'any' and @inrange 'enemy' 1
   //useobject 'found'
   pause 200
   headmsg 'found wand'
-  useskill 'stealing
+  useskill 'stealing'
   waitfortarget 1500
   target! 'found'
   headmsg 'stole it!'
@@ -27,15 +26,15 @@ if @findalias 'enemypack'
   for 0 to 'bags'
     //looping bags
     while @findtype bags[] 'any' 'enemypack'
-      pause 200
+      pause 100
       @pushlist 'bags' 'found'
       @setalias 'inside' 'found'
       useobject 'inside'
-      pause 200
+      pause 100
       if @findwand 'any' 'inside' 'any' and @inrange 'enemy' 1
         headmsg 'SKILL'
         useobject 'inside'
-        useskill 'stealing
+        useskill 'stealing'
         waitfortarget 1500
         target! 'found'
         headmsg 'stole it!'
@@ -46,7 +45,7 @@ if @findalias 'enemypack'
         @pushlist 'bags' 'found'
         pause 100
         useobject 'inside'
-        useskill 'stealing
+        useskill 'stealing'
         waitfortarget 1500
         target! 'found'
         headmsg 'stole it!'
@@ -54,5 +53,6 @@ if @findalias 'enemypack'
       endwhile
       ignoreobject 'inside'
     endwhile
+    @clearignorelist
   endfor
-  @clearignorelist
+endif
