@@ -1,4 +1,4 @@
-//this steals bandaids from 1 bag deep
+//this steals garlic from 1 bag deep
 getenemy 'friend' 'innocent''murderer''enemy''criminal''gray''closest' 'humanoid'
 if not listexists 'bags'
   @createlist 'bags'
@@ -13,7 +13,7 @@ if @inrange 'enemy' 1 and @findlayer 'enemy' 21
   @setalias 'enemypack' 'found'
 endif
 if @findtype 0xf84 'any' 'enemypack' 'any' 'any' and @inrange 'enemy' 1
-  headmsg 'SKILL'
+  headmsg 'found garlic'
   useskill 'stealing
   waitfortarget 1500
   target! 'found'
@@ -40,6 +40,15 @@ if @findalias 'Enemypack'
         pause 100
         @pushlist 'bags' 'found'
         pause 100
+
+        useobject 'inside'
+        useskill 'stealing
+        waitfortarget 1500
+        target! 'found'
+        headmsg 'stole it!'
+        ignoreobject 'found'
+
+        endif
         ignoreobject 'found'
       endwhile
       ignoreobject 'inside'
