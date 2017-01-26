@@ -1,0 +1,91 @@
+clearhands 'both'
+   if not listexists 'ss'
+     @createlist 'ss'
+     @pushlist 'ss' 0x2aa4 'any'    // Relic
+     @pushlist 'ss' 0x47e6 'any' // PORTAL FRAGMENT
+     @pushlist 'ss' 0xf21 1161 // PORTAL FRAGMENT
+     @pushlist 'ss' 0x14f0 1153 //Power Scroll
+     @pushlist 'ss' 0x1ae1 0    // OAKSSKULL
+     //@pushlist 'ss' 0x2260 1161 //Skill scroll Taming
+     @pushlist 'ss' 0x2831 1195 // Title Scroll
+   endif
+   clearlist 'containers'
+   if not listexists 'containers'
+     @createlist 'containers'
+   endif
+   if list 'containers' == 0
+     @pushlist 'containers' 0xe76
+     @pushlist 'containers' 0xe75
+     @pushlist 'containers' 0xe74
+     @pushlist 'containers' 0xe78
+     @pushlist 'containers' 0xe7d
+     @pushlist 'containers' 0xe77
+   endif
+   if not listexists 'bags'
+     @createlist 'bags'
+     @pushlist 'bags' 0xe76
+     @pushlist 'bags' 0xe75
+     @pushlist 'bags' 0xe74
+     @pushlist 'bags' 0xe78
+     @pushlist 'bags' 0xe7d
+     @pushlist 'bags' 0xe77
+   endif
+   //clearlist 'bags'
+   getenemy 'any' 'closest'
+   if @inrange 'enemy' 1 and @findlayer 'enemy' 21
+     @setalias 'Enemypack' 'found'
+     @pushlist 'bags' 'Enemypack'
+   else
+     @unsetalias 'Enemypack'
+   endif
+   if @findalias 'Enemypack'
+     useobject! 'Enemypack'
+     for 0 to 'containers'
+       while @findtype containers[] 'any' 'Enemypack'
+         pause 200
+         @pushlist 'bags' 'found'
+         setalias 'inside' 'found'
+         if graphic 'inside' == 0xe79 and color 'inside' == 38
+           continue
+         endif
+         if graphic 'inside' == 0xe79 and color 'inside' == 1161
+           continue
+         endif
+         useobject! 'inside'
+         pause 600
+         while @findtype containers[] 'any' 'inside'
+           pause 200
+           @pushlist 'bags' 'found'
+           if graphic 'inside' == 0xe79 and color 'inside' == 38
+             continue
+           endif
+           if graphic 'inside' == 0xe79 and color 'inside' == 1161
+             continue
+           endif
+           useobject! 'found'
+           pause 400
+           ignoreobject 'found'
+         endwhile
+         ignoreobject 'inside'
+       endwhile
+     endfor
+     @clearignorelist
+     useskill 'Stealing'
+     waitfortarget 11000
+     for 0 to 'bags'
+       for 0 to 'ss'
+         if @findtype 'ss[]' 'any' 'Enemypack'
+           target! 'found'
+           pause 500
+           useskill 'hiding'
+           stop
+         elseif @findtype 'ss[]' 'any' 'bags[]'
+           target! 'found'
+           pause 500
+           useskill 'hiding'
+           stop
+         endif
+       endfor
+     endfor
+   endif
+   target! 'enemy'

@@ -1,0 +1,58 @@
+//this steals wands from 1 bag deep
+getenemy 'friend' 'innocent''murderer''enemy''criminal''gray''closest' 'humanoid'
+if not listexists 'bags'
+  @createlist 'bags'
+  @pushlist 'bags' 0xe76
+  @pushlist 'bags' 0xe75
+  @pushlist 'bags' 0xe74
+  @pushlist 'bags' 0xe78
+  @pushlist 'bags' 0xe7d
+  @pushlist 'bags' 0xe77
+endif
+if @inrange 'enemy' 1 and @findlayer 'enemy' 21
+  @setalias 'enemypack' 'found'
+endif
+if @findwand 'any' 'enemypack' 'any' and @inrange 'enemy' 1
+  //useobject 'found'
+  pause 200
+  headmsg 'found wand'
+  useskill 'stealing'
+  waitfortarget 1500
+  target! 'found'
+  headmsg 'stole it!'
+endif
+if @findalias 'enemypack'
+  // start scanning all bags for wands
+  for 0 to 'bags'
+    //looping bags
+    while @findtype bags[] 'any' 'enemypack'
+      pause 100
+      @pushlist 'bags' 'found'
+      @setalias 'inside' 'found'
+      useobject 'inside'
+      pause 100
+      if @findwand 'any' 'inside' 'any' and @inrange 'enemy' 1
+        headmsg 'SKILL'
+        useobject 'inside'
+        useskill 'stealing'
+        waitfortarget 1500
+        target! 'found'
+        headmsg 'stole it!'
+      endif
+      //Steal from 2nd Level of Bags
+      while @findtype bags[] 'any' 'inside'
+        pause 100
+        @pushlist 'bags' 'found'
+        pause 100
+        useobject 'inside'
+        useskill 'stealing'
+        waitfortarget 1500
+        target! 'found'
+        headmsg 'stole it!'
+        ignoreobject 'found'
+      endwhile
+      ignoreobject 'inside'
+    endwhile
+    @clearignorelist
+  endfor
+endif
