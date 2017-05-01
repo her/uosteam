@@ -33,7 +33,7 @@ Scripts for UOSteam, an Ultima Online Assistant.
 
 ### UOS Communities
 
-* [The Foaming Squirrels Ultima Online | UOSteam](http://dfiexperience.wix.com/foamingsquirrels#!steam/c24dh)
+* [The Foaming Squirrels Ultima Online | UOSteam](http://uosteam.proboards.com)
 * [Macros for UOSteam | UOMacro](http://greeduo.wix.com/uomacro#!macros-for-uosteam/c1kh5)
 * [UOForever UOSteam Forum and Community](http://www.uoforum.com/forums/uosteam.55/)
 
