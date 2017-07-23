@@ -1,21 +1,31 @@
-////////////////////////
-// Escape Rune Recall //
-//     By Elavee      //
-////////////////////////
-if not @findalias 'Escape Rune'
-  headmsg "**Escape rune lost!**" 334
-  pause 1000
-  headmsg "Select a new escape rune." 11
-  promptalias "Escape Rune"
-elseif @findalias "Escape Rune"
+// Escape Rune Recall 
+// Author: Melanie Berkley <http://berkley.io>
+// Version: 2.0.0
+// License: BSD-2-Clause
+
+clearjournal
+while not findalias 'rune'
+  setalias 'rune'
+  headmsg "Target a new escape rune." 11
+  stop
+endwhile
+pause 1000
+if @injournal "Object updated: 'rune'"
   cast "Recall"
   waitfortarget 15000
-  target! "found"
+  target! 'rune'
+  stop
 endif
-if not @findtype 0x1f14 0x0 'backpack'
-  unsetalias "Escape Rune"
-  headmsg "**Escape rune lost!**" 334
-  pause 1000
-  headmsg "Select a new escape rune." 11
-  promptalias "Escape Rune"
+cast "Recall"
+waitfortarget 15000
+target! 'rune'
+pause 1000
+if @injournal 'Target cannot be seen.'
+  unsetalias 'rune'
+  headmsg "Escape rune lost!" 334
+elseif @injournal 'That is too far away.'
+  unsetalias 'rune'
+  headmsg "Escape rune lost!" 334
+else
+  stop
 endif
