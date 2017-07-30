@@ -10,6 +10,8 @@ Scripts for UOSteam, an Ultima Online Assistant.
 * [**Organize**](https://github.com/her/uosteam/tree/master/organize) -
  Items, Resources, Loot
 
+* [**Profiles**](https://github.com/her/uosteam/tree/master/profiles) - Import profiles into UOSteam for a quick start
+
 * [**PvM+PvP**](https://github.com/her/uosteam/tree/master/pvm%2Bpvp) -
  Defense, Offense, Hunting
 
