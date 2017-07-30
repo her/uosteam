@@ -1,0 +1,190 @@
+<!DOCTYPE profile>
+<profile>
+ <data name="CommandPrefix">0x0</data>
+ <data name="UseObjectsQueue">True</data>
+ <data name="ShowCorpseNames">False</data>
+ <data name="ShowCreatureNames">False</data>
+ <data name="OpenCorpses">True</data>
+ <data name="OpenCorpsesRange">0x2</data>
+ <data name="ShowMobileHits">False</data>
+ <data name="PositionInTitle">False</data>
+ <data name="ForceResolution">False</data>
+ <data name="GameWindowWidth">0x320</data>
+ <data name="GameWindowHeight">0x258</data>
+ <data name="FilterLight">True</data>
+ <data name="FilterMusic">False</data>
+ <data name="FilterBardsMusic">False</data>
+ <data name="FilterSound">False</data>
+ <data name="FilterWeather">False</data>
+ <data name="FilterSeason">False</data>
+ <data name="FixedSeason">0x0</data>
+ <data name="FilterDeath">False</data>
+ <data name="FilterRepeatedMessages">True</data>
+ <data name="FilterOthersSpeechColor">False</data>
+ <data name="FilterSnoopingMessages">False</data>
+ <data name="FilterTradeWindow">False</data>
+ <data name="FilterRewardGump">False</data>
+ <data name="HandsBeforePotions">True</data>
+ <data name="HandsBeforeCasting">True</data>
+ <data name="SmartTarget">0x0</data>
+ <data name="SmartTargetRange">False</data>
+ <data name="SmartTargetRangeValue">0xc</data>
+ <data name="HighlightCurrentTarget">True</data>
+ <data name="BlockInvalidHeal">False</data>
+ <data name="ActionDelay">0x258</data>
+ <data name="UseObjectsLimit">0x5</data>
+ <data name="TargetShare">0x0</data>
+ <data name="MountSerial">0xffffffff</data>
+ <data name="BladeSerial">0xffffffff</data>
+ <data name="BoneCutter">False</data>
+ <data name="AutoMount">False</data>
+ <data name="AutoBandage">False</data>
+ <data name="AutoBandageTarget">0x0</data>
+ <data name="AutoBandageScale">False</data>
+ <data name="AutoBandageCount">False</data>
+ <data name="AutoBandageStart">False</data>
+ <data name="AutoBandageStartValue">0x5f</data>
+ <data name="AutoBandageDelay">0x9c4</data>
+ <data name="AutoBandageFormula">False</data>
+ <data name="AutoBandageHidden">False</data>
+ <data name="OpenDoors">True</data>
+ <data name="UseDoors">False</data>
+ <data name="SpellsColor">False</data>
+ <data name="SpellsMode">0x2</data>
+ <data name="SpellsTargetShare">0x0</data>
+ <data name="OpenDoorsMode">0x0</data>
+ <data name="OpenCorpsesMode">0x3</data>
+ <data name="ShowMobileFlags">False</data>
+ <data name="StateHighlightMode">0x0</data>
+ <data name="StaticFields">False</data>
+ <data name="CountStealthSteps">False</data>
+ <data name="FriendsListOnly">False</data>
+ <data name="FriendsParty">False</data>
+ <data name="MoveConflictingItems">False</data>
+ <data name="CustomCaption">True</data>
+ <data name="CustomCaptionMode">0x1</data>
+ <data name="CustomCaptionText">$name  $hits/$mana/$stam$statusbar%cntr%cntr-2%cntr-3%cntr-4%cntr-5%cntr-6%cntr-7%cntr-8</data>
+ <data name="WarnCounters">True</data>
+ <data name="WarnCountersValue">0x5</data>
+ <data name="HighlightReagents">True</data>
+ <data name="DisplayCountersName">False</data>
+ <data name="CaptionUseNotoHue">True</data>
+ <data name="CaptionUseNotoHue">True</data>
+ <data name="DisplayCountersImage">True</data>
+ <data name="FilterKarmaMessages">False</data>
+ <data name="FilterFameMessages">False</data>
+ <data name="PreventDismount">True</data>
+ <data name="PreventAttackFriends">False</data>
+ <data name="AutoSearchContainers">False</data>
+ <data name="AutoAcceptParty">False</data>
+ <data name="StaticFieldsMode">0x0</data>
+ <scavenger enabled="True">
+  <scavenge color="0x0" graphic="0xf7a" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf7b" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf88" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf8c" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf8d" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf86" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf84" enabled="True"/>
+  <scavenge color="0x0" graphic="0xf85" enabled="True"/>
+  <scavenge color="0x0" graphic="0xeed" enabled="True"/>
+  <scavenge color="0x0" graphic="0xef0" enabled="True"/>
+ </scavenger>
+ <autosearchexemptions/>
+ <objects>
+  <obj name="rune">0x40b065da</obj>
+ </objects>
+ <hotkeys>
+  <hotkey key="0x8c0" pass="False" action="macro.play" param="Escape"/>
+  <hotkey key="0x1b" pass="True" action="macros.stop"/>
+  <hotkey key="0x420" pass="False" action="hotkeys"/>
+  <hotkey key="0x20d" pass="False" action="agents.toggleautoloot"/>
+  <hotkey key="0x31" pass="False" action="spells.miniheal.self"/>
+  <hotkey key="0x32" pass="False" action="spells.bigheal.self"/>
+  <hotkey key="0x35" pass="False" action="spells.magery.magicarrow"/>
+  <hotkey key="0x36" pass="False" action="spells.magery.energybolt"/>
+  <hotkey key="0x33" pass="False" action="spells.magery.teleport"/>
+  <hotkey key="0x34" pass="False" action="spells.magery.invisibility"/>
+  <hotkey key="0x84d" pass="False" action="skills.meditation"/>
+  <hotkey key="0xc0" pass="False" action="macro.play" param="tame hounds"/>
+  <hotkey key="0x45a" pass="False" action="targeting.target.cancel"/>
+ </hotkeys>
+ <macros>
+  <macro loop="False" name="Escape" interrupt="True">// Escape Rune Recall;// Author: Melanie Berkley &lt;http://berkley.io>;// Version: 2.0.0;// License: BSD-2-Clause;clearjournal;while not findalias 'rune';setalias 'rune';headmsg "Target a new escape rune." 11;stop;endwhile;pause 1000;if @injournal "Object updated: 'rune'";cast "Recall";waitfortarget 15000;target! 'rune';stop;endif;cast "Recall";waitfortarget 15000;target! 'rune';pause 1000;if @injournal 'Target cannot be seen.';unsetalias 'rune';headmsg "Escape rune lost!" 334;elseif @injournal 'That is too far away.';unsetalias 'rune';headmsg "Escape rune lost!" 334;else;stop;endif;</macro>
+  <macro loop="False" name="tame improve" interrupt="True">// Make a list to name tamed creature;if not listexists "tamed";createlist "tamed";pushlist "tamed" "o";endif;// Make a list of things to tame;if not listexists "creatures";createlist "creatures";pushlist "creatures" 0xe1 //Hellhound Colors - Dull, Blood, Bright, Magenta;pushlist "creatures" 0x62 //Hellhound;pushlist "creatures" 0xe8 //Bull;pushlist "creatures" 0xe9 //Bull2;pushlist "creatures" 0x22 //White Wolf;pushlist "creatures" 0x25 //White Wolf2;pushlist "creatures" 0xda // frenzied;endif;// Start taming from list;if not @inrange "creatures" 1;@unsetalias "creatures";for 0 in "creatures";if @findtype creatures[] "any" "ground" 2 2;@setalias "creatures" "found";break;endif;endfor;endif;// If animal is more than two tiles away dont tame;if not @inrange "creatures" 1;headmsg "No new creatures near you!";replay;endif;clearjournal;while name "creatures" != tamed[0];autotargetobject "creatures";useskill "animal taming";@rename "creatures" tamed[0];pause 1000;// Follow the creature when it walks one tile away;if not @inrange "creatures" 1;if @x "creatures" > x "self" and @y "creatures" > y "self";walk "Southeast";elseif @x "creatures" &lt; x "self" and @y "creatures" > y "self";walk "Southwest";elseif @x "creatures" > x "self" and @y "creatures" &lt; y "self";walk "Northeast";elseif @x "creatures" &lt; x "self" and @y "creatures" &lt; y "self";walk "Northwest";elseif @x "creatures" > x "self" and @y "creatures" == y "self";walk "East";elseif @x "creatures" &lt; x "self" and @y "creatures" == y "self";walk "West";elseif @x "creatures" == x "self" and @y "creatures" > y "self";walk "South";elseif @x "creatures" == x "self" and @y "creatures" &lt; y "self";walk "North";endif;endif;endwhile;// Release the tamed animal;msg 'o release' 25;pause 1000;@ignoreobject "creatures";@unsetalias "creatures";replay;</macro>
+  <macro loop="False" name="say" interrupt="True">if not listexists "tamed";createlist "tamed";pushlist "tamed" "earth";endif;msg tamed[0] + "release";</macro>
+  <macro loop="False" name="tame hounds" interrupt="True">// Make a list to name tamed creature;if not listexists "tamed";createlist "tamed";pushlist "tamed" "o";endif;// Make a list of things to tame;if not listexists "creatures";createlist "creatures";pushlist "creatures" 0xe1 //Hellhound Colors - Dull, Blood, Bright, Magenta;pushlist "creatures" 0x62 //Hellhound;pushlist "creatures" 0xe8 //Bull;pushlist "creatures" 0xe9 //Bull2;pushlist "creatures" 0x22 //White Wolf;pushlist "creatures" 0x25 //White Wolf2;pushlist "creatures" 0xda // frenzied;endif;// Start taming from list;if not @inrange "creatures" 10;@unsetalias "creatures";for 0 in "creatures";if @findtype creatures[] "any" "ground" 10 10;@setalias "creatures" "found";break;endif;endfor;endif;// If animal is more than two tiles away dont tame;if not @inrange "creatures" 10;headmsg "No new creatures near you!";replay;endif;clearjournal;while name "creatures" != tamed[0];autotargetobject "creatures";useskill "animal taming";@rename "creatures" tamed[0];pause 1000;// Follow the creature when it walks one tile away;if not @inrange "creatures" 10;if @x "creatures" > x "self" and @y "creatures" > y "self";walk "Southeast";elseif @x "creatures" &lt; x "self" and @y "creatures" > y "self";walk "Southwest";elseif @x "creatures" > x "self" and @y "creatures" &lt; y "self";walk "Northeast";elseif @x "creatures" &lt; x "self" and @y "creatures" &lt; y "self";walk "Northwest";elseif @x "creatures" > x "self" and @y "creatures" == y "self";walk "East";elseif @x "creatures" &lt; x "self" and @y "creatures" == y "self";walk "West";elseif @x "creatures" == x "self" and @y "creatures" > y "self";walk "South";elseif @x "creatures" == x "self" and @y "creatures" &lt; y "self";walk "North";endif;endif;endwhile;// Release the tamed animal;msg 'o release' 25;pause 1000;@ignoreobject "creatures";@unsetalias "creatures";replay;</macro>
+ </macros>
+ <autoloot>
+  <enabled>False</enabled>
+  <container>0x407e7414</container>
+  <guards>True</guards>
+ </autoloot>
+ <vendors>
+  <buystate list="All Reagents" enabled="True"/>
+  <sellstate list="" enabled="False"/>
+  <shoppinglist name="All Reagents" complete="False" limit="999" type="Buy">
+   <item amount="999" graphic="0xf7a"/>
+   <item amount="999" graphic="0xf7b"/>
+   <item amount="999" graphic="0xf88"/>
+   <item amount="999" graphic="0xf8c"/>
+   <item amount="999" graphic="0xf8d"/>
+   <item amount="999" graphic="0xf86"/>
+   <item amount="999" graphic="0xf84"/>
+   <item amount="999" graphic="0xf85"/>
+  </shoppinglist>
+ </vendors>
+ <counters>
+  <counter name="Black Pearl" color="0x0" graphic="0xf7a" format="cntr" image="True" enabled="True"/>
+  <counter name="Blood Moss" color="0x0" graphic="0xf7b" format="cntr-2" image="True" enabled="True"/>
+  <counter name="Nightshade" color="0x0" graphic="0xf88" format="cntr-3" image="True" enabled="True"/>
+  <counter name="Sulfurous Ash" color="0x0" graphic="0xf8c" format="cntr-4" image="True" enabled="True"/>
+  <counter name="Spiders' Silk" color="0x0" graphic="0xf8d" format="cntr-5" image="True" enabled="True"/>
+  <counter name="Mandrake Root" color="0x0" graphic="0xf86" format="cntr-6" image="True" enabled="True"/>
+  <counter name="Garlic" color="0x0" graphic="0xf84" format="cntr-7" image="True" enabled="True"/>
+  <counter name="Ginseng" color="0x0" graphic="0xf85" format="cntr-8" image="True" enabled="True"/>
+ </counters>
+ <spellgrid>
+  <grid name="Field" x="829" y="357" enabled="True" locked="True"/>
+  <grid name="Heal" x="829" y="77" enabled="True" locked="True"/>
+  <grid name="Protect" x="829" y="185" enabled="True" locked="True"/>
+  <grid name="Summon" x="829" y="248" enabled="True" locked="True"/>
+  <grid name="Travel" x="829" y="14" enabled="True" locked="True"/>
+ </spellgrid>
+ <organizer>
+  <group loop="False" name="Put all Reagents" complete="True" source="0x407e7414" stack="True" target="0x40b0087b">
+   <item amount="0x0" graphic="0xf7a"/>
+   <item amount="0x0" graphic="0xf7b"/>
+   <item amount="0x0" graphic="0xf88"/>
+   <item amount="0x0" graphic="0xf8c"/>
+   <item amount="0x0" graphic="0xf8d"/>
+   <item amount="0x0" graphic="0xf86"/>
+   <item amount="0x0" graphic="0xf84"/>
+   <item amount="0x0" graphic="0xf85"/>
+  </group>
+  <group loop="False" name="Put all Gems" complete="True" source="0x407e7414" stack="True" target="0x40b0087b">
+   <item amount="0x0" graphic="0xf26"/>
+   <item amount="0x0" graphic="0xf0f"/>
+   <item amount="0x0" graphic="0xf21"/>
+   <item amount="0x0" graphic="0xf11"/>
+   <item amount="0x0" graphic="0xf19"/>
+   <item amount="0x0" graphic="0xf10"/>
+   <item amount="0x0" graphic="0xf16"/>
+   <item amount="0x0" graphic="0xf13"/>
+   <item amount="0x0" graphic="0xf2d"/>
+   <item amount="0x0" graphic="0xf25"/>
+   <item amount="0x0" graphic="0xf15"/>
+  </group>
+  <group loop="False" name="Get Reagents" complete="True" source="0x40b0087b" stack="True" target="0x407e7414">
+   <item amount="0x19" graphic="0xf7a"/>
+   <item amount="0x19" graphic="0xf7b"/>
+   <item amount="0x19" graphic="0xf88"/>
+   <item amount="0x19" graphic="0xf8c"/>
+   <item amount="0x19" graphic="0xf8d"/>
+   <item amount="0x19" graphic="0xf86"/>
+   <item amount="0x19" graphic="0xf84"/>
+   <item amount="0x19" graphic="0xf85"/>
+  </group>
+ </organizer>
+</profile>
+
