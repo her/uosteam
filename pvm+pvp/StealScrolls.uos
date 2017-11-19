@@ -2,12 +2,12 @@ clearhands 'both'
    if not listexists 'ss'
      @createlist 'ss'
      @pushlist 'ss' 0x2aa4 'any'    // Relic
-     @pushlist 'ss' 0x47e6 'any' // PORTAL FRAGMENT
-     @pushlist 'ss' 0xf21 1161 // PORTAL FRAGMENT
-     @pushlist 'ss' 0x14f0 1153 //Power Scroll
-     @pushlist 'ss' 0x1ae1 0    // OAKSSKULL
-     //@pushlist 'ss' 0x2260 1161 //Skill scroll Taming
-     @pushlist 'ss' 0x2831 1195 // Title Scroll
+     @pushlist 'ss' 0x47e6 'any'    // PORTAL FRAGMENT
+     @pushlist 'ss' 0xf21 1161      // PORTAL FRAGMENT
+     @pushlist 'ss' 0x14f0 1153     // Power Scroll
+     @pushlist 'ss' 0x1ae1 0        // OAKSSKULL
+     //@pushlist 'ss' 0x2260 1161   // Skill scroll Taming
+     @pushlist 'ss' 0x2831 1195     // Title Scroll
    endif
    clearlist 'containers'
    if not listexists 'containers'
