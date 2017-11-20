@@ -1,0 +1,20 @@
+// macro to cast 2 evs, off scrolls, 7 tiles in front of
+// you, hides till 96mana and repeats evs and hiding.
+
+while @findtype '0x1f66' '0' 'backpack' 'any' '3' and mana > 40
+  @usetype '0x1f66' '0' 'backpack' 'any' '3'
+  waitfortarget 8000
+  targettilerelative 'ground' '7' 'false'
+endwhile
+
+if mana < 30 and skill 'meditation' > '20.0'
+  useskill 'meditation'
+  while mana < 80
+    pause 100
+  endwhile
+endif
+
+if not @findtype '0x1f66' '0' 'backpack' 'any' '3'
+  headmsg 'No more EV Scrolls'
+  stop
+endif
