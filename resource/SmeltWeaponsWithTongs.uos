@@ -1,0 +1,119 @@
+if not @findobject 'Smelt Bag'
+  headmsg 'Select bag of items you wish to smelt'
+  promptalias 'Smelt Bag'
+endif
+
+if not listexists 'Smelt'
+  createlist 'Smelt'
+endif
+
+@pushlist 'Smelt' 0xf43
+@pushlist 'Smelt' 0xf45
+@pushlist 'Smelt' 0x13fb
+@pushlist 'Smelt' 0x1443
+@pushlist 'Smelt' 0xf49
+@pushlist 'Smelt' 0xf47
+@pushlist 'Smelt' 0xf4d
+@pushlist 'Smelt' 0x143e
+@pushlist 'Smelt' 0xf4b
+
+// Swords
+@pushlist 'Smelt' 0xf5e
+@pushlist 'Smelt' 0x13ff
+@pushlist 'Smelt' 0x13b6
+@pushlist 'Smelt' 0x13b9
+@pushlist 'Smelt' 0xf5e
+@pushlist 'Smelt' 0x1441
+@pushlist 'Smelt' 0xf61
+@pushlist 'Smelt' 0xf61
+
+// Fencing
+@pushlist 'Smelt' 0x1403
+@pushlist 'Smelt' 0xf62
+@pushlist 'Smelt' 0x1401
+@pushlist 'Smelt' 0x1405
+@pushlist 'Smelt' 0xf52
+@pushlist 'Smelt' 0x143d
+@pushlist 'Smelt' 0xe89
+@pushlist 'Smelt' 0x1407
+@pushlist 'Smelt' 0x13b4
+@pushlist 'Smelt' 0x1439
+@pushlist 'Smelt' 0x143b
+@pushlist 'Smelt' 0x13b0
+@pushlist 'Smelt' 0xf5c
+@pushlist 'Smelt' 0xdf0
+@pushlist 'Smelt' 0x13f8
+
+// Shields
+@pushlist 'Smelt' 0x1b76
+@pushlist 'Smelt' 0x1b7b
+@pushlist 'Smelt' 0x1b72
+@pushlist 'Smelt' 0x1b73
+@pushlist 'Smelt' 0x1b74
+@pushlist 'Smelt' 0x1b79
+@pushlist 'Smelt' 0x1b7a
+
+//Platemail
+@pushlist 'Smelt' 0x1408 //Close Helmet
+@pushlist 'Smelt' 0x1410 //Platemail Arms
+@pushlist 'Smelt' 0x1411 //Platemail Legs
+@pushlist 'Smelt' 0x1412 //Plate Helm
+@pushlist 'Smelt' 0x1413 //Plate Gorget
+@pushlist 'Smelt' 0x1414 //Platemail Gloves
+@pushlist 'Smelt' 0x1415 //Plate Chest
+@pushlist 'Smelt' 0x140a //Helmet
+@pushlist 'Smelt' 0x140c //Bascinet
+@pushlist 'Smelt' 0x140e //Norse Helm
+
+//Chainmail
+@pushlist 'Smelt' 0x13bb //Chainmail Coif
+@pushlist 'Smelt' 0x13be //Chainmail Leggins
+@pushlist 'Smelt' 0x13bf //Chainmail Tunic
+
+//Ringmail
+@pushlist 'Smelt' 0x13ee //Ringmail Sleeves
+@pushlist 'Smelt' 0x13eb //Ringmail Gloves
+@pushlist 'Smelt' 0x13ec //Ringmail Tunic
+@pushlist 'Smelt' 0x13f0 //Ringmail Leggins
+
+//Studded
+@pushlist 'Smelt' 0x13da //Studded Leggings
+@pushlist 'Smelt' 0x13db //Studded Tunic
+@pushlist 'Smelt' 0x13d5 //Studded Gloves
+@pushlist 'Smelt' 0x13d6 //Studded Gorget
+@pushlist 'Smelt' 0x13dc //Studded Sleeves
+
+//Leather
+@pushlist 'Smelt' 0x13c6 //Leather Gloves
+@pushlist 'Smelt' 0x13cd //Leather Sleeves
+@pushlist 'Smelt' 0x13cc //Leather Tunic
+@pushlist 'Smelt' 0x13cb //Leather Pants
+@pushlist 'Smelt' 0x13c7 //Leather Gorget
+@pushlist 'Smelt' 0x1db9 //Leather Cap
+
+//Female
+@pushlist 'Smelt' 0x1c04 //Female Plate
+
+if not @findobject 'Tong'
+  if @findtype '0xfbb' 'any' 'backpack' 'any' '3'
+    setalias 'Tong' 'found'
+    pause 600
+    useobject 'Tong'
+  else
+    headmsg 'No Tongs'
+    stop
+  endif
+endif
+
+if not gumpexists '0x38920abd'
+  useobject 'Tong'
+endif
+
+for 0 to 'Smelt'
+  while @findtype Smelt[] 'any' 'Smelt Bag' 'any' '1'
+    replygump 0x38920abd 14
+    waitfortarget 5000
+    target! 'found'
+    pause 800
+  endwhile
+endfor
