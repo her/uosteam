@@ -1,0 +1,37 @@
+// Calls another Macro after using.
+// Make sure the commented out section below
+// 'Auto Bandage' exist as another macro 
+// named "Auto Bandage" for this to work
+
+//Get Enemy Grey Only
+getenemy 'gray' 'criminal' 'closest'
+if @inranget 'enemy' '10'
+attack! 'enemy'
+@clearusequeue
+endif
+playmacro 'Auto Bandage'
+
+// Auto Bandage
+//
+//while not dead
+//  if not timerexists 'Bandage'
+//    createtimer 'Bandage'
+//    settimer 'Bandage' 10250
+//  endif
+//  // Check the bandage timer to see if enough time has elapsed
+//  if timer 'Bandage Timer' < 10250
+//    // Small delay to slow down the loop. 100 milliseconds means we will not miss
+//    // a bandage.
+//    pause 100
+//    // We need to wait for our current bandage to finish so start the while
+//    // loop from the beginning
+//    continue
+//  endif
+//  // If we are poisoned or don't have full health
+//  if poisoned 'self' or hits < maxhits
+//    // Enough time has elapsed lets apply a bandage.
+//    bandageself
+//    // Reset the timer.
+//    settimer 'Bandage Timer' 0
+//  endif
+//endwhile
