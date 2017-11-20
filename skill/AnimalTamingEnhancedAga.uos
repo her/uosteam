@@ -1,0 +1,406 @@
+///////////////////////
+//Peace/Tame script ///
+//Made by Aga       ///
+//Do not loop       ///
+///////////////////////
+@clearlist 'nameoftames'
+@clearlist 'numberoffollowers'
+@clearlist 'peacemakeyesorno'
+@clearlist 'pathfinding'
+@clearlist 'tameables'
+@createlist 'nameoftames'
+@createlist 'numberoffollowers'
+@createlist 'peacemakeyesorno'
+@createlist 'pathfinding'
+/////////////////////////
+//Setup section      ////
+/////////////////////////
+pushlist 'nameoftames' 'thxaga' //Change thxaga to whatever name you want
+pushlist 'numberoffollowers' '1'  //Change 1 to however many followers you currently have
+pushlist 'peacemakeyesorno' 'yes' //yes or no if you want to peacemake
+pushlist 'pathfinding' 'yes' //yes or no if you want to pathfind to tame
+/////////////////////////
+//End Setup          ////
+/////////////////////////
+@clearjournal
+if not timerexists 'skilltimer'
+  createtimer 'skilltimer'
+  settimer 'skilltimer' 10000
+endif
+@createlist 'unstuck'
+if list 'unstuck' == 0
+  pushlist 'unstuck' 'east'
+  pushlist 'unstuck' 'west'
+  pushlist 'unstuck' 'south'
+  pushlist 'unstuck' 'north'
+endif
+@clearlist 'timestried'
+@createlist 'timestried'
+@createlist 'tameables'
+unsetalias 'currentlytaming'
+unsetalias 'found'
+pushlist 'tameables' 0x22 //white wolf
+pushlist 'tameables' 0x25 //white wolf
+pushlist 'tameables' 0xe8 //bull
+pushlist 'tameables' 0xd4 //grizzly bear
+pushlist 'tameables' 0xdd //walrus
+pushlist 'tameables' 0xd5 //polar bear
+pushlist 'tameables' 0x40 //snow leapord
+pushlist 'tameables' 0x62 //Hellhound
+pushlist 'tameables' 0xbc //Savage Ridgeback
+pushlist 'tameables' 0xbb //Ridgeback
+pushlist 'tameables' 0x17 //Dire Wolf
+pushlist 'tameables' 0xce //Lava Lizard
+pushlist 'tameables' 0x14 //Frost spider
+pushlist 'tameables' 0xc9 //Hellcat (Small)
+pushlist 'tameables' 0xda //Frenzied Ostard
+pushlist 'tameables' 0x50 //Giant Toad
+pushlist 'tameables' 0xe8 //Bull
+pushlist 'tameables' 0xe9 //Bull2
+pushlist 'tameables' 0x22 //White Wolf
+pushlist 'tameables' 0x25 //White Wolf2
+while not dead 'self'
+  if list 'timestried' > 15
+    clearlist 'timestried'
+    ignoreobject 'currentlytaming'
+    unsetalias 'currentlytaming'
+    removetimer 'stucktimer'
+    headmsg 'Tried more than 10 times to tame. Ignoring' 5
+  endif
+  warmode 'on'
+  warmode 'off'
+  if hits 'self' != maxhits 'self'
+    if @inlist 'peacemakeyesorno' 'Yes' or @inlist 'peacemakeyesorno' 'yes'
+      getenemy 'red' 'criminal' 'nearest'
+      while war 'enemy'
+        if timer 'skilltimer' > 10000
+          @cleartargetqueue
+          @canceltarget
+          while not targetexists 'any'
+            useskill 'Peacemaking'
+          endwhile
+          settimer 'skilltimer' 0
+          target 'enemy'
+          if war 'self'
+            warmode 'off'
+          endif
+        endif
+      endwhile
+    endif
+  endif
+  if not @inrange 'currentlytaming' 12
+    @headmsg 'Too far away! Ignoring for now.' 34 'currentlytaming'
+    @unsetalias 'currentlytaming'
+    removetimer 'stucktimer'
+    for 0 to 'tameables'
+      if @findtype tameables[] 'any' 'ground' 1 8
+        @setalias 'currentlytaming' 'found'
+        createtimer 'stucktimer'
+        settimer 'stucktimer' 0
+        createtimer 'imstuck'
+        settimer 'imstuck' 0
+        if innocent 'currentlytaming'
+          @headmsg 'This is already tame' 34 'currentlytaming'
+          ignoreobject 'currentlytaming'
+          unsetalias 'currentlytaming'
+          removetimer 'stucktimer'
+          removetimer 'imstuck'
+        endif
+      endif
+    endfor
+  endif
+  if not @inrange 'currentlytaming' 2
+    @headmsg 'Not close enough!' 34 'currentlytaming'
+  endif
+  if @inlist 'peacemakeyesorno' 'Yes' or @inlist 'peacemakeyesorno' 'yes'
+    if war 'currentlytaming'
+      if war 'self'
+        warmode 'off'
+      endif
+      if timer 'skilltimer' > 10000
+        @cleartargetqueue
+        @canceltarget
+        if not targetexists 'any'
+          useskill 'Peacemaking'
+        endif
+        if @injournal 'Whom do you wish to calm?' 'system'
+          settimer 'skilltimer' 0
+          clearjournal
+        endif
+        target 'currentlytaming'
+        if war 'self'
+          warmode 'off'
+        endif
+      endif
+    endif
+  endif
+  if @inlist 'peacemakeyesorno' 'No' or @inlist 'peacemakeyesorno' 'no'
+    if @inrange 'currentlytaming' 2
+      if war 'self'
+        warmode 'off'
+      endif
+      if timer 'skilltimer' > 10000
+        @cleartargetqueue
+        @canceltarget
+        @clearjournal
+        if not targetexists 'any'
+          useskill 'Animal Taming'
+        endif
+        pause 500
+        if @injournal 'Tame which animal?' 'system'
+          pushlist 'timestried' 1
+          @settimer 'skilltimer' 0
+          @clearjournal
+        endif
+        target 'currentlytaming'
+        pause 500
+        if @injournal 'That is too far away' 'system' or @injournal 'Target cannot be seen' 'system'
+          settimer 'skilltimer' 10501
+          ignoreobject 'currentlytaming'
+          unsetalias 'currentlytaming'
+          removetimer 'stucktimer'
+          removetimer 'imstuck'
+          clearlist 'timestried'
+          @clearjournal
+        endif
+        if @injournal 'You fail to tame the creature' 'system' or @injournal 'You must wait a few moments to use another skill' 'system'
+          settimer 'skilltimer' 10501
+          @clearjournal
+        endif
+        if @injournal 'You have no chance of taming this creature' 'system' or @injournal 'do not have a clear path to the animal' 'system'
+          ignoreobject 'currentlytaming'
+          settimer 'skilltimer' 10501
+          unsetalias 'currentlytaming'
+          removetimer 'stucktimer'
+          removetimer 'imstuck'
+          clearlist 'timestried'
+          @clearjournal
+        endif
+        if @injournal 'This animal has had too many owners' 'system' or @injournal 'That animal looks tame already' 'system'
+          settimer 'skilltimer' 10501
+          ignoreobject 'currentlytaming'
+          unsetalias 'currentlytaming'
+          removetimer 'stucktimer'
+          removetimer 'imstuck'
+          clearlist 'timestried'
+          @clearjournal
+        endif
+      endif
+    endif
+  endif
+  if @inlist 'peacemakeyesorno' 'Yes' or @inlist 'peacemakeyesorno' 'yes'
+    if not war 'currentlytaming'
+      if @inrange 'currentlytaming' 2
+        if war 'self'
+          warmode 'off'
+        endif
+        if timer 'skilltimer' > 10500
+          @cleartargetqueue
+          @canceltarget
+          @clearjournal
+          if not targetexists 'any'
+            useskill 'Animal Taming'
+          endif
+          pause 500
+          if @injournal 'Tame which animal?' 'system'
+            pushlist 'timestried' 1
+            @settimer 'skilltimer' 0
+            @clearjournal
+          endif
+          target 'currentlytaming'
+          pause 500
+          if @injournal 'That is too far away' 'system' or @injournal 'Target cannot be seen' 'system'
+            settimer 'skilltimer' 10501
+            ignoreobject 'currentlytaming'
+            unsetalias 'currentlytaming'
+            removetimer 'stucktimer'
+            removetimer 'imstuck'
+            clearlist 'timestried'
+            @clearjournal
+          endif
+          if @injournal 'You fail to tame the creature' 'system' or @injournal 'You must wait a few moments to use another skill' 'system'
+            settimer 'skilltimer' 10501
+            @clearjournal
+          endif
+          if @injournal 'You have no chance of taming this creature' 'system' or @injournal 'do not have a clear path to the animal' 'system'
+            ignoreobject 'currentlytaming'
+            settimer 'skilltimer' 10501
+            unsetalias 'currentlytaming'
+            removetimer 'stucktimer'
+            removetimer 'imstuck'
+            clearlist 'timestried'
+            @clearjournal
+          endif
+          if @injournal 'This animal has had too many owners' 'system' or @injournal 'That animal looks tame already' 'system'
+            settimer 'skilltimer' 10501
+            ignoreobject 'currentlytaming'
+            unsetalias 'currentlytaming'
+            removetimer 'stucktimer'
+            removetimer 'imstuck'
+            clearlist 'timestried'
+            @clearjournal
+          endif
+        endif
+      endif
+    endif
+  endif
+  if @inlist 'numberoffollowers' '0'
+    while followers > 0
+      pause 500
+      @rename 'currentlytaming' nameoftames[0]
+      pause 500
+      if name 'currentlytaming' == nameoftames[0]
+        waitforcontext 'currentlytaming' 8 15000
+        while not @gumpexists 0x909cc741
+          pause 500
+        endwhile
+        pause 500
+        replygump 0x909cc741 2
+        clearlist 'timestried'
+        ignoreobject 'currentlytaming'
+        unsetalias 'currentlytaming'
+        removetimer 'stucktimer'
+        removetimer 'imstuck'
+        pause 500
+      endif
+    endwhile
+  endif
+  if @inlist 'numberoffollowers' '1'
+    while followers > 1
+      pause 500
+      @rename 'currentlytaming' nameoftames[0]
+      pause 500
+      if name 'currentlytaming' == nameoftames[0]
+        waitforcontext 'currentlytaming' 8 15000
+        while not @gumpexists 0x909cc741
+          pause 500
+        endwhile
+        pause 500
+        replygump 0x909cc741 2
+        clearlist 'timestried'
+        ignoreobject 'currentlytaming'
+        unsetalias 'currentlytaming'
+        removetimer 'stucktimer'
+        removetimer 'imstuck'
+        pause 500
+      endif
+    endwhile
+  endif
+  if @inlist 'numberoffollowers' '2'
+    while followers > 2
+      pause 500
+      @rename 'currentlytaming' nameoftames[0]
+      pause 500
+      if name 'currentlytaming' == nameoftames[0]
+        waitforcontext 'currentlytaming' 8 15000
+        while not @gumpexists 0x909cc741
+          pause 500
+        endwhile
+        pause 500
+        replygump 0x909cc741 2
+        clearlist 'timestried'
+        ignoreobject 'currentlytaming'
+        unsetalias 'currentlytaming'
+        removetimer 'stucktimer'
+        removetimer 'imstuck'
+        pause 500
+      endif
+    endwhile
+  endif
+  if @inlist 'numberoffollowers' '3'
+    while followers > 3
+      pause 500
+      @rename 'currentlytaming' nameoftames[0]
+      pause 500
+      if name 'currentlytaming' == nameoftames[0]
+        waitforcontext 'currentlytaming' 8 15000
+        while not @gumpexists 0x909cc741
+          pause 500
+        endwhile
+        pause 500
+        replygump 0x909cc741 2
+        clearlist 'timestried'
+        ignoreobject 'currentlytaming'
+        unsetalias 'currentlytaming'
+        removetimer 'stucktimer'
+        removetimer 'imstuck'
+        pause 500
+      endif
+    endwhile
+  endif
+  if @inlist 'numberoffollowers' '4'
+    while followers > 4
+      pause 500
+      @rename 'currentlytaming' nameoftames[0]
+      pause 500
+      if name 'currentlytaming' == nameoftames[0]
+        waitforcontext 'currentlytaming' 8 15000
+        while not @gumpexists 0x909cc741
+          pause 500
+        endwhile
+        pause 500
+        replygump 0x909cc741 2
+        clearlist 'timestried'
+        ignoreobject 'currentlytaming'
+        unsetalias 'currentlytaming'
+        removetimer 'stucktimer'
+        removetimer 'imstuck'
+        pause 500
+      endif
+    endwhile
+  endif
+  if @inlist 'pathfinding' 'yes' or @inlist 'pathfinding' 'Yes'
+    if timerexists 'stucktimer'
+      if @inrange 'currentlytaming' 1
+        settimer 'stucktimer' 0
+        settimer 'imstuck' 0
+      endif
+      if not @inrange 'currentlytaming' 1
+        if timer 'imstuck' >= 20000
+          headmsg 'Stuck. Ignoring current animal' 5
+          ignoreobject 'currentlytaming'
+          unsetalias 'currentlytaming'
+          removetimer 'stucktimer'
+          removetimer 'imstuck'
+        endif
+        if timer 'stucktimer' >= 5000
+          if direction == 0
+            @poplist 'unstuck' 'north'
+          elseif direction == 2
+            @poplist 'unstuck' 'east'
+          elseif direction == 4
+            @poplist 'unstuck' 'south'
+          elseif direction == 6
+            @poplist 'unstuck' 'west'
+          endif
+          if list 'unstuck' != 0
+            headmsg 'Trying to pathfind' 5
+            for 5
+              run 'unstuck[0]'
+              pause 100
+            endfor
+            poplist 'unstuck' 'front'
+            settimer 'stucktimer' 0
+          endif
+        endif
+        if @x 'currentlytaming' > x 'self' and @y 'currentlytaming' > y 'self'
+          walk 'Southeast'
+        elseif @x 'currentlytaming' < x 'self' and @y 'currentlytaming' > y 'self'
+          walk 'Southwest'
+        elseif @x 'currentlytaming' > x 'self' and @y 'currentlytaming' < y 'self'
+          walk 'Northeast'
+        elseif @x 'currentlytaming' < x 'self' and @y 'currentlytaming' < y 'self'
+          walk 'Northwest'
+        elseif @x 'currentlytaming' > x 'self' and @y 'currentlytaming' == y 'self'
+          walk 'East'
+        elseif @x 'currentlytaming' < x 'self' and @y 'currentlytaming' == y 'self'
+          walk 'West'
+        elseif @x 'currentlytaming' == x 'self' and @y 'currentlytaming' > y 'self'
+          walk 'South'
+        elseif @x 'currentlytaming' == x 'self' and @y 'currentlytaming' < y 'self'
+          walk 'North'
+        endif
+      endif
+    endif
+  endif
+endwhile
