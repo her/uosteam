@@ -1,0 +1,41 @@
+if not @findobject 'RBook'
+  promptalias 'RBook'
+endif
+
+if not listexists 'Runes'
+  createlist 'Runes'
+endif
+
+if list 'Runes' == 0
+  pushlist 'Runes' 5
+  pushlist 'Runes' 11
+  pushlist 'Runes' 17
+  pushlist 'Runes' 23
+  pushlist 'Runes' 29
+  pushlist 'Runes' 35
+  pushlist 'Runes' 41
+  pushlist 'Runes' 47
+  pushlist 'Runes' 53
+  pushlist 'Runes' 59
+  pushlist 'Runes' 65
+  pushlist 'Runes' 71
+  pushlist 'Runes' 77
+  pushlist 'Runes' 83
+  pushlist 'Runes' 89
+  pushlist 'Runes' 95
+endif
+
+for 0 to 'Runes'
+  useobject 'RBook'
+  pause 900
+  waitforgump 0x554b87f3 5000
+  replygump 0x554b87f3 Runes[]
+  pause 4000
+  if injournal 'blocked' 'system'
+    @clearjournal
+    replay
+  else
+    poplist 'Runes' 'front'
+    stop
+  endif
+endfor
