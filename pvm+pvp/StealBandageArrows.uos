@@ -1,0 +1,23 @@
+@ignoreobject 'backpack'
+@getfriend 'innocent' 'criminal' 'grey' 'gray' 'humanoid' 'closest'
+
+while @inrange 'friend' 1 and @findlayer 'friend' '21'
+  @setalias 'sbag' 'found'
+  pause 100
+  useobject! 'sbag'
+  //Steal Bandage
+  if @findtype '0xe21' 'any' 'sbag' '1' '1'
+    useskill 'stealing'
+    waitfortarget 5000
+    target! 'found'
+    pause 10100
+  //Steal Arrows
+  elseif @findtype '0xf3f' 'any' 'sbag' 'any' '1'
+    useskill 'stealing'
+    waitfortarget 5000
+    target! 'found'
+    pause 10100
+  endif
+endwhile
+
+pause 200
