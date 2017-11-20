@@ -1,0 +1,36 @@
+// Setup: Organizer named "Vendor" with item to stock
+// Box next to vendor with items you wish to restock with
+// Set item graphic in counttype/movetype
+// Set price in promtmsg
+
+if not @findobject 'StoreBox'
+  promptalias 'StoreBox'
+endif
+
+if not @findobject 'Vendor'
+  promptalias 'Vendor'
+endif
+
+if not @findtype '0x1f4c' '0' 'StoreBox' '10' '3'
+  headmsg "Not enough found"
+  headmsg 'Stopping'
+endif
+
+@useobject 'StoreBox'
+pause 900
+
+//Recalls
+if counttype 0x1f4c '0' 'backpack' < 10
+  organizer 'Vendor' 'StoreBox' 'backpack'
+  while organizing
+    pause 200
+  endwhile
+else
+  movetype '0x1f4c' 'backpack' 'Vendor' '0 0 0' '0' 'all'
+  pause 1000
+  if @injournal 'type in a price' 'system'
+    promptmsg '200'
+    clearjournal
+    pause 900
+  endif
+endif
