@@ -1,114 +1,291 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-// training inscription from 30.  // 
-//  It is intended for characters // 
-//     with 40+ intelligence.     // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
+////////////////////////////////////////////////
+// This macro is designed for                 //
+// training inscription from 30-100.          //
+// It is intended for characters              //
+// with 40+ intelligence.                     //
+//                                            //
+// Setup, and click start!                    //
+//                                            //
+// Original Credits: kdivers and AreYouKidden //
+// Edited and merged by Gitbytes              //
+////////////////////////////////////////////////
 
-if not @findtype 0xfbf 0x0 'backpack' 
+// SETUP
+// **NOTE** You may have to clear your Active Objects table
+// Create two Organizers and preset the container sources:
+  // 1. 'Restock Scribe'
+    // * 100 of each reagent
+    // * 100 blank scrolls
+  // 2. 'Restock Pen'
+    // * 3 scribe pens
+// Select the "Loop" checkbox option
+// Hit "Start"
+// Select a Bulk Reagent source container when prompted
+// Select your character reagent container when prompted
+// Select a Bulk Pen source container when prompted
+// Select a destination container for finished scrolls when prompted
 
-  headmsg 'Get more scribes pens!' 
-
-  stop 
-
-endif 
-
-if @ingump 0x38920abd 'You lack the required' 
-
-  useskill 'meditation' 
-
-  while mana < maxmana 
-
-  endwhile 
-
-endif 
-
-if @ingump 0x38920abd 'You do not have enough' 
-
-  headmsg 'Get more supplies!' 
-
-  stop 
-
-endif 
-
-if skill 'inscription' < 30 
-
-  headmsg 'Buy more skill!' 
-
-  stop 
-
-elseif skill 'inscription' < 55 
-
-  if usetype 0xfbf 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 22 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 51 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'inscription' < 75 
-
-  if usetype 0xfbf 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 36 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 30 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'inscription' < 95 
-
-  if usetype 0xfbf 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 43 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 23 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'inscription' < 100 
-
-  if usetype 0xfbf 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 50 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 9 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-else 
-
-  headmsg 'Inscription complete!' 
-
-  stop 
-
+@clearjournal
+@removelist 'Scrolls'
+createlist 'Scrolls'
+if not @findobject 'sBulkReg'
+  headmsg 'Select the bag with your Bulk Reg/scroll supply'
+  promptalias 'sBulkReg'
 endif
+if not @findobject 'sRegBag'
+  headmsg 'Select your character reg bag'
+  promptalias 'sRegBag'
+endif
+if not @findobject 'sPenBag'
+  headmsg 'Select the bag with your Bulk Pen Supply'
+  promptalias 'sPenBag'
+endif
+if not @findobject 'sFinScroll'
+  headmsg 'Select your Finished Scroll bag'
+  promptalias 'sFinScroll'
+endif
+while not dead
+  //Find and Move if more than 100 Scrolls
+  for 0 to Scrolls
+    if @findtype Scrolls[] 'any' 'backpack' 100 '3'
+      headmsg '100 Scrolls Found Moving to Finished Bag'
+      @moveitem 'found' 'sFinScroll'
+    endif
+  endfor
+  // Spell Scrolls
+  pushlist 'Scrolls' 0x1f2d // Reactive Armor
+  pushlist 'Scrolls' 0x1f2e // Clumsy
+  pushlist 'Scrolls' 0x1f2f // Create Food
+  pushlist 'Scrolls' 0x1f30 // Feeblemind
+  pushlist 'Scrolls' 0x1f31 // Heal
+  pushlist 'Scrolls' 0x1f32 // Magic Arrow
+  pushlist 'Scrolls' 0x1f33 // Night Sight
+  pushlist 'Scrolls' 0x1f34 // Weaken
+  pushlist 'Scrolls' 0x1f35 // Agility
+  pushlist 'Scrolls' 0x1f36 // Cunning
+  pushlist 'Scrolls' 0x1f37 // Cure
+  pushlist 'Scrolls' 0x1f38 // Harm
+  pushlist 'Scrolls' 0x1f39 // Magic Trap
+  pushlist 'Scrolls' 0x1f3a // Magic Untrap
+  pushlist 'Scrolls' 0x1f3b // Protection
+  pushlist 'Scrolls' 0x1f3c // Strength
+  pushlist 'Scrolls' 0x1f3d // Bless
+  pushlist 'Scrolls' 0x1f3e // Fireball
+  pushlist 'Scrolls' 0x1f3f // Magic Lock
+  pushlist 'Scrolls' 0x1f40 // Poison
+  pushlist 'Scrolls' 0x1f41 // Telekinesis
+  pushlist 'Scrolls' 0x1f42 // Teleport
+  pushlist 'Scrolls' 0x1f43 // Unlock
+  pushlist 'Scrolls' 0x1f44 // Wall of Stone
+  pushlist 'Scrolls' 0x1f45 // Arch Cure
+  pushlist 'Scrolls' 0x1f46 // Arch Protection
+  pushlist 'Scrolls' 0x1f47 // Curse
+  pushlist 'Scrolls' 0x1f48 // Fire Field
+  pushlist 'Scrolls' 0x1f49 // Greater Heal
+  pushlist 'Scrolls' 0x1f4a // Lightning
+  pushlist 'Scrolls' 0x1f4b // Mana Drain
+  pushlist 'Scrolls' 0x1f4c // Recall
+  pushlist 'Scrolls' 0x1f4d // Blade Spirit
+  pushlist 'Scrolls' 0x1f4e // Dispel Field
+  pushlist 'Scrolls' 0x1f4f // Incognito
+  pushlist 'Scrolls' 0x1f50 // Magic Reflection
+  pushlist 'Scrolls' 0x1f51 // Mind Blast
+  pushlist 'Scrolls' 0x1f52 // Paralyze
+  pushlist 'Scrolls' 0x1f53 // Poison Field
+  pushlist 'Scrolls' 0x1f54 // Summon Creature
+  pushlist 'Scrolls' 0x1f55 // Dispel
+  pushlist 'Scrolls' 0x1f56 // Energy Bolt
+  pushlist 'Scrolls' 0x1f57 // Explosion
+  pushlist 'Scrolls' 0x1f58 // Invisibility
+  pushlist 'Scrolls' 0x1f59 // Mark
+  pushlist 'Scrolls' 0x1f5a // Mass Curse
+  pushlist 'Scrolls' 0x1f5b // Paralyze Field
+  pushlist 'Scrolls' 0x1f5c // Reveal
+  pushlist 'Scrolls' 0x1f5d // Chain Lightning
+  pushlist 'Scrolls' 0x1f5e // Energy Field
+  pushlist 'Scrolls' 0x1f5f // Flamestrike
+  pushlist 'Scrolls' 0x1f60 // Gate Travel
+  pushlist 'Scrolls' 0x1f61 // Mana Vampire
+  pushlist 'Scrolls' 0x1f62 // Mass Dispel
+  pushlist 'Scrolls' 0x1f63 // Meteor Swarm
+  pushlist 'Scrolls' 0x1f64 // Polymorph
+  pushlist 'Scrolls' 0x1f65 // Earthquake
+  pushlist 'Scrolls' 0x1f66 // Energy Vortex
+  pushlist 'Scrolls' 0x1f67 // Ressurrection
+  pushlist 'Scrolls' 0x1f68 // Summon Air Elemental
+  pushlist 'Scrolls' 0x1f69 // Summon Daemon
+  pushlist 'Scrolls' 0x1f6a // Summon Earth Elemental
+  pushlist 'Scrolls' 0x1f6b // Summon Fire Elemental
+  pushlist 'Scrolls' 0x1f6c // Summon Water Elemental
+  while not dead
+    //Find and Move if more than 100 Scrolls
+    for 0 to Scrolls
+      if @findtype Scrolls[] 'any' 'backpack' 100 '3'
+        headmsg '100 Scrolls Found Moving to Finished Bag'
+        @moveitem 'found' 'sFinScroll'
+      endif
+    endfor
+    //
+    //Making sure regs, pen & scrolls are stocked
+    //
+    //Pens
+    if counttype '0xfbf' '0' 'backpack' < 1
+      @useobject 'Restock Pen'
+      pause 600
+      organizer 'Restock Pen' 'SPenBag' 'backpack'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xfbf' '0' 'backpack' < 1
+        headmsg 'Out of Pens'
+        stop
+      endif
+    endif
+    //Black Pearl
+    if counttype '0xf7a' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf7a' '0' 'backpack' < 1
+        headmsg 'Out of Black Pearl'
+        stop
+      endif
+    endif
+    //Blood Moss
+    if counttype '0xf7b' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf7b' '0' 'backpack' < 1
+        headmsg 'Out of Blood Moss'
+        stop
+      endif
+    endif
+    //Ginseng
+    if counttype '0xf85' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf85' '0' 'backpack' < 1
+        headmsg 'Out of Ginseng'
+        stop
+      endif
+    endif
+    //Mandrake
+    if counttype '0xf86' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf86' '0' 'backpack' < 1
+        headmsg 'Out of Mandrake'
+        stop
+      endif
+    endif
+    //Nightshade
+    if counttype '0xf88' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf88' '0' 'backpack' < 1
+        headmsg 'Out of Nightshade'
+        stop
+      endif
+    endif
+    //Garlic
+    if counttype '0xf84' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf84' '0' 'backpack' < 1
+        headmsg 'Out of Garlic'
+        stop
+      endif
+    endif
+    //Sulfurous Ash
+    if counttype '0xf8c' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xf8c' '0' 'backpack' < 1
+        headmsg 'Out of Sulfuric Ash'
+        stop
+      endif
+    endif
+    //Blank Scrolls
+    if counttype '0xef3' '0' 'backpack' < 1
+      @useobject 'Restock Scribe'
+      pause 600
+      organizer 'Restock Scribe' 'sBulkReg' 'sRegBag'
+      while organizing
+        pause 600
+      endwhile
+      if counttype '0xef3' '0' 'backpack' < 1
+        headmsg 'Out of Blank Scrolls'
+        stop
+      endif
+    endif
+    if mana < 50
+      useskill 'meditation'
+      while not mana == maxmana
+      endwhile
+    endif
+    if skill 'inscription' < 30
+      headmsg 'Buy more skill!'
+      stop
+    elseif skill 'inscription' < 55
+      if usetype 0xfbf
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 22
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 51
+        waitforgump 0x38920abd 2000
+      endif
+    elseif skill 'inscription' < 75
+      if usetype 0xfbf
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 36
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 30
+        waitforgump 0x38920abd 2000
+      endif
+    elseif skill 'inscription' < 95
+      if usetype 0xfbf
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 43
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 23
+        waitforgump 0x38920abd 2000
+      endif
+    elseif skill 'inscription' < 100
+      if usetype 0xfbf
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 50
+        waitforgump 0x38920abd 15000
+        replygump 0x38920abd 9
+        waitforgump 0x38920abd 2000
+      endif
+    else
+      headmsg 'Inscription complete!'
+      stop
+    endif
