@@ -1,0 +1,36 @@
+////////////////////////////////////
+//   This macro is designed for   //
+//   training Necromancy from 40. //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by Vertex101~~     //
+////////////////////////////////////
+if skill 'Necromancy' < 100
+  if @injournal 'insufficient mana'
+    clearjournal
+    useskill 'Meditation'
+    while mana < maxmana
+    endwhile
+  else
+    if skill 'Necromancy' < 40
+      headmsg 'Please buy skill to continue!'
+      stop
+    elseif skill 'Necromancy' < 55
+      cast "Wraith Form"
+      waitfortarget 7000
+    elseif skill 'Necromancy' < 75
+      cast "Horrific Beast"
+      waitfortarget 7000
+    elseif skill 'Necromancy' < 90
+      cast "Wither"
+      waitfortarget 7000
+    elseif skill 'Necromancy' < 100
+      cast "Lich Form"
+      waitfortarget 7000
+    endif
+  endif
+else
+  headmsg 'Necromancy complete!'
+  stop
+endif
