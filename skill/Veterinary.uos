@@ -20,3 +20,4 @@ if diffhits 'pet1' > diffhits 'pet2'
 else 
   autotargetobject 'pet2' 
 endif 
+pause 3000
