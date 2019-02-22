@@ -5,7 +5,7 @@
 
 //Get Enemy Grey Only
 getenemy 'gray' 'criminal' 'closest'
-if @inranget 'enemy' '10'
+if @inrange 'enemy' '10'
 attack! 'enemy'
 @clearusequeue
 endif
