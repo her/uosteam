@@ -12,7 +12,7 @@ Scripts for UOSteam, an Ultima Online Assistant.
 
 * [**Profiles**](https://github.com/her/uosteam/tree/master/profiles) - Import profiles into UOSteam for a quick start
 
-* [**PvM+PvP**](https://github.com/her/uosteam/tree/master/pvm%2Bpvp) -
+* [**PvM+PvP**](https://github.com/her/uosteam/tree/master/pvmpvp) -
  Defense, Offense, Hunting
 
 * [**Resource**](https://github.com/her/uosteam/tree/master/resource) -
