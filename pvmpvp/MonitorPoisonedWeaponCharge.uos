@@ -1,4 +1,4 @@
-f not findobject 'Weapon'
+if not findobject 'Weapon'
 promptalias 'Weapon'
 endif
 clickobject 'Weapon'
