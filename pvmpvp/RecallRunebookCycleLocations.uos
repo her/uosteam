@@ -1,11 +1,9 @@
 if not @findobject 'RBook'
   promptalias 'RBook'
 endif
-
 if not listexists 'Runes'
   createlist 'Runes'
 endif
-
 if list 'Runes' == 0
   pushlist 'Runes' 5
   pushlist 'Runes' 11
@@ -24,7 +22,6 @@ if list 'Runes' == 0
   pushlist 'Runes' 89
   pushlist 'Runes' 95
 endif
-
 for 0 to 'Runes'
   useobject 'RBook'
   pause 900

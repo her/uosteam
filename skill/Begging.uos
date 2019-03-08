@@ -1,31 +1,21 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training begging from 0.    // 
-// I suggest training in an shop  // 
-//     with plenty of vendors     // 
-//       wandering around.        // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'begging' < 100 
-
-  getfriend 'friend' 'innocent' 'closest' 
-
-  useskill 'begging' 
-
-  waitfortarget 2000 
-
-  target! 'found' 
-
-  pause 13000 
-
-else 
-
-  headmsg 'Begging complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training begging from 0.    //
+// I suggest training in an shop  //
+//     with plenty of vendors     //
+//       wandering around.        //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'begging' < 100
+  getfriend 'friend' 'innocent' 'closest'
+  useskill 'begging'
+  waitfortarget 2000
+  target! 'found'
+  pause 13000
+else
+  headmsg 'Begging complete!'
+  stop
 endif

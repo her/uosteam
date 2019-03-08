@@ -4,507 +4,254 @@
 //want to fill. And set resource type   //
 //to match.                             //
 //////////////////////////////////////////
-
 if not @findobject 'Bulk Source'
-
   promptalias 'Bulk Source'
-
 endif
-
 if not @findobject 'Bulk Destination'
-
   promptalias 'Bulk Destination'
-
 endif
-
 if not @findobject 'Restock'
-
   promptalias 'Restock'
-
 endif
-
 if not @findobject 'Trash Barrel'
-
   promptalias 'Trash Barrel'
-
 endif
-
 // Search for a Tailoring BOD to fill
-
 if not @findtype 0x14ef '1155' 'backpack' 'any' '2'
-
   useobject! 'Bulk Source'
-
   waitforgump 0x54f555df 15000
-
   replygump 0x54f555df 5
-
   pause 2500
-
 else
-
-sysmsg 'Didn't find BODs to fill.' 64
-
+  sysmsg 'Didn't find BODs to fill.' 64
   @canceltarget
-
-headmsg 'Retrying...'
-
+  headmsg 'Retrying...'
 endif
-
 if @findtype 0x14ef '1155' 'backpack' 'any' '1'
-
   @setalias 'bod' 'found'
-
   pause 800
-
 endif
-
-
-
 // Combine
-
 if not targetexists 'server'
-
   useobject! 'bod'
-
   waitforgump 0x5afbd742 15000
-
   replygump 0x5afbd742 2
-
   waitforgump 0x5afbd742 15000
-
   waitfortarget 5000
-
 endif
-
 // Check for sewing kits
-
 if @findtype 0xf9d 0 'backpack' 'any' '4'
-
   pause 1500
-
   @setalias 'sewing kit' 'found'
-
   useobject! 'sewing kit'
-
   waitforgump 0x38920abd 15000
-
   // Craft
-
   while targetexists 'server'
-
     // Check for sewing kit before craft
-
     if not @findobject 'sewing kit'
-
       break
-
     endif
-
     // Check for leathers
-
     if @counttype 0x1081 'any' 'backpack' < 50
-
       if @movetype 0x1081 'Restock' 'backpack' 0 0 0 'any' 100
-
         pause 1500
-
       else
-
         sysmsg 'Out of leathers!' 25
-
         @canceltarget
-
         stop
-
       endif
-
     endif
-
     // Leather
-
     if @ingump 0x5afbd742 'leather gorget'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 2
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13c7' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather cap'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 9
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1db9' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather gloves'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 16
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13c6' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather sleeves'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 23
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13cd' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather leggings'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 30
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13cb' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather tunic'
-
       replygump 0x38920abd 36
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 37
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13cc' 'any' 'backpack' 'any' '4'
-
       // Studded
-
     elseif @ingump 0x5afbd742 'studded gorget'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 2
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13d6' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded gloves'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 16
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13d5' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded cap'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 9
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1db9' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded sleeves'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 23
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13dc' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded leggings'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 30
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13da' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded tunic'
-
       replygump 0x38920abd 43
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 37
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x13db' 'any' 'backpack' 'any' '4'
-
       // Female Armor
-
     elseif @ingump 0x5afbd742 'leather shorts'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 2
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c00' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather skirt'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 9
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c08' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'leather bustier'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 16
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c0a' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded bustier'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 23
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c0c' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'female leather armor'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 30
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c06' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'studded armor'
-
       replygump 0x38920abd 50
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 37
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1c02' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'thigh boots'
-
       replygump 0x38920abd 29
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 23
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x1711' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'shoes'
-
       replygump 0x38920abd 29
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 9
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x170f' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'sandals'
-
       replygump 0x38920abd 29
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 2
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x170d' 'any' 'backpack' 'any' '4'
-
     elseif @ingump 0x5afbd742 'boots'
-
       replygump 0x38920abd 29
-
       waitforgump 0x38920abd 15000
-
       replygump 0x38920abd 16
-
       waitforgump 0x38920abd 15000
-
       pause 500
-
       @findtype '0x170b' 'any' 'backpack' 'any' '4'
-
     else
-
       @unsetalias 'found'
-
       stop
-
     endif
-
     pause 500
-
     // No crafted items were found
-
     if not @findobject 'found'
-
       // Craft failed, try again
-
       if @ingump 0x38920abd 'failed to create the item'
-
         continue
-
       endif
-
     endif
-
     target! 'found'
-
     waitfortarget 5000
-
     if not targetexists and @injournal 'must be exceptional' 'system'
-
       // Recycle this item
-
       if usetype! 0xf9f
-
         waitfortarget 5000
-
         target! 'found'
-
         pause 1000
-
       endif
-
       // Unable to recycle, trash item
-
       if @findobject 'found'
-
         @moveitem! 'found' 'Trash Barrel'
-
         pause 1000
-
       endif
-
       replygump 0x5afbd742 2
-
       waitforgump 0x5afbd742 15000
-
       waitfortarget 5000
-
       clearjournal
-
     endif
-
   endwhile
-
   // BOD is complete, move to destination
-
   if not targetexists 'server'
-
     @moveitem 'bod' 'Bulk Destination'
-
   endif
-
   pause 1000

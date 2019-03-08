@@ -23,21 +23,20 @@
 //                Blacksmith Slayer Crafter             //
 //                     made by eppy                     //
 //======================================================//
-//You must craft one of the weapons first before starting 
-//the macro. Then make sure you do not have any of that type 
+//You must craft one of the weapons first before starting
+//the macro. Then make sure you do not have any of that type
 //in your pack. It will smelt them all.
-
 // THIS USES TONGS
 if not findalias 'slayerbag'
-promptalias 'slayerbag'
+  promptalias 'slayerbag'
 endif
 if not hidden 'self'
-useskill 'hiding'
+  useskill 'hiding'
 endif
 if listexists 'slayertype'
-clearlist 'slayertype'
+  clearlist 'slayertype'
 else
-createlist 'slayertype'
+  createlist 'slayertype'
 endif
 //0xf5e broadsword
 //0x13ff katana
@@ -56,22 +55,22 @@ waitforgump 0x38920abd 30000
 replygump 0x38920abd 21
 pause 2000
 if @injournal 'crafted a slayer' 'system'
-@findtype slayertype[0] 0x0 'backpack'
-moveitem 'found' 'slayerbag'
-ignoreobject 'found'
-clearjournal
-sysmsg 'Slayer crafted!' 33
-pause 600
+  @findtype slayertype[0] 0x0 'backpack'
+  moveitem 'found' 'slayerbag'
+  ignoreobject 'found'
+  clearjournal
+  sysmsg 'Slayer crafted!' 33
+  pause 600
 else
-@findtype slayertype[0] 0x0 'backpack'
-@usetype 0xfbb 0x0 'backpack'
-waitforgump 0x38920abd 30000
-replygump 0x38920abd 14
-waitfortarget 30000
-@Target! 'found'
-pause 600
+  @findtype slayertype[0] 0x0 'backpack'
+  @usetype 0xfbb 0x0 'backpack'
+  waitforgump 0x38920abd 30000
+  replygump 0x38920abd 14
+  waitfortarget 30000
+  @Target! 'found'
+  pause 600
 endif
 if counttype slayertype[0] 'any' 'backpack' > 0
-headmsg 'EXTRA WEAPON CRAFTED'
-stop
+  headmsg 'EXTRA WEAPON CRAFTED'
+  stop
 endif

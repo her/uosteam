@@ -1,22 +1,20 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training musicianship from 0. // 
-//   This macro uses lap harps.   // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findtype 0xeb2 0x0 'backpack' 
-  headmsg 'Get more lap harps!' 
-  stop 
-endif 
-
-if skill 'musicianship' < 100 
-  usetype 0xeb2 0x0 'backpack' 
-  pause 11000 
-else 
-  headmsg 'Musicianship complete!' 
-  stop 
+////////////////////////////////////
+//   This macro is designed for   //
+//  training musicianship from 0. //
+//   This macro uses lap harps.   //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findtype 0xeb2 0x0 'backpack'
+  headmsg 'Get more lap harps!'
+  stop
+endif
+if skill 'musicianship' < 100
+  usetype 0xeb2 0x0 'backpack'
+  pause 11000
+else
+  headmsg 'Musicianship complete!'
+  stop
 endif

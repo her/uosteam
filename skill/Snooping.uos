@@ -1,32 +1,20 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training snooping from 0.   // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findobject 'snoop' or not @inrange 'snoop' 1 
-
-  headmsg 'Select the person to snoop' 
-
-  promptalias 'snoop' 
-
-endif 
-
-if skill 'snooping' < 100 
-
-  @findlayer 'snoop' 21 
-
-  useobject! 'found' 
-
-  pause 600 
-
-else 
-
-  headmsg 'Snooping complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training snooping from 0.   //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findobject 'snoop' or not @inrange 'snoop' 1
+  headmsg 'Select the person to snoop'
+  promptalias 'snoop'
+endif
+if skill 'snooping' < 100
+  @findlayer 'snoop' 21
+  useobject! 'found'
+  pause 600
+else
+  headmsg 'Snooping complete!'
+  stop
 endif

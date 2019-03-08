@@ -1,62 +1,62 @@
-//This script will organize your slayers by type 
-//into separate containers, e.g. silver into one, 
+//This script will organize your slayers by type
+//into separate containers, e.g. silver into one,
 //exorcism into another, etc.
-//#####                                                    
-// Usage:                                                  
-// Don't check the "Loop" checkbox to the left.            
+//#####
+// Usage:
+// Don't check the "Loop" checkbox to the left.
 // Must have all unorganized slayers in a single container.
 // The script will run as long as it finds the defined weapon type
 // (in this case a 'bow') in the slayer_bag.
-//#####                                                    
-//                                                          
+//#####
+//
 // Set the containers to move the slayers into. Change/add more object ids
-// to match your containers.                                
-@setalias 'reptillian_death_bag' 0x416afac0                
-@setalias 'silver_bag' 0x416afac1                          
-@setalias 'exorcism_bag' 0x416afac2                        
+// to match your containers.
+@setalias 'reptillian_death_bag' 0x416afac0
+@setalias 'silver_bag' 0x416afac1
+@setalias 'exorcism_bag' 0x416afac2
 // Set the container holding all your UNORGANIZED slayers.
 headmsg 'Select slayer bag'
 promptalias 'slayer_bag'
 headmsg 'Select ID wand'
 promptalias 'id_wand'
-equipitem 'id_wand' 1                          
-// Open slayer_bag                                          
-useobject 'slayer_bag'                                      
-pause 200                                                  
+equipitem 'id_wand' 1
+// Open slayer_bag
+useobject 'slayer_bag'
+pause 200
 // Find a bow in slayer_bag. Change weapon type to match your needs.
-while @findtype 0x13b2 'any' 'slayer_bag'                  
-   @clearjournal
-   useobject 'id_wand'
-   pause 200
-   // If wand is out of charges, then equip a new one.
-   if @injournal 'out of charges' 'system'
-      togglehands 'right'
-      headmsg 'Wand is out of charge. Select a new one.'
-      promptalias 'id_wand'
-      equipitem 'id_wand' 1
-      pause 300
-      useobject 'id_wand'
-   endif
-   waitfortarget 1500
-   target 'found'
-   pause 200                                     
-   // Click the item to display its properties. This will show up in your journal.
-   clickobject 'found'                                     
-   pause 300                                                
-   // Move slayers into appropriate containers. Add additional elseif
-   // statements for additional slayers                    
-   if @injournal 'Silver' 'system'                          
-      moveitem 'found' 'silver_bag'                                                                    
-   elseif @injournal 'Exorcism' 'system'                    
-      moveitem 'found' 'exorcism_bag'                                                                  
-   // If you want to move multiple slayers into a single container, add an "or"
-   // as shown below.                                      
-   elseif @injournal 'Dragon' 'system' or @injournal 'Snake' 'system'
-      moveitem 'found' 'reptillian_death_bag'                                                           
-   endif
-   pause 800                                                    
-endwhile                                                    
-headmsg 'Slayer Bag is empty'                              
-headmsg 'Slayer Bag is empty'                              
+while @findtype 0x13b2 'any' 'slayer_bag'
+  @clearjournal
+  useobject 'id_wand'
+  pause 200
+  // If wand is out of charges, then equip a new one.
+  if @injournal 'out of charges' 'system'
+    togglehands 'right'
+    headmsg 'Wand is out of charge. Select a new one.'
+    promptalias 'id_wand'
+    equipitem 'id_wand' 1
+    pause 300
+    useobject 'id_wand'
+  endif
+  waitfortarget 1500
+  target 'found'
+  pause 200
+  // Click the item to display its properties. This will show up in your journal.
+  clickobject 'found'
+  pause 300
+  // Move slayers into appropriate containers. Add additional elseif
+  // statements for additional slayers
+  if @injournal 'Silver' 'system'
+    moveitem 'found' 'silver_bag'
+  elseif @injournal 'Exorcism' 'system'
+    moveitem 'found' 'exorcism_bag'
+    // If you want to move multiple slayers into a single container, add an "or"
+    // as shown below.
+  elseif @injournal 'Dragon' 'system' or @injournal 'Snake' 'system'
+    moveitem 'found' 'reptillian_death_bag'
+  endif
+  pause 800
+endwhile
+headmsg 'Slayer Bag is empty'
+headmsg 'Slayer Bag is empty'
 @unsetalias 'slayer_bag'
 @unsetalias 'id_wand'

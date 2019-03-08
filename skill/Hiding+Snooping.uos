@@ -1,45 +1,28 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training both hiding and    // 
-//     snooping from 0. It is     // 
-// easiest to train by using two  // 
-//        clients at once.        // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'snooping' < 100 
-
-  if not @findobject 'snoop' or not @inrange 'snoop' 1 
-
-    headmsg 'Select the person to snoop' 
-
-    promptalias 'snoop' 
-
-  else 
-
-    @findlayer 'snoop' 21 
-
-    useobject! 'found' 
-
-    pause 600 
-
-  endif 
-
-endif 
-
-if skill 'hiding' < 100 
-
-  useskill 'hiding' 
-
-endif 
-
-if skill 'hiding' == 100 and skill 'snooping' == 100 
-
-  headmsg 'Hiding and snooping complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training both hiding and    //
+//     snooping from 0. It is     //
+// easiest to train by using two  //
+//        clients at once.        //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'snooping' < 100
+  if not @findobject 'snoop' or not @inrange 'snoop' 1
+    headmsg 'Select the person to snoop'
+    promptalias 'snoop'
+  else
+    @findlayer 'snoop' 21
+    useobject! 'found'
+    pause 600
+  endif
+endif
+if skill 'hiding' < 100
+  useskill 'hiding'
+endif
+if skill 'hiding' == 100 and skill 'snooping' == 100
+  headmsg 'Hiding and snooping complete!'
+  stop
 endif

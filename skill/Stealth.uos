@@ -1,121 +1,66 @@
-//////////////////////////////////// 
-//  Go to any public moongate for // 
-//   this to work. Also, bring a  // 
-//   ringmail tunic and sleeves.  // 
-//    This macrois designed for   // 
-//    training stealth from 0.    // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'hiding' < 80 
-
-  headmsg 'Train your hiding to 80.0 first!' 
-
-  stop 
-
-endif 
-
-if not @findobject 'chest' and not @findtype 0x13ec 'any' 'self' 
-
-  headmsg 'Buy a ringmail tunic' 
-
-  stop 
-
-else 
-
-  setalias 'chest' 'found' 
-
-endif 
-
-if not @findobject 'arms' and not @findtype 0x13ee 'any' 'self' 
-
-  headmsg 'Buy ringmail sleeves' 
-
-  stop 
-
-else 
-
-  setalias 'arms' 'found' 
-
-endif 
-
-if skill 'stealth' < 80 
-
-  if usetype 0xf6c 'any' 'ground' 
-
-    waitforgump 0xe0e675b8 15000 
-
-    replygump 0xe0e675b8 1 1 
-
-    pause 10000 
-
-    useskill 'stealth' 
-
-    pause 600 
-
-  endif 
-
-  if usetype 0xf6c 'any' 'ground' 
-
-    waitforgump 0xe0e675b8 15000 
-
-    replygump 0xe0e675b8 1 0 
-
-    pause 10000 
-
-    useskill 'stealth' 
-
-    pause 600 
-
-  endif 
-
-elseif skill 'stealth' < 100 
-
-  if not @findlayer 'self' 13 
-
-    @equipitem 'chest' 13 
-
-    pause 600 
-
-  endif 
-
-  if not @findlayer 'self' 19 
-
-    @equipitem 'arms' 19 
-
-    pause 600 
-
-  endif 
-
-  if usetype 0xf6c 'any' 'ground' 
-
-    waitforgump 0xe0e675b8 15000 
-
-    replygump 0xe0e675b8 1 1 
-
-    pause 10000 
-
-    useskill 'stealth' 
-
-    pause 600 
-
-  endif 
-
-  if usetype 0xf6c 'any' 'ground' 
-
-    waitforgump 0xe0e675b8 15000 
-
-    replygump 0xe0e675b8 1 0 
-
-    pause 10000 
-
-    useskill 'stealth' 
-
-    pause 600 
-
-  endif 
-
+////////////////////////////////////
+//  Go to any public moongate for //
+//   this to work. Also, bring a  //
+//   ringmail tunic and sleeves.  //
+//    This macrois designed for   //
+//    training stealth from 0.    //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'hiding' < 80
+  headmsg 'Train your hiding to 80.0 first!'
+  stop
+endif
+if not @findobject 'chest' and not @findtype 0x13ec 'any' 'self'
+  headmsg 'Buy a ringmail tunic'
+  stop
+else
+  setalias 'chest' 'found'
+endif
+if not @findobject 'arms' and not @findtype 0x13ee 'any' 'self'
+  headmsg 'Buy ringmail sleeves'
+  stop
+else
+  setalias 'arms' 'found'
+endif
+if skill 'stealth' < 80
+  if usetype 0xf6c 'any' 'ground'
+    waitforgump 0xe0e675b8 15000
+    replygump 0xe0e675b8 1 1
+    pause 10000
+    useskill 'stealth'
+    pause 600
+  endif
+  if usetype 0xf6c 'any' 'ground'
+    waitforgump 0xe0e675b8 15000
+    replygump 0xe0e675b8 1 0
+    pause 10000
+    useskill 'stealth'
+    pause 600
+  endif
+elseif skill 'stealth' < 100
+  if not @findlayer 'self' 13
+    @equipitem 'chest' 13
+    pause 600
+  endif
+  if not @findlayer 'self' 19
+    @equipitem 'arms' 19
+    pause 600
+  endif
+  if usetype 0xf6c 'any' 'ground'
+    waitforgump 0xe0e675b8 15000
+    replygump 0xe0e675b8 1 1
+    pause 10000
+    useskill 'stealth'
+    pause 600
+  endif
+  if usetype 0xf6c 'any' 'ground'
+    waitforgump 0xe0e675b8 15000
+    replygump 0xe0e675b8 1 0
+    pause 10000
+    useskill 'stealth'
+    pause 600
+  endif
 endif

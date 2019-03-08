@@ -5,69 +5,54 @@
 @removelist 'Armor'
 @removelist 'Weps'
 @removelist 'Scrolls'
-
 if not @findobject 'Chest' and not inrange 'Chest' 2
   promptalias 'Chest'
 endif
-
 if not @findobject 'ArmorBag'
   headmsg 'Select a bag for Armor'
   promptalias 'ArmorBag'
 endif
-
 if not @findobject 'WepBag'
   headmsg 'Select a bag for Weapons'
   promptalias 'WepBag'
 endif
-
 if not @findobject 'GemBag'
   headmsg 'Select a bag for Gems'
   promptalias 'GemBag'
 endif
-
 if not @findobject 'ScrollBag'
   headmsg 'Select a bag for Scrolls'
   promptalias 'ScrollBag'
 endif
-
 if not @findobject 'RegBag'
   headmsg 'Select a bag for Regs'
   promptalias 'RegBag'
 endif
-
 if not listexists 'Loot'
   createlist 'Loot'
 endif
-
 if not listexists 'Gems'
   createlist 'Gems'
 endif
-
 if not listexists 'Regs'
   createlist 'Regs'
 endif
-
 if not listexists 'Armor'
   createlist 'Armor'
 endif
-
 if not listexists 'Weps'
   createlist 'Weps'
 endif
-
 if not listexists 'Scrolls'
   createlist 'Scrolls'
 endif
-
 if not listexists 'Trash'
   createlist 'Trash'
 endif
-
 if not @findobject 'TrashCan' or not @inrange 'TrashCan' '3'
   headmsg 'Select a corpse to dump Trash in'
   promptalias 'TrashCan'
 endif
-
 pushlist 'Loot' 0x2260 //Skill Scrolls
 pushlist 'Loot' 0xeed // Gold
 pushlist 'Loot' '0x1f4c' //Recall
@@ -79,7 +64,6 @@ pushlist 'Regs' 0xf85 // Ginseng
 pushlist 'Regs' 0xf88 // Nightshade
 pushlist 'Regs' 0xf8d // Spider's Silk
 pushlist 'Regs' 0xf8c // Sulphurous Ash
-
 //Gems
 pushlist 'Gems' 0xf16 // Amethyst
 pushlist 'Gems' 0xf15 // Citrine
@@ -90,7 +74,6 @@ pushlist 'Gems' 0xf10 // Emerald
 pushlist 'Gems' 0xf26 // Diamond
 pushlist 'Gems' 0xf2d // Tourmaline
 pushlist 'Gems' 0xf13 // Ruby
-
 //Weps
 @pushlist 'Weps' 0xe87 //Pitchfork
 @pushlist 'Weps' 0xec3 //Cleaver
@@ -103,7 +86,6 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Weps' 0xf4d
 @pushlist 'Weps' 0x143e
 @pushlist 'Weps' 0xf4b
-
 // Swords
 @pushlist 'Weps' 0xf5e
 @pushlist 'Weps' 0x13ff
@@ -113,21 +95,18 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Weps' 0x1441
 @pushlist 'Weps' 0xf61
 @pushlist 'Weps' 0xf61
-
 // Fencing
 @pushlist 'Weps' 0x1403
 @pushlist 'Weps' 0xf62
 @pushlist 'Weps' 0x1401
 @pushlist 'Weps' 0x1405
 @pushlist 'Weps' 0xf52
-
 // Bows
 @pushlist 'Weps' 0xf50
 @pushlist 'Weps' 0x26c3
 @pushlist 'Weps' 0x13fd
 @pushlist 'Weps' 0x26c2
 @pushlist 'Weps' 0x13b2
-
 // Maces
 @pushlist 'Weps' 0x143d
 @pushlist 'Weps' 0xe89
@@ -139,7 +118,6 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Weps' 0xf5c
 @pushlist 'Weps' 0xdf0
 @pushlist 'Weps' 0x13f8
-
 // Shields
 @pushlist 'Armor' 0x1b76
 @pushlist 'Armor' 0x1b7b
@@ -148,7 +126,6 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Armor' 0x1b74
 @pushlist 'Armor' 0x1b79
 @pushlist 'Armor' 0x1b7a
-
 //Platemail
 @pushlist 'Armor' 0x1408 //Close Helmet
 @pushlist 'Armor' 0x1410 //Platemail Arms
@@ -160,25 +137,21 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Armor' 0x140a //Helmet
 @pushlist 'Armor' 0x140c //Bascinet
 @pushlist 'Armor' 0x140e //Norse Helm
-
 //Chainmail
 @pushlist 'Armor' 0x13bb //Chainmail Coif
 @pushlist 'Armor' 0x13be //Chainmail Leggins
 @pushlist 'Armor' 0x13bf //Chainmail Tunic
-
 //Ringmail
 @pushlist 'Armor' 0x13ee //Ringmail Sleeves
 @pushlist 'Armor' 0x13eb //Ringmail Gloves
 @pushlist 'Armor' 0x13ec //Ringmail Tunic
 @pushlist 'Armor' 0x13f0 //Ringmail Leggins
-
 //Studded
 @pushlist 'Armor' 0x13da //Studded Leggings
 @pushlist 'Armor' 0x13db //Studded Tunic
 @pushlist 'Armor' 0x13d5 //Studded Gloves
 @pushlist 'Armor' 0x13d6 //Studded Gorget
 @pushlist 'Armor' 0x13dc //Studded Sleeves
-
 //Leather
 @pushlist 'Armor' 0x13c6 //Leather Gloves
 @pushlist 'Armor' 0x13cd //Leather Sleeves
@@ -186,7 +159,6 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Armor' 0x13cb //Leather Pants
 @pushlist 'Armor' 0x13c7 //Leather Gorget
 @pushlist 'Armor' 0x1db9 //Leather Cap
-
 //Female Armor
 @pushlist 'Armor' 0x1c04 //Female Plate
 @pushlist 'Armor' 0x1c0c //Female Studded Bustier
@@ -195,14 +167,12 @@ pushlist 'Gems' 0xf13 // Ruby
 @pushlist 'Armor' 0x1c08 //Female Leather Skirt
 @pushlist 'Armor' 0x1c06 //Female Leather Armor
 @pushlist 'Armor' 0x1c0a //Female Leather Bustier
-
 //Bone
 @pushlist 'Armor' 0x1451 //Bone Helmet
 @pushlist 'Armor' 0x144f //Bone Tunic
 @pushlist 'Armor' 0x144e //Bone Sleeves
 @pushlist 'Armor' 0x1450 //Bone Glove
 @pushlist 'Armor' 0x1452 //Bone Legs
-
 // Spell Scrolls
 pushlist 'Scrolls' 0x1f2d // Reactive Armor
 pushlist 'Scrolls' 0x1f2e // Clumsy
@@ -267,7 +237,6 @@ pushlist 'Scrolls' 0x1f69 // Summon Daemon
 pushlist 'Scrolls' 0x1f6a // Summon Earth Elemental
 pushlist 'Scrolls' 0x1f6b // Summon Fire Elemental
 pushlist 'Scrolls' 0x1f6c // Summon Water Elemental
-
 //Trash
 @pushlist 'Trash' '0x171c'
 @pushlist 'Trash' '0x1717'
@@ -285,87 +254,72 @@ pushlist 'Scrolls' 0x1f6c // Summon Water Elemental
 @pushlist 'Trash' '0x171b'
 @pushlist 'Trash' '0x171c'
 @pushlist 'Trash' '0x2306'
-
 useobject 'Chest'
 pause 900
-
 while hits < maxhits
   miniheal 'self'
   pause 1500
 endwhile
-
 for 0 to Loot
   if @inrange 'Chest' 2
     if @movetype Loot[] 'Chest' 'backpack'
       pause 1000
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Gems
   if @inrange 'Chest' 2
     if @movetype Gems[] 'Chest' 'GemBag'
       pause 900
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Weps
   if @inrange 'Chest' 2
     if @movetype Weps[] 'Chest' 'WepBag'
       pause 900
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Armor
   if @inrange 'Chest' 2
     if @movetype Armor[] 'Chest' 'ArmorBag'
       pause 900
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Scrolls
   if @inrange 'Chest' 2
     if @movetype Scrolls[] 'Chest' 'ScrollBag'
@@ -373,52 +327,43 @@ for 0 to Scrolls
       continue
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Regs
   if @inrange 'Chest' 2
     if @movetype Regs[] 'Chest' 'RegBag'
       pause 900
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 for 0 to Trash
   if @inrange 'Chest' 2
     if @movetype Trash[] 'Chest' 'TrashCan'
       pause 900
     endif
   endif
-
   while hits < maxhits
     miniheal 'self'
     pause 1500
   endwhile
-
   if not @inrange 'Chest' '2'
     headmsg 'Stopping...'
     stop
   endif
 endfor
-
 msg 'Loot Aquired!'

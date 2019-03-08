@@ -1,22 +1,15 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training hiding from 0.     // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'hiding' < 100 
-
-  useskill 'hiding' 
-
-  pause 11000 
-
-else 
-
-  headmsg 'Hiding complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training hiding from 0.     //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'hiding' < 100
+  useskill 'hiding'
+  pause 11000
+else
+  headmsg 'Hiding complete!'
+  stop
 endif

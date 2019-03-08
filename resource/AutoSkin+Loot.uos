@@ -1,83 +1,41 @@
-//you need dagger and scissors in backpack 
-
-//auto loot may not work on your server ! 
-
-//also loots feather's and gold 
-
-
-
-if not @findtype '0x2006' 'any' 'ground' '1' '2' 
-
-  sysmsg ' ******No Corpse Found******' '28' 
-
-  stop 
-
-else 
-
-  @setalias! 'o' 'found' 
-
-endif 
-
-if not @findtype '0xec4' 'any' 'backpack' 
-
-  sysmsg '*****No dagger*****' '25' 
-
-  stop 
-
-else 
-
-  @usetype! '0xec4' 'any' 'backpack' 
-
-  waitfortarget '5000' 
-
-  target! 'o' 
-
-  pause 600 
-
-endif 
-
-if @findtype! '0x1079' 'any' 'o' 'any' '2' 
-
-  @movetype '0x1079' 'o' 'backpack' 
-
-  pause 2000 
-
-  @usetype! '0xf9f' 'any' 'backpack' 
-
-  waitfortarget '2000' 
-
-  targettype '0x1079' 'any' 'backpack' 
-
-  pause 600 
-
-endif 
-
-if @findtype! '0x1bd1' 'any' 'o' 'any' '2' 
-
-  @movetype '0x1bd1' 'o' 'backpack' 
-
-  pause 1000 
-
-endif 
-
-if @findtype! '0xeed' 'any' 'o' 'any' '2' 
-
-  @movetype '0xeed' 'o' 'backpack' 
-
-  pause 1000 
-
-endif 
-
-if @findtype! '0xf26' 'any' 'o' 'any' '2' 
-
-  @movetype '0xf26' 'o' 'backpack' 
-
-  pause 1000 
-
-endif 
-
-ignoreobject 'o' 
-
-sysmsg 'Corpse Now Ignored' '25' 
-
+//you need dagger and scissors in backpack
+//auto loot may not work on your server !
+//also loots feather's and gold
+if not @findtype '0x2006' 'any' 'ground' '1' '2'
+  sysmsg ' ******No Corpse Found******' '28'
+  stop
+else
+  @setalias! 'o' 'found'
+endif
+if not @findtype '0xec4' 'any' 'backpack'
+  sysmsg '*****No dagger*****' '25'
+  stop
+else
+  @usetype! '0xec4' 'any' 'backpack'
+  waitfortarget '5000'
+  target! 'o'
+  pause 600
+endif
+if @findtype! '0x1079' 'any' 'o' 'any' '2'
+  @movetype '0x1079' 'o' 'backpack'
+  pause 2000
+  @usetype! '0xf9f' 'any' 'backpack'
+  waitfortarget '2000'
+  targettype '0x1079' 'any' 'backpack'
+  pause 600
+endif
+if @findtype! '0x1bd1' 'any' 'o' 'any' '2'
+  @movetype '0x1bd1' 'o' 'backpack'
+  pause 1000
+endif
+if @findtype! '0xeed' 'any' 'o' 'any' '2'
+  @movetype '0xeed' 'o' 'backpack'
+  pause 1000
+endif
+if @findtype! '0xf26' 'any' 'o' 'any' '2'
+  @movetype '0xf26' 'o' 'backpack'
+  pause 1000
+endif
+ignoreobject 'o'
+sysmsg 'Corpse Now Ignored' '25'
 pause '1500'

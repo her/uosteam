@@ -1,61 +1,31 @@
-//Check if there is a hatchet in hand and equip one if any in pack. 
-
-if not findobject 'lefthand' 
-
-  if @findtype 0xf43 'any' 'backpack' 
-
-    equipitem 'found' 2 
-
-  else 
-
-    sysmsg 'You have run out of hatchets!' 24 
-
-  endif 
-
-endif 
-
-//While there is still wood to cut, cut wood 
-
-while not @injournal 'enough wood' 
-
-  useobject 'lefthand' 
-
-  waitfortarget 2500 
-
-  targettileoffset 0 -1 0 
-
-  pause 3050 
-
-  //Check if there is still a hatchet equipped, in case it broke get another 
-
-  if not findobject 'lefthand' 
-
-    if @findtype 0xf43 'any' 'backpack' 
-
-      equipitem 'found' 2 
-
-    else 
-
-      sysmsg 'You have run out of hatchets!' 24 
-
-    endif 
-
-  endif 
-
-endwhile 
-
-@clearjournal 
-
-//Cut logs into boards. 
-
-if @findtype '0x1bdd' 'any' 'backpack' 
-
-  useobject 'lefthand' 
-
-  waitfortarget 15000 
-
-  target 'found' 
-
-endif 
-
+//Check if there is a hatchet in hand and equip one if any in pack.
+if not findobject 'lefthand'
+  if @findtype 0xf43 'any' 'backpack'
+    equipitem 'found' 2
+  else
+    sysmsg 'You have run out of hatchets!' 24
+  endif
+endif
+//While there is still wood to cut, cut wood
+while not @injournal 'enough wood'
+  useobject 'lefthand'
+  waitfortarget 2500
+  targettileoffset 0 -1 0
+  pause 3050
+  //Check if there is still a hatchet equipped, in case it broke get another
+  if not findobject 'lefthand'
+    if @findtype 0xf43 'any' 'backpack'
+      equipitem 'found' 2
+    else
+      sysmsg 'You have run out of hatchets!' 24
+    endif
+  endif
+endwhile
+@clearjournal
+//Cut logs into boards.
+if @findtype '0x1bdd' 'any' 'backpack'
+  useobject 'lefthand'
+  waitfortarget 15000
+  target 'found'
+endif
 stop

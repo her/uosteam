@@ -1,62 +1,36 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training cooking from 0. This // 
-//  macro cooks raw fish steaks   // 
-// and skillets to train cooking. // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findobject 'steakbox' 
-
-  headmsg 'Select the box with your fishsteaks' 
-
-  promptalias 'steakbox' 
-
-endif 
-
-if not @findtype 0x97f 'any' 'backpack' 
-
-  headmsg 'Get more skillets!' 
-
-  stop 
-
-endif 
-
-if not @findtype 0x97a 'any' 'steakbox' 
-
-  headmsg 'Get more raw fish steaks!' 
-
-  stop 
-
-endif 
-
-if skill 'cooking' < 100 
-
-  movetype 0x97a 'steakbox' 'backpack' 0 0 0 0x0 1 
-
-  pause 600 
-
-  if usetype 0x97f 'any' 'backpack' 
-
-    waitforgump 0x38920abd 2000 
-
-    replygump 0x38920abd 22 
-
-    waitforgump 0x38920abd 2000 
-
-    replygump 0x38920abd 16 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-else 
-
-  headmsg 'Cooking complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//  training cooking from 0. This //
+//  macro cooks raw fish steaks   //
+// and skillets to train cooking. //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findobject 'steakbox'
+  headmsg 'Select the box with your fishsteaks'
+  promptalias 'steakbox'
+endif
+if not @findtype 0x97f 'any' 'backpack'
+  headmsg 'Get more skillets!'
+  stop
+endif
+if not @findtype 0x97a 'any' 'steakbox'
+  headmsg 'Get more raw fish steaks!'
+  stop
+endif
+if skill 'cooking' < 100
+  movetype 0x97a 'steakbox' 'backpack' 0 0 0 0x0 1
+  pause 600
+  if usetype 0x97f 'any' 'backpack'
+    waitforgump 0x38920abd 2000
+    replygump 0x38920abd 22
+    waitforgump 0x38920abd 2000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 2000
+  endif
+else
+  headmsg 'Cooking complete!'
+  stop
 endif

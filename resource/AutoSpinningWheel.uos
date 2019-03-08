@@ -1,77 +1,39 @@
-//This will target the closest spinning wheel and spin all your cotton/wool 
-
-if not listexists 'Spin' 
-
-  createlist 'Spin' 
-
-endif 
-
-if list 'Spin' == '0' 
-
-  @pushlist 'Spin' '0x1015' 
-
-  @pushlist 'Spin' '0x101c' 
-
-  @pushlist 'Spin' '0x1019' 
-
-  //@pushlist 'Spin' 'graphic' 
-
-endif 
-
-if not @findobject 'wheel' or @distance 'wheel' > 3 
-
-  for 0 to 'Spin' 
-
-    if @findtype 'Spin[]' 'any' 'ground' '1' '2' 
-
-      sysmsg 'Wheel found' '54' 
-
-      setalias 'Wheel' 'found' 
-
-      break 
-
-    endif 
-
-  endfor 
-
-endif 
-
-if weight > 390 
-
-  msg 'UNLOAD YOUR BAGS!!!' 
-
-  stop 
-
-elseif @usetype 0xdf9 any backpack 
-
-  waitfortarget 2000 
-
-  target! found 
-
-  pause 3500 
-
-elseif @usetype 0xdf8 any backpack 
-
-  waitfortarget 2000 
-
-  target! found 
-
-  pause 3500 
-
-elseif @usetype 0x1a9c any backpack 
-
-  waitfortarget 2000 
-
-  target! found 
-
-  pause 3500 
-
-elseif @usetype 0x1a9d any backpack 
-
-  waitfortarget 2000 
-
-  target! found 
-
-  pause 3500 
-
-endif 
+//This will target the closest spinning wheel and spin all your cotton/wool
+if not listexists 'Spin'
+  createlist 'Spin'
+endif
+if list 'Spin' == '0'
+  @pushlist 'Spin' '0x1015'
+  @pushlist 'Spin' '0x101c'
+  @pushlist 'Spin' '0x1019'
+  //@pushlist 'Spin' 'graphic'
+endif
+if not @findobject 'wheel' or @distance 'wheel' > 3
+  for 0 to 'Spin'
+    if @findtype 'Spin[]' 'any' 'ground' '1' '2'
+      sysmsg 'Wheel found' '54'
+      setalias 'Wheel' 'found'
+      break
+    endif
+  endfor
+endif
+if weight > 390
+  msg 'UNLOAD YOUR BAGS!!!'
+  stop
+elseif @usetype 0xdf9 any backpack
+  waitfortarget 2000
+  target! found
+  pause 3500
+elseif @usetype 0xdf8 any backpack
+  waitfortarget 2000
+  target! found
+  pause 3500
+elseif @usetype 0x1a9c any backpack
+  waitfortarget 2000
+  target! found
+  pause 3500
+elseif @usetype 0x1a9d any backpack
+  waitfortarget 2000
+  target! found
+  pause 3500
+endif

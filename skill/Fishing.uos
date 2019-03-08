@@ -1,90 +1,50 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training fishing from a boat. // 
-//     It uses a fishing pole.    // 
-//   Stand in front of the mast.  // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findobject 'pole' 
-
-  if @findtype 0xdc0 0x0 'self' 
-
-    setalias 'pole' 'found' 
-
-    pause 100 
-
-  else 
-
-    headmsg 'get a pole' 
-
-  endif 
-
-endif 
-
-clearjournal 
-
-if skill 'fishing' < 100 
-
-  while not @injournal 'biting here' 
-
-    if useobject 'pole' 
-
-      waitfortarget 2000 
-
-      targettileoffset! -4 -4 -3 
-
-      pause 9000 
-
-    endif 
-
-    if useobject 'pole' 
-
-      waitfortarget 2000 
-
-      targettileoffset! -4 4 -3 
-
-      pause 9000 
-
-    endif 
-
-    if useobject 'pole' 
-
-      waitfortarget 2000 
-
-      targettileoffset! 4 -4 -3 
-
-      pause 9000 
-
-    endif 
-
-    if useobject 'pole' 
-
-      waitfortarget 2000 
-
-      targettileoffset! 4 4 -3 
-
-      pause 9000 
-
-    endif 
-
-  endwhile 
-
-  for 15 
-
-    msg 'forward one' 
-
-    pause 1000 
-
-  endfor 
-
-else 
-
-  headmsg 'Fishing complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//  training fishing from a boat. //
+//     It uses a fishing pole.    //
+//   Stand in front of the mast.  //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findobject 'pole'
+  if @findtype 0xdc0 0x0 'self'
+    setalias 'pole' 'found'
+    pause 100
+  else
+    headmsg 'get a pole'
+  endif
+endif
+clearjournal
+if skill 'fishing' < 100
+  while not @injournal 'biting here'
+    if useobject 'pole'
+      waitfortarget 2000
+      targettileoffset! -4 -4 -3
+      pause 9000
+    endif
+    if useobject 'pole'
+      waitfortarget 2000
+      targettileoffset! -4 4 -3
+      pause 9000
+    endif
+    if useobject 'pole'
+      waitfortarget 2000
+      targettileoffset! 4 -4 -3
+      pause 9000
+    endif
+    if useobject 'pole'
+      waitfortarget 2000
+      targettileoffset! 4 4 -3
+      pause 9000
+    endif
+  endwhile
+  for 15
+    msg 'forward one'
+    pause 1000
+  endfor
+else
+  headmsg 'Fishing complete!'
+  stop
 endif

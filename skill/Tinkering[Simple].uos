@@ -1,53 +1,27 @@
-if skill 'tinkering' < 30 
-
-  headmsg 'Buy more tinkering skill!' 
-
-  stop 
-
-elseif skill 'tinkering' < 40 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 2 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 65 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 44 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 75 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 86 
-
-    waitforgump 0x38920abd 2000 
-
+if skill 'tinkering' < 30
+  headmsg 'Buy more tinkering skill!'
+  stop
+elseif skill 'tinkering' < 40
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 65
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 44
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 75
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 86
+    waitforgump 0x38920abd 2000
   endif

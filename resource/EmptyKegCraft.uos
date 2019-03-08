@@ -1,375 +1,188 @@
 // ---------------------------------------------------------------------------
-
 // Empty Keg Crafting Macro
-
 // Author: Bane
-
 //
-
 // Setup:
-
 // - Create an organizer agent named: EmptyKegRestock. It should stock
-
 // 100 ingots, 100 boards, and 50 bottles.
-
 // - Need an empty container that is not in your backpack to set as the
-
 // "FinishedEmptyKegStorage"
-
 // - Need a chest with all your materials
-
 // Assumptions:
-
 // - You have the required skills to make an empty potion
-
 // keg and all required parts.
-
 //
-
 //
-
 // Set up finished keg storage
-
 promptalias 'FinishedEmptyKegStorage'
-
 //
-
 // Set up material storage container
-
 if not @findalias 'MaterialStorage'
-
-promptalias 'MaterialStorage'
-
+  promptalias 'MaterialStorage'
 endif
-
 //
-
 // Open container
-
 useobject 'FinishedEmptyKegStorage'
-
 pause 1000
-
 //
-
 // Open container
-
 useobject 'MaterialStorage'
-
 pause 1000
-
 //
-
 // Saw tool graphic id 0x1034
-
 //
-
 // Tinker Tool graphic id 0x1eb8
-
 //
-
 // Set up bottle graphic id 0xf0e
-
 //
-
 // Set up board graphic id 0x1bd7
-
 //
-
 // Ingot graphic id 0x1bf2
-
 //
-
 // Keg graphic id 0x1940
-
 //
-
 // Barrel Stave Graphic Id 0x1eb1
-
 //
-
 // Barrel Lid Graphic Id 0x1db8
-
 //
-
 // See if container is at max capacity
-
 while counttype 0x1940 'any' 'FinishedEmptyKegStorage' < 124
-
-// check stock levels, first ingots, then boards, then bottles
-
-// We only require 7 ingots to craft keg but we also need it for tools
-
-// CountType will not work with OR/AND conditionals after statement )=
-
-// so we got a big if/elseif statement
-
-if counttype 0x1bf2 'any' 'backpack' < 30
-
-// Try to get more materials
-
-organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
-
-while organizing
-
-pause 100
-
-endwhile
-
-elseif counttype 0x1bd7 'any' 'backpack' < 27
-
-// Try to get more materials
-
-organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
-
-while organizing
-
-pause 100
-
-endwhile
-
-elseif counttype 0xf0e 'any' 'backpack' < 10
-
-// Try to get more materials
-
-organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
-
-while organizing
-
-pause 100
-
-endwhile
-
-endif
-
-// Check stock levels again
-
-// CountType will not work with OR/AND conditionals after statement )=
-
-// so we got a big if/elseif statement
-
-if counttype 0x1bf2 'any' 'backpack' < 30
-
-// Still don't have enough exit
-
-stop
-
-elseif counttype 0x1bd7 'any' 'backpack' < 27
-
-// Still don't have enough exit
-
-stop
-
-elseif counttype 0xf0e 'any' 'backpack' < 10
-
-// Still don't have enough exit
-
-stop
-
-endif
-
-//
-
-// Barrel Staves - need 3
-
-while counttype 0x1eb1 'any' 'backpack' < 3
-
-usetype 0x1034 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 1
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 2
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Barrel Lids - need 2
-
-while counttype 0x1db8 'any' 'backpack' < 2
-
-usetype 0x1034 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 1
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 9
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Barrel Hoop - need 1
-
-while counttype 0x1db7 'any' 'backpack' < 1
-
-usetype 0x1eb8 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 15
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 37
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Barrel Tap - need 1
-
-while counttype 0x1004 'any' 'backpack' < 1
-
-usetype 0x1eb8 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 15
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 16
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Carp Keg Assembly
-
-while counttype 0xe7f 'any' 'backpack' < 1
-
-usetype 0x1034 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 15
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 163
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Tinker Potion Keg Assembly
-
-usetype 0x1eb8 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 43
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 44
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-//
-
-// Craft more tinker tools if we need them
-
-while counttype 0x1eb8 'any' 'backpack' < 4
-
-usetype 0x1eb8 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 8
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 23
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// Craft more carp tools if we need them
-
-while counttype 0x1034 'any' 'backpack' < 4
-
-usetype 0x1eb8 'any' 'backpack'
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 8
-
-waitforgump 0x38920abd 15000
-
-replygump 0x38920abd 51
-
-waitforgump 0x38920abd 5000
-
-// There is sometimes a slight delay before item makes it into pack
-
-pause 500
-
-endwhile
-
-//
-
-// just in case we hit a world save and a move is aborted.
-
-while counttype 0x1940 'any' 'backpack' > 0
-
-// Move crafted keg to storage.
-
-movetype 0x1940 'backpack' 'FinishedEmptyKegStorage'
-
-// Loop until we are done moving item
-
-pause 1000
-
-endwhile
-
+  // check stock levels, first ingots, then boards, then bottles
+  // We only require 7 ingots to craft keg but we also need it for tools
+  // CountType will not work with OR/AND conditionals after statement )=
+  // so we got a big if/elseif statement
+  if counttype 0x1bf2 'any' 'backpack' < 30
+    // Try to get more materials
+    organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
+    while organizing
+      pause 100
+    endwhile
+  elseif counttype 0x1bd7 'any' 'backpack' < 27
+    // Try to get more materials
+    organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
+    while organizing
+      pause 100
+    endwhile
+  elseif counttype 0xf0e 'any' 'backpack' < 10
+    // Try to get more materials
+    organizer 'EmptyKegRestock' 'MaterialStorage' 'backpack'
+    while organizing
+      pause 100
+    endwhile
+  endif
+  // Check stock levels again
+  // CountType will not work with OR/AND conditionals after statement )=
+  // so we got a big if/elseif statement
+  if counttype 0x1bf2 'any' 'backpack' < 30
+    // Still don't have enough exit
+    stop
+  elseif counttype 0x1bd7 'any' 'backpack' < 27
+    // Still don't have enough exit
+    stop
+  elseif counttype 0xf0e 'any' 'backpack' < 10
+    // Still don't have enough exit
+    stop
+  endif
+  //
+  // Barrel Staves - need 3
+  while counttype 0x1eb1 'any' 'backpack' < 3
+    usetype 0x1034 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Barrel Lids - need 2
+  while counttype 0x1db8 'any' 'backpack' < 2
+    usetype 0x1034 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Barrel Hoop - need 1
+  while counttype 0x1db7 'any' 'backpack' < 1
+    usetype 0x1eb8 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 37
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Barrel Tap - need 1
+  while counttype 0x1004 'any' 'backpack' < 1
+    usetype 0x1eb8 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Carp Keg Assembly
+  while counttype 0xe7f 'any' 'backpack' < 1
+    usetype 0x1034 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 163
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Tinker Potion Keg Assembly
+  usetype 0x1eb8 'any' 'backpack'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 43
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 44
+  waitforgump 0x38920abd 5000
+  // There is sometimes a slight delay before item makes it into pack
+  pause 500
+  //
+  // Craft more tinker tools if we need them
+  while counttype 0x1eb8 'any' 'backpack' < 4
+    usetype 0x1eb8 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 23
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // Craft more carp tools if we need them
+  while counttype 0x1034 'any' 'backpack' < 4
+    usetype 0x1eb8 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 51
+    waitforgump 0x38920abd 5000
+    // There is sometimes a slight delay before item makes it into pack
+    pause 500
+  endwhile
+  //
+  // just in case we hit a world save and a move is aborted.
+  while counttype 0x1940 'any' 'backpack' > 0
+    // Move crafted keg to storage.
+    movetype 0x1940 'backpack' 'FinishedEmptyKegStorage'
+    // Loop until we are done moving item
+    pause 1000
+  endwhile
 endwhile

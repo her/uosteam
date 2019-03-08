@@ -1,15 +1,12 @@
 //Halygon's Auto-Lockpicker
-
 //Target object to unlock
 promptalias 'lockeditem'
-
 @clearjournal
-
 //Keep trying to unlock until successful
 while not @injournal 'The lock quickly yields' 'system'
-if @findtype 0x14fc 'any' 'backpack'
-useobject 'found'
-waitfortarget 1500
-target! 'lockeditem'
-pause 4000
-endwhile
+  if @findtype 0x14fc 'any' 'backpack'
+    useobject 'found'
+    waitfortarget 1500
+    target! 'lockeditem'
+    pause 4000
+  endwhile

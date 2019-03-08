@@ -1,34 +1,21 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training anatomy from 0.    // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findalias 'anat' 
-
-  headmsg 'Select the person to train anatomy on' 
-
-  promptalias 'anat' 
-
-endif 
-
-if skill 'anatomy' < 100 
-
-  useskill 'anatomy' 
-
-  waitfortarget 2000 
-
-  target! 'anat' 
-
-  pause 1000 
-
-else 
-
-  headmsg 'Anatomy complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training anatomy from 0.    //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findalias 'anat'
+  headmsg 'Select the person to train anatomy on'
+  promptalias 'anat'
+endif
+if skill 'anatomy' < 100
+  useskill 'anatomy'
+  waitfortarget 2000
+  target! 'anat'
+  pause 1000
+else
+  headmsg 'Anatomy complete!'
+  stop
 endif

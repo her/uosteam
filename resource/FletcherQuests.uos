@@ -1,949 +1,949 @@
-//1. Character needs Fletching and Tinkering, a Fletching Bonus talisman saves resources 
-//2. FletcherDropoff container needs bolts, ingots, boards in it 
-//3. FletcherRunebook needs 1st rune to be Dropoff location and 2nd rune near Heartwood entrance 
-//4. Start in Heartwood with a beetle full of boards and crafted tinker tools, 40 ingots, and 200 bolts in your pack or start at your Dropoff location to restock these items 
-//5. Have meat in your pack to feed beetle, 1 meat used per hour 
-//6. If multiple stacks of boards at your dropoff, script will begin encountering errors when one of the stacks drop below 1600, combine them before this happens 
-//7. Change the 5 itemids below to your setup 
-@setalias 'FletcherDropoff' 0x411c61df 
-@setalias 'beetle' 0x133f10 
-@setalias 'FletcherRunebook' 0x41829f0b 
-@setalias 'Fletching Quest Giver' 0x117 
-@setalias 'Trash Barrel' 0x40053e83 
-if not listexists 'Talismans' 
-  @createlist 'Talismans' 
-  @pushlist 'Talismans' 0x2f58 
-  @pushlist 'Talismans' 0x2f59 
-  @pushlist 'Talismans' 0x2f5a 
-  @pushlist 'Talismans' 0x2f5b 
-endif 
-if not listexists 'Skills' 
-  @createlist 'Skills' 
-  @pushlist 'Skills' 'Alchemy Bonus' 
-  @pushlist 'Skills' 'Blacksmithing Bonus' 
-  @pushlist 'Skills' 'Carpentry Bonus' 
-  @pushlist 'Skills' 'Fletching Bonus' 
-  @pushlist 'Skills' 'Inscription Bonus' 
-  @pushlist 'Skills' 'Tailoring Bonus' 
-  @pushlist 'Skills' 'Tinkering Bonus' 
-endif 
-if not listexists 'Killers' 
-  @createlist 'Killers' 
-  @pushlist 'Killers' 'Yamandon Killer' 
-  @pushlist 'Killers' 'Lich Killer' 
-  @pushlist 'Killers' 'Lich Lord Killer' 
-  @pushlist 'Killers' 'Dread Spider Killer' 
-  @pushlist 'Killers' 'Giant Black Widow Killer' 
-  @pushlist 'Killers' 'Eagle Killer' 
-endif 
-if not listexists 'Protection' 
-  @createlist 'Protection' 
-  @pushlist 'Protection' 'Yamandon Protection' 
-  @pushlist 'Protection' 'Lich Protection' 
-  @pushlist 'Protection' 'Lich Lord Protection' 
-  @pushlist 'Protection' 'Dread Spider Protection' 
-  @pushlist 'Protection' 'Giant Black Widow Protection' 
-  @pushlist 'Protection' 'Silver Serpent Protection' 
-  @pushlist 'Protection' 'Eagle Protection' 
-endif 
-if not listexists 'Jewelry' 
-  @createlist 'Jewelry' 
-  @pushlist 'Jewelry' 0x108a 
-  @pushlist 'Jewelry' 0x1f09 
-  @pushlist 'Jewelry' 0x1086 
-  @pushlist 'Jewelry' 0x1f06 
-endif 
-if not timerexists 'feedPet' 
-  createtimer 'feedPet' 
-endif 
-//if in heartwood quest area, run through the macro 
-if @inrange 'Trash Barrel' 2 
-  //stop macro if you forgot to restock bolts or ingots or have no tinker tools 
-  if counttype 0x1bf2 0 'backpack' == 0 
-    sysmsg 'Restock ingots before starting!' 33 
-    stop 
-  endif 
-  if counttype 0x1bfb 0 'backpack' == 0 
-    sysmsg 'Restock bolts before starting!' 33 
-    stop 
-  endif 
-  if @counttype 0x1eb8 0 'backpack' == 0 
-    sysmsg 'Get tinker tools before starting!' 33 
-    stop 
-  endif 
-  // make tinker tools 
-  while @counttype 0x1eb8 0 'backpack' < 3 
-    usetype! 0x1eb8 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 8 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 23 
-  endwhile 
-  // make plain fletcher kits 
-  while @counttype 0x1022 0 'backpack' < 4 
-    usetype! 0x1eb8 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 8 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 142 
-  endwhile 
-  //dismount if not when macro started 
-  if mounted 
-    useobject 'self' 
-    pause 1000 
-    waitforcontext 'beetle' 10 15000 
-    pause 1000 
-    useobject 'Trash Barrel' 
-    pause 1000 
-  endif 
-  // Hourly feed pet 
-  if timer 'feedPet' >= 3600000 
-    feed 'beetle' 'Meat' 'any' 1 
-    pause 500 
-    if injournal 'happier' 
-      settimer 'feedPet' 0 
-      sysmsg 'Pet Fed' 33 
-      clearjournal 
-    else 
-      sysmsg 'Out of Meat!' 33 
-      useobject 'beetle' 
-      clearjournal 
-      stop 
-    endif 
-  endif 
-  //restock boards from beetle 
-  if counttype 0x1bd7 0 'backpack' < 150 
-    if counttype 0x1bd7 0 'beetle' > 199 
-      movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200 
-      pause 2000 
-      //if beetle empty, leave heartwood 
-    else 
-      msg 'MB is the King of Demise!' 33 
-      useobject 'beetle' 
-      pause 1000 
-      msg 'Long live the King!' 33 
-      while x > 7023 
-        run 'west' 
-      endwhile 
-      pause 300 
-      while y > 342 
-        run "Northwest" 
-        pause 100 
-      endwhile 
-      while x < 6987 
-        walk 'east' 
-        pause 150 
-      endwhile 
-      while x > 6987 
-        walk 'west' 
-        pause 150 
-      endwhile 
-      while y != 338 and y < 600 
-        for 3 
-          if y > 338 and y < 600 
-            walk 'north' 
-            pause 250 
-          endif 
-          if y < 338 and y < 600 
-            walk 'south' 
-            pause 250 
-          endif 
-        endfor 
-      endwhile 
-      while x > 1000 
-        run 'west' 
-      endwhile 
-      //recall home 
-      useobject 'FletcherRunebook' 
-      waitforgump 0x554b87f3 30000 
-      //change the 5 to 7 if using chivalry 
-      replygump 0x554b87f3 5 
-      pause 2000 
-      //open containers 
-      useobject 'self' 
-      pause 1000 
-      useobject 'FletcherDropoff' 
-      pause 1000 
-      waitforcontext 'beetle' 10 15000 
-      pause 1000 
-      //unload jewels 
-      while counttype 0x108a 'any' 'backpack' > 0 
-        movetype 0x108a 'backpack' 'FletcherDropoff' 
-        pause 500 
-      endwhile 
-      while counttype 0x1f09 'any' 'backpack' > 0 
-        movetype 0x1f09 'backpack' 'FletcherDropoff' 
-        pause 500 
-      endwhile 
-      while counttype 0x1f06 'any' 'backpack' > 0 
-        movetype 0x1f06 'backpack' 'FletcherDropoff' 
-        pause 500 
-      endwhile 
-      while counttype 0x1086 'any' 'backpack' > 0 
-        movetype 0x1086 'backpack' 'FletcherDropoff' 
-        pause 500 
-      endwhile 
-      //unload kits 
-      while counttype 0x1022 1191 'backpack' > 0 
-        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1191 1 
-        pause 500 
-      endwhile 
-      while counttype 0x1022 2010 'backpack' > 0 
-        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 2010 1 
-        pause 500 
-      endwhile 
-      while counttype 0x1022 1192 'backpack' > 0 
-        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1192 1 
-        pause 500 
-      endwhile 
-      while counttype 0x1022 1193 'backpack' > 0 
-        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1193 1 
-        pause 500 
-      endwhile 
-      //unload talismans 
-      while counttype 0x2f58 0 'backpack' > 0 
-        movetype 0x2f58 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-        pause 500 
-      endwhile 
-      while counttype 0x2f59 0 'backpack' > 0 
-        movetype 0x2f59 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-        pause 500 
-      endwhile 
-      while counttype 0x2f5a 0 'backpack' > 0 
-        movetype 0x2f5a 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-        pause 500 
-      endwhile 
-      while counttype 0x2f5b 0 'backpack' > 0 
-        movetype 0x2f5b 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-        pause 500 
-      endwhile 
-      //get more bolts 
-      if counttype 0x1bfb 0 'backpack' < 130 
-        if counttype 0x1bfb 0 'FletcherDropoff' < 200 
-          sysmsg 'Out of Bolts!' 33 
-          useobject 'beetle' 
-          stop 
-        endif 
-        movetype 0x1bfb 'FletcherDropoff' 'backpack' (0 0 0) 0 200 
-        pause 1000 
-      endif 
-      // get ingots if low 
-      if counttype 0x1bf2 0 'backpack' < 20 
-        if counttype 0x1bf2 0 'FletcherDropoff' < 40 
-          sysmsg 'Out of Ingots!' 33 
-          useobject 'beetle' 
-          stop 
-        endif 
-        movetype 0x1bf2 'FletcherDropoff' 'backpack' (0 0 0) 0 40 
-        pause 1000 
-      endif 
-      //get boards on beetle and self 
-      //first make sure beetle is empty, sometimes UOS won't pull 200 boards and you end up with odd number left behind 
-      if counttype 0x1bd7 0 'beetle' > 0 
-        while counttype 0x1bd7 0 'beetle' > 499 
-          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 500 
-          pause 500 
-        endwhile 
-        while counttype 0x1bd7 0 'beetle' > 99 
-          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 100 
-          pause 500 
-        endwhile 
-        while counttype 0x1bd7 0 'beetle' > 24 
-          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 25 
-          pause 500 
-        endwhile 
-        while counttype 0x1bd7 0 'beetle' > 4 
-          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 5 
-          pause 500 
-        endwhile 
-        while counttype 0x1bd7 0 'beetle' > 0 
-          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 1 
-          pause 500 
-        endwhile 
-      endif 
-      //stop if FletcherDropoff is out of boards 
-      if counttype 0x1bd7 0 'FletcherDropoff' < 1600 
-        sysmsg 'Out of Boards!' 33 
-        useobject 'beetle' 
-        stop 
-      endif 
-      //fill beetle with boards 
-      movetype 0x1bd7 'FletcherDropoff' 'beetle' (0 0 0) 0 1600 
-      pause 1000 
-      //move boards to your pack based on how low your pack is 
-      if counttype 0x1bd7 0 'backpack' < 75 
-        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 275 
-        pause 1000 
-      elseif counttype 0x1bd7 0 'backpack' < 100 
-        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 250 
-        pause 1000 
-      elseif counttype 0x1bd7 0 'backpack' < 150 
-        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 200 
-        pause 1000 
-      endif 
-      //mount beetle and recall back to heartwood 
-      useobject 'beetle' 
-      pause 2000 
-      useobject 'FletcherRunebook' 
-      waitforgump 0x554b87f3 30000 
-      //change this 11 to 13 if using chivalry 
-      replygump 0x554b87f3 11 
-      pause 2000 
-      //if the rune is blocked, pause 2 min to give time for NPCs to move, this prevents the character from running across the world from your dropoff 
-      if injournal 'blocked' 'system' 
-        sysmsg 'Rune blocked, trying again in 2 minutes' 33 
-        pause 120000 
-        clearjournal 
-        useobject 'FletcherRunebook' 
-        waitforgump 0x554b87f3 30000 
-        //change this 11 to 13 if using chivalry 
-        replygump 0x554b87f3 11 
-        pause 2000 
-        //if it's still blocked, stop macro 
-        if injournal 'blocked' 'system' 
-          sysmsg 'Rune still blocked, stopping macro' 33 
-          clearjournal 
-          stop 
-        endif 
-      endif 
-      //navigate to heartwood entrance 
-      while y != 992 and y > 400 
-        for 2 
-          if y > 992 
-            walk 'north' 
-          endif 
-          pause 250 
-          if y < 992 
-            walk 'south' 
-          endif 
-          pause 250 
-        endfor 
-      endwhile 
-      if x > 535 and x < 1000 
-        while x > 535 and x < 1000 
-          run 'west' 
-          pause 100 
-        endwhile 
-      endif 
-      if x < 537 
-        while x < 537 
-          run 'east' 
-          pause 100 
-        endwhile 
-      endif 
-      //navigate through heartwood to quest area 
-      while y < 377 
-        run 'southeast' 
-      endwhile 
-      pause 500 
-      while y > 378 
-        walk 'north' 
-        pause 500 
-      endwhile 
-      while y < 378 
-        walk 'south' 
-        pause 500 
-      endwhile 
-      while x < 7037 
-        run 'east' 
-      endwhile 
-      //dismount 
-      useobject 'self' 
-      pause 700 
-      useobject 'Trash Barrel' 
-      pause 700 
-      waitforcontext 'beetle' 10 3000 
-      pause 700 
-      if counttype 0x1bd7 0 'backpack' < 150 
-        movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200 
-        pause 2000 
-      endif 
-    endif 
-  endif 
-  //get a quest 
-  @useobject 'Fletching Quest Giver' 
-  waitforgump 0x19bc4061 2000 
-  //SimpleBow 
-  if @ingump 0x19bc4061 'crafted in the human style' 
-    replygump 0x19bc4061 1 
-    pause 550 
-    while counttype 0x13b2 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 2 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x13b2 0x4ea 'backpack' != 10 
-      @targettype 0x13b2 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //SimpleBow already in progress 
-  elseif @ingump 0xa8b319c6 'debt if you bring me bows' 
-    while counttype 0x13b2 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 2 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x13b2 0x4ea 'backpack' != 10 
-      @targettype 0x13b2 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious I 
-  elseif @ingump 0x19bc4061 'such an instrument for me?' 
-    replygump 0x19bc4061 1 
-    pause 550 
-    while counttype 0xf50 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 9 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0xf50 0x4ea 'backpack' != 10 
-      @targettype 0xf50 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious I already in progress 
-  elseif @ingump 0xa8b319c6 'debt if you bring me crossbows' 
-    while counttype 0xf50 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 9 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0xf50 0x4ea 'backpack' != 10 
-      @targettype 0xf50 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious 2 
-  elseif @ingump 0x19bc4061 'remarkable instrument of war' 
-    replygump 0x19bc4061 1 
-    pause 550 
-    while counttype 0x13fd 'any' 'backpack' < 8 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 16 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x13fd 0x4ea 'backpack' != 8 
-      @targettype 0x13fd 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious 2 already in progress 
-  elseif @ingump 0xa8b319c6 'debt if you bring me heavy crossbows' 
-    while counttype 0x13fd 'any' 'backpack' < 8 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 16 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x13fd 0x4ea 'backpack' != 8 
-      @targettype 0x13fd 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious 3 
-  elseif @ingump 0x19bc4061 'remarkable human ingenuity' 
-    replygump 0x19bc4061 1 
-    pause 550 
-    while counttype 0x26c3 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 30 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x26c3 0x4ea 'backpack' != 10 
-      @targettype 0x26c3 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //Ingenious 3 already in progress 
-  elseif @ingump 0xa8b319c6 'debt if you bring me repeating crossbows' 
-    while counttype 0x26c3 'any' 'backpack' < 10 
-      usetype 0x1022 0 'backpack' 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 15 
-      waitforgump 0x38920abd 5000 
-      replygump 0x38920abd 30 
-      waitforgump 0x38920abd 5000 
-    endwhile 
-    waitforcontext 'self' 4 5000 
-    waitfortarget 5000 
-    pause 1000 
-    while @counttype 0x26c3 0x4ea 'backpack' != 10 
-      @targettype 0x26c3 0 
-      pause 150 
-    endwhile 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //LethalDart 
-  elseif @ingump 0x19bc4061 'deadly crossbow bolt' 
-    if @findtype 0x1bfb 'any' 'backpack' 10 
-      replygump 0x19bc4061 1 
-      pause 550 
-      pause 300 
-      if color 'found' == 0 
-        waitforcontext 'self' 4 5000 
-        waitfortarget 5000 
-        Target! 'found' 
-        waitfortarget 5000 
-      endif 
-    endif 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //LethalDart in progress 
-  elseif @ingump 0xa8b319c6 'debt if you bring me crossbow bolts' 
-    if @findtype 0x1bfb 'any' 'backpack' 10 
-      pause 300 
-      if color 'found' == 0 
-        waitforcontext 'self' 4 5000 
-        waitfortarget 5000 
-        Target! 'found' 
-        waitfortarget 5000 
-      endif 
-    endif 
-    @canceltarget 
-    pause 500 
-    @useobject! 'Fletching Quest Giver' 
-    waitforgump 0xdf31ecf8 5000 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    pause 1000 
-    //quest done except for talking to quest giver again 
-  elseif @ingump 0xdf31ecf8 'My thanks' 
-    replygump 0xdf31ecf8 4 
-    waitforgump 0x96626c6e 15000 
-    replygump 0x96626c6e 1 
-    //refuse Harp quest so not obscuring screen 
-  elseif @ingump 0x19bc4061 'melodious of music' 
-    replygump 0x19bc4061 2 
-    waitforgump 0xa8b319c6 15000 
-    replygump 0xa8b319c6 3 
-  endif 
-  pause 1000 
-  // Handle reward bags 
-  while @findtype 0xe75 'any' 'backpack' 
-    @setalias 'trash' 'found' 
-    @useobject! 'trash' 
-    pause 1000 
-    // Runics 
-    while @findtype 0x1022 'any' 'trash' 
-      @moveitem! 'found' 'backpack' 
-      if color 'found' == 2010 
-        msg 'Bleh, always an Oak kit' 33 
-        //uncomment this next line to throw Oak kits on the ground 
-        // moveitemoffset 'found' 'ground' (0 2 0) 
-      endif 
-      if color 'found' == 1191 
-        msg 'Grrr....Ash kit again' 33 
-      endif 
-      if color 'found' == 1192 
-        msg 'Nice, a Yew kit' 33 
-      endif 
-      if color 'found' == 1193 
-        msg 'Woohoo! Heartwood!' 63 
-      endif 
-      pause 1000 
-    endwhile 
-    // Talismans 
-    for 0 to 'Talismans' 
-      while @findtype Talismans[] 0 'trash' 
-        waitforproperties 'found' 5000 
-        //get any slayers 
-        if @property 'slayer' 'found' 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        //crafting bonus and exceptional bonus talismans 
-        if @property 'Bonus' 'found' >= 25 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        //get killers 
-        for 0 to 'Killers' 
-          if @property Killers[] 'found' >= 90 
-            @moveitem! 'found' 'backpack' 
-            pause 1000 
-            break 
-            ignoreobject 'found' 
-          endif 
-        endfor 
-        //get protections 
-        for 0 to 'Protection' 
-          if @property Protection[] 'found' >= 50 
-            @moveitem! 'found' 'backpack' 
-            pause 1000 
-            break 
-            ignoreobject 'found' 
-          endif 
-        endfor 
-        ignoreobject 'found' 
-      endwhile 
-    endfor 
-    //Jewels 
-    for 0 to 'Jewelry' 
-      while @findtype Jewelry[] 0 'trash' 
-        pause 1000 
-        if @property 'Luck' 'found' >= 90 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        if @property 'Faster Cast Recovery' 'found' = 3 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        //save 1/2 and 1/1 
-        if @property 'Faster Cast Recovery' 'found' > 0 
-          if @property 'Faster Casting' 'found' 
-            @moveitem! 'found' 'backpack' 
-            pause 1000 
-            break 
-          endif 
-        endif 
-        if @property 'Defense chance increase' 'found' >= 10 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        if @property 'Hit chance increase' 'found' >= 10 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        if @property 'Animal Taming' 'found' >= 10 
-          @moveitem! 'found' 'backpack' 
-          pause 1000 
-          break 
-          ignoreobject 'found' 
-        endif 
-        ignoreobject 'found' 
-      endwhile 
-    endfor 
-    //clear the ignore list so it doesn't skip items at dropoff 
-    clearignorelist 
-    @moveitem! 'trash' 'Trash Barrel' 
-    pause 1000 
-  endwhile 
-  //if starting macro from Dropoff location, then go through that same process as above to restock and navigate to Heartwood 
-elseif @inrange 'FletcherDropoff' 2 
-  // stop macro if you don't have any tinker tools 
-  if @counttype 0x1eb8 0 'backpack' == 0 
-    sysmsg 'Get tinker tolls before starting!' 33 
-    stop 
-  endif 
-  //open containers 
-  useobject 'self' 
-  pause 1000 
-  useobject 'FletcherDropoff' 
-  pause 1000 
-  waitforcontext 'beetle' 10 15000 
-  pause 1000 
-  //unload jewels 
-  while counttype 0x108a 'any' 'backpack' > 0 
-    movetype 0x108a 'backpack' 'FletcherDropoff' 
-    pause 500 
-  endwhile 
-  while counttype 0x1f09 'any' 'backpack' > 0 
-    movetype 0x1f09 'backpack' 'FletcherDropoff' 
-    pause 500 
-  endwhile 
-  while counttype 0x1f06 'any' 'backpack' > 0 
-    movetype 0x1f06 'backpack' 'FletcherDropoff' 
-    pause 500 
-  endwhile 
-  while counttype 0x1086 'any' 'backpack' > 0 
-    movetype 0x1086 'backpack' 'FletcherDropoff' 
-    pause 500 
-  endwhile 
-  //unload kits 
-  while counttype 0x1022 1191 'backpack' > 0 
-    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1191 1 
-    pause 500 
-  endwhile 
-  while counttype 0x1022 2010 'backpack' > 0 
-    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 2010 1 
-    pause 500 
-  endwhile 
-  while counttype 0x1022 1192 'backpack' > 0 
-    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1192 1 
-    pause 500 
-  endwhile 
-  while counttype 0x1022 1193 'backpack' > 0 
-    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1193 1 
-    pause 500 
-  endwhile 
-  //unload talismans 
-  while counttype 0x2f58 0 'backpack' > 0 
-    movetype 0x2f58 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-    pause 500 
-  endwhile 
-  while counttype 0x2f59 0 'backpack' > 0 
-    movetype 0x2f59 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-    pause 500 
-  endwhile 
-  while counttype 0x2f5a 0 'backpack' > 0 
-    movetype 0x2f5a 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-    pause 500 
-  endwhile 
-  while counttype 0x2f5b 0 'backpack' > 0 
-    movetype 0x2f5b 'backpack' 'FletcherDropoff' (0 0 0) 0 1 
-    pause 500 
-  endwhile 
-  //get more bolts 
-  if counttype 0x1bfb 0 'backpack' < 130 
-    if counttype 0x1bfb 0 'FletcherDropoff' < 200 
-      sysmsg 'Out of Bolts!' 33 
-      useobject 'beetle' 
-      stop 
-    endif 
-    movetype 0x1bfb 'FletcherDropoff' 'backpack' (0 0 0) 0 200 
-    pause 1000 
-  endif 
-  // get ingots if low 
-  if counttype 0x1bf2 0 'backpack' < 20 
-    if counttype 0x1bf2 0 'FletcherDropoff' < 40 
-      sysmsg 'Out of Ingots!' 33 
-      useobject 'beetle' 
-      stop 
-    endif 
-    movetype 0x1bf2 'FletcherDropoff' 'backpack' (0 0 0) 0 40 
-    pause 1000 
-  endif 
-  //get boards on beetle and self 
-  //first make sure beetle is empty, sometimes UOS won't pull 200 boards and you end up with odd number left behind 
-  if counttype 0x1bd7 0 'beetle' > 0 
-    while counttype 0x1bd7 0 'beetle' > 499 
-      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 500 
-      pause 500 
-    endwhile 
-    while counttype 0x1bd7 0 'beetle' > 99 
-      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 100 
-      pause 500 
-    endwhile 
-    while counttype 0x1bd7 0 'beetle' > 24 
-      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 25 
-      pause 500 
-    endwhile 
-    while counttype 0x1bd7 0 'beetle' > 4 
-      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 5 
-      pause 500 
-    endwhile 
-    while counttype 0x1bd7 0 'beetle' > 0 
-      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 1 
-      pause 500 
-    endwhile 
-  endif 
-  //stop if FletcherDropoff is out of boards 
-  if counttype 0x1bd7 0 'FletcherDropoff' < 1600 
-    sysmsg 'Out of Boards!' 33 
-    useobject 'beetle' 
-    stop 
-  endif 
-  //fill beetle with boards 
-  movetype 0x1bd7 'FletcherDropoff' 'beetle' (0 0 0) 0 1600 
-  pause 1000 
-  //move boards to your pack based on how low your pack is 
-  if counttype 0x1bd7 0 'backpack' < 75 
-    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 275 
-    pause 1000 
-  elseif counttype 0x1bd7 0 'backpack' < 100 
-    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 250 
-    pause 1000 
-  elseif counttype 0x1bd7 0 'backpack' < 150 
-    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 200 
-    pause 1000 
-  endif 
-  //mount beetle and recall back to heartwood 
-  useobject 'beetle' 
-  pause 2000 
-  useobject 'FletcherRunebook' 
-  waitforgump 0x554b87f3 30000 
-  //change this 11 to 13 if using chivalry 
-  replygump 0x554b87f3 11 
-  pause 2000 
-  //if the rune is blocked, pause 2 min to give time for NPCs to move, this prevents the character from running across the world from your dropoff 
-  if injournal 'blocked' 'system' 
-    sysmsg 'Rune blocked, trying again in 2 minutes' 33 
-    pause 120000 
-    clearjournal 
-    useobject 'FletcherRunebook' 
-    waitforgump 0x554b87f3 30000 
-    //change this 11 to 13 if using chivalry 
-    replygump 0x554b87f3 11 
-    pause 2000 
-    //if it's still blocked, stop macro 
-    if injournal 'blocked' 'system' 
-      sysmsg 'Rune still blocked, stopping macro' 33 
-      clearjournal 
-      stop 
-    endif 
-  endif 
-  //navigate to heartwood entrance 
-  while y != 992 and y > 400 
-    for 2 
-      if y > 992 
-        walk 'north' 
-      endif 
-      pause 250 
-      if y < 992 
-        walk 'south' 
-      endif 
-      pause 250 
-    endfor 
-  endwhile 
-  if x > 535 and x < 1000 
-    while x > 535 and x < 1000 
-      run 'west' 
-      pause 100 
-    endwhile 
-  endif 
-  if x < 537 
-    while x < 537 
-      run 'east' 
-      pause 100 
-    endwhile 
-  endif 
-  //navigate through heartwood to quest area 
-  while y < 377 
-    run 'southeast' 
-  endwhile 
-  pause 500 
-  while y > 378 
-    walk 'north' 
-    pause 500 
-  endwhile 
-  while y < 378 
-    walk 'south' 
-    pause 500 
-  endwhile 
-  while x < 7037 
-    run 'east' 
-  endwhile 
-  //dismount 
-  useobject 'self' 
-  pause 700 
-  useobject 'Trash Barrel' 
-  pause 700 
-  waitforcontext 'beetle' 10 3000 
-  pause 700 
-  if counttype 0x1bd7 0 'backpack' < 150 
-    movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200 
-    pause 2000 
-  endif 
-else 
-  // if you're not at Trash Barrel or FletcherDropoff, then stop 
-  sysmsg 'You need to be next to the Trash Barrel or your FletcherDropoff container when starting this macro' 33 
-  stop 
-endif 
+//1. Character needs Fletching and Tinkering, a Fletching Bonus talisman saves resources
+//2. FletcherDropoff container needs bolts, ingots, boards in it
+//3. FletcherRunebook needs 1st rune to be Dropoff location and 2nd rune near Heartwood entrance
+//4. Start in Heartwood with a beetle full of boards and crafted tinker tools, 40 ingots, and 200 bolts in your pack or start at your Dropoff location to restock these items
+//5. Have meat in your pack to feed beetle, 1 meat used per hour
+//6. If multiple stacks of boards at your dropoff, script will begin encountering errors when one of the stacks drop below 1600, combine them before this happens
+//7. Change the 5 itemids below to your setup
+@setalias 'FletcherDropoff' 0x411c61df
+@setalias 'beetle' 0x133f10
+@setalias 'FletcherRunebook' 0x41829f0b
+@setalias 'Fletching Quest Giver' 0x117
+@setalias 'Trash Barrel' 0x40053e83
+if not listexists 'Talismans'
+  @createlist 'Talismans'
+  @pushlist 'Talismans' 0x2f58
+  @pushlist 'Talismans' 0x2f59
+  @pushlist 'Talismans' 0x2f5a
+  @pushlist 'Talismans' 0x2f5b
+endif
+if not listexists 'Skills'
+  @createlist 'Skills'
+  @pushlist 'Skills' 'Alchemy Bonus'
+  @pushlist 'Skills' 'Blacksmithing Bonus'
+  @pushlist 'Skills' 'Carpentry Bonus'
+  @pushlist 'Skills' 'Fletching Bonus'
+  @pushlist 'Skills' 'Inscription Bonus'
+  @pushlist 'Skills' 'Tailoring Bonus'
+  @pushlist 'Skills' 'Tinkering Bonus'
+endif
+if not listexists 'Killers'
+  @createlist 'Killers'
+  @pushlist 'Killers' 'Yamandon Killer'
+  @pushlist 'Killers' 'Lich Killer'
+  @pushlist 'Killers' 'Lich Lord Killer'
+  @pushlist 'Killers' 'Dread Spider Killer'
+  @pushlist 'Killers' 'Giant Black Widow Killer'
+  @pushlist 'Killers' 'Eagle Killer'
+endif
+if not listexists 'Protection'
+  @createlist 'Protection'
+  @pushlist 'Protection' 'Yamandon Protection'
+  @pushlist 'Protection' 'Lich Protection'
+  @pushlist 'Protection' 'Lich Lord Protection'
+  @pushlist 'Protection' 'Dread Spider Protection'
+  @pushlist 'Protection' 'Giant Black Widow Protection'
+  @pushlist 'Protection' 'Silver Serpent Protection'
+  @pushlist 'Protection' 'Eagle Protection'
+endif
+if not listexists 'Jewelry'
+  @createlist 'Jewelry'
+  @pushlist 'Jewelry' 0x108a
+  @pushlist 'Jewelry' 0x1f09
+  @pushlist 'Jewelry' 0x1086
+  @pushlist 'Jewelry' 0x1f06
+endif
+if not timerexists 'feedPet'
+  createtimer 'feedPet'
+endif
+//if in heartwood quest area, run through the macro
+if @inrange 'Trash Barrel' 2
+  //stop macro if you forgot to restock bolts or ingots or have no tinker tools
+  if counttype 0x1bf2 0 'backpack' == 0
+    sysmsg 'Restock ingots before starting!' 33
+    stop
+  endif
+  if counttype 0x1bfb 0 'backpack' == 0
+    sysmsg 'Restock bolts before starting!' 33
+    stop
+  endif
+  if @counttype 0x1eb8 0 'backpack' == 0
+    sysmsg 'Get tinker tools before starting!' 33
+    stop
+  endif
+  // make tinker tools
+  while @counttype 0x1eb8 0 'backpack' < 3
+    usetype! 0x1eb8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 23
+  endwhile
+  // make plain fletcher kits
+  while @counttype 0x1022 0 'backpack' < 4
+    usetype! 0x1eb8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 142
+  endwhile
+  //dismount if not when macro started
+  if mounted
+    useobject 'self'
+    pause 1000
+    waitforcontext 'beetle' 10 15000
+    pause 1000
+    useobject 'Trash Barrel'
+    pause 1000
+  endif
+  // Hourly feed pet
+  if timer 'feedPet' >= 3600000
+    feed 'beetle' 'Meat' 'any' 1
+    pause 500
+    if injournal 'happier'
+      settimer 'feedPet' 0
+      sysmsg 'Pet Fed' 33
+      clearjournal
+    else
+      sysmsg 'Out of Meat!' 33
+      useobject 'beetle'
+      clearjournal
+      stop
+    endif
+  endif
+  //restock boards from beetle
+  if counttype 0x1bd7 0 'backpack' < 150
+    if counttype 0x1bd7 0 'beetle' > 199
+      movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200
+      pause 2000
+      //if beetle empty, leave heartwood
+    else
+      msg 'MB is the King of Demise!' 33
+      useobject 'beetle'
+      pause 1000
+      msg 'Long live the King!' 33
+      while x > 7023
+        run 'west'
+      endwhile
+      pause 300
+      while y > 342
+        run "Northwest"
+        pause 100
+      endwhile
+      while x < 6987
+        walk 'east'
+        pause 150
+      endwhile
+      while x > 6987
+        walk 'west'
+        pause 150
+      endwhile
+      while y != 338 and y < 600
+        for 3
+          if y > 338 and y < 600
+            walk 'north'
+            pause 250
+          endif
+          if y < 338 and y < 600
+            walk 'south'
+            pause 250
+          endif
+        endfor
+      endwhile
+      while x > 1000
+        run 'west'
+      endwhile
+      //recall home
+      useobject 'FletcherRunebook'
+      waitforgump 0x554b87f3 30000
+      //change the 5 to 7 if using chivalry
+      replygump 0x554b87f3 5
+      pause 2000
+      //open containers
+      useobject 'self'
+      pause 1000
+      useobject 'FletcherDropoff'
+      pause 1000
+      waitforcontext 'beetle' 10 15000
+      pause 1000
+      //unload jewels
+      while counttype 0x108a 'any' 'backpack' > 0
+        movetype 0x108a 'backpack' 'FletcherDropoff'
+        pause 500
+      endwhile
+      while counttype 0x1f09 'any' 'backpack' > 0
+        movetype 0x1f09 'backpack' 'FletcherDropoff'
+        pause 500
+      endwhile
+      while counttype 0x1f06 'any' 'backpack' > 0
+        movetype 0x1f06 'backpack' 'FletcherDropoff'
+        pause 500
+      endwhile
+      while counttype 0x1086 'any' 'backpack' > 0
+        movetype 0x1086 'backpack' 'FletcherDropoff'
+        pause 500
+      endwhile
+      //unload kits
+      while counttype 0x1022 1191 'backpack' > 0
+        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1191 1
+        pause 500
+      endwhile
+      while counttype 0x1022 2010 'backpack' > 0
+        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 2010 1
+        pause 500
+      endwhile
+      while counttype 0x1022 1192 'backpack' > 0
+        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1192 1
+        pause 500
+      endwhile
+      while counttype 0x1022 1193 'backpack' > 0
+        movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1193 1
+        pause 500
+      endwhile
+      //unload talismans
+      while counttype 0x2f58 0 'backpack' > 0
+        movetype 0x2f58 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+        pause 500
+      endwhile
+      while counttype 0x2f59 0 'backpack' > 0
+        movetype 0x2f59 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+        pause 500
+      endwhile
+      while counttype 0x2f5a 0 'backpack' > 0
+        movetype 0x2f5a 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+        pause 500
+      endwhile
+      while counttype 0x2f5b 0 'backpack' > 0
+        movetype 0x2f5b 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+        pause 500
+      endwhile
+      //get more bolts
+      if counttype 0x1bfb 0 'backpack' < 130
+        if counttype 0x1bfb 0 'FletcherDropoff' < 200
+          sysmsg 'Out of Bolts!' 33
+          useobject 'beetle'
+          stop
+        endif
+        movetype 0x1bfb 'FletcherDropoff' 'backpack' (0 0 0) 0 200
+        pause 1000
+      endif
+      // get ingots if low
+      if counttype 0x1bf2 0 'backpack' < 20
+        if counttype 0x1bf2 0 'FletcherDropoff' < 40
+          sysmsg 'Out of Ingots!' 33
+          useobject 'beetle'
+          stop
+        endif
+        movetype 0x1bf2 'FletcherDropoff' 'backpack' (0 0 0) 0 40
+        pause 1000
+      endif
+      //get boards on beetle and self
+      //first make sure beetle is empty, sometimes UOS won't pull 200 boards and you end up with odd number left behind
+      if counttype 0x1bd7 0 'beetle' > 0
+        while counttype 0x1bd7 0 'beetle' > 499
+          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 500
+          pause 500
+        endwhile
+        while counttype 0x1bd7 0 'beetle' > 99
+          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 100
+          pause 500
+        endwhile
+        while counttype 0x1bd7 0 'beetle' > 24
+          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 25
+          pause 500
+        endwhile
+        while counttype 0x1bd7 0 'beetle' > 4
+          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 5
+          pause 500
+        endwhile
+        while counttype 0x1bd7 0 'beetle' > 0
+          movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 1
+          pause 500
+        endwhile
+      endif
+      //stop if FletcherDropoff is out of boards
+      if counttype 0x1bd7 0 'FletcherDropoff' < 1600
+        sysmsg 'Out of Boards!' 33
+        useobject 'beetle'
+        stop
+      endif
+      //fill beetle with boards
+      movetype 0x1bd7 'FletcherDropoff' 'beetle' (0 0 0) 0 1600
+      pause 1000
+      //move boards to your pack based on how low your pack is
+      if counttype 0x1bd7 0 'backpack' < 75
+        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 275
+        pause 1000
+      elseif counttype 0x1bd7 0 'backpack' < 100
+        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 250
+        pause 1000
+      elseif counttype 0x1bd7 0 'backpack' < 150
+        movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 200
+        pause 1000
+      endif
+      //mount beetle and recall back to heartwood
+      useobject 'beetle'
+      pause 2000
+      useobject 'FletcherRunebook'
+      waitforgump 0x554b87f3 30000
+      //change this 11 to 13 if using chivalry
+      replygump 0x554b87f3 11
+      pause 2000
+      //if the rune is blocked, pause 2 min to give time for NPCs to move, this prevents the character from running across the world from your dropoff
+      if injournal 'blocked' 'system'
+        sysmsg 'Rune blocked, trying again in 2 minutes' 33
+        pause 120000
+        clearjournal
+        useobject 'FletcherRunebook'
+        waitforgump 0x554b87f3 30000
+        //change this 11 to 13 if using chivalry
+        replygump 0x554b87f3 11
+        pause 2000
+        //if it's still blocked, stop macro
+        if injournal 'blocked' 'system'
+          sysmsg 'Rune still blocked, stopping macro' 33
+          clearjournal
+          stop
+        endif
+      endif
+      //navigate to heartwood entrance
+      while y != 992 and y > 400
+        for 2
+          if y > 992
+            walk 'north'
+          endif
+          pause 250
+          if y < 992
+            walk 'south'
+          endif
+          pause 250
+        endfor
+      endwhile
+      if x > 535 and x < 1000
+        while x > 535 and x < 1000
+          run 'west'
+          pause 100
+        endwhile
+      endif
+      if x < 537
+        while x < 537
+          run 'east'
+          pause 100
+        endwhile
+      endif
+      //navigate through heartwood to quest area
+      while y < 377
+        run 'southeast'
+      endwhile
+      pause 500
+      while y > 378
+        walk 'north'
+        pause 500
+      endwhile
+      while y < 378
+        walk 'south'
+        pause 500
+      endwhile
+      while x < 7037
+        run 'east'
+      endwhile
+      //dismount
+      useobject 'self'
+      pause 700
+      useobject 'Trash Barrel'
+      pause 700
+      waitforcontext 'beetle' 10 3000
+      pause 700
+      if counttype 0x1bd7 0 'backpack' < 150
+        movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200
+        pause 2000
+      endif
+    endif
+  endif
+  //get a quest
+  @useobject 'Fletching Quest Giver'
+  waitforgump 0x19bc4061 2000
+  //SimpleBow
+  if @ingump 0x19bc4061 'crafted in the human style'
+    replygump 0x19bc4061 1
+    pause 550
+    while counttype 0x13b2 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 2
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x13b2 0x4ea 'backpack' != 10
+      @targettype 0x13b2 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //SimpleBow already in progress
+  elseif @ingump 0xa8b319c6 'debt if you bring me bows'
+    while counttype 0x13b2 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 2
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x13b2 0x4ea 'backpack' != 10
+      @targettype 0x13b2 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious I
+  elseif @ingump 0x19bc4061 'such an instrument for me?'
+    replygump 0x19bc4061 1
+    pause 550
+    while counttype 0xf50 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 9
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0xf50 0x4ea 'backpack' != 10
+      @targettype 0xf50 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious I already in progress
+  elseif @ingump 0xa8b319c6 'debt if you bring me crossbows'
+    while counttype 0xf50 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 9
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0xf50 0x4ea 'backpack' != 10
+      @targettype 0xf50 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious 2
+  elseif @ingump 0x19bc4061 'remarkable instrument of war'
+    replygump 0x19bc4061 1
+    pause 550
+    while counttype 0x13fd 'any' 'backpack' < 8
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 16
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x13fd 0x4ea 'backpack' != 8
+      @targettype 0x13fd 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious 2 already in progress
+  elseif @ingump 0xa8b319c6 'debt if you bring me heavy crossbows'
+    while counttype 0x13fd 'any' 'backpack' < 8
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 16
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x13fd 0x4ea 'backpack' != 8
+      @targettype 0x13fd 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious 3
+  elseif @ingump 0x19bc4061 'remarkable human ingenuity'
+    replygump 0x19bc4061 1
+    pause 550
+    while counttype 0x26c3 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 30
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x26c3 0x4ea 'backpack' != 10
+      @targettype 0x26c3 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //Ingenious 3 already in progress
+  elseif @ingump 0xa8b319c6 'debt if you bring me repeating crossbows'
+    while counttype 0x26c3 'any' 'backpack' < 10
+      usetype 0x1022 0 'backpack'
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 15
+      waitforgump 0x38920abd 5000
+      replygump 0x38920abd 30
+      waitforgump 0x38920abd 5000
+    endwhile
+    waitforcontext 'self' 4 5000
+    waitfortarget 5000
+    pause 1000
+    while @counttype 0x26c3 0x4ea 'backpack' != 10
+      @targettype 0x26c3 0
+      pause 150
+    endwhile
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //LethalDart
+  elseif @ingump 0x19bc4061 'deadly crossbow bolt'
+    if @findtype 0x1bfb 'any' 'backpack' 10
+      replygump 0x19bc4061 1
+      pause 550
+      pause 300
+      if color 'found' == 0
+        waitforcontext 'self' 4 5000
+        waitfortarget 5000
+        Target! 'found'
+        waitfortarget 5000
+      endif
+    endif
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //LethalDart in progress
+  elseif @ingump 0xa8b319c6 'debt if you bring me crossbow bolts'
+    if @findtype 0x1bfb 'any' 'backpack' 10
+      pause 300
+      if color 'found' == 0
+        waitforcontext 'self' 4 5000
+        waitfortarget 5000
+        Target! 'found'
+        waitfortarget 5000
+      endif
+    endif
+    @canceltarget
+    pause 500
+    @useobject! 'Fletching Quest Giver'
+    waitforgump 0xdf31ecf8 5000
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    pause 1000
+    //quest done except for talking to quest giver again
+  elseif @ingump 0xdf31ecf8 'My thanks'
+    replygump 0xdf31ecf8 4
+    waitforgump 0x96626c6e 15000
+    replygump 0x96626c6e 1
+    //refuse Harp quest so not obscuring screen
+  elseif @ingump 0x19bc4061 'melodious of music'
+    replygump 0x19bc4061 2
+    waitforgump 0xa8b319c6 15000
+    replygump 0xa8b319c6 3
+  endif
+  pause 1000
+  // Handle reward bags
+  while @findtype 0xe75 'any' 'backpack'
+    @setalias 'trash' 'found'
+    @useobject! 'trash'
+    pause 1000
+    // Runics
+    while @findtype 0x1022 'any' 'trash'
+      @moveitem! 'found' 'backpack'
+      if color 'found' == 2010
+        msg 'Bleh, always an Oak kit' 33
+        //uncomment this next line to throw Oak kits on the ground
+        // moveitemoffset 'found' 'ground' (0 2 0)
+      endif
+      if color 'found' == 1191
+        msg 'Grrr....Ash kit again' 33
+      endif
+      if color 'found' == 1192
+        msg 'Nice, a Yew kit' 33
+      endif
+      if color 'found' == 1193
+        msg 'Woohoo! Heartwood!' 63
+      endif
+      pause 1000
+    endwhile
+    // Talismans
+    for 0 to 'Talismans'
+      while @findtype Talismans[] 0 'trash'
+        waitforproperties 'found' 5000
+        //get any slayers
+        if @property 'slayer' 'found'
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        //crafting bonus and exceptional bonus talismans
+        if @property 'Bonus' 'found' >= 25
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        //get killers
+        for 0 to 'Killers'
+          if @property Killers[] 'found' >= 90
+            @moveitem! 'found' 'backpack'
+            pause 1000
+            break
+            ignoreobject 'found'
+          endif
+        endfor
+        //get protections
+        for 0 to 'Protection'
+          if @property Protection[] 'found' >= 50
+            @moveitem! 'found' 'backpack'
+            pause 1000
+            break
+            ignoreobject 'found'
+          endif
+        endfor
+        ignoreobject 'found'
+      endwhile
+    endfor
+    //Jewels
+    for 0 to 'Jewelry'
+      while @findtype Jewelry[] 0 'trash'
+        pause 1000
+        if @property 'Luck' 'found' >= 90
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        if @property 'Faster Cast Recovery' 'found' = 3
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        //save 1/2 and 1/1
+        if @property 'Faster Cast Recovery' 'found' > 0
+          if @property 'Faster Casting' 'found'
+            @moveitem! 'found' 'backpack'
+            pause 1000
+            break
+          endif
+        endif
+        if @property 'Defense chance increase' 'found' >= 10
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        if @property 'Hit chance increase' 'found' >= 10
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        if @property 'Animal Taming' 'found' >= 10
+          @moveitem! 'found' 'backpack'
+          pause 1000
+          break
+          ignoreobject 'found'
+        endif
+        ignoreobject 'found'
+      endwhile
+    endfor
+    //clear the ignore list so it doesn't skip items at dropoff
+    clearignorelist
+    @moveitem! 'trash' 'Trash Barrel'
+    pause 1000
+  endwhile
+  //if starting macro from Dropoff location, then go through that same process as above to restock and navigate to Heartwood
+elseif @inrange 'FletcherDropoff' 2
+  // stop macro if you don't have any tinker tools
+  if @counttype 0x1eb8 0 'backpack' == 0
+    sysmsg 'Get tinker tolls before starting!' 33
+    stop
+  endif
+  //open containers
+  useobject 'self'
+  pause 1000
+  useobject 'FletcherDropoff'
+  pause 1000
+  waitforcontext 'beetle' 10 15000
+  pause 1000
+  //unload jewels
+  while counttype 0x108a 'any' 'backpack' > 0
+    movetype 0x108a 'backpack' 'FletcherDropoff'
+    pause 500
+  endwhile
+  while counttype 0x1f09 'any' 'backpack' > 0
+    movetype 0x1f09 'backpack' 'FletcherDropoff'
+    pause 500
+  endwhile
+  while counttype 0x1f06 'any' 'backpack' > 0
+    movetype 0x1f06 'backpack' 'FletcherDropoff'
+    pause 500
+  endwhile
+  while counttype 0x1086 'any' 'backpack' > 0
+    movetype 0x1086 'backpack' 'FletcherDropoff'
+    pause 500
+  endwhile
+  //unload kits
+  while counttype 0x1022 1191 'backpack' > 0
+    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1191 1
+    pause 500
+  endwhile
+  while counttype 0x1022 2010 'backpack' > 0
+    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 2010 1
+    pause 500
+  endwhile
+  while counttype 0x1022 1192 'backpack' > 0
+    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1192 1
+    pause 500
+  endwhile
+  while counttype 0x1022 1193 'backpack' > 0
+    movetype 0x1022 'backpack' 'FletcherDropoff' (0 0 0) 1193 1
+    pause 500
+  endwhile
+  //unload talismans
+  while counttype 0x2f58 0 'backpack' > 0
+    movetype 0x2f58 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+    pause 500
+  endwhile
+  while counttype 0x2f59 0 'backpack' > 0
+    movetype 0x2f59 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+    pause 500
+  endwhile
+  while counttype 0x2f5a 0 'backpack' > 0
+    movetype 0x2f5a 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+    pause 500
+  endwhile
+  while counttype 0x2f5b 0 'backpack' > 0
+    movetype 0x2f5b 'backpack' 'FletcherDropoff' (0 0 0) 0 1
+    pause 500
+  endwhile
+  //get more bolts
+  if counttype 0x1bfb 0 'backpack' < 130
+    if counttype 0x1bfb 0 'FletcherDropoff' < 200
+      sysmsg 'Out of Bolts!' 33
+      useobject 'beetle'
+      stop
+    endif
+    movetype 0x1bfb 'FletcherDropoff' 'backpack' (0 0 0) 0 200
+    pause 1000
+  endif
+  // get ingots if low
+  if counttype 0x1bf2 0 'backpack' < 20
+    if counttype 0x1bf2 0 'FletcherDropoff' < 40
+      sysmsg 'Out of Ingots!' 33
+      useobject 'beetle'
+      stop
+    endif
+    movetype 0x1bf2 'FletcherDropoff' 'backpack' (0 0 0) 0 40
+    pause 1000
+  endif
+  //get boards on beetle and self
+  //first make sure beetle is empty, sometimes UOS won't pull 200 boards and you end up with odd number left behind
+  if counttype 0x1bd7 0 'beetle' > 0
+    while counttype 0x1bd7 0 'beetle' > 499
+      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 500
+      pause 500
+    endwhile
+    while counttype 0x1bd7 0 'beetle' > 99
+      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 100
+      pause 500
+    endwhile
+    while counttype 0x1bd7 0 'beetle' > 24
+      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 25
+      pause 500
+    endwhile
+    while counttype 0x1bd7 0 'beetle' > 4
+      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 5
+      pause 500
+    endwhile
+    while counttype 0x1bd7 0 'beetle' > 0
+      movetype 0x1bd7 'beetle' 'FletcherDropoff' [(0 0 0)] 0 1
+      pause 500
+    endwhile
+  endif
+  //stop if FletcherDropoff is out of boards
+  if counttype 0x1bd7 0 'FletcherDropoff' < 1600
+    sysmsg 'Out of Boards!' 33
+    useobject 'beetle'
+    stop
+  endif
+  //fill beetle with boards
+  movetype 0x1bd7 'FletcherDropoff' 'beetle' (0 0 0) 0 1600
+  pause 1000
+  //move boards to your pack based on how low your pack is
+  if counttype 0x1bd7 0 'backpack' < 75
+    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 275
+    pause 1000
+  elseif counttype 0x1bd7 0 'backpack' < 100
+    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 250
+    pause 1000
+  elseif counttype 0x1bd7 0 'backpack' < 150
+    movetype 0x1bd7 'FletcherDropoff' 'backpack' (0 0 0) 0 200
+    pause 1000
+  endif
+  //mount beetle and recall back to heartwood
+  useobject 'beetle'
+  pause 2000
+  useobject 'FletcherRunebook'
+  waitforgump 0x554b87f3 30000
+  //change this 11 to 13 if using chivalry
+  replygump 0x554b87f3 11
+  pause 2000
+  //if the rune is blocked, pause 2 min to give time for NPCs to move, this prevents the character from running across the world from your dropoff
+  if injournal 'blocked' 'system'
+    sysmsg 'Rune blocked, trying again in 2 minutes' 33
+    pause 120000
+    clearjournal
+    useobject 'FletcherRunebook'
+    waitforgump 0x554b87f3 30000
+    //change this 11 to 13 if using chivalry
+    replygump 0x554b87f3 11
+    pause 2000
+    //if it's still blocked, stop macro
+    if injournal 'blocked' 'system'
+      sysmsg 'Rune still blocked, stopping macro' 33
+      clearjournal
+      stop
+    endif
+  endif
+  //navigate to heartwood entrance
+  while y != 992 and y > 400
+    for 2
+      if y > 992
+        walk 'north'
+      endif
+      pause 250
+      if y < 992
+        walk 'south'
+      endif
+      pause 250
+    endfor
+  endwhile
+  if x > 535 and x < 1000
+    while x > 535 and x < 1000
+      run 'west'
+      pause 100
+    endwhile
+  endif
+  if x < 537
+    while x < 537
+      run 'east'
+      pause 100
+    endwhile
+  endif
+  //navigate through heartwood to quest area
+  while y < 377
+    run 'southeast'
+  endwhile
+  pause 500
+  while y > 378
+    walk 'north'
+    pause 500
+  endwhile
+  while y < 378
+    walk 'south'
+    pause 500
+  endwhile
+  while x < 7037
+    run 'east'
+  endwhile
+  //dismount
+  useobject 'self'
+  pause 700
+  useobject 'Trash Barrel'
+  pause 700
+  waitforcontext 'beetle' 10 3000
+  pause 700
+  if counttype 0x1bd7 0 'backpack' < 150
+    movetype 0x1bd7 'beetle' 'backpack' [(0 0 0)] 0 200
+    pause 2000
+  endif
+else
+  // if you're not at Trash Barrel or FletcherDropoff, then stop
+  sysmsg 'You need to be next to the Trash Barrel or your FletcherDropoff container when starting this macro' 33
+  stop
+endif

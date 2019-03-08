@@ -1,83 +1,42 @@
 if not @findalias 'slayerbag'
-
   promptalias 'slayerbag'
-
 endif
-
 if not @findobject 'Sell Bag'
-
   promptalias 'Sell Bag'
-
 endif
-
 if not hidden 'self' and skill 'hiding' >= '50'
-
   useskill 'hiding'
-
 endif
-
 if listexists 'slayertype'
-
   @clearlist 'slayertype'
-
 else
-
   createlist 'slayertype'
-
 endif
-
 pushlist 'slayertype' 0x13b2
-
 if not @findtype '0x1022' 'any' 'backpack' 'any' '2'
-
   headmsg 'Need more tools!'
-
   stop
-
 endif
-
 @usetype '0x1022' 'any' 'backpack' '2'
-
 waitforgump 0x38920abd 15000
-
 replygump 0x38920abd 21
-
 pause 2000
-
 if @injournal 'crafted a slayer' 'system'
-
   // Change ↓
-
   @findtype slayertype[0] 0x0 'backpack'
-
   moveitem 'found' 'slayerbag'
-
   ignoreobject 'found'
-
   clearjournal
-
   headmsg 'Slayer crafted!' 33
-
   pause 600
-
 else
-
   @findtype '0x13b2' 'any' 'backpack' '1' '2'
-
   moveitem 'found' 'Sell Bag'
-
   pause 200
-
   @ignoreobject 'found'
-
 endif
-
 while weight >= maxweight
-
   headmsg 'Time to Sell'
-
   sysmsg 'Time to Sell'
-
   stop
-
 endwhile

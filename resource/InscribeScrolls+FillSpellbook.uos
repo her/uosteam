@@ -1,395 +1,198 @@
-//=============================================================== 
-
-//=---------------------Spell Book Maker------------------------= 
-
-//=-------------------------By:Hawt-----------------------------= 
-
-//=-------------------------------------------------------------= 
-
-//=--------This script will make scrolls 1-64, Place them-------= 
-
-//=-----------in the book, meditate, and adjust when------------= 
-
-//=----to use mediation Based on what scrolls you are making----= 
-
-//=----I have broke the script down pretty good in order for----= 
-
-//=--------others to learn from 'dissecting' the script --------= 
-
-//=-------------------------------------------------------------= 
-
-//=============================================================== 
-
-//=Gives Target for you too select the spellbook you want filled= 
-
-//=============================================================== 
-
-if not @findobject 'spellbook' 
-
-sysmsg '!!!! Target Empty Spell Book !!!!' '23' 
-
-promptalias 'spellbook' 
-
-endif 
-
-//=============================================================== 
-
-//=-----List of the gump buttons for the 8 Spell Circles.-------= 
-
-//=============================================================== 
-
-if not listexists 'Circle' 
-
-@createlist 'Circle' 
-
-endif 
-
-if 'list' 'Circle' == '0' 
-
-@pushlist 'Circle' '1' 
-
-@pushlist 'Circle' '8' 
-
-@pushlist 'Circle' '15' 
-
-@pushlist 'Circle' '22' 
-
-@pushlist 'Circle' '29' 
-
-@pushlist 'Circle' '36' 
-
-@pushlist 'Circle' '43' 
-
-@pushlist 'Circle' '50' 
-
-endif 
-
-//============================================================== 
-
-//=--------List of the gump buttons for each scroll------------= 
-
-//============================================================== 
-
-if not listexists 'Spells' 
-
-@createlist 'Spells' 
-
-endif 
-
-if 'list' 'Spells' == '0' 
-
-@pushlist 'Spells' '2' 
-
-@pushlist 'Spells' '9' 
-
-@pushlist 'Spells' '16' 
-
-@pushlist 'Spells' '23' 
-
-@pushlist 'Spells' '30' 
-
-@pushlist 'Spells' '37' 
-
-@pushlist 'Spells' '44' 
-
-@pushlist 'Spells' '51' 
-
-endif 
-
-//============================================================== 
-
-//=-------------List of different Mana lvls--------------------= 
-
-//============================================================== 
-
-if not listexists 'Mana' 
-
-@createlist 'Mana' 
-
-endif 
-
-if 'list' 'Mana' == '0' 
-
-@pushlist 'Mana' '4' 
-
-@pushlist 'Mana' '6' 
-
-@pushlist 'Mana' '9' 
-
-@pushlist 'Mana' '11' 
-
-@pushlist 'Mana' '14' 
-
-@pushlist 'Mana' '20' 
-
-@pushlist 'Mana' '40' 
-
-@pushlist 'Mana' '50' 
-
-endif 
-
-//============================================================== 
-
-//=--------------List all Scrolls for each spell---------------= 
-
-//============================================================== 
-
-//=----------I did not make this list i took the list----------= 
-
-//=------------from another in The script library--------------= 
-
-//=-------------------Thank you Kadoba!!-----------------------= 
-
+//===============================================================
+//=---------------------Spell Book Maker------------------------=
+//=-------------------------By:Hawt-----------------------------=
+//=-------------------------------------------------------------=
+//=--------This script will make scrolls 1-64, Place them-------=
+//=-----------in the book, meditate, and adjust when------------=
+//=----to use mediation Based on what scrolls you are making----=
+//=----I have broke the script down pretty good in order for----=
+//=--------others to learn from 'dissecting' the script --------=
+//=-------------------------------------------------------------=
+//===============================================================
+//=Gives Target for you too select the spellbook you want filled=
+//===============================================================
+if not @findobject 'spellbook'
+  sysmsg '!!!! Target Empty Spell Book !!!!' '23'
+  promptalias 'spellbook'
+endif
+//===============================================================
+//=-----List of the gump buttons for the 8 Spell Circles.-------=
+//===============================================================
+if not listexists 'Circle'
+  @createlist 'Circle'
+endif
+if 'list' 'Circle' == '0'
+  @pushlist 'Circle' '1'
+  @pushlist 'Circle' '8'
+  @pushlist 'Circle' '15'
+  @pushlist 'Circle' '22'
+  @pushlist 'Circle' '29'
+  @pushlist 'Circle' '36'
+  @pushlist 'Circle' '43'
+  @pushlist 'Circle' '50'
+endif
+//==============================================================
+//=--------List of the gump buttons for each scroll------------=
+//==============================================================
+if not listexists 'Spells'
+  @createlist 'Spells'
+endif
+if 'list' 'Spells' == '0'
+  @pushlist 'Spells' '2'
+  @pushlist 'Spells' '9'
+  @pushlist 'Spells' '16'
+  @pushlist 'Spells' '23'
+  @pushlist 'Spells' '30'
+  @pushlist 'Spells' '37'
+  @pushlist 'Spells' '44'
+  @pushlist 'Spells' '51'
+endif
+//==============================================================
+//=-------------List of different Mana lvls--------------------=
+//==============================================================
+if not listexists 'Mana'
+  @createlist 'Mana'
+endif
+if 'list' 'Mana' == '0'
+  @pushlist 'Mana' '4'
+  @pushlist 'Mana' '6'
+  @pushlist 'Mana' '9'
+  @pushlist 'Mana' '11'
+  @pushlist 'Mana' '14'
+  @pushlist 'Mana' '20'
+  @pushlist 'Mana' '40'
+  @pushlist 'Mana' '50'
+endif
+//==============================================================
+//=--------------List all Scrolls for each spell---------------=
+//==============================================================
+//=----------I did not make this list i took the list----------=
+//=------------from another in The script library--------------=
+//=-------------------Thank you Kadoba!!-----------------------=
 //=http://www.runuo.com/community/resources/fill-spellbook.57/-=
-
-//============================================================== 
-
-if not listexists 'scrolls' 
-
-@createlist 'scrolls' 
-
-endif 
-
-if 'list' 'scrolls' == '0' 
-
-@pushlist 'scrolls' 0x1f2d // Reactive Armor 
-
-@pushlist 'scrolls' 0x1f2e // Clumsy 
-
-@pushlist 'scrolls' 0x1f2f // Create Food 
-
-@pushlist 'scrolls' 0x1f30 // Feeblemind 
-
-@pushlist 'scrolls' 0x1f31 // Heal 
-
-@pushlist 'scrolls' 0x1f32 // Magic Arrow 
-
-@pushlist 'scrolls' 0x1f33 // Night Sight 
-
-@pushlist 'scrolls' 0x1f34 // Weaken 
-
-@pushlist 'scrolls' 0x1f35 // Agility 
-
-@pushlist 'scrolls' 0x1f36 // Cunning 
-
-@pushlist 'scrolls' 0x1f37 // Cure 
-
-@pushlist 'scrolls' 0x1f38 // Harm 
-
-@pushlist 'scrolls' 0x1f39 // Magic Trap 
-
-@pushlist 'scrolls' 0x1f3a // Magic Untrap 
-
-@pushlist 'scrolls' 0x1f3b // Protection 
-
-@pushlist 'scrolls' 0x1f3c // Strength 
-
-@pushlist 'scrolls' 0x1f3d // Bless 
-
-@pushlist 'scrolls' 0x1f3e // Fireball 
-
-@pushlist 'scrolls' 0x1f3f // Magic Lock 
-
-@pushlist 'scrolls' 0x1f40 // Poison 
-
-@pushlist 'scrolls' 0x1f41 // Telekinesis 
-
-@pushlist 'scrolls' 0x1f42 // Teleport 
-
-@pushlist 'scrolls' 0x1f43 // Unlock 
-
-@pushlist 'scrolls' 0x1f44 // Wall of Stone 
-
-@pushlist 'scrolls' 0x1f45 // Arch Cure 
-
-@pushlist 'scrolls' 0x1f46 // Arch Protection 
-
-@pushlist 'scrolls' 0x1f47 // Curse 
-
-@pushlist 'scrolls' 0x1f48 // Fire Field 
-
-@pushlist 'scrolls' 0x1f49 // Greater Heal 
-
-@pushlist 'scrolls' 0x1f4a // Lightning 
-
-@pushlist 'scrolls' 0x1f4b // Mana Drain 
-
-@pushlist 'scrolls' 0x1f4c // Recall 
-
-@pushlist 'scrolls' 0x1f4d // Blade Spirit 
-
-@pushlist 'scrolls' 0x1f4e // Dispel Field 
-
-@pushlist 'scrolls' 0x1f4f // Incognito 
-
-@pushlist 'scrolls' 0x1f50 // Magic Reflection 
-
-@pushlist 'scrolls' 0x1f51 // Mind Blast 
-
-@pushlist 'scrolls' 0x1f52 // Paralyze 
-
-@pushlist 'scrolls' 0x1f53 // Poison Field 
-
-@pushlist 'scrolls' 0x1f54 // Summon Creature 
-
-@pushlist 'scrolls' 0x1f55 // Dispel 
-
-@pushlist 'scrolls' 0x1f56 // Energy Bolt 
-
-@pushlist 'scrolls' 0x1f57 // Explosion 
-
-@pushlist 'scrolls' 0x1f58 // Invisibility 
-
-@pushlist 'scrolls' 0x1f59 // Mark 
-
-@pushlist 'scrolls' 0x1f5a // Mass Curse 
-
-@pushlist 'scrolls' 0x1f5b // Paralyze Field 
-
-@pushlist 'scrolls' 0x1f5c // Reveal 
-
-@pushlist 'scrolls' 0x1f5d // Chain Lightning 
-
-@pushlist 'scrolls' 0x1f5e // Energy Field 
-
-@pushlist 'scrolls' 0x1f5f // Flamestrike 
-
-@pushlist 'scrolls' 0x1f60 // Gate Travel 
-
-@pushlist 'scrolls' 0x1f61 // Mana Vampire 
-
-@pushlist 'scrolls' 0x1f62 // Mass Dispel 
-
-@pushlist 'scrolls' 0x1f63 // Meteor Swarm 
-
-@pushlist 'scrolls' 0x1f64 // Polymorph 
-
-@pushlist 'scrolls' 0x1f65 // Earthquake 
-
-@pushlist 'scrolls' 0x1f66 // Energy Vortex 
-
-@pushlist 'scrolls' 0x1f67 // Ressurrection 
-
-@pushlist 'scrolls' 0x1f68 // Summon Air Elemental 
-
-@pushlist 'scrolls' 0x1f69 // Summon Daemon 
-
-@pushlist 'scrolls' 0x1f6a // Summon Earth Elemental 
-
-@pushlist 'scrolls' 0x1f6b // Summon Fire Elemental 
-
-@pushlist 'scrolls' 0x1f6c // Summon Water Elemental 
-
-endif 
-
-//=============================================================== 
-
-//=-------Basically telling the script when to meditate---------= 
-
-//=============================================================== 
-
-if mana < Mana[0] 
-
-useskill 'meditation' 
-
-while not mana == maxmana 
-
-endwhile 
-
-endif 
-
-//=============================================================== 
-
-//=-----------------Checks for Blank Scrolls.-------------------= 
-
-//=============================================================== 
-
-if not @findtype '0xef3' 'any' 'backpack' 
-
-sysmsg '#### No Scrolls###' 
-
-stop 
-
-endif 
-
-//=============================================================== 
-
-//=---Checks for Scribe Pens, if finding one is uses the pen.---= 
-
-//=============================================================== 
-
-if @usetype '0xfbf' 'any' 'backpack' 
-
-waitforgump '0x38920abd' '5000' 
-
-else 
-
-sysmsg '####No Pens ####' '23' 
-
-stop 
-
-endif 
-
-//============================================================== 
-
-//=-----------------Gump Buttons to be pressed.----------------= 
-
-//============================================================== 
-
-replygump '0x38920abd' Circle[0] 
-
-waitforgump '0x38920abd' '5000' 
-
-replygump '0x38920abd' Spells[0] 
-
-waitforgump '0x38920abd' '5000' 
-
-pause 900 
-
-//============================================================== 
-
-//=------------Checks for Scroll to be placed in book----------= 
-
-//============================================================== 
-
-if @movetype scrolls[0] 'backpack' 'spellbook' 0 0 0 'any' '1' 
-
-pause '1000' 
-
-poplist 'Spells' 'front' 
-
-poplist 'scrolls' 'front' 
-
-endif 
-
-//============================================================== 
-
-//=--------After Finishing a complete circle of spells---------= 
-
-//=-----This changes the Spell Circle and When to meditate.----= 
-
-//============================================================== 
-
-if list 'Spells' == 0 
-
-poplist 'Circle' 'front' 
-
-poplist 'Mana' 'front' 
-
-endif 
-
-//============================================================== 
-
-//=----This stops the script when completeing a full book.-----= 
-
-//============================================================== 
-
-if list 'scrolls' == 0 
-
-unsetalias 'spellbook' 
-
-sysmsg 'Spell Book Should Be Full' '23' 
-
-stop 
-
+//==============================================================
+if not listexists 'scrolls'
+  @createlist 'scrolls'
+endif
+if 'list' 'scrolls' == '0'
+  @pushlist 'scrolls' 0x1f2d // Reactive Armor
+  @pushlist 'scrolls' 0x1f2e // Clumsy
+  @pushlist 'scrolls' 0x1f2f // Create Food
+  @pushlist 'scrolls' 0x1f30 // Feeblemind
+  @pushlist 'scrolls' 0x1f31 // Heal
+  @pushlist 'scrolls' 0x1f32 // Magic Arrow
+  @pushlist 'scrolls' 0x1f33 // Night Sight
+  @pushlist 'scrolls' 0x1f34 // Weaken
+  @pushlist 'scrolls' 0x1f35 // Agility
+  @pushlist 'scrolls' 0x1f36 // Cunning
+  @pushlist 'scrolls' 0x1f37 // Cure
+  @pushlist 'scrolls' 0x1f38 // Harm
+  @pushlist 'scrolls' 0x1f39 // Magic Trap
+  @pushlist 'scrolls' 0x1f3a // Magic Untrap
+  @pushlist 'scrolls' 0x1f3b // Protection
+  @pushlist 'scrolls' 0x1f3c // Strength
+  @pushlist 'scrolls' 0x1f3d // Bless
+  @pushlist 'scrolls' 0x1f3e // Fireball
+  @pushlist 'scrolls' 0x1f3f // Magic Lock
+  @pushlist 'scrolls' 0x1f40 // Poison
+  @pushlist 'scrolls' 0x1f41 // Telekinesis
+  @pushlist 'scrolls' 0x1f42 // Teleport
+  @pushlist 'scrolls' 0x1f43 // Unlock
+  @pushlist 'scrolls' 0x1f44 // Wall of Stone
+  @pushlist 'scrolls' 0x1f45 // Arch Cure
+  @pushlist 'scrolls' 0x1f46 // Arch Protection
+  @pushlist 'scrolls' 0x1f47 // Curse
+  @pushlist 'scrolls' 0x1f48 // Fire Field
+  @pushlist 'scrolls' 0x1f49 // Greater Heal
+  @pushlist 'scrolls' 0x1f4a // Lightning
+  @pushlist 'scrolls' 0x1f4b // Mana Drain
+  @pushlist 'scrolls' 0x1f4c // Recall
+  @pushlist 'scrolls' 0x1f4d // Blade Spirit
+  @pushlist 'scrolls' 0x1f4e // Dispel Field
+  @pushlist 'scrolls' 0x1f4f // Incognito
+  @pushlist 'scrolls' 0x1f50 // Magic Reflection
+  @pushlist 'scrolls' 0x1f51 // Mind Blast
+  @pushlist 'scrolls' 0x1f52 // Paralyze
+  @pushlist 'scrolls' 0x1f53 // Poison Field
+  @pushlist 'scrolls' 0x1f54 // Summon Creature
+  @pushlist 'scrolls' 0x1f55 // Dispel
+  @pushlist 'scrolls' 0x1f56 // Energy Bolt
+  @pushlist 'scrolls' 0x1f57 // Explosion
+  @pushlist 'scrolls' 0x1f58 // Invisibility
+  @pushlist 'scrolls' 0x1f59 // Mark
+  @pushlist 'scrolls' 0x1f5a // Mass Curse
+  @pushlist 'scrolls' 0x1f5b // Paralyze Field
+  @pushlist 'scrolls' 0x1f5c // Reveal
+  @pushlist 'scrolls' 0x1f5d // Chain Lightning
+  @pushlist 'scrolls' 0x1f5e // Energy Field
+  @pushlist 'scrolls' 0x1f5f // Flamestrike
+  @pushlist 'scrolls' 0x1f60 // Gate Travel
+  @pushlist 'scrolls' 0x1f61 // Mana Vampire
+  @pushlist 'scrolls' 0x1f62 // Mass Dispel
+  @pushlist 'scrolls' 0x1f63 // Meteor Swarm
+  @pushlist 'scrolls' 0x1f64 // Polymorph
+  @pushlist 'scrolls' 0x1f65 // Earthquake
+  @pushlist 'scrolls' 0x1f66 // Energy Vortex
+  @pushlist 'scrolls' 0x1f67 // Ressurrection
+  @pushlist 'scrolls' 0x1f68 // Summon Air Elemental
+  @pushlist 'scrolls' 0x1f69 // Summon Daemon
+  @pushlist 'scrolls' 0x1f6a // Summon Earth Elemental
+  @pushlist 'scrolls' 0x1f6b // Summon Fire Elemental
+  @pushlist 'scrolls' 0x1f6c // Summon Water Elemental
+endif
+//===============================================================
+//=-------Basically telling the script when to meditate---------=
+//===============================================================
+if mana < Mana[0]
+  useskill 'meditation'
+  while not mana == maxmana
+  endwhile
+endif
+//===============================================================
+//=-----------------Checks for Blank Scrolls.-------------------=
+//===============================================================
+if not @findtype '0xef3' 'any' 'backpack'
+  sysmsg '#### No Scrolls###'
+  stop
+endif
+//===============================================================
+//=---Checks for Scribe Pens, if finding one is uses the pen.---=
+//===============================================================
+if @usetype '0xfbf' 'any' 'backpack'
+  waitforgump '0x38920abd' '5000'
+else
+  sysmsg '####No Pens ####' '23'
+  stop
+endif
+//==============================================================
+//=-----------------Gump Buttons to be pressed.----------------=
+//==============================================================
+replygump '0x38920abd' Circle[0]
+waitforgump '0x38920abd' '5000'
+replygump '0x38920abd' Spells[0]
+waitforgump '0x38920abd' '5000'
+pause 900
+//==============================================================
+//=------------Checks for Scroll to be placed in book----------=
+//==============================================================
+if @movetype scrolls[0] 'backpack' 'spellbook' 0 0 0 'any' '1'
+  pause '1000'
+  poplist 'Spells' 'front'
+  poplist 'scrolls' 'front'
+endif
+//==============================================================
+//=--------After Finishing a complete circle of spells---------=
+//=-----This changes the Spell Circle and When to meditate.----=
+//==============================================================
+if list 'Spells' == 0
+  poplist 'Circle' 'front'
+  poplist 'Mana' 'front'
+endif
+//==============================================================
+//=----This stops the script when completeing a full book.-----=
+//==============================================================
+if list 'scrolls' == 0
+  unsetalias 'spellbook'
+  sysmsg 'Spell Book Should Be Full' '23'
+  stop
 endif

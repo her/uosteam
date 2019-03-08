@@ -1,13 +1,10 @@
 //Experience
 //Detects enemies and escapes!
-
 if not findalias 'Escape Book'
   headmsg 'Select Escape Book'
   promptalias 'Escape Book'
 endif
-
 getenemy 'Murderer' 'Criminal' 'humanoid' 'closest'
-
 if @inrange 'Enemy' '15'
   msg 'All Come'
   cast 'recall'

@@ -1,77 +1,39 @@
-if @findtype '0xf39' 'any' 'backpack' 'any' '2' 
-
-  @usetype '0xf39' '0'  'backpack' '1' 1 
-
-elseif @findtype '0xe86' 'any' 'backpack' 'any' '2' 
-
-  @usetype '0xe86' 'any' 'backpack' 'any' '2' 
-
-endif 
-
-waitfortarget 5000 
-
-if direction == 0 
-
-  targettileoffset 0 -1 0 
-
-elseif direction == 1 
-
-  targettileoffset 1 -1 0 
-
-elseif direction == 2 
-
-  targettileoffset 1 0 0 
-
-elseif direction == 3 
-
-  targettileoffset 1 1 0 
-
-elseif direction == 4 
-
-  targettileoffset 0 1 0 
-
-elseif direction == 5 
-
-  targettileoffset -1 1 0 
-
-elseif direction == 6 
-
-  targettileoffset -1 0 0 
-
-elseif direction == 7 
-
-  targettileoffset -1 -1 0 
-
-else 
-
-  headmsg 'No Tools Found!' 
-
-endif 
-
-pause 600 
-
-if @injournal 'no metal' 'system' 
-
-  headmsg 'Time to Move' 
-
-  pause 2000 
-
-  @clearjournal 
-
-endif 
-
-while weight >= 380 
-
-  headmsg 'Time to Smelt' 
-
-  pause 1000 
-
-endwhile 
-
-while @findtype '0x19b9' 'any' 'backpack' 'any' '2' and weight >= 300 
-
-  @moveitem 'found' 'mount' 
-
-  pause 600 
-
-endwhile 
+if @findtype '0xf39' 'any' 'backpack' 'any' '2'
+  @usetype '0xf39' '0'  'backpack' '1' 1
+elseif @findtype '0xe86' 'any' 'backpack' 'any' '2'
+  @usetype '0xe86' 'any' 'backpack' 'any' '2'
+endif
+waitfortarget 5000
+if direction == 0
+  targettileoffset 0 -1 0
+elseif direction == 1
+  targettileoffset 1 -1 0
+elseif direction == 2
+  targettileoffset 1 0 0
+elseif direction == 3
+  targettileoffset 1 1 0
+elseif direction == 4
+  targettileoffset 0 1 0
+elseif direction == 5
+  targettileoffset -1 1 0
+elseif direction == 6
+  targettileoffset -1 0 0
+elseif direction == 7
+  targettileoffset -1 -1 0
+else
+  headmsg 'No Tools Found!'
+endif
+pause 600
+if @injournal 'no metal' 'system'
+  headmsg 'Time to Move'
+  pause 2000
+  @clearjournal
+endif
+while weight >= 380
+  headmsg 'Time to Smelt'
+  pause 1000
+endwhile
+while @findtype '0x19b9' 'any' 'backpack' 'any' '2' and weight >= 300
+  @moveitem 'found' 'mount'
+  pause 600
+endwhile

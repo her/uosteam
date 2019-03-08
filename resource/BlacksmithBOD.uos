@@ -4,1028 +4,518 @@
 //to fill iron bods. It is recommended to//
 //you keep all colored bods/ingots       //
 //seperate to keep from wasting resources//
-//			       	         //	
+//                //
 //You can also seperate bods/ingots by   //
 //color and then preselect the ore in    //
 //the blacksmith menu (Not recommended   //
 ///////////////////////////////////////////
-
 if not @findobject 'Bulk Source'
-
   promptalias 'Bulk Source'
-
 endif
-
 if not @findobject 'Bulk Destination'
-
   promptalias 'Bulk Destination'
-
 endif
-
 if not @findobject 'Restock'
-
   promptalias 'Restock'
-
 endif
-
 if not @findobject 'Trash BODs Destination'
-
   promptalias 'Trash BODs Destination'
-
 endif
-
 if not @findobject 'Trash Barrel'
-
   promptalias 'Trash Barrel'
-
 endif
-
 // Craft Info
-
 if not listexists 'CraftInfoBS'
-
   @createlist 'CraftInfoBS'
-
   // Ringmail
-
   @pushlist 'CraftInfoBS' 0x13EB
-
   @pushlist 'CraftInfoBS' 0x13F0
-
   @pushlist 'CraftInfoBS' 0x13EE
-
   @pushlist 'CraftInfoBS' 0x13EC
-
   // Chainmail
-
   @pushlist 'CraftInfoBS' 0x13BB
-
   @pushlist 'CraftInfoBS' 0x13BE
-
   @pushlist 'CraftInfoBS' 0x13BF
-
   // Platemail
-
   @pushlist 'CraftInfoBS' 0x1410
-
   @pushlist 'CraftInfoBS' 0x1414
-
   @pushlist 'CraftInfoBS' 0x1413
-
   @pushlist 'CraftInfoBS' 0x1411
-
   @pushlist 'CraftInfoBS' 0x1415
-
   // Helmets
-
   @pushlist 'CraftInfoBS' 0x140C
-
   @pushlist 'CraftInfoBS' 0x1408
-
   @pushlist 'CraftInfoBS' 0x140A
-
   @pushlist 'CraftInfoBS' 0x140E
-
   @pushlist 'CraftInfoBS' 0x1412
-
   // Shields
-
   @pushlist 'CraftInfoBS' 0x1B73
-
   @pushlist 'CraftInfoBS' 0x1B72
-
   @pushlist 'CraftInfoBS' 0x1B76
-
   @pushlist 'CraftInfoBS' 0x1B7B
-
   @pushlist 'CraftInfoBS' 0x1B74
-
   @pushlist 'CraftInfoBS' 0x1B78
-
   // Bladed
-
   @pushlist 'CraftInfoBS' 0x0F5E
-
   @pushlist 'CraftInfoBS' 0x1441
-
   @pushlist 'CraftInfoBS' 0x0F52
-
   @pushlist 'CraftInfoBS' 0x13FF
-
   @pushlist 'CraftInfoBS' 0x1401
-
   @pushlist 'CraftInfoBS' 0x0F61
-
   @pushlist 'CraftInfoBS' 0x13B6
-
   @pushlist 'CraftInfoBS' 0x13B9
-
   // Axes
-
   @pushlist 'CraftInfoBS' 0x13FB
-
   @pushlist 'CraftInfoBS' 0x0F4B
-
   @pushlist 'CraftInfoBS' 0x0F45
-
   @pushlist 'CraftInfoBS' 0x0F47
-
   @pushlist 'CraftInfoBS' 0x0F47
-
   @pushlist 'CraftInfoBS' 0x0F52
-
   @pushlist 'CraftInfoBS' 0x0F49
-
   // Polearms
-
   @pushlist 'CraftInfoBS' 0x0F4D
-
   @pushlist 'CraftInfoBS' 0x143E
-
   @pushlist 'CraftInfoBS' 0x1403
-
   @pushlist 'CraftInfoBS' 0x0F62
-
   @pushlist 'CraftInfoBS' 0x1405
-
   // Bashing
-
   @pushlist 'CraftInfoBS' 0x1407
-
   @pushlist 'CraftInfoBS' 0x143D
-
   @pushlist 'CraftInfoBS' 0x0F5C
-
   @pushlist 'CraftInfoBS' 0x143B
-
   @pushlist 'CraftInfoBS' 0x1439
-
 endif
-
 // Search for a Blacksmithing BOD to fill
-
 if @findtype '0x14ef' 'any' 'backpack'
-
   @setalias 'bod' 'found'
-
   useobject! 'bod'
-
   waitforgump 0x5afbd742 15000
-
   // Combine
-
   if not targetexists 'server'
-
     replygump 0x5afbd742 2
-
     waitforgump 0x5afbd742 15000
-
     waitfortarget 5000
-
   endif
-
   // Check for tongs or smith hammers
-
   if @findtype 0xFBB 'any' 'backpack' or @findtype 0x13e3 '0' 'backpack'
-
     pause 1500
-
     @setalias 'tong' 'found'
-
     useobject! 'tong'
-
     waitforgump 0x38920abd 15000
-
     // Craft
-
     while targetexists 'server'
-
       // Check for tong or smith hammer before craft
-
       if not @findobject 'tong'
-
         break
-
       endif
-
       // Check for ingots
-
       if @counttype 0x1BF2 'any' 'backpack' < 50
-
         if @movetype 0x1BF2 'Restock' 'backpack' 0 0 0 'any' 100
-
           pause 1500
-
         else
-
           sysmsg 'Out of ingots!' 25
-
           @canceltarget
-
           stop
-
         endif
-
       endif
-
       // Ringmail
-
       if @ingump 0x5afbd742 'ringmail gloves'
-
         replygump 0x38920abd 1
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[0]
-
       elseif @ingump 0x5afbd742 'ringmail leggings'
-
         replygump 0x38920abd 1
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[1]
-
       elseif @ingump 0x5afbd742 'ringmail sleeves'
-
         replygump 0x38920abd 1
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[2]
-
       elseif @ingump 0x5afbd742 'ringmail tunic'
-
         replygump 0x38920abd 1
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[3]
-
         // Chainmail
-
       elseif @ingump 0x5afbd742 'chainmail coif'
-
         replygump 0x38920abd 8
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[4]
-
       elseif @ingump 0x5afbd742 'chainmail leggings'
-
         replygump 0x38920abd 8
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[5]
-
       elseif @ingump 0x5afbd742 'chainmail tunic'
-
         replygump 0x38920abd 8
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[6]
-
         // Platemail
-
       elseif @ingump 0x5afbd742 'platemail arms'
-
         replygump 0x38920abd 15
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[7]
-
       elseif @ingump 0x5afbd742 'platemail gloves'
-
         replygump 0x38920abd 15
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[8]
-
       elseif @ingump 0x5afbd742 'platemail gorget'
-
         replygump 0x38920abd 15
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[9]
-
       elseif @ingump 0x5afbd742 'platemail legs'
-
         replygump 0x38920abd 15
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[10]
-
       elseif @ingump 0x5afbd742 'platemail tunic'
-
         replygump 0x38920abd 15
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[11]
-
         // Helmets
-
       elseif @ingump 0x5afbd742 'bascinet'
-
         replygump 0x38920abd 22
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[12]
-
       elseif @ingump 0x5afbd742 'close helmet'
-
         replygump 0x38920abd 22
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[13]
-
       elseif @ingump 0x5afbd742 'helmet'
-
         replygump 0x38920abd 22
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[14]
-
       elseif @ingump 0x5afbd742 'norse helm'
-
         replygump 0x38920abd 22
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[15]
-
       elseif @ingump 0x5afbd742 'plate helm'
-
         replygump 0x38920abd 22
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[16]
-
         // Shields
-
       elseif @ingump 0x5afbd742 'buckler'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[17]
-
       elseif @ingump 0x5afbd742 'bronze shield'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[18]
-
       elseif @ingump 0x5afbd742 'heater shield'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[19]
-
       elseif @ingump 0x5afbd742 'metal shield'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[20]
-
       elseif @ingump 0x5afbd742 'metal kite shield'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[21]
-
       elseif @ingump 0x5afbd742 'tear kite shield'
-
         replygump 0x38920abd 29
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 37
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[22]
-
         // Bladed
-
       elseif @ingump 0x5afbd742 'broadsword'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[23]
-
       elseif @ingump 0x5afbd742 'cutlass'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[24]
-
       elseif @ingump 0x5afbd742 'dagger'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[25]
-
       elseif @ingump 0x5afbd742 'katana'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[26]
-
       elseif @ingump 0x5afbd742 'kryss'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[27]
-
       elseif @ingump 0x5afbd742 'longsword'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 37
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[28]
-
       elseif @ingump 0x5afbd742 'scimitar'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 44
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[29]
-
       elseif @ingump 0x5afbd742 'viking sword'
-
         replygump 0x38920abd 36
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 51
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[30]
-
         // Axes
-
       elseif @ingump 0x5afbd742 'large battle axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[31]
-
       elseif @ingump 0x5afbd742 'double axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[32]
-
       elseif @ingump 0x5afbd742 "executioner's axe"
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[33]
-
       elseif @ingump 0x5afbd742 'battle axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[34]
-
       elseif @ingump 0x5afbd742 'two handed axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 37
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[35]
-
       elseif @ingump 0x5afbd742 'war axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 44
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[36]
-
       elseif @ingump 0x5afbd742 'axe'
-
         replygump 0x38920abd 43
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[37]
-
         // Polearms
-
       elseif @ingump 0x5afbd742 'bardiche'
-
         replygump 0x38920abd 50
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[38]
-
       elseif @ingump 0x5afbd742 'halberd'
-
         replygump 0x38920abd 50
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[39]
-
       elseif @ingump 0x5afbd742 'short spear'
-
         replygump 0x38920abd 50
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[40]
-
       elseif @ingump 0x5afbd742 'spear'
-
         replygump 0x38920abd 50
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[41]
-
       elseif @ingump 0x5afbd742 'war fork'
-
         replygump 0x38920abd 50
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[42]
-
         // Bashing
-
       elseif @ingump 0x5afbd742 'war mace'
-
         replygump 0x38920abd 57
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 23
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[43]
-
       elseif @ingump 0x5afbd742 'hammer pick'
-
         replygump 0x38920abd 57
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 2
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[44]
-
       elseif @ingump 0x5afbd742 'mace'
-
         replygump 0x38920abd 57
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 9
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[45]
-
       elseif @ingump 0x5afbd742 'maul'
-
         replygump 0x38920abd 57
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 16
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[46]
-
       elseif @ingump 0x5afbd742 'war hammer'
-
         replygump 0x38920abd 57
-
         waitforgump 0x38920abd 15000
-
         replygump 0x38920abd 30
-
         waitforgump 0x38920abd 15000
-
         pause 250
-
         @findtype CraftInfoBS[47]
-
       else
-
         @unsetalias 'found'
-
       endif
-
       // No crafted items were found
-
       if not @findobject 'found'
-
         // Craft failed, try again
-
         if @ingump 0x38920abd 'failed to create the item'
-
           continue
-
         endif
-
         // Trash BOD or missing definitions
-
         @moveitem! 'bod' 'Trash BODs Destination'
-
         pause 1500
-
         break
-
       endif
-
       target! 'found'
-
       waitfortarget 5000
-
       if not targetexists and @injournal 'must be exceptional' 'system'
-
         // Recycle this item
-
         replygump 0x38920abd 14
-
         waitfortarget 5000
-
         target! 'found'
-
         pause 1500
-
         // Unable to recycle, trash item
-
         if @findobject 'found'
-
           @moveitem! 'found' 'Trash Barrel'
-
           pause 1500
-
         endif
-
         replygump 0x5afbd742 2
-
         waitforgump 0x5afbd742 15000
-
         waitfortarget 5000
-
         clearjournal
-
       endif
-
     endwhile
-
     // BOD is complete, move to destination
-
     if not targetexists 'server'
-
       @moveitem 'bod' 'Bulk Destination'
-
     endif
-
     pause 1500
-
     // Out of tongs
-
   elseif @movetype 0xFBB 'Restock' 'backpack' or @movetype 0x13e3 'Restock' 'backpack'
-
     pause 1500
-
   else
-
     sysmsg 'Out of tongs and smith hammers!' 25
-
     @canceltarget
-
     stop
-
   endif
-
 elseif not property 'Deeds In Book: 0' 'Bulk Source'
-
   useobject! 'Bulk Source'
-
   waitforgump 0x54f555df 15000
-
   replygump 0x54f555df 5
-
   pause 1500
-
 else
-
   sysmsg 'Unable to find BODs to fill.' 64
-
   @canceltarget
-
   stop
-
 endif

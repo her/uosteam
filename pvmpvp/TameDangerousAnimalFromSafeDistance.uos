@@ -1,10 +1,9 @@
-//in the interest of taming high end creatures 
+//in the interest of taming high end creatures
 //where it's important to move AWAY from the creature, not towards it.
 //
 //keeps tamer 2 tiles away
 //
 //Made by Experience
-
 headmsg 'Target creature to tame'
 promptalias 'Tame'
 pause 250

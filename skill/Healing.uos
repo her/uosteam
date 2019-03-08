@@ -1,55 +1,32 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training healing from 0. It   // 
-// requires a magical wizard hat. // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findalias 'hat' 
-
-  headmsg "Select your magical wizard's hat" 
-
-  promptalias 'hat' 
-
-endif 
-
-if not @findtype 0xe21 'any' 'backpack' 
-
-  headmsg 'Get more bandaids!' 
-
-  stop 
-
-endif 
-
-if skill 'healing' < 100 
-
-  equipitem 'hat' 6 
-
-  pause 600 
-
-  moveitem 'hat' 'backpack' 
-
-  pause 600 
-
-  bandageself 
-
-  pause 6000 
-
-  equipitem 'hat' 6 
-
-  pause 600 
-
-  moveitem 'hat' 'backpack' 
-
-  pause 7000 
-
-else 
-
-  headmsg 'Healing complete!' 
-
-  stop 
-
-endif 
+////////////////////////////////////
+//   This macro is designed for   //
+//  training healing from 0. It   //
+// requires a magical wizard hat. //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findalias 'hat'
+  headmsg "Select your magical wizard's hat"
+  promptalias 'hat'
+endif
+if not @findtype 0xe21 'any' 'backpack'
+  headmsg 'Get more bandaids!'
+  stop
+endif
+if skill 'healing' < 100
+  equipitem 'hat' 6
+  pause 600
+  moveitem 'hat' 'backpack'
+  pause 600
+  bandageself
+  pause 6000
+  equipitem 'hat' 6
+  pause 600
+  moveitem 'hat' 'backpack'
+  pause 7000
+else
+  headmsg 'Healing complete!'
+  stop
+endif

@@ -1,35 +1,35 @@
 if skill 'Blacksmithy' <  50
-    headmsg 'You should have started with 50 skill!'
+  headmsg 'You should have started with 50 skill!'
 else
-    while skill 'Blacksmithy' <= 93
-        usetype 0xfbb 'any' backpack'
-        waitforgump 0x38920abd 15000
-        replygump 0x38920abd 50
-        waitforgump 0x38920abd 15000
-        replygump 0x38920abd 16
-        pause 2000
-        if findtype 0x1403 'any' 'backpack'
-            usetype 0xfbb 'any' 'backpack'
-            waitforgump 0x38920abd 15000
-            replygump 0x38920abd 14
-            waitfortarget 15000
-            target! 'found'
-        endif
-    endwhile
-    while skill 'Blacksmithy' < 100
-        usetype 0xfbb 'any' backpack'
-        waitforgump 0x38920abd 15000
-        replygump 0x38920abd 15
-        waitforgump 0x38920abd 15000
-        replygump 0x38920abd 16
-        pause 2000
-        if findtype 0x1413 'any' 'backpack'
-            usetype 0xfbb 'any' 'backpack'
-            waitforgump 0x38920abd 15000
-            replygump 0x38920abd 14
-            waitfortarget 15000
-            target! 'found'
-        endif
-    endwhile
-    headmsg 'Blacksmithy complete!'
+  while skill 'Blacksmithy' <= 93
+    usetype 0xfbb 'any' backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 50
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    pause 2000
+    if findtype 0x1403 'any' 'backpack'
+      usetype 0xfbb 'any' 'backpack'
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 14
+      waitfortarget 15000
+      target! 'found'
+    endif
+  endwhile
+  while skill 'Blacksmithy' < 100
+    usetype 0xfbb 'any' backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    pause 2000
+    if findtype 0x1413 'any' 'backpack'
+      usetype 0xfbb 'any' 'backpack'
+      waitforgump 0x38920abd 15000
+      replygump 0x38920abd 14
+      waitfortarget 15000
+      target! 'found'
+    endif
+  endwhile
+  headmsg 'Blacksmithy complete!'
 endif

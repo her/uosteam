@@ -1,19 +1,10 @@
-if mana < 40 
-
-  useskill 'meditation' 
-
-  while mana < maxmana 
-
-    pause 600 
-
-  else 
-
-    cast "Mana Vampire" 
-
-    waitfortarget 15000 
-
-    target! self 
-
-    pause 4000 
-
+if mana < 40
+  useskill 'meditation'
+  while mana < maxmana
+    pause 600
+  else
+    cast "Mana Vampire"
+    waitfortarget 15000
+    target! self
+    pause 4000
   endif

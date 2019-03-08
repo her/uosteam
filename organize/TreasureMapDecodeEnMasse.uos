@@ -1,9 +1,7 @@
 // decode all the tmaps in a certain bag
-
 if not @findobject 'T-mapBook'
   promptalias 'T-mapBook'
 endif
-
 if @findtype '0x14ec' '0' 'backpack' 'any' '3' and not @injournal 'The treasure is marked by the red pin.' 'system'
   useobject 'found'
   pause 1200
@@ -14,7 +12,6 @@ else
   @clearjournal
   @unsetalias 'found'
 endif
-
 if not @findtype '0x14ec' '0' 'backpack' 'any' '3'
   headmsg 'No more maps'
   stop

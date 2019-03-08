@@ -1,13 +1,10 @@
-//Rather than the traditional pet heal macros this one 
-//operates on lists so you never have to retarget your pets. 
-//If you mount, stable or claim a new pet it automatically picks 
+//Rather than the traditional pet heal macros this one
+//operates on lists so you never have to retarget your pets.
+//If you mount, stable or claim a new pet it automatically picks
 //it up (provided its serial is in your list). Works very well with mounts.
 //
-//I also added provoke / "all kill" protection, 
+//I also added provoke / "all kill" protection,
 //where if you have a cursor up it will not hijack the cursor.
-
-
-
 if not listexists 'petlist'
   createlist 'petlist'
   //add an entry for each pet you hunt with:

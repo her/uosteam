@@ -1,142 +1,72 @@
-//This macro will require 2 pets to attack eachother. 
-//It will ask you to target each pet, your bandaids, then 
-//it will force the pets to attack eachother, and will feed 
-//your pets every 10(?) minutes. It will automatically heal 
-//the lowest HP pet, and if a pet falls below 50% health, it 
-//will tell pets to stop and stay, and will spam heal them until full, then repeats. 
-
-
-
-//Things can happen, IE your pets not listening to you. DO NOT RUN THIS AFK. 
-
-
-
-//Setup 
-
-if not findalias 'pet1' 
-
-  headmsg 'Select first pet' 
-
-  promptalias 'pet1' 
-
-endif 
-
-if not findalias 'pet2' 
-
-  headmsg 'Select second pet' 
-
-  promptalias 'pet2' 
-
-endif 
-
-if not findalias 'bandages' 
-
-  headmsg 'Select bandages' 
-
-  promptalias 'bandages' 
-
-endif 
-
-//Feed pets every hour 
-
-if not timerexists 'feed' 
-
-  createtimer 'feed' 
-
-endif 
-
-if timer 'feed' > 600000 
-
-  settimer 'feed' 0 
-
-  feed 'pet1' 'Meat' 'any' 1 
-
-  pause 500 
-
-  feed 'pet2' 'Meat' 'any' 1 
-
-endif 
-
-//Tell pets to attack each other if they're full HP 
-
-if hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2' 
-
-  waitforcontext 'pet1' 3 15000 
-
-  autotargetobject 'pet2' 
-
-  pause 500 
-
-  waitforcontext 'pet2' 3 15000 
-
-  autotargetobject 'pet1' 
-
-  pause 500 
-
-endif 
-
-//Heal the lowest HP pet 
-
-if @findobject 'bandages' 
-
-  useobject 'found' 
-
-else //Out of bandages 
-
-  msg 'all stay' 
-
-  pause 3000 
-
-  headmsg 'Select bandages' 
-
-  promptalias 'bandages' 
-
-endif 
-
-if diffhits 'pet1' > diffhits 'pet2' 
-
-  autotargetobject 'pet1' 
-
-else 
-
-  autotargetobject 'pet2' 
-
-endif 
-
-pause 5500 
-
-//Tell pets to stop if either is missing 50% 
-
-if diffhits 'pet1' > 50 or diffhits 'pet2' > 50 
-
-  msg 'all stop' 
-
-  pause 2000 
-
-  msg 'all stay' 
-
-  pause 2000 
-
-  //Heal them to full 
-
-  while hits 'pet1' < maxhits 'pet1' 
-
-    useobject 'bandages' 
-
-    autotargetobject 'pet1' 
-
-    pause 5500 
-
-  endwhile 
-
-  while hits 'pet2' < maxhits 'pet2' 
-
-    useobject 'bandages' 
-
-    autotargetobject 'pet2' 
-
-    pause 5500 
-
-  endwhile 
-
+//This macro will require 2 pets to attack eachother.
+//It will ask you to target each pet, your bandaids, then
+//it will force the pets to attack eachother, and will feed
+//your pets every 10(?) minutes. It will automatically heal
+//the lowest HP pet, and if a pet falls below 50% health, it
+//will tell pets to stop and stay, and will spam heal them until full, then repeats.
+//Things can happen, IE your pets not listening to you. DO NOT RUN THIS AFK.
+//Setup
+if not findalias 'pet1'
+  headmsg 'Select first pet'
+  promptalias 'pet1'
+endif
+if not findalias 'pet2'
+  headmsg 'Select second pet'
+  promptalias 'pet2'
+endif
+if not findalias 'bandages'
+  headmsg 'Select bandages'
+  promptalias 'bandages'
+endif
+//Feed pets every hour
+if not timerexists 'feed'
+  createtimer 'feed'
+endif
+if timer 'feed' > 600000
+  settimer 'feed' 0
+  feed 'pet1' 'Meat' 'any' 1
+  pause 500
+  feed 'pet2' 'Meat' 'any' 1
+endif
+//Tell pets to attack each other if they're full HP
+if hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2'
+  waitforcontext 'pet1' 3 15000
+  autotargetobject 'pet2'
+  pause 500
+  waitforcontext 'pet2' 3 15000
+  autotargetobject 'pet1'
+  pause 500
+endif
+//Heal the lowest HP pet
+if @findobject 'bandages'
+  useobject 'found'
+else //Out of bandages
+  msg 'all stay'
+  pause 3000
+  headmsg 'Select bandages'
+  promptalias 'bandages'
+endif
+if diffhits 'pet1' > diffhits 'pet2'
+  autotargetobject 'pet1'
+else
+  autotargetobject 'pet2'
+endif
+pause 5500
+//Tell pets to stop if either is missing 50%
+if diffhits 'pet1' > 50 or diffhits 'pet2' > 50
+  msg 'all stop'
+  pause 2000
+  msg 'all stay'
+  pause 2000
+  //Heal them to full
+  while hits 'pet1' < maxhits 'pet1'
+    useobject 'bandages'
+    autotargetobject 'pet1'
+    pause 5500
+  endwhile
+  while hits 'pet2' < maxhits 'pet2'
+    useobject 'bandages'
+    autotargetobject 'pet2'
+    pause 5500
+  endwhile
 endif

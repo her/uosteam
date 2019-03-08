@@ -1,148 +1,145 @@
-//This is a comprehensive fishing macro, you'll need 2 
-//separate macros' : 
-//Fishing Start 
-//Fishing Bottle (Note: You must name this macro 'Fishing 
-//Bottle', as the first macro calls it) 
-//* This assumes you have archery and magery.  Can easily be 
-//changed to use bandages instead 
-//* Make sure you loop the first macro 
-//* This only stops for bottles, however you could easily 
-//modify it to stop for any system message (nets, maps, etc). 
-//* Additionally for the sounds to work they need to be in /uosteam/sounds/ 
+//This is a comprehensive fishing macro, you'll need 2
+//separate macros' :
+//Fishing Start
+//Fishing Bottle (Note: You must name this macro 'Fishing
+//Bottle', as the first macro calls it)
+//* This assumes you have archery and magery.  Can easily be
+//changed to use bandages instead
+//* Make sure you loop the first macro
+//* This only stops for bottles, however you could easily
+//modify it to stop for any system message (nets, maps, etc).
+//* Additionally for the sounds to work they need to be in /uosteam/sounds/
 //Sound Files: On Drive, In file "FORMACRO-fishing"
- 
 Fishing Start:
-//Author: Lopsang 
-if not @listexists 'xaxis' 
-  @createlist 'xaxis' 
-  @pushlist 'xaxis' 3 
-  @pushlist 'xaxis' -3 
-endif 
-if not @listexists 'yaxis' 
-  @createlist 'yaxis' 
-  @pushlist 'yaxis' 3 
-  @pushlist 'yaxis' -3 
-endif 
-if not listexists 'fish' 
-  createlist 'fish' 
-  @pushlist 'fish' '0x9ce' 
-  @pushlist 'fish'' 0x9cf' 
-  @pushlist 'fish' '0x9cc' 
-  @pushlist 'fish' '0x9cd' 
-endif 
-while dead 
-  playsound 'error.wav' 
-  pause 8000 
-endwhile 
-if not @findobject 'bow' 
-  promptalias 'bow' 
-endif 
-if not @findobject 'lefthand' 
-  equipitem 'bow' 2 
-endif 
-if not @findobject 'pole' and @findtype 0xdbf 0x0 'self' 
-  setalias 'pole' 'found' 
-endif 
-for 0 to 'xaxis' 
-  for 0 to 'yaxis' 
-    while not @injournal 'biting' 'system' 
-      while dead 
-        playsound 'error.wav' 
-        pause 8000 
-      endwhile 
-      @canceltarget 
-      @useobject 'pole' 
-      waitfortarget 2000 
-      targettileoffset! 'xaxis[]' 'yaxis[]' 0 
-      pause 500 
-      if not @injournal 'biting' 'system' 
-        pause 7750 
-      endif 
-      if @injournal 'pull a bottle' 'system' 
-        clearjournal 
-        playmacro 'Fishing Bottle' 
-      endif 
-      if @injournal 'mess' 'system' 
-        clearjournal 
-        @usetype! 0xdd6 
-        pause 1000 
-        @usetype! 0xdd6 
-        pause 1000 
-      endif 
-      if @injournal 'closer' 'system' 
-        clearjournal 
-        resync 
-      endif 
-      //fishing cleanup 
-      if weight >= maxweight 
-        for 0 to 'fish' 
-          while @findtype fish[] 'any' 'backpack' 
-            usetype! 0xf52 
-            waitfortarget 1000 
-            target! 'found' 
-            pause 600 
-          endwhile 
-        endfor 
-        // adds to fishsteak pile on floor 
-        if @findtype 0x97a 'any' 'ground' 'any' 2 
-          movetype 0x97a 'backpack' 'found' 
-          pause 600 
-        else 
-          //starts fishsteak pile on floor if doesnt exist 
-          movetypeoffset 0x97a 'backpack'  'ground' 
-          pause 600 
-        endif 
-      endif 
-      //end fishing cleanup 
-      while diffhits > 30 and not dead 
-        autotargetself 
-        bigheal 
-        pause 1500 
-        if not @findobject 'lefthand' 
-          equipitem 'bow' 2 
-        endif 
-      endwhile 
-      getenemy 'gray' 'criminal' 'closest' 
-      if @inrange 'enemy' 10 
-        @autotargetenemy 
-        attack 'enemy' 
-      endif 
-    endwhile 
-    clearjournal 
-  endfor 
-  clearjournal 
-endfor 
-msg 'forward' 
-pause 4000 
-msg 'stop' 
-
-#################################################### 
-#################################################### 
-
+//Author: Lopsang
+if not @listexists 'xaxis'
+  @createlist 'xaxis'
+  @pushlist 'xaxis' 3
+  @pushlist 'xaxis' -3
+endif
+if not @listexists 'yaxis'
+  @createlist 'yaxis'
+  @pushlist 'yaxis' 3
+  @pushlist 'yaxis' -3
+endif
+if not listexists 'fish'
+  createlist 'fish'
+  @pushlist 'fish' '0x9ce'
+  @pushlist 'fish'' 0x9cf'
+  @pushlist 'fish' '0x9cc'
+  @pushlist 'fish' '0x9cd'
+endif
+while dead
+  playsound 'error.wav'
+  pause 8000
+endwhile
+if not @findobject 'bow'
+  promptalias 'bow'
+endif
+if not @findobject 'lefthand'
+  equipitem 'bow' 2
+endif
+if not @findobject 'pole' and @findtype 0xdbf 0x0 'self'
+  setalias 'pole' 'found'
+endif
+for 0 to 'xaxis'
+  for 0 to 'yaxis'
+    while not @injournal 'biting' 'system'
+      while dead
+        playsound 'error.wav'
+        pause 8000
+      endwhile
+      @canceltarget
+      @useobject 'pole'
+      waitfortarget 2000
+      targettileoffset! 'xaxis[]' 'yaxis[]' 0
+      pause 500
+      if not @injournal 'biting' 'system'
+        pause 7750
+      endif
+      if @injournal 'pull a bottle' 'system'
+        clearjournal
+        playmacro 'Fishing Bottle'
+      endif
+      if @injournal 'mess' 'system'
+        clearjournal
+        @usetype! 0xdd6
+        pause 1000
+        @usetype! 0xdd6
+        pause 1000
+      endif
+      if @injournal 'closer' 'system'
+        clearjournal
+        resync
+      endif
+      //fishing cleanup
+      if weight >= maxweight
+        for 0 to 'fish'
+          while @findtype fish[] 'any' 'backpack'
+            usetype! 0xf52
+            waitfortarget 1000
+            target! 'found'
+            pause 600
+          endwhile
+        endfor
+        // adds to fishsteak pile on floor
+        if @findtype 0x97a 'any' 'ground' 'any' 2
+          movetype 0x97a 'backpack' 'found'
+          pause 600
+        else
+          //starts fishsteak pile on floor if doesnt exist
+          movetypeoffset 0x97a 'backpack'  'ground'
+          pause 600
+        endif
+      endif
+      //end fishing cleanup
+      while diffhits > 30 and not dead
+        autotargetself
+        bigheal
+        pause 1500
+        if not @findobject 'lefthand'
+          equipitem 'bow' 2
+        endif
+      endwhile
+      getenemy 'gray' 'criminal' 'closest'
+      if @inrange 'enemy' 10
+        @autotargetenemy
+        attack 'enemy'
+      endif
+    endwhile
+    clearjournal
+  endfor
+  clearjournal
+endfor
+msg 'forward'
+pause 4000
+msg 'stop'
+####################################################
+####################################################
 Fishing Bottle:
-//Author: Lopsang 
-while diffhits > 30 and not dead 
-  autotargetself 
-  bigheal 
-  pause 1500 
-endwhile 
-pause 4000 
-getenemy 'gray' 'criminal' 'closest' 
-while @findobject 'enemy' 
-  if @inrange 'enemy' 10 
-    @autotargetenemy 
-    attack 'enemy' 
-  endif 
-endwhile 
-if not @findobject 'bow' 
-  promptalias 'bow' 
-endif 
-if not @findobject 'lefthand' 
-  equipitem 'bow' 2 
-endif 
-pause 4000 
-if dead 
-  playsound 'error.wav' 
-else 
-  playsound 'alert.wav' 
+//Author: Lopsang
+while diffhits > 30 and not dead
+  autotargetself
+  bigheal
+  pause 1500
+endwhile
+pause 4000
+getenemy 'gray' 'criminal' 'closest'
+while @findobject 'enemy'
+  if @inrange 'enemy' 10
+    @autotargetenemy
+    attack 'enemy'
+  endif
+endwhile
+if not @findobject 'bow'
+  promptalias 'bow'
+endif
+if not @findobject 'lefthand'
+  equipitem 'bow' 2
+endif
+pause 4000
+if dead
+  playsound 'error.wav'
+else
+  playsound 'alert.wav'
 endif

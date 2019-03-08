@@ -7,7 +7,6 @@
 // It also assumes that your beetle is set as your mount.
 // This macro was crafted with love and sealed with a kiss by Bagger
 ////////////
-
 if @injournal 'There is no metal'
   if mounted 'self'
     useobject 'self'

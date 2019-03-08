@@ -1,567 +1,283 @@
 //Author: Experience
-
 //Description: Fills Spellbooks from stored scrolls
-
 //Set-up: Have 1 Box with 8 bags inside and have empty spellbook in your pack
-
-
-
 if not @findobject 'Scroll Storage'
-
   headmsg 'Target container with the 8 Bags inside'
-
   promptalias 'Scroll Storage'
-
   pause 500
-
   @useobject 'Scroll Storage'
-
 else
-
   @useobject 'Scroll Storage'
-
 endif
-
 if not @findobject 'First Circle'
-
   headmsg 'Target the bag for First Circle'
-
   promptalias 'First Circle'
-
 endif
-
 if not @findobject 'Second Circle'
-
   headmsg 'Target the bag for Second Circle'
-
   promptalias 'Second Circle'
-
 endif
-
 if not @findobject 'Third Circle'
-
   headmsg 'Target the bag for Third Circle'
-
   promptalias 'Third Circle'
-
 endif
-
 if not @findobject 'Fourth Circle'
-
   headmsg 'Target the bag for Fourth Circle'
-
   promptalias 'Fourth Circle'
-
 endif
-
 if not @findobject 'Fifth Circle'
-
   headmsg 'Target the bag for Fifth Circle'
-
   promptalias 'Fifth Circle'
-
 endif
-
 if not @findobject 'Sixth Circle'
-
   headmsg 'Target the bag for Sixth Circle'
-
   promptalias 'Sixth Circle'
-
 endif
-
 if not @findobject 'Seventh Circle'
-
   headmsg 'Target the bag for Seventh Circle'
-
   promptalias 'Seventh Circle'
-
 endif
-
 if not @findobject 'Eighth Circle'
-
   headmsg 'Target the bag for Eighth Circle'
-
   promptalias 'Eighth Circle'
-
 endif
-
 if not @listexists 'FirstCircle'
-
   createlist 'FirstCircle'
-
 endif
-
 if list 'FirstCircle' == 0
-
   @pushlist 'FirstCircle' 0x1f2e // Clumsy
-
   @pushlist 'FirstCircle' 0x1f2f // Create Food
-
   @pushlist 'FirstCircle' 0x1f30 // Feeblemind
-
   @pushlist 'FirstCircle' 0x1f31 // Heal
-
   @pushlist 'FirstCircle' 0x1f32 // Magic Arrow
-
   @pushlist 'FirstCircle' 0x1f33 // Night Sight
-
   @pushlist 'FirstCircle' 0x1f2d // Reactive Armor
-
   @pushlist 'FirstCircle' 0x1f34 // Weaken
-
 endif
-
 if not @listexists 'SecondCircle'
-
   createlist 'SecondCircle'
-
 endif
-
 if list 'SecondCircle' == 0
-
   @pushlist 'SecondCircle' 0x1f35 // Agility
-
   @pushlist 'SecondCircle' 0x1f36 // Cunning
-
   @pushlist 'SecondCircle' 0x1f37 // Cure
-
   @pushlist 'SecondCircle' 0x1f38 // Harm
-
   @pushlist 'SecondCircle' 0x1f39 // Magic Trap
-
   @pushlist 'SecondCircle' 0x1f3a // Magic Untrap
-
   @pushlist 'SecondCircle' 0x1f3b // Protection
-
   @pushlist 'SecondCircle' 0x1f3c // Strength
-
 endif
-
 if not @listexists 'ThirdCircle'
-
   createlist 'ThirdCircle'
-
 endif
-
 if list 'ThirdCircle' == 0
-
   @pushlist 'ThirdCircle' 0x1f3d // Bless
-
   @pushlist 'ThirdCircle' 0x1f3e // Fireball
-
   @pushlist 'ThirdCircle' 0x1f3f // Magic Lock
-
   @pushlist 'ThirdCircle' 0x1f40 // Poison
-
   @pushlist 'ThirdCircle' 0x1f41 // Telekinesis
-
   @pushlist 'ThirdCircle' 0x1f42 // Teleport
-
   @pushlist 'ThirdCircle' 0x1f43 // Unlock
-
   @pushlist 'ThirdCircle' 0x1f44 // Wall of Stone
-
 endif
-
 if not @listexists 'FourthCircle'
-
   createlist 'FourthCircle'
-
 endif
-
 if list 'FourthCircle' == 0
-
   @pushlist 'FourthCircle' 0x1f45 // Arch Cure
-
   @pushlist 'FourthCircle' 0x1f46 // Arch Protection
-
   @pushlist 'FourthCircle' 0x1f47 // Curse
-
   @pushlist 'FourthCircle' 0x1f48 // Fire Field
-
   @pushlist 'FourthCircle' 0x1f49 // Greater Heal
-
   @pushlist 'FourthCircle' 0x1f4a // Lightning
-
   @pushlist 'FourthCircle' 0x1f4b // Mana Drain
-
   @pushlist 'FourthCircle' 0x1f4c // Recall
-
 endif
-
 if not @listexists 'FifthCircle'
-
   createlist 'FifthCircle'
-
 endif
-
-if list 'FifthCircle' == 0 
-
+if list 'FifthCircle' == 0
   @pushlist 'FifthCircle' 0x1f4d // Blade Spirit
-
   @pushlist 'FifthCircle' 0x1f4e // Dispel Field
-
   @pushlist 'FifthCircle' 0x1f4f // Incognito
-
   @pushlist 'FifthCircle' 0x1f50 // Magic Reflection
-
   @pushlist 'FifthCircle' 0x1f51 // Mind Blast
-
   @pushlist 'FifthCircle' 0x1f52 // Paralyze
-
   @pushlist 'FifthCircle' 0x1f53 // Poison Field
-
   @pushlist 'FifthCircle' 0x1f54 // Summon Creature
-
 endif
-
 if not @listexists 'SixthCircle'
-
   createlist 'SixthCircle'
-
 endif
-
 if list 'SixthCircle' == 0
-
   @pushlist 'SixthCircle' 0x1f55 // Dispel
-
   @pushlist 'SixthCircle' 0x1f56 // Energy Bolt
-
   @pushlist 'SixthCircle' 0x1f57 // Explosion
-
   @pushlist 'SixthCircle' 0x1f58 // Invisibility
-
   @pushlist 'SixthCircle' 0x1f59 // Mark
-
   @pushlist 'SixthCircle' 0x1f5a // Mass Curse
-
   @pushlist 'SixthCircle' 0x1f5b // Paralyze Field
-
   @pushlist 'SixthCircle' 0x1f5c // Reveal
-
 endif
-
 if not @listexists 'SeventhCircle'
-
   createlist 'SeventhCircle'
-
 endif
-
-if list 'SeventhCircle' == 0 
-
+if list 'SeventhCircle' == 0
   @pushlist 'SeventhCircle' 0x1f5d // Chain Lightning
-
   @pushlist 'SeventhCircle' 0x1f5e // Energy Field
-
   @pushlist 'SeventhCircle' 0x1f5f // Flamestrike
-
   @pushlist 'SeventhCircle' 0x1f60 // Gate Travel
-
   @pushlist 'SeventhCircle' 0x1f61 // Mana Vampire
-
   @pushlist 'SeventhCircle' 0x1f62 // Mass Dispel
-
   @pushlist 'SeventhCircle' 0x1f63 // Meteor Swarm
-
   @pushlist 'SeventhCircle' 0x1f64 // Polymorph
-
 endif
-
 if not @listexists 'EighthCircle'
-
   createlist 'EighthCircle'
-
 endif
-
 if list 'EighthCircle' == 0
-
   @pushlist 'EighthCircle' 0x1f65 // Earthquake
-
   @pushlist 'EighthCircle' 0x1f66 // Energy Vortex
-
   @pushlist 'EighthCircle' 0x1f67 // Ressurrection
-
   @pushlist 'EighthCircle' 0x1f68 // Summon Air Elemental
-
   @pushlist 'EighthCircle' 0x1f69 // Summon Daemon
-
   @pushlist 'EighthCircle' 0x1f6a // Summon Earth Elemental
-
   @pushlist 'EighthCircle' 0x1f6b // Summon Fire Elemental
-
   @pushlist 'EighthCircle' 0x1f6c // Summon Water Elemental
-
 endif
-
 if not @findobject 'Empty Spellbook'
-
-promptalias 'Empty Spellbook'
-
-pause 800
-
+  promptalias 'Empty Spellbook'
+  pause 800
 endif
-
 @useobject 'Scroll Storage'
-
 pause 700
-
 @useobject 'First Circle'
-
 pause 600
-
 for 0 to FirstCircle
-
   if @findtype 'FirstCircle[0]' '0' 'First Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'FirstCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Second Circle'
-
 pause 600
-
 for 0 to SecondCircle
-
   if @findtype 'SecondCircle[0]' '0' 'Second Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'SecondCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Third Circle'
-
 pause 600
-
 for 0 to ThirdCircle
-
   if @findtype 'ThirdCircle[0]' '0' 'Third Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'ThirdCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Fourth Circle'
-
 pause 600
-
 for 0 to FourthCircle
-
   if @findtype 'FourthCircle[0]' '0' 'Fourth Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'FourthCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Fifth Circle'
-
 pause 600
-
 for 0 to FifthCircle
-
   if @findtype 'FifthCircle[0]' '0' 'Fifth Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'FifthCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Sixth Circle'
-
 pause 600
-
 for 0 to SixthCircle
-
   if @findtype 'SixthCircle[0]' '0' 'Sixth Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'SixthCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Seventh Circle'
-
 pause 600
-
 for 0 to SeventhCircle
-
   if @findtype 'SeventhCircle[0]' '0' 'Seventh Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'SeventhCircle' 'front'
-
   pause 900
-
 endfor
-
 @useobject 'Eighth Circle'
-
 pause 600
-
 for 0 to EighthCircle
-
   if @findtype 'EighthCircle[0]' '0' 'Eighth Circle' 'any' '2'
-
     headmsg 'Adding...'
-
     clickobject 'found'
-
     waitforcontext 'found' 0 15000
-
     pause 800
-
     waitfortarget 5000
-
     target! 'Empty Spellbook'
-
     pause 1000
-
   endif
-
   @unsetalias 'found'
-
   poplist 'EighthCircle' 'front'
-
   pause 900
-
 endfor
-
 headmsg "That's as full as I can get it"
-
 stop

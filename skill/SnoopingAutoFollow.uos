@@ -1,11 +1,8 @@
-// made by zekameka 
+// made by zekameka
 // https://www.uoforum.com/threads/master-uosteam-script-library-github.80149/#post-728338
-
 headmsg 'choose who to follow'
 setalias 'tofollow'
-
 while hits > 50
-
   if not @inrange 'tofollow' 1
     if @x 'tofollow' > x 'self' and @y 'tofollow' > y 'self'
       walk 'Southeast'
@@ -25,16 +22,12 @@ while hits > 50
       walk 'North'
     endif
   endif
-
   @Getenemy 'murderer' 'Enemy' 'criminal' 'gray' 'closest' 'friend' 'any'
-
   if @findobject 'enemy'
     @findlayer 'enemy' 21
     useobject! 'found'
   endif
-
   @clearusequeue
   @cancelautotarget
-
   pause 100
 endwhile

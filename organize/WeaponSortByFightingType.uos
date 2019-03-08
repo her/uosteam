@@ -1,200 +1,171 @@
-//Author: Experience 
-//Weapon Organizer 2.0 
-
-if not listexists '2HSwords' 
-  createlist '2HSwords' 
-  //  Axes 
-  @pushlist '2HSwords' 0xf43 
-  @pushlist '2HSwords' 0xf45 
-  @pushlist '2HSwords' 0x13fb 
-  @pushlist '2HSwords' 0x1443 
-  @pushlist '2HSwords' 0xf49 
-  @pushlist '2HSwords' 0xf47 
-  @pushlist '2HSwords' 0xf4d 
-  @pushlist '2HSwords' 0x143e 
-  @pushlist '2HSwords' 0xf4b 
-endif 
-
-if not listexists '1HSwords' 
-  createlist '1HSwords' 
-  // Swords 
-  @pushlist '1HSwords' 0xf5e 
-  @pushlist '1HSwords' 0x13ff 
-  @pushlist '1HSwords' 0x13b6 
-  @pushlist '1HSwords' 0x13b9 
-  @pushlist '1HSwords' 0xf5e 
-  @pushlist '1HSwords' 0x1441 
-  @pushlist '1HSwords' 0xf61 
-  @pushlist '1HSwords' 0xf61 
-endif 
-
-if not listexists '1HFencing' 
-  createlist '1HFencing' 
-  // Fencing 
-  @pushlist '1HFencing' 0x1401 
-  @pushlist '1HFencing' 0x1405 
-endif 
-
-if not listexists '2HFencing' 
-  createlist '2HFencing' 
-  //2 Handed 
-  @pushlist '2HFencing' 0xf62 
-  @pushlist '2HFencing' 0x1403 
-  @pushlist '2HFencing' 0xf52 
-  @pushlist '2HFencing' 0xe87 
-endif 
-
-if not listexists 'Bows' 
-  createlist 'Bows' 
-  //Bows 
-  @pushlist 'Bows' 0x26c3 
-  @pushlist 'Bows' 0x26c2 
-  @pushlist 'Bows' 0x13b2 
-endif 
-
-if not listexists 'Xbows' 
-  createlist 'Xbows' 
-  //Xbows 
-  @pushlist 'Xbows' 0xf50 
-  @pushlist 'Xbows' 0x13fd 
-endif 
-
-if not listexists '1HMaces' 
-  createlist '1HMaces' 
-  // Maces 
-  @pushlist '1HMaces' 0x143d 
-  @pushlist '1HMaces' 0xe89 
-  @pushlist '1HMaces' 0x1407 
-  @pushlist '1HMaces' 0x13b4 
-  @pushlist '1HMaces' 0x143b 
-  @pushlist '1HMaces' 0x13b0 
-  @pushlist '1HMaces' 0xf5c 
-  @pushlist '1HMaces' 0xdf0 
-endif 
-
-if not listexists '2HMaces' 
-  createlist '2HMaces' 
-  //2 Handed 
-  @pushlist '2HMaces' 0x1439 
-  @pushlist '2HMaces' 0x13f8 
-  @pushlist '2HMaces' 0xe81 
-endif 
-
-if not listexists 'Shields' 
-  createlist 'Shields' 
-  // Shields 
-  @pushlist 'Shields' 0x1b76 
-  @pushlist 'Shields' 0x1b7b 
-  @pushlist 'Shields' 0x1b72 
-  @pushlist 'Shields' 0x1b73 
-  @pushlist 'Shields' 0x1b74 
-  @pushlist 'Shields' 0x1b79 
-  @pushlist 'Shields' 0x1b7a 
-endif 
-
-if not findalias '1H Fencing' 
-  headmsg 'Select Bag/Chest for 1 Handed Fencing Weapons' 
-  promptalias '1H Fencing' 
-endif 
-
-if not findalias '2H Fencing' 
-  headmsg 'Select Bag/Chest for 2 Handed Fencing Weapons' 
-  promptalias '2H Fencing' 
-endif 
-
-if not findalias '1H Swords' 
-  headmsg 'Select Bag/Chest for 1 Handed Swords' 
-  promptalias '1H Swords' 
-endif 
-
-if not findalias '2H Swords' 
-  headmsg 'Select Bag/Chest for 2 Handed Swords' 
-  promptalias '2H Swords' 
-endif 
-
-if not findalias '1H Maces' 
-  headmsg 'Select Bag/Chest for 1 Handed Maces' 
-  promptalias '1H Maces' 
-endif 
-
-if not findalias '2H Maces' 
-  headmsg 'Select Bag/Chest for 2 Handed Maces' 
-  promptalias '2H Maces' 
-endif 
-
-if not findalias 'Bows' 
-  headmsg 'Select Bag/Chest for Bows' 
-  promptalias 'Bows' 
-endif 
-
-if not findalias 'Xbows' 
-  headmsg 'Select Bag/Chest for Xbows' 
-  promptalias 'Xbows' 
-endif 
-
-if not findalias 'Shields' 
-  headmsg 'Select Bag/Chest for Shields' 
-  promptalias 'Shields' 
-endif 
-
-if not findalias 'Sort Bag' 
-  headmsg 'Select your bag to sort!' 
-  promptalias 'Sort Bag' 
-endif 
-
-for 0 to '1HFencing' 
-  while @movetype 1HFencing[]  'Sort Bag' '1H Fencing' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to '2HFencing' 
-  while @movetype 2HFencing[]  'Sort Bag' '2H Fencing' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to '1HSwords' 
-  while @movetype 1HSwords[]  'Sort Bag' '1H Swords' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to '2HSwords' 
-  while @movetype 2HSwords[]  'Sort Bag' '2H Swords' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to '1HMaces' 
-  while @movetype 1HMaces[]  'Sort Bag' '1H Maces' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to '2HMaces' 
-  while @movetype 2HMaces[]  'Sort Bag' '2H Maces' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'Bows' 
-  while @movetype Bows[]  'Sort Bag' 'Bows' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'Xbows' 
-  while @movetype Xbows[]  'Sort Bag' 'Xbows' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'Shields' 
-  while @movetype Shields[]  'Sort Bag' 'Shields' 
-    pause 600 
-  endwhile 
-endfor 
-
+//Author: Experience
+//Weapon Organizer 2.0
+if not listexists '2HSwords'
+  createlist '2HSwords'
+  //  Axes
+  @pushlist '2HSwords' 0xf43
+  @pushlist '2HSwords' 0xf45
+  @pushlist '2HSwords' 0x13fb
+  @pushlist '2HSwords' 0x1443
+  @pushlist '2HSwords' 0xf49
+  @pushlist '2HSwords' 0xf47
+  @pushlist '2HSwords' 0xf4d
+  @pushlist '2HSwords' 0x143e
+  @pushlist '2HSwords' 0xf4b
+endif
+if not listexists '1HSwords'
+  createlist '1HSwords'
+  // Swords
+  @pushlist '1HSwords' 0xf5e
+  @pushlist '1HSwords' 0x13ff
+  @pushlist '1HSwords' 0x13b6
+  @pushlist '1HSwords' 0x13b9
+  @pushlist '1HSwords' 0xf5e
+  @pushlist '1HSwords' 0x1441
+  @pushlist '1HSwords' 0xf61
+  @pushlist '1HSwords' 0xf61
+endif
+if not listexists '1HFencing'
+  createlist '1HFencing'
+  // Fencing
+  @pushlist '1HFencing' 0x1401
+  @pushlist '1HFencing' 0x1405
+endif
+if not listexists '2HFencing'
+  createlist '2HFencing'
+  //2 Handed
+  @pushlist '2HFencing' 0xf62
+  @pushlist '2HFencing' 0x1403
+  @pushlist '2HFencing' 0xf52
+  @pushlist '2HFencing' 0xe87
+endif
+if not listexists 'Bows'
+  createlist 'Bows'
+  //Bows
+  @pushlist 'Bows' 0x26c3
+  @pushlist 'Bows' 0x26c2
+  @pushlist 'Bows' 0x13b2
+endif
+if not listexists 'Xbows'
+  createlist 'Xbows'
+  //Xbows
+  @pushlist 'Xbows' 0xf50
+  @pushlist 'Xbows' 0x13fd
+endif
+if not listexists '1HMaces'
+  createlist '1HMaces'
+  // Maces
+  @pushlist '1HMaces' 0x143d
+  @pushlist '1HMaces' 0xe89
+  @pushlist '1HMaces' 0x1407
+  @pushlist '1HMaces' 0x13b4
+  @pushlist '1HMaces' 0x143b
+  @pushlist '1HMaces' 0x13b0
+  @pushlist '1HMaces' 0xf5c
+  @pushlist '1HMaces' 0xdf0
+endif
+if not listexists '2HMaces'
+  createlist '2HMaces'
+  //2 Handed
+  @pushlist '2HMaces' 0x1439
+  @pushlist '2HMaces' 0x13f8
+  @pushlist '2HMaces' 0xe81
+endif
+if not listexists 'Shields'
+  createlist 'Shields'
+  // Shields
+  @pushlist 'Shields' 0x1b76
+  @pushlist 'Shields' 0x1b7b
+  @pushlist 'Shields' 0x1b72
+  @pushlist 'Shields' 0x1b73
+  @pushlist 'Shields' 0x1b74
+  @pushlist 'Shields' 0x1b79
+  @pushlist 'Shields' 0x1b7a
+endif
+if not findalias '1H Fencing'
+  headmsg 'Select Bag/Chest for 1 Handed Fencing Weapons'
+  promptalias '1H Fencing'
+endif
+if not findalias '2H Fencing'
+  headmsg 'Select Bag/Chest for 2 Handed Fencing Weapons'
+  promptalias '2H Fencing'
+endif
+if not findalias '1H Swords'
+  headmsg 'Select Bag/Chest for 1 Handed Swords'
+  promptalias '1H Swords'
+endif
+if not findalias '2H Swords'
+  headmsg 'Select Bag/Chest for 2 Handed Swords'
+  promptalias '2H Swords'
+endif
+if not findalias '1H Maces'
+  headmsg 'Select Bag/Chest for 1 Handed Maces'
+  promptalias '1H Maces'
+endif
+if not findalias '2H Maces'
+  headmsg 'Select Bag/Chest for 2 Handed Maces'
+  promptalias '2H Maces'
+endif
+if not findalias 'Bows'
+  headmsg 'Select Bag/Chest for Bows'
+  promptalias 'Bows'
+endif
+if not findalias 'Xbows'
+  headmsg 'Select Bag/Chest for Xbows'
+  promptalias 'Xbows'
+endif
+if not findalias 'Shields'
+  headmsg 'Select Bag/Chest for Shields'
+  promptalias 'Shields'
+endif
+if not findalias 'Sort Bag'
+  headmsg 'Select your bag to sort!'
+  promptalias 'Sort Bag'
+endif
+for 0 to '1HFencing'
+  while @movetype 1HFencing[]  'Sort Bag' '1H Fencing'
+    pause 600
+  endwhile
+endfor
+for 0 to '2HFencing'
+  while @movetype 2HFencing[]  'Sort Bag' '2H Fencing'
+    pause 600
+  endwhile
+endfor
+for 0 to '1HSwords'
+  while @movetype 1HSwords[]  'Sort Bag' '1H Swords'
+    pause 600
+  endwhile
+endfor
+for 0 to '2HSwords'
+  while @movetype 2HSwords[]  'Sort Bag' '2H Swords'
+    pause 600
+  endwhile
+endfor
+for 0 to '1HMaces'
+  while @movetype 1HMaces[]  'Sort Bag' '1H Maces'
+    pause 600
+  endwhile
+endfor
+for 0 to '2HMaces'
+  while @movetype 2HMaces[]  'Sort Bag' '2H Maces'
+    pause 600
+  endwhile
+endfor
+for 0 to 'Bows'
+  while @movetype Bows[]  'Sort Bag' 'Bows'
+    pause 600
+  endwhile
+endfor
+for 0 to 'Xbows'
+  while @movetype Xbows[]  'Sort Bag' 'Xbows'
+    pause 600
+  endwhile
+endfor
+for 0 to 'Shields'
+  while @movetype Shields[]  'Sort Bag' 'Shields'
+    pause 600
+  endwhile
+endfor
 headmsg 'No more to Sort'
 stop

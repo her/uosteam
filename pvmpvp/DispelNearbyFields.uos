@@ -19,4 +19,3 @@ for 0 to 'fields'
 endfor
 @autotargetobject 'foundfield'
 cast 'dispel field'
-    

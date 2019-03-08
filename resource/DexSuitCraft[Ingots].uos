@@ -1,161 +1,79 @@
-Put empty bags in a bag or main pack and this macro will fill them with dex suits. Choose material color beforehand. 
-
-
-
-
-
-if not @findalias 'suit_container' 
-
-  sysmsg 'Select Suit Container' 
-
-  promptalias 'suit_container' 
-
-endif 
-
-if not listexists 'dex_suit_types' 
-
-  createlist 'dex_suit_types' 
-
-  pushlist 'dex_suit_types' 0x13bf // chain tunic 
-
-  pushlist 'dex_suit_types' 0x13be // chain legs 
-
-  pushlist 'dex_suit_types' 0x13eb // ring gloves 
-
-  pushlist 'dex_suit_types' 0x13ee // ring arms 
-
-  pushlist 'dex_suit_types' 0x1413 // plate gorget 
-
-  pushlist 'dex_suit_types' 0x140e // norse helm 
-
-endif 
-
-clearignorelist 
-
-while findtype 0xe76 'any' 'suit_container' 
-
-  setalias 'current_bag' 'found' 
-
-  ignoreobject 'current_bag' 
-
-  if not hidden 'self' 
-
-    useskill 'Hiding' 
-
-  endif 
-
-  //------------------------------ 
-
-  // Chain Leggings 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 8 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 9 
-
-  pause 1600 
-
-  //----------------------------- 
-
-  // Chain Tunic 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 8 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 16 
-
-  pause 1600 
-
-  //------------------------------ 
-
-  // Ringmail Gloves 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 1 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 2 
-
-  pause 1600 
-
-  //------------------------------ 
-
-  // Ringmail Sleeves 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 1 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 16 
-
-  pause 1600 
-
-  //------------------------------ 
-
-  // Plate Gorget 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 22 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 23 
-
-  pause 1600 
-
-  //------------------------------ 
-
-  // Norse Helm 
-
-  usetype 0xfbb 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 15 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 16 
-
-  pause 1600 
-
-  //------------------------------ 
-
-  replygump 0x38920abd 0 
-
-  for 0 to 'dex_suit_types' 
-
-    findtype dex_suit_types[] 'any' 'backpack' 
-
-    moveitem 'found' 'current_bag' 
-
-    pause 1000 
-
-  endfor 
-
-endwhile 
-
-clearignorelist 
-
+Put empty bags in a bag or main pack and this macro will fill them with dex suits. Choose material color beforehand.
+if not @findalias 'suit_container'
+  sysmsg 'Select Suit Container'
+  promptalias 'suit_container'
+endif
+if not listexists 'dex_suit_types'
+  createlist 'dex_suit_types'
+  pushlist 'dex_suit_types' 0x13bf // chain tunic
+  pushlist 'dex_suit_types' 0x13be // chain legs
+  pushlist 'dex_suit_types' 0x13eb // ring gloves
+  pushlist 'dex_suit_types' 0x13ee // ring arms
+  pushlist 'dex_suit_types' 0x1413 // plate gorget
+  pushlist 'dex_suit_types' 0x140e // norse helm
+endif
+clearignorelist
+while findtype 0xe76 'any' 'suit_container'
+  setalias 'current_bag' 'found'
+  ignoreobject 'current_bag'
+  if not hidden 'self'
+    useskill 'Hiding'
+  endif
+  //------------------------------
+  // Chain Leggings
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 9
+  pause 1600
+  //-----------------------------
+  // Chain Tunic
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 8
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  pause 1600
+  //------------------------------
+  // Ringmail Gloves
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 1
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 2
+  pause 1600
+  //------------------------------
+  // Ringmail Sleeves
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 1
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  pause 1600
+  //------------------------------
+  // Plate Gorget
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 22
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 23
+  pause 1600
+  //------------------------------
+  // Norse Helm
+  usetype 0xfbb
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  pause 1600
+  //------------------------------
+  replygump 0x38920abd 0
+  for 0 to 'dex_suit_types'
+    findtype dex_suit_types[] 'any' 'backpack'
+    moveitem 'found' 'current_bag'
+    pause 1000
+  endfor
+endwhile
+clearignorelist
 headmsg 'Suits Completed.'

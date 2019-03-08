@@ -1,127 +1,64 @@
 @clearjournal
-
 @unsetalias 'found'
-
 @unsetalias 'Wep'
-
 @cleartargetqueue
-
 if not @findobject 'Keg'
-
   promptalias 'Keg'
-
 endif
-
 if not @findobject 'WepBag'
-
   promptalias 'WepBag'
-
   pause 800
-
 endif
-
 @useobject 'WepBag'
-
 pause 800
-
 if not @findobject 'Storage'
-
   promptalias 'Storage'
-
 endif
-
 if not listexists 'Poisonable'
-
   createlist 'Poisonable'
-
 endif
-
 @pushlist 'Poisonable' '0x1405' //Warfork
-
 @pushlist 'Poisonable' '0x1401' //Kryss
-
 @pushlist 'Poisonable' '0xf52' //Dagger
-
 @pushlist 'Poisonable' '0x13ff' //Katana
-
 while not @findtype '0xf0a' '0' 'backpack' 'any' '4'
-
   @useobject 'Keg'
-
   pause 600
-
   @useobject 'Keg'
-
   pause 600
-
   if @injournal 'Empty' 'system'
-
     headmsg 'Keg is empty...'
-
     stop
-
   endif
-
 endwhile
-
 if @findtype '0xf0a' '0' 'backpack' 'any' '4'
-
   headmsg 'Poison found...'
-
 else
-
   @useobject 'Keg'
-
   pause 600
-
   replay
-
 endif
-
 @unsetalias 'found'
-
 pause 600
-
 for 0 to Poisonable
-
   if @findtype 'Poisonable[]' 'any' 'WepBag' 'any' '1'
-
     headmsg 'Poisonable Wep found...'
-
     @setalias 'Wep' 'found'
-
     pause 800
-
     @clickobject 'Wep'
-
     pause 800
-
   endif
-
   if not @injournal 'Deadly Poison' 'system' and @findobject 'Wep'
-
     useskill 'poisoning'
-
     waitfortarget 8000
-
     targettype '0xf0a' '0' 'backpack'
-
     waitfortarget 8000
-
     target! 'Wep'
-
     pause 6000
-
     moveitem 'Wep' 'Storage'
-
     pause 10200
-
   else
-
     moveitem 'Wep' 'Storage'
-
   endif
-
   @clearjournal
-
 endfor

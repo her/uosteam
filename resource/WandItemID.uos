@@ -1,369 +1,185 @@
-// Author: Hawt 
-
-// NOTE: Modified this macro to remove automatic looting and 
-
-//       to use a wand instead of the Item ID skill. 
-
-// Description: automatic ID all Items in a bag 
-
-clearignorelist 
-
-// Aliases 
-
-if not @findobject 'Chest tobe sorted' 
-
-  promptalias 'Chest tobe sorted' 
-
-endif 
-
-useobject! 'Chest tobe sorted' 
-
-promptalias 'IdWand' 
-
-clearhands 'both' 
-
-pause 500 
-
-equipitem 'IdWand' 1 
-
-// Lists 
-
-if not listexists 'Graphics' 
-
-  createlist 'Graphics' 
-
-  // Cloth hats 
-
-  @pushlist 'Graphics' 0x1544 
-
-  @pushlist 'Graphics' 0x1540 
-
-  @pushlist 'Graphics' 0x1713 
-
-  @pushlist 'Graphics' 0x1715 
-
-  @pushlist 'Graphics' 0x1714 
-
-  @pushlist 'Graphics' 0x1716 
-
-  @pushlist 'Graphics' 0x1717 
-
-  @pushlist 'Graphics' 0x1718 
-
-  @pushlist 'Graphics' 0x1719 
-
-  @pushlist 'Graphics' 0x171a 
-
-  @pushlist 'Graphics' 0x171b 
-
-  @pushlist 'Graphics' 0x171c 
-
-  @pushlist 'Graphics' 0x2306 
-
-  // Metal Hats 
-
-  @pushlist 'Graphics' 0x1f0b 
-
-  @pushlist 'Graphics' 0x140a 
-
-  @pushlist 'Graphics' 0x2b6e 
-
-  @pushlist 'Graphics' 0x1412 
-
-  @pushlist 'Graphics' 0x140c 
-
-  @pushlist 'Graphics' 0x13bb 
-
-  @pushlist 'Graphics' 0x2b71 
-
-  @pushlist 'Graphics' 0x1451 
-
-  @pushlist 'Graphics' 0x1408 
-
-  @pushlist 'Graphics' 0x2b72 
-
-  @pushlist 'Graphics' 0x140e 
-
-  @pushlist 'Graphics' 0x2b70 
-
-  @pushlist 'Graphics' 0x1db9 
-
-  @pushlist 'Graphics' 0x2b6f 
-
-  @pushlist 'Graphics' 0x2b73 
-
-  // Bear masks deer masks 
-
-  @pushlist 'Graphics' 0x1545 
-
-  @pushlist 'Graphics' 0x1547 
-
-  // Neck 
-
-  @pushlist 'Graphics' 0x13c7 
-
-  @pushlist 'Graphics' 0x2b69 
-
-  @pushlist 'Graphics' 0x1413 
-
-  @pushlist 'Graphics' 0x2fc7 
-
-  @pushlist 'Graphics' 0x2b76 
-
-  @pushlist 'Graphics' 0x13d6 
-
-  // Gloves 
-
-  @pushlist 'Graphics' 0x1414 
-
-  @pushlist 'Graphics' 0x2b75 
-
-  @pushlist 'Graphics' 0x13eb 
-
-  @pushlist 'Graphics' 0x1450 
-
-  @pushlist 'Graphics' 0x13d5 
-
-  @pushlist 'Graphics' 0x2b6a 
-
-  @pushlist 'Graphics' 0x2fc6 
-
-  @pushlist 'Graphics' 0x13c6 
-
-  // Arms 
-
-  @pushlist 'Graphics' 0x144e 
-
-  @pushlist 'Graphics' 0x13ee 
-
-  @pushlist 'Graphics' 0x13dc 
-
-  @pushlist 'Graphics' 0x2b6c 
-
-  @pushlist 'Graphics' 0x13cd 
-
-  @pushlist 'Graphics' 0x2fc8 
-
-  @pushlist 'Graphics' 0x2b77 
-
-  @pushlist 'Graphics' 0x1410 
-
-  // Chest 
-
-  @pushlist 'Graphics' 0x13cc 
-
-  @pushlist 'Graphics' 0x1415 
-
-  @pushlist 'Graphics' 0x13bf 
-
-  @pushlist 'Graphics' 0x13db 
-
-  @pushlist 'Graphics' 0x13ec 
-
-  @pushlist 'Graphics' 0x2b74 
-
-  @pushlist 'Graphics' 0x2b67 
-
-  @pushlist 'Graphics' 0x2fc5 
-
-  @pushlist 'Graphics' 0x144f 
-
-  // Legs 
-
-  @pushlist 'Graphics' 0x2fc9 
-
-  @pushlist 'Graphics' 0x13f0 
-
-  @pushlist 'Graphics' 0x2fca 
-
-  @pushlist 'Graphics' 0x2b78 
-
-  @pushlist 'Graphics' 0x1411 
-
-  @pushlist 'Graphics' 0x13be 
-
-  @pushlist 'Graphics' 0x2b6b 
-
-  @pushlist 'Graphics' 0x1452 
-
-  @pushlist 'Graphics' 0x13cb 
-
-  @pushlist 'Graphics' 0x13da 
-
-  // Skirt shorts 
-
-  @pushlist 'Graphics' 0x1c08 
-
-  @pushlist 'Graphics' 0x1c00 
-
-  // Female armor 
-
-  @pushlist 'Graphics' 0x1c04 
-
-  @pushlist 'Graphics' 0x1c0a 
-
-  @pushlist 'Graphics' 0x1c0c 
-
-  @pushlist 'Graphics' 0x1c02 
-
-  @pushlist 'Graphics' 0x1c06 
-
-  //  Axes 
-
-  @pushlist 'Graphics' 0xf43 
-
-  @pushlist 'Graphics' 0xf45 
-
-  @pushlist 'Graphics' 0x13fb 
-
-  @pushlist 'Graphics' 0x1443 
-
-  @pushlist 'Graphics' 0xf49 
-
-  @pushlist 'Graphics' 0xf47 
-
-  @pushlist 'Graphics' 0xf4d 
-
-  @pushlist 'Graphics' 0x143e 
-
-  @pushlist 'Graphics' 0xf4b 
-
-  // Swords 
-
-  @pushlist 'Graphics' 0xf5e 
-
-  @pushlist 'Graphics' 0x13ff 
-
-  @pushlist 'Graphics' 0x13b6 
-
-  @pushlist 'Graphics' 0x13b9 
-
-  @pushlist 'Graphics' 0xf5e 
-
-  @pushlist 'Graphics' 0x1441 
-
-  @pushlist 'Graphics' 0xf61 
-
-  @pushlist 'Graphics' 0xf61 
-
-  // Fencing 
-
-  @pushlist 'Graphics' 0x1403 
-
-  @pushlist 'Graphics' 0xf62 
-
-  @pushlist 'Graphics' 0x1401 
-
-  @pushlist 'Graphics' 0x1405 
-
-  @pushlist 'Graphics' 0xf52 
-
-  // Bows 
-
-  @pushlist 'Graphics' 0xf50 
-
-  @pushlist 'Graphics' 0x26c3 
-
-  @pushlist 'Graphics' 0x13fd 
-
-  @pushlist 'Graphics' 0x26c2 
-
-  @pushlist 'Graphics' 0x13b2 
-
-  // Maces 
-
-  @pushlist 'Graphics' 0x143d 
-
-  @pushlist 'Graphics' 0xe89 
-
-  @pushlist 'Graphics' 0x1407 
-
-  @pushlist 'Graphics' 0x13b4 
-
-  @pushlist 'Graphics' 0x1439 
-
-  @pushlist 'Graphics' 0x143b 
-
-  @pushlist 'Graphics' 0x13b0 
-
-  @pushlist 'Graphics' 0xf5c 
-
-  @pushlist 'Graphics' 0xdf0 
-
-  @pushlist 'Graphics' 0x13f8 
-
-  // Shields 
-
-  @pushlist 'Graphics' 0x1b76 
-
-  @pushlist 'Graphics' 0x1b7b 
-
-  @pushlist 'Graphics' 0x1b72 
-
-  @pushlist 'Graphics' 0x1b73 
-
-  @pushlist 'Graphics' 0x1b74 
-
-  @pushlist 'Graphics' 0x1b79 
-
-  @pushlist 'Graphics' 0x1b7a 
-
-  //wands 
-
-  //removed till next release. 
-
-  //instruments 
-
-  @pushlist 'Graphics' 0xeb1 
-
-  @pushlist 'Graphics' 0xeb2 
-
-  @pushlist 'Graphics' 0xeb3 
-
-  @pushlist 'Graphics' 0xe9c 
-
-  @pushlist 'Graphics' 0xe9e 
-
-  @pushlist 'Graphics' 0xe9d 
-
-endif 
-
-if not listexists 'Items' 
-
-  createlist 'Items' 
-
-endif 
-
-if list 'Items' == 0 
-
-  clearignorelist 
-
-  for 0 to 'Graphics' 
-
-    while @findtype 'Graphics[]' 'any' 'Chest tobe sorted' 
-
-      autotargetobject 'found' 
-
-      useobject 'IdWand' 
-
-      pushlist! 'Items' 'found' 
-
-      ignoreobject 'found' 
-
-      pause 1250 
-
-    endwhile 
-
-  endfor 
-
-  clearignorelist 
-
-endif 
-
-clearhands 'both' 
-
-pause 500 
-
-@clearlist 'AreItemsIded' 
-
-@pushlist! 'AreItemsIded' 1 
+// Author: Hawt
+// NOTE: Modified this macro to remove automatic looting and
+//       to use a wand instead of the Item ID skill.
+// Description: automatic ID all Items in a bag
+clearignorelist
+// Aliases
+if not @findobject 'Chest tobe sorted'
+  promptalias 'Chest tobe sorted'
+endif
+useobject! 'Chest tobe sorted'
+promptalias 'IdWand'
+clearhands 'both'
+pause 500
+equipitem 'IdWand' 1
+// Lists
+if not listexists 'Graphics'
+  createlist 'Graphics'
+  // Cloth hats
+  @pushlist 'Graphics' 0x1544
+  @pushlist 'Graphics' 0x1540
+  @pushlist 'Graphics' 0x1713
+  @pushlist 'Graphics' 0x1715
+  @pushlist 'Graphics' 0x1714
+  @pushlist 'Graphics' 0x1716
+  @pushlist 'Graphics' 0x1717
+  @pushlist 'Graphics' 0x1718
+  @pushlist 'Graphics' 0x1719
+  @pushlist 'Graphics' 0x171a
+  @pushlist 'Graphics' 0x171b
+  @pushlist 'Graphics' 0x171c
+  @pushlist 'Graphics' 0x2306
+  // Metal Hats
+  @pushlist 'Graphics' 0x1f0b
+  @pushlist 'Graphics' 0x140a
+  @pushlist 'Graphics' 0x2b6e
+  @pushlist 'Graphics' 0x1412
+  @pushlist 'Graphics' 0x140c
+  @pushlist 'Graphics' 0x13bb
+  @pushlist 'Graphics' 0x2b71
+  @pushlist 'Graphics' 0x1451
+  @pushlist 'Graphics' 0x1408
+  @pushlist 'Graphics' 0x2b72
+  @pushlist 'Graphics' 0x140e
+  @pushlist 'Graphics' 0x2b70
+  @pushlist 'Graphics' 0x1db9
+  @pushlist 'Graphics' 0x2b6f
+  @pushlist 'Graphics' 0x2b73
+  // Bear masks deer masks
+  @pushlist 'Graphics' 0x1545
+  @pushlist 'Graphics' 0x1547
+  // Neck
+  @pushlist 'Graphics' 0x13c7
+  @pushlist 'Graphics' 0x2b69
+  @pushlist 'Graphics' 0x1413
+  @pushlist 'Graphics' 0x2fc7
+  @pushlist 'Graphics' 0x2b76
+  @pushlist 'Graphics' 0x13d6
+  // Gloves
+  @pushlist 'Graphics' 0x1414
+  @pushlist 'Graphics' 0x2b75
+  @pushlist 'Graphics' 0x13eb
+  @pushlist 'Graphics' 0x1450
+  @pushlist 'Graphics' 0x13d5
+  @pushlist 'Graphics' 0x2b6a
+  @pushlist 'Graphics' 0x2fc6
+  @pushlist 'Graphics' 0x13c6
+  // Arms
+  @pushlist 'Graphics' 0x144e
+  @pushlist 'Graphics' 0x13ee
+  @pushlist 'Graphics' 0x13dc
+  @pushlist 'Graphics' 0x2b6c
+  @pushlist 'Graphics' 0x13cd
+  @pushlist 'Graphics' 0x2fc8
+  @pushlist 'Graphics' 0x2b77
+  @pushlist 'Graphics' 0x1410
+  // Chest
+  @pushlist 'Graphics' 0x13cc
+  @pushlist 'Graphics' 0x1415
+  @pushlist 'Graphics' 0x13bf
+  @pushlist 'Graphics' 0x13db
+  @pushlist 'Graphics' 0x13ec
+  @pushlist 'Graphics' 0x2b74
+  @pushlist 'Graphics' 0x2b67
+  @pushlist 'Graphics' 0x2fc5
+  @pushlist 'Graphics' 0x144f
+  // Legs
+  @pushlist 'Graphics' 0x2fc9
+  @pushlist 'Graphics' 0x13f0
+  @pushlist 'Graphics' 0x2fca
+  @pushlist 'Graphics' 0x2b78
+  @pushlist 'Graphics' 0x1411
+  @pushlist 'Graphics' 0x13be
+  @pushlist 'Graphics' 0x2b6b
+  @pushlist 'Graphics' 0x1452
+  @pushlist 'Graphics' 0x13cb
+  @pushlist 'Graphics' 0x13da
+  // Skirt shorts
+  @pushlist 'Graphics' 0x1c08
+  @pushlist 'Graphics' 0x1c00
+  // Female armor
+  @pushlist 'Graphics' 0x1c04
+  @pushlist 'Graphics' 0x1c0a
+  @pushlist 'Graphics' 0x1c0c
+  @pushlist 'Graphics' 0x1c02
+  @pushlist 'Graphics' 0x1c06
+  //  Axes
+  @pushlist 'Graphics' 0xf43
+  @pushlist 'Graphics' 0xf45
+  @pushlist 'Graphics' 0x13fb
+  @pushlist 'Graphics' 0x1443
+  @pushlist 'Graphics' 0xf49
+  @pushlist 'Graphics' 0xf47
+  @pushlist 'Graphics' 0xf4d
+  @pushlist 'Graphics' 0x143e
+  @pushlist 'Graphics' 0xf4b
+  // Swords
+  @pushlist 'Graphics' 0xf5e
+  @pushlist 'Graphics' 0x13ff
+  @pushlist 'Graphics' 0x13b6
+  @pushlist 'Graphics' 0x13b9
+  @pushlist 'Graphics' 0xf5e
+  @pushlist 'Graphics' 0x1441
+  @pushlist 'Graphics' 0xf61
+  @pushlist 'Graphics' 0xf61
+  // Fencing
+  @pushlist 'Graphics' 0x1403
+  @pushlist 'Graphics' 0xf62
+  @pushlist 'Graphics' 0x1401
+  @pushlist 'Graphics' 0x1405
+  @pushlist 'Graphics' 0xf52
+  // Bows
+  @pushlist 'Graphics' 0xf50
+  @pushlist 'Graphics' 0x26c3
+  @pushlist 'Graphics' 0x13fd
+  @pushlist 'Graphics' 0x26c2
+  @pushlist 'Graphics' 0x13b2
+  // Maces
+  @pushlist 'Graphics' 0x143d
+  @pushlist 'Graphics' 0xe89
+  @pushlist 'Graphics' 0x1407
+  @pushlist 'Graphics' 0x13b4
+  @pushlist 'Graphics' 0x1439
+  @pushlist 'Graphics' 0x143b
+  @pushlist 'Graphics' 0x13b0
+  @pushlist 'Graphics' 0xf5c
+  @pushlist 'Graphics' 0xdf0
+  @pushlist 'Graphics' 0x13f8
+  // Shields
+  @pushlist 'Graphics' 0x1b76
+  @pushlist 'Graphics' 0x1b7b
+  @pushlist 'Graphics' 0x1b72
+  @pushlist 'Graphics' 0x1b73
+  @pushlist 'Graphics' 0x1b74
+  @pushlist 'Graphics' 0x1b79
+  @pushlist 'Graphics' 0x1b7a
+  //wands
+  //removed till next release.
+  //instruments
+  @pushlist 'Graphics' 0xeb1
+  @pushlist 'Graphics' 0xeb2
+  @pushlist 'Graphics' 0xeb3
+  @pushlist 'Graphics' 0xe9c
+  @pushlist 'Graphics' 0xe9e
+  @pushlist 'Graphics' 0xe9d
+endif
+if not listexists 'Items'
+  createlist 'Items'
+endif
+if list 'Items' == 0
+  clearignorelist
+  for 0 to 'Graphics'
+    while @findtype 'Graphics[]' 'any' 'Chest tobe sorted'
+      autotargetobject 'found'
+      useobject 'IdWand'
+      pushlist! 'Items' 'found'
+      ignoreobject 'found'
+      pause 1250
+    endwhile
+  endfor
+  clearignorelist
+endif
+clearhands 'both'
+pause 500
+@clearlist 'AreItemsIded'
+@pushlist! 'AreItemsIded' 1

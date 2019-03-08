@@ -1,147 +1,78 @@
-//////////////////////////////////// 
-//     Uses a sewing kit. This    // 
-//      macro is designed for     // 
-//   training tailoring from 30.  // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'Tailoring' < 30 
-
-  headmsg "Buy skill from an NPC!" 
-
-  stop 
-
-elseif skill 'Tailoring' < 41.4 
-
-  if usetype 0xf9d 0x0 'backpack' 
-
-    replygump 0x38920abd 15 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 2 
-
-    waitforgump 0x38920abd 15000 
-
-    pause 2000 
-
-    if usetype 0xf9f 0x0 'backpack' 
-
-      waitfortarget 2000 
-
-      @targettype! 0x152e 0x0 'backpack' 
-
-    endif 
-
-  endif 
-
-elseif skill 'Tailoring' < 54 
-
-  if usetype 0xf9d 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 51 
-
-    pause 2000 
-
-    if usetype 0xf9f 0x0 'backpack' 
-
-      waitfortarget 2000 
-
-      @targettype! 0x1515 0x0 'backpack' 
-
-    endif 
-
-  endif 
-
-elseif skill 'Tailoring' < 74.6 
-
-  if usetype 0xf9d 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 58 
-
-    pause 2000 
-
-    if usetype 0xf9f 0x0 'backpack' 
-
-      waitfortarget 2000 
-
-      @targettype! 0x1f03 0x0 'backpack' 
-
-    endif 
-
-  endif 
-
-elseif skill 'Tailoring' < 99 
-
-  if usetype 0xf9d 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 22 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 23 
-
-    pause 2000 
-
-    if diffweight < 20 
-
-      if usetype 0xf9f 0x0 'backpack' 
-
-        waitfortarget 2000 
-
-        @targettype! 0x175d 0x7d1 'backpack' 
-
-      endif 
-
-    endif 
-
-  endif 
-
-elseif skill 'tailoring' < 100 
-
-  if usetype 0xf9d 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 43 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 30 
-
-    pause 2000 
-
-    if usetype 0xf9f 0x0 'backpack' 
-
-      waitfortarget 2000 
-
-      @targettype! 0x13db 0x0 'backpack' 
-
-    endif 
-
-  endif 
-
-else 
-
-  headmsg 'Tailoring complete!' 
-
-  stop 
-
+////////////////////////////////////
+//     Uses a sewing kit. This    //
+//      macro is designed for     //
+//   training tailoring from 30.  //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'Tailoring' < 30
+  headmsg "Buy skill from an NPC!"
+  stop
+elseif skill 'Tailoring' < 41.4
+  if usetype 0xf9d 0x0 'backpack'
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 15000
+    pause 2000
+    if usetype 0xf9f 0x0 'backpack'
+      waitfortarget 2000
+      @targettype! 0x152e 0x0 'backpack'
+    endif
+  endif
+elseif skill 'Tailoring' < 54
+  if usetype 0xf9d 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 51
+    pause 2000
+    if usetype 0xf9f 0x0 'backpack'
+      waitfortarget 2000
+      @targettype! 0x1515 0x0 'backpack'
+    endif
+  endif
+elseif skill 'Tailoring' < 74.6
+  if usetype 0xf9d 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 58
+    pause 2000
+    if usetype 0xf9f 0x0 'backpack'
+      waitfortarget 2000
+      @targettype! 0x1f03 0x0 'backpack'
+    endif
+  endif
+elseif skill 'Tailoring' < 99
+  if usetype 0xf9d 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 22
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 23
+    pause 2000
+    if diffweight < 20
+      if usetype 0xf9f 0x0 'backpack'
+        waitfortarget 2000
+        @targettype! 0x175d 0x7d1 'backpack'
+      endif
+    endif
+  endif
+elseif skill 'tailoring' < 100
+  if usetype 0xf9d 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 43
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 30
+    pause 2000
+    if usetype 0xf9f 0x0 'backpack'
+      waitfortarget 2000
+      @targettype! 0x13db 0x0 'backpack'
+    endif
+  endif
+else
+  headmsg 'Tailoring complete!'
+  stop
 endif

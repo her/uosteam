@@ -1,232 +1,193 @@
-//Experience 
-//Armor Organizer 2.0 
-
-if not listexists 'NonMedHelm' 
-  createlist 'NonMedHelm' 
-  @pushlist 'NonMedHelm' 0x1451 //Bone Helmet 
-  @pushlist 'NonMedHelm' 0x1408 //Close Helmet 
-  @pushlist 'NonMedHelm' 0x1412 //Plate Helm 
-  @pushlist 'NonMedHelm' 0x140a //Helmet 
-  @pushlist 'NonMedHelm' 0x140c //Bascinet 
-  @pushlist 'NonMedHelm' 0x140e //Norse Helm 
-  @pushlist 'NonMedHelm' 0x13bb //Chainmail Coif 
-endif 
-
-if not listexists 'NonMedGorget' 
-  createlist 'NonMedGorget' 
-  @pushlist 'NonMedGorget' 0x1413 //Plate Gorget 
-  @pushlist 'NonMedGorget' 0x13d6 //Studded Gorget 
-endif 
-
-if not listexists 'NonMedTunic' 
-  createlist 'NonMedTunic' 
-  @pushlist 'NonMedTunic' 0x144f //Bone Tunic 
-  @pushlist 'NonMedTunic' 0x1415 //Plate Chest 
-  @pushlist 'NonMedTunic' 0x13bf //Chainmail Tunic 
-  @pushlist 'NonMedTunic' 0x13ec //Ringmail Tunic 
-  @pushlist 'NonMedTunic' 0x13db //Studded Tunic 
-  @pushlist 'NonMedTunic' 0x1c04 //Female Plate 
-  @pushlist 'NonMedTunic' 0x1c0c //Female Studded Bustier 
-  @pushlist 'NonMedTunic' 0x1c02 //Female Studded Armor 
-endif 
-
-if not listexists 'NonMedSleeve' 
-  createlist 'NonMedSleeve' 
-  @pushlist 'NonMedSleeve' 0x144e //Bone Sleeves 
-  @pushlist 'NonMedSleeve' 0x1410 //Platemail Arms 
-  @pushlist 'NonMedSleeve' 0x13ee //Ringmail Sleeves 
-  @pushlist 'NonMedSleeve' 0x13dc //Studded Sleeves 
-endif 
-
-if not listexists 'NonMedGlove' 
-  createlist 'NonMedGlove' 
-  @pushlist 'NonMedGlove' 0x1414 //Platemail Gloves 
-  @pushlist 'NonMedGlove' 0x13eb //Ringmail Gloves 
-  @pushlist 'NonMedGlove' 0x13d5 //Studded Gloves 
-  @pushlist 'NonMedGlove' 0x1450 //Bone Glove 
-endif 
-
-if not listexists 'NonMedLeg' 
-  createlist 'NonMedLeg' 
-  @pushlist 'NonMedLeg' 0x1452 //Bone Legs 
-  @pushlist 'NonMedLeg' 0x1411 //Platemail Legs 
-  @pushlist 'NonMedLeg' 0x13be //Chainmail Leggins 
-  @pushlist 'NonMedLeg' 0x13f0 //Ringmail Leggins 
-  @pushlist 'NonMedLeg' 0x13da //Studded Leggings 
-endif 
-
-//Medible Parts 
-
-if not listexists 'MedHelm' 
-  createlist 'MedHelm' 
-  @pushlist 'MedHelm' 0x1db9 //Leather Cap 
-endif 
-
-if not listexists 'MedGorget' 
-  createlist 'MedGorget' 
-  @pushlist 'MedGorget' 0x13c7 //Leather Gorget 
-endif 
-
-if not listexists 'MedTunic' 
-  createlist 'MedTunic' 
-  @pushlist 'MedTunic' 0x13cc //Leather Tunic 
-  @pushlist 'MedTunic' 0x1c06 //Female Leather Armor 
-  @pushlist 'MedTunic' 0x1c0a //Female Leather Bustier 
-endif 
-
-if not listexists 'MedSleeve' 
-  createlist 'MedSleeve' 
-  @pushlist 'MedSleeve' 0x13cd //Leather Sleeves 
-endif 
-
-if not listexists 'MedGlove' 
-  createlist 'MedGlove' 
-  @pushlist 'MedGlove' 0x13c6 //Leather Gloves 
-endif 
-
-if not listexists 'MedLeg' 
-  createlist 'MedLeg' 
-  @pushlist 'MedLeg' 0x13cb //Leather Pants 
-  @pushlist 'MedLeg' 0x1c00 //Female Leather Shorts 
-  @pushlist 'MedLeg' 0x1c08 //Female Leather Skirt 
-endif 
-
-if not @findobject 'Medable Hat' 
-  headmsg 'Select Bag/Chest for Medable Hat' 
-  promptalias 'Medable Hat' 
-endif 
-
-if not @findobject 'Non-Med Hat' 
-  headmsg 'Select Bag/Chest for Non-Med Hat' 
-  promptalias 'Non-Med Hat' 
-endif 
-
-if not @findobject 'Medable Gorget' 
-  headmsg 'Select Bag/Chest for Medable Gorget' 
-  promptalias 'Medable Gorget' 
-endif 
-
-if not @findobject 'Non-Med Gorget' 
-  headmsg 'Select Bag/Chest for Non-Med Gorget' 
-  promptalias 'Non-Med Gorget' 
-endif 
-
-if not @findobject 'Medable Tunic' 
-  headmsg 'Select Bag/Chest for Medable Tunic' 
-  promptalias 'Medable Tunic' 
-endif 
-
-if not @findobject 'Non-Med Tunic' 
-  headmsg 'Select Bag/Chest for Non-Med Tunic' 
-  promptalias 'Non-Med Tunic' 
-endif 
-
-if not @findobject 'Medable Sleeve' 
-  headmsg 'Select Bag/Chest for Medable Sleeve' 
-  promptalias 'Medable Sleeve' 
-endif 
-
-if not @findobject 'Non-Med Sleeve' 
-  headmsg 'Select Bag/Chest for Non-Med Sleeve' 
-  promptalias 'Non-Med Sleeve' 
-endif 
-
-if not @findobject 'Medable Glove' 
-  headmsg 'Select Bag/Chest for Medable Glove' 
-  promptalias 'Medable Glove' 
-endif 
-
-if not @findobject 'Non-Med Glove' 
-  headmsg 'Select Bag/Chest for Non-Med Glove' 
-  promptalias 'Non-Med Glove' 
-endif 
-
-if not @findobject 'Medable Leg' 
-  headmsg 'Select Bag/Chest for Medable Leg' 
-  promptalias 'Medable Leg' 
-endif 
-
-if not @findobject 'Non-Med Leg' 
-  headmsg 'Select Bag/Chest for Non-Med Leg' 
-  promptalias 'Non-Med Leg' 
-endif 
-
-if not findalias 'Sort Bag' 
-  headmsg 'Select Bag to sort' 
-  promptalias 'Sort Bag' 
-endif 
-
-for 0 to 'NonMedHelm' 
-  while @movetype NonMedHelm[] 'Sort Bag' 'Non-Med Hat' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedHelm' 
-  while @movetype MedHelm[] 'Sort Bag' 'Medable Hat' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'NonMedGorget' 
-  while @movetype NonMedGorget[] 'Sort Bag' 'Non-Med Gorget' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedGorget' 
-  while @movetype MedGorget[] 'Sort Bag' 'Medable Gorget' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'NonMedTunic' 
-  while @movetype NonMedTunic[] 'Sort Bag' 'Non-Med Tunic' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedTunic' 
-  while @movetype MedTunic[] 'Sort Bag' 'Medable Tunic' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'NonMedSleeve' 
-  while @movetype NonMedSleeve[] 'Sort Bag' 'Non-Med Sleeve' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedSleeve' 
-  while @movetype MedSleeve[] 'Sort Bag' 'Medable Sleeve' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'NonMedGlove' 
-  while @movetype NonMedGlove[] 'Sort Bag' 'Non-Med Glove' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedGlove' 
-  while @movetype MedGlove[] 'Sort Bag' 'Medable Glove' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'NonMedLeg' 
-  while @movetype NonMedLeg[] 'Sort Bag' 'Non-Med Leg' 
-    pause 600 
-  endwhile 
-endfor 
-
-for 0 to 'MedLeg' 
-  while @movetype MedLeg[] 'Sort Bag' 'Medable Leg' 
-    pause 600 
-  endwhile 
-endfor 
-
+//Experience
+//Armor Organizer 2.0
+if not listexists 'NonMedHelm'
+  createlist 'NonMedHelm'
+  @pushlist 'NonMedHelm' 0x1451 //Bone Helmet
+  @pushlist 'NonMedHelm' 0x1408 //Close Helmet
+  @pushlist 'NonMedHelm' 0x1412 //Plate Helm
+  @pushlist 'NonMedHelm' 0x140a //Helmet
+  @pushlist 'NonMedHelm' 0x140c //Bascinet
+  @pushlist 'NonMedHelm' 0x140e //Norse Helm
+  @pushlist 'NonMedHelm' 0x13bb //Chainmail Coif
+endif
+if not listexists 'NonMedGorget'
+  createlist 'NonMedGorget'
+  @pushlist 'NonMedGorget' 0x1413 //Plate Gorget
+  @pushlist 'NonMedGorget' 0x13d6 //Studded Gorget
+endif
+if not listexists 'NonMedTunic'
+  createlist 'NonMedTunic'
+  @pushlist 'NonMedTunic' 0x144f //Bone Tunic
+  @pushlist 'NonMedTunic' 0x1415 //Plate Chest
+  @pushlist 'NonMedTunic' 0x13bf //Chainmail Tunic
+  @pushlist 'NonMedTunic' 0x13ec //Ringmail Tunic
+  @pushlist 'NonMedTunic' 0x13db //Studded Tunic
+  @pushlist 'NonMedTunic' 0x1c04 //Female Plate
+  @pushlist 'NonMedTunic' 0x1c0c //Female Studded Bustier
+  @pushlist 'NonMedTunic' 0x1c02 //Female Studded Armor
+endif
+if not listexists 'NonMedSleeve'
+  createlist 'NonMedSleeve'
+  @pushlist 'NonMedSleeve' 0x144e //Bone Sleeves
+  @pushlist 'NonMedSleeve' 0x1410 //Platemail Arms
+  @pushlist 'NonMedSleeve' 0x13ee //Ringmail Sleeves
+  @pushlist 'NonMedSleeve' 0x13dc //Studded Sleeves
+endif
+if not listexists 'NonMedGlove'
+  createlist 'NonMedGlove'
+  @pushlist 'NonMedGlove' 0x1414 //Platemail Gloves
+  @pushlist 'NonMedGlove' 0x13eb //Ringmail Gloves
+  @pushlist 'NonMedGlove' 0x13d5 //Studded Gloves
+  @pushlist 'NonMedGlove' 0x1450 //Bone Glove
+endif
+if not listexists 'NonMedLeg'
+  createlist 'NonMedLeg'
+  @pushlist 'NonMedLeg' 0x1452 //Bone Legs
+  @pushlist 'NonMedLeg' 0x1411 //Platemail Legs
+  @pushlist 'NonMedLeg' 0x13be //Chainmail Leggins
+  @pushlist 'NonMedLeg' 0x13f0 //Ringmail Leggins
+  @pushlist 'NonMedLeg' 0x13da //Studded Leggings
+endif
+//Medible Parts
+if not listexists 'MedHelm'
+  createlist 'MedHelm'
+  @pushlist 'MedHelm' 0x1db9 //Leather Cap
+endif
+if not listexists 'MedGorget'
+  createlist 'MedGorget'
+  @pushlist 'MedGorget' 0x13c7 //Leather Gorget
+endif
+if not listexists 'MedTunic'
+  createlist 'MedTunic'
+  @pushlist 'MedTunic' 0x13cc //Leather Tunic
+  @pushlist 'MedTunic' 0x1c06 //Female Leather Armor
+  @pushlist 'MedTunic' 0x1c0a //Female Leather Bustier
+endif
+if not listexists 'MedSleeve'
+  createlist 'MedSleeve'
+  @pushlist 'MedSleeve' 0x13cd //Leather Sleeves
+endif
+if not listexists 'MedGlove'
+  createlist 'MedGlove'
+  @pushlist 'MedGlove' 0x13c6 //Leather Gloves
+endif
+if not listexists 'MedLeg'
+  createlist 'MedLeg'
+  @pushlist 'MedLeg' 0x13cb //Leather Pants
+  @pushlist 'MedLeg' 0x1c00 //Female Leather Shorts
+  @pushlist 'MedLeg' 0x1c08 //Female Leather Skirt
+endif
+if not @findobject 'Medable Hat'
+  headmsg 'Select Bag/Chest for Medable Hat'
+  promptalias 'Medable Hat'
+endif
+if not @findobject 'Non-Med Hat'
+  headmsg 'Select Bag/Chest for Non-Med Hat'
+  promptalias 'Non-Med Hat'
+endif
+if not @findobject 'Medable Gorget'
+  headmsg 'Select Bag/Chest for Medable Gorget'
+  promptalias 'Medable Gorget'
+endif
+if not @findobject 'Non-Med Gorget'
+  headmsg 'Select Bag/Chest for Non-Med Gorget'
+  promptalias 'Non-Med Gorget'
+endif
+if not @findobject 'Medable Tunic'
+  headmsg 'Select Bag/Chest for Medable Tunic'
+  promptalias 'Medable Tunic'
+endif
+if not @findobject 'Non-Med Tunic'
+  headmsg 'Select Bag/Chest for Non-Med Tunic'
+  promptalias 'Non-Med Tunic'
+endif
+if not @findobject 'Medable Sleeve'
+  headmsg 'Select Bag/Chest for Medable Sleeve'
+  promptalias 'Medable Sleeve'
+endif
+if not @findobject 'Non-Med Sleeve'
+  headmsg 'Select Bag/Chest for Non-Med Sleeve'
+  promptalias 'Non-Med Sleeve'
+endif
+if not @findobject 'Medable Glove'
+  headmsg 'Select Bag/Chest for Medable Glove'
+  promptalias 'Medable Glove'
+endif
+if not @findobject 'Non-Med Glove'
+  headmsg 'Select Bag/Chest for Non-Med Glove'
+  promptalias 'Non-Med Glove'
+endif
+if not @findobject 'Medable Leg'
+  headmsg 'Select Bag/Chest for Medable Leg'
+  promptalias 'Medable Leg'
+endif
+if not @findobject 'Non-Med Leg'
+  headmsg 'Select Bag/Chest for Non-Med Leg'
+  promptalias 'Non-Med Leg'
+endif
+if not findalias 'Sort Bag'
+  headmsg 'Select Bag to sort'
+  promptalias 'Sort Bag'
+endif
+for 0 to 'NonMedHelm'
+  while @movetype NonMedHelm[] 'Sort Bag' 'Non-Med Hat'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedHelm'
+  while @movetype MedHelm[] 'Sort Bag' 'Medable Hat'
+    pause 600
+  endwhile
+endfor
+for 0 to 'NonMedGorget'
+  while @movetype NonMedGorget[] 'Sort Bag' 'Non-Med Gorget'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedGorget'
+  while @movetype MedGorget[] 'Sort Bag' 'Medable Gorget'
+    pause 600
+  endwhile
+endfor
+for 0 to 'NonMedTunic'
+  while @movetype NonMedTunic[] 'Sort Bag' 'Non-Med Tunic'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedTunic'
+  while @movetype MedTunic[] 'Sort Bag' 'Medable Tunic'
+    pause 600
+  endwhile
+endfor
+for 0 to 'NonMedSleeve'
+  while @movetype NonMedSleeve[] 'Sort Bag' 'Non-Med Sleeve'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedSleeve'
+  while @movetype MedSleeve[] 'Sort Bag' 'Medable Sleeve'
+    pause 600
+  endwhile
+endfor
+for 0 to 'NonMedGlove'
+  while @movetype NonMedGlove[] 'Sort Bag' 'Non-Med Glove'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedGlove'
+  while @movetype MedGlove[] 'Sort Bag' 'Medable Glove'
+    pause 600
+  endwhile
+endfor
+for 0 to 'NonMedLeg'
+  while @movetype NonMedLeg[] 'Sort Bag' 'Non-Med Leg'
+    pause 600
+  endwhile
+endfor
+for 0 to 'MedLeg'
+  while @movetype MedLeg[] 'Sort Bag' 'Medable Leg'
+    pause 600
+  endwhile
+endfor
 headmsg 'No More to Sort'
 stop

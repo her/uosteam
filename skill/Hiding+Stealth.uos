@@ -1,73 +1,37 @@
-//Stealth/Hiding Macroer By Vlek, Grunt of the Bloodclan (Bloodclan.org) 
-
-//Get to a safe area and play the macro. It does the rest. 
-
-while not dead and skill 'hiding' < 80 
-
-  useskill 'hiding' 
-
-  pause 11000 
-
-endwhile 
-
-while not dead and skill 'stealth' < 100 
-
-  walk "West" 
-
-  walk "west" 
-
-  pause 300 
-
-  walk "North" 
-
-  walk "North" 
-
-  pause 300 
-
-  walk "East" 
-
-  walk "East" 
-
-  pause 300 
-
-  walk "South" 
-
-  walk "South" 
-
-  pause 300 
-
-  walk "West" 
-
-  walk "west" 
-
-  pause 300 
-
-  walk "North" 
-
-  walk "North" 
-
-  pause 300 
-
-  walk "Southeast" 
-
-  walk "Southeast" 
-
-  pause 300 
-
-  while not hidden 
-
-    pause 1000 
-
-    useskill 'hiding' 
-
-  endwhile 
-
-endwhile 
-
-while not dead and skill 'hiding' < 100 
-
-  useskill 'hiding' 
-
-  pause 11000 
-
+//Stealth/Hiding Macroer By Vlek, Grunt of the Bloodclan (Bloodclan.org)
+//Get to a safe area and play the macro. It does the rest.
+while not dead and skill 'hiding' < 80
+  useskill 'hiding'
+  pause 11000
+endwhile
+while not dead and skill 'stealth' < 100
+  walk "West"
+  walk "west"
+  pause 300
+  walk "North"
+  walk "North"
+  pause 300
+  walk "East"
+  walk "East"
+  pause 300
+  walk "South"
+  walk "South"
+  pause 300
+  walk "West"
+  walk "west"
+  pause 300
+  walk "North"
+  walk "North"
+  pause 300
+  walk "Southeast"
+  walk "Southeast"
+  pause 300
+  while not hidden
+    pause 1000
+    useskill 'hiding'
+  endwhile
+endwhile
+while not dead and skill 'hiding' < 100
+  useskill 'hiding'
+  pause 11000
 endwhile

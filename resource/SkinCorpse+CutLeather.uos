@@ -6,13 +6,11 @@ target 'corpse'
 ignoreobject 'corpse'
 useobject 'corpse'
 endif
-
 if @findtype 0x1079 'any' 'ground' 'any' 3
 usetype 0xf9f 'any' 'backpack'
 waitfortarget 1200
 target 'found'
 endif
-
 if @findtype 0x1079 'any' 'backpack' 'any'
 usetype 0xf9f 'any' 'backpack'
 waitfortarget 1200

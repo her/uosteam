@@ -1,17 +1,14 @@
 //Trap pouch creator
-
 if not @findobject 'BOP'
   promptalias 'BOP'
   headmsg 'Select your bag that countains the pouches'
 endif
-
 while @findtype '0xe79' '0' 'BOP' 'any' '2' and mana > 20
   cast 'magic trap'
   waitingfortarget 5000
   target! 'found' '3000'
   pause 2000
   @unsetalias 'found'
-
   if mana < 18
     useskill 'meditation'
     while mana < 50
@@ -19,7 +16,6 @@ while @findtype '0xe79' '0' 'BOP' 'any' '2' and mana > 20
     endwhile
   endif
 endwhile
-
 if not @findtype '0xe79' '0' 'BOP' 'any' '2'
   headmsg 'No more pouches to trap'
   stop

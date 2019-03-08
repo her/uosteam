@@ -1,82 +1,82 @@
-if listexists 'xx' 
-  clearlist 'xx' 
-else 
-  createlist 'xx' 
-endif 
-if listexists 'yy' 
-  clearlist 'yy' 
-else 
-  createlist 'yy' 
-endif 
-if listexists 'zz' 
-  clearlist 'zz' 
-else 
-  createlist 'zz' 
-endif 
-if listexists 'runebook' 
-  clearlist 'runebook' 
-else 
-  createlist 'runebook' 
-endif 
-if listexists 'targetbook' 
-  clearlist 'targetbook' 
-else 
-  createlist 'targetbook' 
-endif 
-pushlist 'xx' 2109 
-pushlist 'yy' 2711 
-pushlist 'zz' 5 
-pushlist 'xx' 2114 
-pushlist 'yy' 2690 
-pushlist 'zz' 0 
-pushlist 'xx' 2120 
-pushlist 'yy' 2722 
-pushlist 'zz' 10 
-pushlist 'xx' 2479 
-pushlist 'yy' 494 
-pushlist 'zz' 15 
-pushlist 'xx' 2417 
-pushlist 'yy' 448 
-pushlist 'zz' 15 
-pushlist 'xx' 2431 
-pushlist 'yy' 460 
-pushlist 'zz' 16 
-pushlist 'xx' 1785 
-pushlist 'yy' 2956 
-pushlist 'zz' 0 
-pushlist 'xx' 1720 
-pushlist 'yy' 3053 
-pushlist 'zz' 0 
-pushlist 'xx' 1657 
-pushlist 'yy' 3148 
-pushlist 'zz' 0 
-pushlist 'xx' 1657 
-pushlist 'yy' 3167 
-pushlist 'zz' 0 
-pushlist 'xx' 1644 
-pushlist 'yy' 3199 
-pushlist 'zz' 0 
-pushlist 'xx' 2124 
-pushlist 'yy' 591 
-pushlist 'zz' 0 
-pushlist 'xx' 2253 
-pushlist 'yy' 412 
-pushlist 'zz' 0 
-pushlist 'xx' 2050 
-pushlist 'yy' 568 
-pushlist 'zz' 0 
-pushlist 'targetbook' 0x4015a2f6 
-pushlist 'runebook' 5 
-pushlist 'runebook' 11 
-pushlist 'runebook' 17 
-pushlist 'runebook' 23 
-pushlist 'runebook' 29 
-pushlist 'runebook' 35 
-pushlist 'runebook' 41 
-pushlist 'runebook' 47 
-pushlist 'runebook' 53 
-pushlist 'runebook' 59 
-pushlist 'runebook' 65 
-pushlist 'runebook' 71 
-pushlist 'runebook' 77 
-pushlist 'runebook' 83 
+if listexists 'xx'
+  clearlist 'xx'
+else
+  createlist 'xx'
+endif
+if listexists 'yy'
+  clearlist 'yy'
+else
+  createlist 'yy'
+endif
+if listexists 'zz'
+  clearlist 'zz'
+else
+  createlist 'zz'
+endif
+if listexists 'runebook'
+  clearlist 'runebook'
+else
+  createlist 'runebook'
+endif
+if listexists 'targetbook'
+  clearlist 'targetbook'
+else
+  createlist 'targetbook'
+endif
+pushlist 'xx' 2109
+pushlist 'yy' 2711
+pushlist 'zz' 5
+pushlist 'xx' 2114
+pushlist 'yy' 2690
+pushlist 'zz' 0
+pushlist 'xx' 2120
+pushlist 'yy' 2722
+pushlist 'zz' 10
+pushlist 'xx' 2479
+pushlist 'yy' 494
+pushlist 'zz' 15
+pushlist 'xx' 2417
+pushlist 'yy' 448
+pushlist 'zz' 15
+pushlist 'xx' 2431
+pushlist 'yy' 460
+pushlist 'zz' 16
+pushlist 'xx' 1785
+pushlist 'yy' 2956
+pushlist 'zz' 0
+pushlist 'xx' 1720
+pushlist 'yy' 3053
+pushlist 'zz' 0
+pushlist 'xx' 1657
+pushlist 'yy' 3148
+pushlist 'zz' 0
+pushlist 'xx' 1657
+pushlist 'yy' 3167
+pushlist 'zz' 0
+pushlist 'xx' 1644
+pushlist 'yy' 3199
+pushlist 'zz' 0
+pushlist 'xx' 2124
+pushlist 'yy' 591
+pushlist 'zz' 0
+pushlist 'xx' 2253
+pushlist 'yy' 412
+pushlist 'zz' 0
+pushlist 'xx' 2050
+pushlist 'yy' 568
+pushlist 'zz' 0
+pushlist 'targetbook' 0x4015a2f6
+pushlist 'runebook' 5
+pushlist 'runebook' 11
+pushlist 'runebook' 17
+pushlist 'runebook' 23
+pushlist 'runebook' 29
+pushlist 'runebook' 35
+pushlist 'runebook' 41
+pushlist 'runebook' 47
+pushlist 'runebook' 53
+pushlist 'runebook' 59
+pushlist 'runebook' 65
+pushlist 'runebook' 71
+pushlist 'runebook' 77
+pushlist 'runebook' 83

@@ -1,91 +1,80 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training poisoning from 30.   // 
-//    Due to the fact that this   // 
-//  macro uses kegs, it is easier // 
-//    to macro from your house.   // 
-// Make sure you have 50+ greater // 
-//    cure potions on you and a   // 
-//         piece of food.         // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'poisoning' < 30  and not @findobject 'LesserPoison' 
-  headmsg 'Select the lesser poison keg' 
-  promptalias 'LesserPoison' 
-endif 
-
-if skill 'poisoning' < 40 and not @findobject 'Poison' 
-  headmsg 'Select the poison keg' 
-  promptalias 'Poison' 
-endif 
-
-if skill 'poisoning' < 68 and not @findobject 'GreaterPoison' 
-  headmsg 'Select the greater poison keg' 
-  promptalias 'GreaterPoison' 
-endif 
-
-if not @findobject 'Food' 'any' 'backpack' 
-  headmsg 'Select a piece of food to be poisoned' 
-  promptalias 'Food' 
-endif 
-
-if not @findtype 0xf07 0x0 'backpack' 
-  headmsg 'Get some greater cure potions! 
-  stop 
-endif 
-
-if skill 'poisoning' < 30 
-  headmsg 'Buy more poisoning!' 
-  stop 
-elseif skill 'poisoning' < 40 
-  useobject! 'LesserPoison' 
-  pause 600 
-  useskill 'Poisoning' 
-  waitfortarget 2000 
-  targettype! 0xf0a 0x0 'backpack' 
-  waitfortarget 2000 
-  target! 'Food' 
-  pause 1000 
-
-  if poisoned 'self' 
-    usetype! 0xf07 0x0 'backpack' 
-  endif 
-  pause 10000 
-elseif skill 'poisoning' < 68 
-  useobject! 'Poison' 
-  pause 600 
-  useskill 'Poisoning' 
-  waitfortarget 2000 
-  targettype! 0xf0a 0x0 'backpack' 
-  waitfortarget 2000 
-  target! 'Food' 
-  pause 1000 
-
-  if poisoned 'self' 
-    usetype! 0xf07 0x0 'backpack' 
-  endif 
-
-  pause 10000 
-elseif skill 'poisoning' < 100 
-  useobject 'GreaterPoison' 
-  pause 600 
-  useskill 'Poisoning' 
-  waitfortarget 2000 
-  targettype! 0xf0a 0x0 'backpack' 
-  waitfortarget 2000 
-  target! 'Food' 
-  pause 1000 
-
-  if poisoned 'self' 
-    usetype! 0xf07 0x0 'backpack' 
-  endif 
-
-  pause 10000 
-else 
-  headmsg 'Poisoning complete!' 
-  stop 
-endif 
+////////////////////////////////////
+//   This macro is designed for   //
+//  training poisoning from 30.   //
+//    Due to the fact that this   //
+//  macro uses kegs, it is easier //
+//    to macro from your house.   //
+// Make sure you have 50+ greater //
+//    cure potions on you and a   //
+//         piece of food.         //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'poisoning' < 30  and not @findobject 'LesserPoison'
+  headmsg 'Select the lesser poison keg'
+  promptalias 'LesserPoison'
+endif
+if skill 'poisoning' < 40 and not @findobject 'Poison'
+  headmsg 'Select the poison keg'
+  promptalias 'Poison'
+endif
+if skill 'poisoning' < 68 and not @findobject 'GreaterPoison'
+  headmsg 'Select the greater poison keg'
+  promptalias 'GreaterPoison'
+endif
+if not @findobject 'Food' 'any' 'backpack'
+  headmsg 'Select a piece of food to be poisoned'
+  promptalias 'Food'
+endif
+if not @findtype 0xf07 0x0 'backpack'
+  headmsg 'Get some greater cure potions!
+  stop
+endif
+if skill 'poisoning' < 30
+  headmsg 'Buy more poisoning!'
+  stop
+elseif skill 'poisoning' < 40
+  useobject! 'LesserPoison'
+  pause 600
+  useskill 'Poisoning'
+  waitfortarget 2000
+  targettype! 0xf0a 0x0 'backpack'
+  waitfortarget 2000
+  target! 'Food'
+  pause 1000
+  if poisoned 'self'
+    usetype! 0xf07 0x0 'backpack'
+  endif
+  pause 10000
+elseif skill 'poisoning' < 68
+  useobject! 'Poison'
+  pause 600
+  useskill 'Poisoning'
+  waitfortarget 2000
+  targettype! 0xf0a 0x0 'backpack'
+  waitfortarget 2000
+  target! 'Food'
+  pause 1000
+  if poisoned 'self'
+    usetype! 0xf07 0x0 'backpack'
+  endif
+  pause 10000
+elseif skill 'poisoning' < 100
+  useobject 'GreaterPoison'
+  pause 600
+  useskill 'Poisoning'
+  waitfortarget 2000
+  targettype! 0xf0a 0x0 'backpack'
+  waitfortarget 2000
+  target! 'Food'
+  pause 1000
+  if poisoned 'self'
+    usetype! 0xf07 0x0 'backpack'
+  endif
+  pause 10000
+else
+  headmsg 'Poisoning complete!'
+  stop
+endif

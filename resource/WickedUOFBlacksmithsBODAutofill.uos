@@ -770,7 +770,7 @@ while @findtype 0x14ef 'any' 'sourceBODS'
               headmsg 'good job' '58'
               //
               pause 500
-            //
+              //
               // !!*** check if made item was supposed to be exceptional
               if  @ingump 0x5afbd742  'All items must be exceptional' and not @ingump 0x38920abd 'exceptional'
                 if skill 'Mining' >= 99

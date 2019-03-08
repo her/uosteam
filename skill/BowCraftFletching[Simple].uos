@@ -90,4 +90,3 @@ endif
 while @findtype 0x1022 'any' 'backpack'
   movetype 0x1022 'backpack' 'tools_container'
 endwhile
-

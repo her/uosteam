@@ -1,157 +1,79 @@
 //Author: Experience
-
 //Use: Buys Materials from vendors
-
 //Make a full runebook of locations to use
-
 //Set up a Vendor Buy Agent with the items you want bought
-
 removelist 'Runes'
-
 if not findobject 'Reg Book'
-
   promptalias 'Reg Book'
-
 endif
-
 if not listexists 'Runes'
-
   createlist 'Runes'
-
 endif
-
 if list 'Runes' == 0
-
   pushlist 'Runes' 5
-
   pushlist 'Runes' 11
-
   pushlist 'Runes' 17
-
   pushlist 'Runes' 23
-
   pushlist 'Runes' 29
-
   pushlist 'Runes' 35
-
   pushlist 'Runes' 41
-
   pushlist 'Runes' 47
-
   pushlist 'Runes' 53
-
   pushlist 'Runes' 59
-
   pushlist 'Runes' 65
-
   pushlist 'Runes' 71
-
   pushlist 'Runes' 77
-
   pushlist 'Runes' 83
-
   pushlist 'Runes' 89
-
   pushlist 'Runes' 95
-
 endif
-
 @clearjournal
-
 for 0 to 'Runes'
-
   if  mana <= 30
-
     useskill 'Meditation'
-
     while not mana == maxmana
-
     endwhile
-
   endif
-
   pause 1500
-
   useobject! 'Reg Book'
-
   waitforgump 0x554b87f3 15000
-
   pause 900
-
   replygump 0x554b87f3 Runes[0]
-
   pause '3500'
-
   if injournal 'blocked' 'system'
-
     replay
-
   endif
-
   @getfriend 'innocent' 'closest'
-
   while not @inrange 'friend' 2
-
     if @x 'friend' > x 'self' and @y 'friend' > y 'self'
-
       run 'Southeast'
-
       pause 200
-
     elseif @x 'friend' < x 'self' and @y 'friend' > y 'self'
-
       run 'Southwest'
-
       pause 200
-
     elseif @x 'friend' > x 'self' and @y 'friend' < y 'self'
-
       run 'Northeast'
-
       pause 200
-
     elseif @x 'friend' < x 'self' and @y 'friend' < y 'self'
-
       run 'Northwest'
-
       pause 200
-
     elseif @x 'friend' > x 'self' and @y 'friend' == y 'self'
-
       run 'East'
-
       pause 200
-
     elseif @x 'friend' < x 'self' and @y 'friend' == y 'self'
-
       run 'West'
-
       pause 200
-
     elseif @x 'friend' == x 'self' and @y 'friend' > y 'self'
-
       run 'South'
-
       pause 200
-
     elseif @x 'friend' == x 'self' and @y 'friend' < y 'self'
-
       run 'North'
-
       pause 200
-
     endif
-
   endwhile
-
   if @inrange 'friend' '2'
-
     msg 'Vendor Buy'
-
     pause 1500
-
   endif
-
   @poplist 'Runes' 'front'
-
 endfor

@@ -1,235 +1,234 @@
-// Author: Burger 
-// Description: Auto-ID items in a bag, sort out awesome weapons 
-// to a seperate bag 
-// Version: 4-15-2014 
-// Important: 
-// 1) You must have an id wand in your hand 
-// 2) frombag is your bag of unidentified items, tobag is the bag of crap you 
-//    are going to sell, usually it's in my backpack so there is a weight check.. 
-//    awesomebag is for weapons I want to keep or look closer at.. 
-// 3) comment the next 3 lines to make it not prompt you for new bags each time 
-unsetalias 'frombag' 
-unsetalias 'tobag' 
-unsetalias 'toawesomebag' 
-if not @findobject 'frombag' 
-  headmsg 'Select From Bag' 
-  promptalias 'frombag' 
-endif 
-pause 700 
-if not @findobject 'tobag' 
-  headmsg 'Select Sell/To Bag' 
-  promptalias 'tobag' 
-endif 
-pause 700 
-if not @findobject 'toawesomebag' 
-  headmsg 'Select Awesome Bag' 
-  promptalias 'toawesomebag' 
-endif 
-pause 700 
-if not listexists 'ItemTypes' 
-  createlist 'ItemTypes' 
-endif 
-useobject 'frombag' 
-useobject 'tobag' 
-useobject 'toawesomebag' 
-clearlist 'ItemTypes' 
-//Shields 
-@pushlist 'ItemTypes' 0x1b72 //BronzeShields 
-@pushlist 'ItemTypes' 0x1b73 //Buckler 
-@pushlist 'ItemTypes' 0x1b7b //MetalShield 
-@pushlist 'ItemTypes' 0x1b74 //Metal Kite Shield 
-@pushlist 'ItemTypes' 0x1b79 //Tear Kite Shield 
-@pushlist 'ItemTypes' 0x1b7a //WoodenShield 
-@pushlist 'ItemTypes' 0x1b76 //HeaterShield 
-//Platemail 
-@pushlist 'ItemTypes' 0x1408 //Close Helmet 
-@pushlist 'ItemTypes' 0x1410 //Platemail Arms 
-@pushlist 'ItemTypes' 0x1411 //Platemail Legs 
-@pushlist 'ItemTypes' 0x1412 //Plate Helm 
-@pushlist 'ItemTypes' 0x1413 //Plate Gorget 
-@pushlist 'ItemTypes' 0x1414 //Platemail Gloves 
-@pushlist 'ItemTypes' 0x1415 //Plate Chest 
-@pushlist 'ItemTypes' 0x140a //Helmet 
-@pushlist 'ItemTypes' 0x140c //Bascinet 
-@pushlist 'ItemTypes' 0x140e //Norse Helm 
-//Chainmail 
-@pushlist 'ItemTypes' 0x13bb //Chainmail Coif 
-@pushlist 'ItemTypes' 0x13be //Chainmail Leggins 
-@pushlist 'ItemTypes' 0x13bf //Chainmail Tunic 
-//Ringmail 
-@pushlist 'ItemTypes' 0x13ee //Ringmail Sleeves 
-@pushlist 'ItemTypes' 0x13eb //Ringmail Gloves 
-@pushlist 'ItemTypes' 0x13ec //Ringmail Tunic 
-@pushlist 'ItemTypes' 0x13f0 //Ringmail Leggins 
-//Studded 
-@pushlist 'ItemTypes' 0x13da //Studded Leggings 
-@pushlist 'ItemTypes' 0x13db //Studded Tunic 
-@pushlist 'ItemTypes' 0x13d5 //Studded Gloves 
-@pushlist 'ItemTypes' 0x13d6 //Studded Gorget 
-@pushlist 'ItemTypes' 0x13dc //Studded Sleeves 
-//Leather 
-@pushlist 'ItemTypes' 0x13c6 //Leather Gloves 
-@pushlist 'ItemTypes' 0x13cd //Leather Sleeves 
-@pushlist 'ItemTypes' 0x13cc //Leather Tunic 
-@pushlist 'ItemTypes' 0x13cb //Leather Pants 
-@pushlist 'ItemTypes' 0x13c7 //Leather Gorget 
-@pushlist 'ItemTypes' 0x1db9 //Leather Cap 
-//Female Armor 
-@pushlist 'ItemTypes' 0x1c04 //Female Plate 
-@pushlist 'ItemTypes' 0x1c0c //Female Studded Bustier 
-@pushlist 'ItemTypes' 0x1c02 //Female Studded Armor 
-@pushlist 'ItemTypes' 0x1c00 //Female Leather Shorts 
-@pushlist 'ItemTypes' 0x1c08 //Female Leather Skirt 
-@pushlist 'ItemTypes' 0x1c06 //Female Leather Armor 
-@pushlist 'ItemTypes' 0x1c0a //Female Leather Bustier 
-//Fencing 
-@pushlist 'ItemTypes' 0xf62  //Spear 
-@pushlist 'ItemTypes' 0x1403 //Short Spear 
-@pushlist 'ItemTypes' 0xe87  //Pitchfork 
-@pushlist 'ItemTypes' 0x1405 //Warfork 
-@pushlist 'ItemTypes' 0x1401 //Kryss 
-@pushlist 'ItemTypes' 0xf52  //Dagger 
-//Macing 
-@pushlist 'ItemTypes' 0x13b0 //War axe 
-@pushlist 'ItemTypes' 0xdf0  //Black Staff 
-@pushlist 'ItemTypes' 0x1439 //War Hammer 
-@pushlist 'ItemTypes' 0x1407 //War Mace 
-@pushlist 'ItemTypes' 0xe89  //Quarter Staff 
-@pushlist 'ItemTypes' 0x143d //Hammer Pick 
-@pushlist 'ItemTypes' 0x13b4 //Club 
-@pushlist 'ItemTypes' 0xe81  //Shepherds Crook 
-@pushlist 'ItemTypes' 0x13f8 //Gnarled Staff 
-@pushlist 'ItemTypes' 0xf5c  //Mace 
-@pushlist 'ItemTypes' 0x143b //Maul 
-//Swords 
-@pushlist 'ItemTypes' 0x13b9 //Viking Sword 
-@pushlist 'ItemTypes' 0xf61  //Longsword 
-@pushlist 'ItemTypes' 0x1441 //Cutlass 
-@pushlist 'ItemTypes' 0x13b6 //Scimitar 
-@pushlist 'ItemTypes' 0xec4  //Skinning Knife 
-@pushlist 'ItemTypes' 0x13f6 //Butcher Knife 
-@pushlist 'ItemTypes' 0xf5e  //Broadsword 
-@pushlist 'ItemTypes' 0x13ff //Katana 
-@pushlist 'ItemTypes' 0xec3  //Cleaver 
-//Axes 
-@pushlist 'ItemTypes' 0xf43 //Hatchet 
-@pushlist 'ItemTypes' 0xf45 //Executioner's Axe 
-@pushlist 'ItemTypes' 0xf4d //Bardiche 
-@pushlist 'ItemTypes' 0xf4b  //Double Axe 
-@pushlist 'ItemTypes' 0x143e //Halberd 
-@pushlist 'ItemTypes' 0x13fb //Large Battle Axe 
-@pushlist 'ItemTypes' 0x1443 //Two Handed Axe 
-@pushlist 'ItemTypes' 0xf47  //Battle Axe 
-@pushlist 'ItemTypes' 0xf49  //Axe 
-@pushlist 'ItemTypes' 0xe85  //Pickaxe 
-@pushlist 'ItemTypes' 0xe86  //Pickaxe 
-//Bows 
-@pushlist 'ItemTypes' 0x13fd //HeavyXbow 
-@pushlist 'ItemTypes' 0xf50  //Xbow 
-@pushlist 'ItemTypes' 0x13b2 //bow 
-for 0 to 'ItemTypes' 
-  while @findtype 'ItemTypes[]' 'any' 'frombag' 
-    @clearjournal 
-    //note: I had to move items to the tobag id'ing else it id's twice 
-    moveitem found 'tobag' 
-    //note I tried to use clickobject and injournal to see if the object was [Unidentified] and it doesn't seem to work.. dunno why? 
-    useobject 'righthand' 
-    pause 1500 
-    if @injournal 'This item is out of charges.' 'system' 
-      moveitem found 'frombag' 
-      sysmsg 'I need a new wand!' 
-      headmsg 'I need a new wand!' 
-      stop 
-    elseif @injournal 'not found' 'system' 
-      sysmsg 'I need a wand!' 
-      headmsg 'I need a wand!' 
-      stop 
-    else 
-      waitfortarget 15000 
-      target! found 
-    endif 
-    pause 1500 
-    if @injournal 'Silver' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Silver' 
-      @clearjournal 
-    elseif @injournal 'Vanquishing' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Vanquishing' 
-      @clearjournal 
-    elseif @injournal 'Power' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Power' 
-      @clearjournal 
-    elseif @injournal 'Exorcism' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Exorcisim' 
-      @clearjournal 
-    elseif @injournal 'Daemon' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Daemon' 
-      @clearjournal 
-    elseif @injournal 'Gargoyle' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Gargoyle' 
-      @clearjournal 
-    elseif @injournal 'Fey' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Fey' 
-      @clearjournal 
-    elseif @injournal 'Respond' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Respond' 
-      @clearjournal 
-    elseif @injournal 'Vacuum' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Vacuum' 
-      @clearjournal 
-    elseif @injournal 'Flame' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Flame' 
-      @clearjournal 
-    elseif @injournal 'Elemental' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Elemental' 
-      @clearjournal 
-    elseif @injournal 'Earth' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Earth' 
-      @clearjournal 
-    elseif @injournal 'Water' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Water' 
-      @clearjournal 
-    elseif @injournal 'Ogre' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Ogre' 
-      @clearjournal 
-    elseif @injournal 'Orc' 'system' 
-      if not @injournal 'Force' 'system' 
-        moveitem found 'toawesomebag' 
-        headmsg 'Orc' 
-        @clearjournal 
-      endif 
-    elseif @injournal 'Arachnid' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Arachnid' 
-      @clearjournal 
-    elseif @injournal 'Spider' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Spider' 
-      @clearjournal 
-    elseif @injournal 'Scorpion' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Scorpion' 
-      @clearjournal 
-    elseif @injournal 'Terathan' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Terathan' 
-      @clearjournal 
-    elseif @injournal 'Reptile' 'system' 
-      moveitem found 'toawesomebag' 
-      headmsg 'Reptile' 
-      @clearjournal 
+// Author: Burger
+// Description: Auto-ID items in a bag, sort out awesome weapons
+// to a seperate bag
+// Version: 4-15-2014
+// Important:
+// 1) You must have an id wand in your hand
+// 2) frombag is your bag of unidentified items, tobag is the bag of crap you
+//    are going to sell, usually it's in my backpack so there is a weight check..
+//    awesomebag is for weapons I want to keep or look closer at..
+// 3) comment the next 3 lines to make it not prompt you for new bags each time
+unsetalias 'frombag'
+unsetalias 'tobag'
+unsetalias 'toawesomebag'
+if not @findobject 'frombag'
+  headmsg 'Select From Bag'
+  promptalias 'frombag'
+endif
+pause 700
+if not @findobject 'tobag'
+  headmsg 'Select Sell/To Bag'
+  promptalias 'tobag'
+endif
+pause 700
+if not @findobject 'toawesomebag'
+  headmsg 'Select Awesome Bag'
+  promptalias 'toawesomebag'
+endif
+pause 700
+if not listexists 'ItemTypes'
+  createlist 'ItemTypes'
+endif
+useobject 'frombag'
+useobject 'tobag'
+useobject 'toawesomebag'
+clearlist 'ItemTypes'
+//Shields
+@pushlist 'ItemTypes' 0x1b72 //BronzeShields
+@pushlist 'ItemTypes' 0x1b73 //Buckler
+@pushlist 'ItemTypes' 0x1b7b //MetalShield
+@pushlist 'ItemTypes' 0x1b74 //Metal Kite Shield
+@pushlist 'ItemTypes' 0x1b79 //Tear Kite Shield
+@pushlist 'ItemTypes' 0x1b7a //WoodenShield
+@pushlist 'ItemTypes' 0x1b76 //HeaterShield
+//Platemail
+@pushlist 'ItemTypes' 0x1408 //Close Helmet
+@pushlist 'ItemTypes' 0x1410 //Platemail Arms
+@pushlist 'ItemTypes' 0x1411 //Platemail Legs
+@pushlist 'ItemTypes' 0x1412 //Plate Helm
+@pushlist 'ItemTypes' 0x1413 //Plate Gorget
+@pushlist 'ItemTypes' 0x1414 //Platemail Gloves
+@pushlist 'ItemTypes' 0x1415 //Plate Chest
+@pushlist 'ItemTypes' 0x140a //Helmet
+@pushlist 'ItemTypes' 0x140c //Bascinet
+@pushlist 'ItemTypes' 0x140e //Norse Helm
+//Chainmail
+@pushlist 'ItemTypes' 0x13bb //Chainmail Coif
+@pushlist 'ItemTypes' 0x13be //Chainmail Leggins
+@pushlist 'ItemTypes' 0x13bf //Chainmail Tunic
+//Ringmail
+@pushlist 'ItemTypes' 0x13ee //Ringmail Sleeves
+@pushlist 'ItemTypes' 0x13eb //Ringmail Gloves
+@pushlist 'ItemTypes' 0x13ec //Ringmail Tunic
+@pushlist 'ItemTypes' 0x13f0 //Ringmail Leggins
+//Studded
+@pushlist 'ItemTypes' 0x13da //Studded Leggings
+@pushlist 'ItemTypes' 0x13db //Studded Tunic
+@pushlist 'ItemTypes' 0x13d5 //Studded Gloves
+@pushlist 'ItemTypes' 0x13d6 //Studded Gorget
+@pushlist 'ItemTypes' 0x13dc //Studded Sleeves
+//Leather
+@pushlist 'ItemTypes' 0x13c6 //Leather Gloves
+@pushlist 'ItemTypes' 0x13cd //Leather Sleeves
+@pushlist 'ItemTypes' 0x13cc //Leather Tunic
+@pushlist 'ItemTypes' 0x13cb //Leather Pants
+@pushlist 'ItemTypes' 0x13c7 //Leather Gorget
+@pushlist 'ItemTypes' 0x1db9 //Leather Cap
+//Female Armor
+@pushlist 'ItemTypes' 0x1c04 //Female Plate
+@pushlist 'ItemTypes' 0x1c0c //Female Studded Bustier
+@pushlist 'ItemTypes' 0x1c02 //Female Studded Armor
+@pushlist 'ItemTypes' 0x1c00 //Female Leather Shorts
+@pushlist 'ItemTypes' 0x1c08 //Female Leather Skirt
+@pushlist 'ItemTypes' 0x1c06 //Female Leather Armor
+@pushlist 'ItemTypes' 0x1c0a //Female Leather Bustier
+//Fencing
+@pushlist 'ItemTypes' 0xf62  //Spear
+@pushlist 'ItemTypes' 0x1403 //Short Spear
+@pushlist 'ItemTypes' 0xe87  //Pitchfork
+@pushlist 'ItemTypes' 0x1405 //Warfork
+@pushlist 'ItemTypes' 0x1401 //Kryss
+@pushlist 'ItemTypes' 0xf52  //Dagger
+//Macing
+@pushlist 'ItemTypes' 0x13b0 //War axe
+@pushlist 'ItemTypes' 0xdf0  //Black Staff
+@pushlist 'ItemTypes' 0x1439 //War Hammer
+@pushlist 'ItemTypes' 0x1407 //War Mace
+@pushlist 'ItemTypes' 0xe89  //Quarter Staff
+@pushlist 'ItemTypes' 0x143d //Hammer Pick
+@pushlist 'ItemTypes' 0x13b4 //Club
+@pushlist 'ItemTypes' 0xe81  //Shepherds Crook
+@pushlist 'ItemTypes' 0x13f8 //Gnarled Staff
+@pushlist 'ItemTypes' 0xf5c  //Mace
+@pushlist 'ItemTypes' 0x143b //Maul
+//Swords
+@pushlist 'ItemTypes' 0x13b9 //Viking Sword
+@pushlist 'ItemTypes' 0xf61  //Longsword
+@pushlist 'ItemTypes' 0x1441 //Cutlass
+@pushlist 'ItemTypes' 0x13b6 //Scimitar
+@pushlist 'ItemTypes' 0xec4  //Skinning Knife
+@pushlist 'ItemTypes' 0x13f6 //Butcher Knife
+@pushlist 'ItemTypes' 0xf5e  //Broadsword
+@pushlist 'ItemTypes' 0x13ff //Katana
+@pushlist 'ItemTypes' 0xec3  //Cleaver
+//Axes
+@pushlist 'ItemTypes' 0xf43 //Hatchet
+@pushlist 'ItemTypes' 0xf45 //Executioner's Axe
+@pushlist 'ItemTypes' 0xf4d //Bardiche
+@pushlist 'ItemTypes' 0xf4b  //Double Axe
+@pushlist 'ItemTypes' 0x143e //Halberd
+@pushlist 'ItemTypes' 0x13fb //Large Battle Axe
+@pushlist 'ItemTypes' 0x1443 //Two Handed Axe
+@pushlist 'ItemTypes' 0xf47  //Battle Axe
+@pushlist 'ItemTypes' 0xf49  //Axe
+@pushlist 'ItemTypes' 0xe85  //Pickaxe
+@pushlist 'ItemTypes' 0xe86  //Pickaxe
+//Bows
+@pushlist 'ItemTypes' 0x13fd //HeavyXbow
+@pushlist 'ItemTypes' 0xf50  //Xbow
+@pushlist 'ItemTypes' 0x13b2 //bow
+for 0 to 'ItemTypes'
+  while @findtype 'ItemTypes[]' 'any' 'frombag'
+    @clearjournal
+    //note: I had to move items to the tobag id'ing else it id's twice
+    moveitem found 'tobag'
+    //note I tried to use clickobject and injournal to see if the object was [Unidentified] and it doesn't seem to work.. dunno why?
+    useobject 'righthand'
+    pause 1500
+    if @injournal 'This item is out of charges.' 'system'
+      moveitem found 'frombag'
+      sysmsg 'I need a new wand!'
+      headmsg 'I need a new wand!'
+      stop
+    elseif @injournal 'not found' 'system'
+      sysmsg 'I need a wand!'
+      headmsg 'I need a wand!'
+      stop
+    else
+      waitfortarget 15000
+      target! found
+    endif
+    pause 1500
+    if @injournal 'Silver' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Silver'
+      @clearjournal
+    elseif @injournal 'Vanquishing' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Vanquishing'
+      @clearjournal
+    elseif @injournal 'Power' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Power'
+      @clearjournal
+    elseif @injournal 'Exorcism' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Exorcisim'
+      @clearjournal
+    elseif @injournal 'Daemon' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Daemon'
+      @clearjournal
+    elseif @injournal 'Gargoyle' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Gargoyle'
+      @clearjournal
+    elseif @injournal 'Fey' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Fey'
+      @clearjournal
+    elseif @injournal 'Respond' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Respond'
+      @clearjournal
+    elseif @injournal 'Vacuum' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Vacuum'
+      @clearjournal
+    elseif @injournal 'Flame' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Flame'
+      @clearjournal
+    elseif @injournal 'Elemental' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Elemental'
+      @clearjournal
+    elseif @injournal 'Earth' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Earth'
+      @clearjournal
+    elseif @injournal 'Water' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Water'
+      @clearjournal
+    elseif @injournal 'Ogre' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Ogre'
+      @clearjournal
+    elseif @injournal 'Orc' 'system'
+      if not @injournal 'Force' 'system'
+        moveitem found 'toawesomebag'
+        headmsg 'Orc'
+        @clearjournal
+      endif
+    elseif @injournal 'Arachnid' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Arachnid'
+      @clearjournal
+    elseif @injournal 'Spider' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Spider'
+      @clearjournal
+    elseif @injournal 'Scorpion' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Scorpion'
+      @clearjournal
+    elseif @injournal 'Terathan' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Terathan'
+      @clearjournal
+    elseif @injournal 'Reptile' 'system'
+      moveitem found 'toawesomebag'
+      headmsg 'Reptile'
+      @clearjournal
     elseif @injournal 'Drago
- 

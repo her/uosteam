@@ -1,47 +1,39 @@
-//Experience 
-//Train Lockpicking with 2 boxes 
-
-if not findalias 'Lockpicks' 
-  headmsg 'Select Lockpicks' 
-  promptalias 'Lockpicks' 
-endif 
-
-if not findalias 'First Box' 
-  headmsg 'Select First Box' 
-  promptalias 'First Box' 
-endif 
-
-if not findalias 'GM Box' 
-  headmsg 'Select GM Box' 
-  promptalias 'GM Box' 
-endif 
-
-if not findalias 'Key Ring' 
-  headmsg 'Select Key Ring' 
-  promptalias 'Key Ring' 
-endif 
-
-if not hidden 'self' 
-  useskill 'Hiding' 
-  pause 4000 
-endif 
-
-if skill 'Lockpicking' <= 74.9 
-  useobject 'Lockpicks' 
-  autotargetobject 'First Box' 
-  pause 4000 
-  useobject 'Key Ring' 
-  autotargetobject 'First Box' 
-  pause 2000 
-endif 
-
-if skill 'Lockpicking' > '74.9' 
-  useobject 'Lockpicks' 
-  autotargetobject 'GM Box' 
-  pause 4000 
-  useobject 'Key Ring' 
-  autotargetobject 'GM Box' 
-  pause 1000 
-endif 
-
-replay 
+//Experience
+//Train Lockpicking with 2 boxes
+if not findalias 'Lockpicks'
+  headmsg 'Select Lockpicks'
+  promptalias 'Lockpicks'
+endif
+if not findalias 'First Box'
+  headmsg 'Select First Box'
+  promptalias 'First Box'
+endif
+if not findalias 'GM Box'
+  headmsg 'Select GM Box'
+  promptalias 'GM Box'
+endif
+if not findalias 'Key Ring'
+  headmsg 'Select Key Ring'
+  promptalias 'Key Ring'
+endif
+if not hidden 'self'
+  useskill 'Hiding'
+  pause 4000
+endif
+if skill 'Lockpicking' <= 74.9
+  useobject 'Lockpicks'
+  autotargetobject 'First Box'
+  pause 4000
+  useobject 'Key Ring'
+  autotargetobject 'First Box'
+  pause 2000
+endif
+if skill 'Lockpicking' > '74.9'
+  useobject 'Lockpicks'
+  autotargetobject 'GM Box'
+  pause 4000
+  useobject 'Key Ring'
+  autotargetobject 'GM Box'
+  pause 1000
+endif
+replay

@@ -1,34 +1,18 @@
-//This macro will steal a bag from a bag on the ground, 
-//then after 10 attempts, will pick the bag up and replace 
-//it on the ground. Just gotta edit the bag types, and the 
-//positioning of the bag. Default is 1 tile in front of the character facing south. 
-
-
-
-for 10 
-
-  useskill 'stealing' 
-
-  waitfortarget 15000 
-
-  target! 0x407dbbf7 //edit to the bag your stealing 
-
-  moveitem 0x407753c6 'backpack' 44 72 0 // //edit to the bag your stealing 
-
-  pause 600 
-
-  moveitem 0x407dbbf7 0x403049a0 //edit to the bag your stealing 
-
-  pause 600 
-
-  pause 11000 
-
-endfor 
-
-moveitem 0x403049a0 'backpack' 48 65 0 //edit to the bag on the ground 
-
-pause 2000 
-
-moveitem 0x403049a0 'ground' 1802 2818 255 //edit to the bag on the ground 
-
-pause 600 
+//This macro will steal a bag from a bag on the ground,
+//then after 10 attempts, will pick the bag up and replace
+//it on the ground. Just gotta edit the bag types, and the
+//positioning of the bag. Default is 1 tile in front of the character facing south.
+for 10
+  useskill 'stealing'
+  waitfortarget 15000
+  target! 0x407dbbf7 //edit to the bag your stealing
+  moveitem 0x407753c6 'backpack' 44 72 0 // //edit to the bag your stealing
+  pause 600
+  moveitem 0x407dbbf7 0x403049a0 //edit to the bag your stealing
+  pause 600
+  pause 11000
+endfor
+moveitem 0x403049a0 'backpack' 48 65 0 //edit to the bag on the ground
+pause 2000
+moveitem 0x403049a0 'ground' 1802 2818 255 //edit to the bag on the ground
+pause 600

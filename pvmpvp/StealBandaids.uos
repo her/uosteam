@@ -47,10 +47,10 @@ if @findalias 'Enemypack'
         target! 'found'
         headmsg 'stole it!'
         ignoreobject 'found'
-        endif
-        ignoreobject 'found'
-      endwhile
-      ignoreobject 'inside'
+      endif
+      ignoreobject 'found'
     endwhile
-  endfor
-  @clearignorelist
+    ignoreobject 'inside'
+  endwhile
+endfor
+@clearignorelist
