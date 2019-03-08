@@ -4,49 +4,49 @@ endif
 clickobject 'Weapon'
 pause 800
 if @injournal 'Poison' 'system' and @injournal '15' 'system'
-  headmsg 'Max charges'
+  headmsg 'Max Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '14' 'system'
-  headmsg '14 Charges'
+  headmsg '14 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '13' 'system'
-  headmsg '13 Charges'
+  headmsg '13 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '12' 'system'
-  headmsg '12 Charges'
+  headmsg '12 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '11' 'system'
-  headmsg '11 Charges'
+  headmsg '11 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '10' 'system'
-  headmsg '10 Charges'
+  headmsg '10 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '9' 'system'
-  headmsg '9 Charges'
+  headmsg '9 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '8' 'system'
-  headmsg '8 Charges'
+  headmsg '8 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '7' 'system'
-  headmsg '7 Charges'
+  headmsg '7 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '6' 'system'
-  headmsg '6 Charges'
+  headmsg '6 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '5' 'system'
-  headmsg '5 Charges'
+  headmsg '5 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '4' 'system'
-  headmsg '4 Charges'
+  headmsg '4 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '3' 'system'
-  headmsg '3 Charges'
+  headmsg '3 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '2' 'system'
-  headmsg '2 Charges'
+  headmsg '2 Charges remaining'
   @clearjournal
 elseif @injournal 'Poison' 'system' and @injournal '1' 'system'
-  headmsg '1 Charge'
+  headmsg '1 Charge remaining'
   headmsg 'Re-charging!'
   @clearjournal
   useskill 'poisoning'
