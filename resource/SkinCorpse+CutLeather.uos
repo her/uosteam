@@ -1,4 +1,4 @@
-f @findtype 0x2006 'any' 'ground' 'any' 3
+if @findtype 0x2006 'any' 'ground' 'any' 3
 setalias 'corpse' 'found'
 usetype 0xf52 'any' 'backpack'
 waitfortarget 1200
