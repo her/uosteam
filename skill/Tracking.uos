@@ -1,3 +1,4 @@
-useskill tracking
-waitforgump 0xb16e7d71 15000
-replygump 0xb16e7d71 4
+while skill 'Tracking' < 100
+  useskill 'Tracking'
+  pause 10500
+endwhile
