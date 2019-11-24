@@ -1,37 +1,33 @@
-//Great for farming bones at oaks or with zombies. 
-//Just loop this and kill and loot the bones and it 
+//Great for farming bones at oaks or with zombies.
+//Just loop this and kill and loot the bones and it
 //will chop them and bandage you.
 //
 if not listexists 'bones'
-createlist 'bones'
-pushlist 'bones' 0x1b0c
-pushlist 'bones' 0x1b17
-pushlist 'bones' 0x1b0b
-pushlist 'bones' 0x1b09
-pushlist 'bones' 0x1b0f
-pushlist 'bones' 0x1b0d
-pushlist 'bones' 0x1b10
-pushlist 'bones' 0x1b18
-pushlist 'bones' 0x1b0a
-pushlist 'bones' 0x1b0e
+  createlist 'bones'
+  pushlist 'bones' 0x1b0c
+  pushlist 'bones' 0x1b17
+  pushlist 'bones' 0x1b0b
+  pushlist 'bones' 0x1b09
+  pushlist 'bones' 0x1b0f
+  pushlist 'bones' 0x1b0d
+  pushlist 'bones' 0x1b10
+  pushlist 'bones' 0x1b18
+  pushlist 'bones' 0x1b0a
+  pushlist 'bones' 0x1b0e
 endif
-
 if not timerexists 'heal'
-createtimer 'heal'
+  createtimer 'heal'
 endif
-
 if diffhits > 15 and timer 'heal' > 9000
-bandageself
-settimer 'heal' 0
+  bandageself
+  settimer 'heal' 0
 endif
-
 for 0 to 'bones'
-if @findtype bones[]
-//autotargetobject 'found'
-usetype 0xf9f
-waitfortarget 1000
-target 'found'
-endif
+  if @findtype bones[]
+    //autotargetobject 'found'
+    usetype 0xf9f
+    waitfortarget 1000
+    target 'found'
+  endif
 endfor
-
 pause 2000

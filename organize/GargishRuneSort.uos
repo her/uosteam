@@ -1,561 +1,281 @@
 //Set Up: You will need 6 Chests with 5 Bags Each!!
-
 //This is to ensure enough room for multiples of every
-
-//glowing rune. 
-
-  //@pushlist 'GLRunes' ''//J
-
-  //@pushlist 'GLRunes' ''//NY
-
-  //@pushlist 'GLRunes' ''//KL
-
-  //@pushlist 'GLRunes' ''//O
-
-  //@pushlist 'GLRunes' ''//NL
-
-  //@pushlist 'GLRunes' ''//HL
-
+//glowing rune.
+//@pushlist 'GLRunes' ''//J
+//@pushlist 'GLRunes' ''//NY
+//@pushlist 'GLRunes' ''//KL
+//@pushlist 'GLRunes' ''//O
+//@pushlist 'GLRunes' ''//NL
+//@pushlist 'GLRunes' ''//HL
 if not @findobject 'Sort'
-
-promptalias 'Sort'
-
+  promptalias 'Sort'
 endif
-
 if not @findalias 'Chest1'
-
-promptalias 'Chest1'
-
+  promptalias 'Chest1'
 endif
-
 if not @findalias 'Chest2'
-
-promptalias 'Chest2'
-
+  promptalias 'Chest2'
 endif
-
 if not @findalias 'Chest3'
-
-promptalias 'Chest3'
-
+  promptalias 'Chest3'
 endif
-
 if not @findalias 'Chest4'
-
-promptalias 'Chest4'
-
+  promptalias 'Chest4'
 endif
-
 if not @findalias 'Chest5'
-
-promptalias 'Chest5'
-
+  promptalias 'Chest5'
 endif
-
 if not @findalias 'Chest6'
-
-promptalias 'Chest6'
-
+  promptalias 'Chest6'
 endif
-
 useobject 'Chest1'
-
 pause 800
-
 useobject 'Chest2'
-
 pause 800
-
 useobject 'Chest3'
-
 pause 800
-
 useobject 'Chest4'
-
 pause 800
-
 useobject 'Chest5'
-
 pause 800
-
 useobject 'Chest6'
-
 pause 800
-
 if not @findalias 'PRune'
-
-promptalias 'PRune'
-
+  promptalias 'PRune'
 endif
-
 if not @findalias 'BRune'
-
-promptalias 'BRune'
-
+  promptalias 'BRune'
 endif
-
 if not @findalias 'URune'
-
-promptalias 'URune'
-
+  promptalias 'URune'
 endif
-
 if not @findalias 'NRune'
-
-promptalias 'NRune'
-
+  promptalias 'NRune'
 endif
-
 if not @findalias 'TRune'
-
-promptalias 'TRune'
-
+  promptalias 'TRune'
 endif
-
 if not @findalias 'RRune'
-
-promptalias 'RRune'
-
+  promptalias 'RRune'
 endif
-
 if not @findalias 'ARune'
-
-promptalias 'ARune'
-
+  promptalias 'ARune'
 endif
-
 if not @findalias 'KRune'
-
-promptalias 'KRune'
-
+  promptalias 'KRune'
 endif
-
 if not @findalias 'CHRune'
-
-promptalias 'CHRune'
-
+  promptalias 'CHRune'
 endif
-
 if not @findalias 'VRune'
-
-promptalias 'VRune'
-
+  promptalias 'VRune'
 endif
-
 if not @findalias 'DRune'
-
-promptalias 'DRune'
-
+  promptalias 'DRune'
 endif
-
 if not @findalias 'NGRune'
-
-promptalias 'NGRune'
-
+  promptalias 'NGRune'
 endif
-
 if not @findalias 'FRune'
-
-promptalias 'FRune'
-
+  promptalias 'FRune'
 endif
-
 if not @findalias 'SHRune'
-
-promptalias 'SHRune'
-
+  promptalias 'SHRune'
 endif
-
 if not @findalias 'LRune'
-
-promptalias 'LRune'
-
+  promptalias 'LRune'
 endif
-
 if not @findalias 'ERune'
-
-promptalias 'ERune'
-
+  promptalias 'ERune'
 endif
-
 if not @findalias 'MRune'
-
-promptalias 'MRune'
-
+  promptalias 'MRune'
 endif
-
 if not @findalias 'SRune'
-
-promptalias 'SRune'
-
+  promptalias 'SRune'
 endif
-
 if not @findalias 'ZRune'
-
-promptalias 'ZRune'
-
+  promptalias 'ZRune'
 endif
-
 if not @findalias 'ZHRune'
-
-promptalias 'ZHRune'
-
+  promptalias 'ZHRune'
 endif
-
 if not @findalias 'IRune'
-
-promptalias 'IRune'
-
+  promptalias 'IRune'
 endif
-
 if not @findalias 'GRune'
-
-promptalias 'GRune'
-
+  promptalias 'GRune'
 endif
-
 if not @findalias 'HRune'
-
-promptalias 'HRune'
-
+  promptalias 'HRune'
 endif
-
 if @findtype '0x483e' '39' 'Sort' 'any' '1'//B
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'BRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x486e' '39' 'Sort' 'any' '1'//R
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'RRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x485c' '39' 'Sort' 'any' '1'//K
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x483b' '39' 'Sort' 'any' '1'//A
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'ARune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4868' '39' 'Sort' 'any' '1'//N
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'NRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4877' '39' 'Sort' 'any' '1'//T
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'TRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x487a' '39' 'Sort' 'any' '1'//U
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'URune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x486b' '39' 'Sort' 'any' '1'//P
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'PRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4841' '39' 'Sort' 'any' '1'//CH
-
   setalias 'GLrune' 'found'
-
   pause 800
-
   moveitem 'GLrune' 'CHRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x487d' '39' 'Sort' 'any' '1'//V
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'VRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4844' '39' 'Sort' 'any' '1'//D
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'DRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4865' '39' 'Sort' 'any' '1'//NG
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'NGRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x484a' '39' 'Sort' 'any' '1'//F
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'FRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4871' '39' 'Sort' 'any' '1'//SH
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'SHRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4859' '39' 'Sort' 'any' '1'//GL
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'GLRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x485f' '39' 'Sort' 'any' '1'//L
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'LRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4847' '39' 'Sort' 'any' '1'//E
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'ERune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4862' '39' 'Sort' 'any' '1'//M
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'MRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4874' '39' 'Sort' 'any' '1'//S
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'SRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4883' '39' 'Sort' 'any' '1'//Z
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'ZRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4880' '39' 'Sort' 'any' '1'//ZH
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'ZHRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4853' '39' 'Sort' 'any' '1'//I
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'IRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x484d' '39' 'Sort' 'any' '1'//G
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'GRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 elseif @findtype '0x4850' '39' 'Sort' 'any' '1'//H
-
-setalias 'GLrune' 'found'
-
+  setalias 'GLrune' 'found'
   pause 800
-
   moveitem 'GLrune' 'HRune'
-
   pause 800
-
   @ignoreobject 'GLrune'
-
   @unsetalias 'GLrune'
-
 else
-
-headmsg 'No More Runes Found!'
-
+  headmsg 'No More Runes Found!'
 endif
-
 Pause 800

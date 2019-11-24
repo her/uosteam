@@ -1,241 +1,121 @@
-//This macro will require a character with a weapon skill 
+//This macro will require a character with a weapon skill
 //as it will ask you to target a weapon to equip, after shearing
-// to slay the sheep (1h weaps only, I removed the 2h code.): 
-
-
-
-//auto-use flax and cotton plants 
-
-if @usetype 0xc51 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0xc52 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0xc53 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0xc54 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0x1a9a 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0x1a9b 'any' 'ground' 2 
-
-  pause 600 
-
-elseif @usetype 0x1a99 'any' 'ground' 2 
-
-  pause 600 
-
-endif 
-
-//auto-shear 
-
-if @findtype 0xcf 'any' 'ground' 1 2 
-
-  if not @findalias 'blade1' 
-
-    headmsg 'Which blade shear with?' 
-
-    promptalias 'blade1' 
-
-  endif 
-
-  @useobject 'blade1' 
-
-  waitfortarget 1000 
-
-  @target! 'found' 
-
-  pause 600 
-
-endif 
-
-//auto-attack sheep 
-
-if @findtype 0xdf 0 0 0 2 
-
-  attack 'found' 
-
-  //auto-equip weapon 
-
-  if not @findobject 'lefthand' and not @findobject 'righthand' 
-
-    if not findalias '1h' 
-
-      headmsg 'Choose Sheep-Killer.' 
-
-      promptalias '1h' 
-
-    endif 
-
-    @equipitem '1h' 1 
-
-    pause 600 
-
-  endif 
-
-endif 
-
-//auto-wheel 
-
-if @findtype 0x101c 0 'ground' 0 2 
-
-  if @usetype 0xdf9 
-
-    waitfortarget 500 
-
-    @targetground! 0x101c 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0xdf8 
-
-    waitfortarget 500 
-
-    @targetground! 0x101c 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0x1a9c 
-
-    waitfortarget 500 
-
-    @targetground! 0x101c 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0x1a9d 
-
-    waitfortarget 500 
-
-    @targetground! 0x101c 'any' 2 
-
-    pause 100 
-
-  endif 
-
-elseif @findtype 0x1019 0 'ground' 0 2 
-
-  if @usetype 0xdf9 
-
-    waitfortarget 500 
-
-    @targetground! 0x1019 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0xdf8 
-
-    waitfortarget 500 
-
-    @targetground! 0x1019 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0x1a9c 
-
-    waitfortarget 500 
-
-    @targetground! 0x1019 'any' 2 
-
-    pause 100 
-
-  elseif @usetype 0x1a9d 
-
-    waitfortarget 500 
-
-    @targetground! 0x1019 'any' 2 
-
-    pause 100 
-
-  endif 
-
-endif 
-
-//auto-loom 
-
-if not @findtype 0xdf9 and not @findtype 0xdf8 
-
-  if not @findtype 0x1a9c and not @findtype 0x1a9d 
-
-    if @findtype 0x1062 0 'ground' 0 2 
-
-      if @findtype 0xe1d 
-
-        while @findtype 0xe1d and @findtype 0x1062 0 'ground' 0 2 
-
-          @usetype 0xe1d 
-
-          waitfortarget 500 
-
-          @targetground! 0x1062 'any' 2 
-
-        endwhile 
-
-      elseif @findtype 0xfa0 
-
-        while @findtype 0xfa0 and @findtype 0x1062 0 'ground' 0 2 
-
-          @usetype 0xfa0 
-
-          waitfortarget 500 
-
-          @targetground! 0x1062 'any' 2 
-
-        endwhile 
-
-      endif 
-
-    elseif @findtype 0x105f 0 'ground' 0 2 
-
-      if @findtype 0xe1d 
-
-        while @findtype 0xe1d and @findtype 0x105f 0 'ground' 0 2 
-
-          @usetype 0xe1d 
-
-          waitfortarget 500 
-
-          @targetground! 0x105f 'any' 2 
-
-        endwhile 
-
-      elseif @findtype 0xfa0 
-
-        while @findtype 0xfa0 and @findtype 0x105f 0 'ground' 0 2 
-
-          @usetype 0xfa0 
-
-          waitfortarget 500 
-
-          @targetground! 0x105f 'any' 2 
-
-        endwhile 
-
-      endif 
-
-    endif 
-
-  endif 
-
-endif 
-
-@canceltarget 
-
-if not findalias '1h' 
-
-  headmsg 'Choose Sheep-Killer.' 
-
-  promptalias '1h' 
-
-endif 
-
-@equipitem '1h' 1 
+// to slay the sheep (1h weaps only, I removed the 2h code.):
+//auto-use flax and cotton plants
+if @usetype 0xc51 'any' 'ground' 2
+  pause 600
+elseif @usetype 0xc52 'any' 'ground' 2
+  pause 600
+elseif @usetype 0xc53 'any' 'ground' 2
+  pause 600
+elseif @usetype 0xc54 'any' 'ground' 2
+  pause 600
+elseif @usetype 0x1a9a 'any' 'ground' 2
+  pause 600
+elseif @usetype 0x1a9b 'any' 'ground' 2
+  pause 600
+elseif @usetype 0x1a99 'any' 'ground' 2
+  pause 600
+endif
+//auto-shear
+if @findtype 0xcf 'any' 'ground' 1 2
+  if not @findalias 'blade1'
+    headmsg 'Which blade shear with?'
+    promptalias 'blade1'
+  endif
+  @useobject 'blade1'
+  waitfortarget 1000
+  @target! 'found'
+  pause 600
+endif
+//auto-attack sheep
+if @findtype 0xdf 0 0 0 2
+  attack 'found'
+  //auto-equip weapon
+  if not @findobject 'lefthand' and not @findobject 'righthand'
+    if not findalias '1h'
+      headmsg 'Choose Sheep-Killer.'
+      promptalias '1h'
+    endif
+    @equipitem '1h' 1
+    pause 600
+  endif
+endif
+//auto-wheel
+if @findtype 0x101c 0 'ground' 0 2
+  if @usetype 0xdf9
+    waitfortarget 500
+    @targetground! 0x101c 'any' 2
+    pause 100
+  elseif @usetype 0xdf8
+    waitfortarget 500
+    @targetground! 0x101c 'any' 2
+    pause 100
+  elseif @usetype 0x1a9c
+    waitfortarget 500
+    @targetground! 0x101c 'any' 2
+    pause 100
+  elseif @usetype 0x1a9d
+    waitfortarget 500
+    @targetground! 0x101c 'any' 2
+    pause 100
+  endif
+elseif @findtype 0x1019 0 'ground' 0 2
+  if @usetype 0xdf9
+    waitfortarget 500
+    @targetground! 0x1019 'any' 2
+    pause 100
+  elseif @usetype 0xdf8
+    waitfortarget 500
+    @targetground! 0x1019 'any' 2
+    pause 100
+  elseif @usetype 0x1a9c
+    waitfortarget 500
+    @targetground! 0x1019 'any' 2
+    pause 100
+  elseif @usetype 0x1a9d
+    waitfortarget 500
+    @targetground! 0x1019 'any' 2
+    pause 100
+  endif
+endif
+//auto-loom
+if not @findtype 0xdf9 and not @findtype 0xdf8
+  if not @findtype 0x1a9c and not @findtype 0x1a9d
+    if @findtype 0x1062 0 'ground' 0 2
+      if @findtype 0xe1d
+        while @findtype 0xe1d and @findtype 0x1062 0 'ground' 0 2
+          @usetype 0xe1d
+          waitfortarget 500
+          @targetground! 0x1062 'any' 2
+        endwhile
+      elseif @findtype 0xfa0
+        while @findtype 0xfa0 and @findtype 0x1062 0 'ground' 0 2
+          @usetype 0xfa0
+          waitfortarget 500
+          @targetground! 0x1062 'any' 2
+        endwhile
+      endif
+    elseif @findtype 0x105f 0 'ground' 0 2
+      if @findtype 0xe1d
+        while @findtype 0xe1d and @findtype 0x105f 0 'ground' 0 2
+          @usetype 0xe1d
+          waitfortarget 500
+          @targetground! 0x105f 'any' 2
+        endwhile
+      elseif @findtype 0xfa0
+        while @findtype 0xfa0 and @findtype 0x105f 0 'ground' 0 2
+          @usetype 0xfa0
+          waitfortarget 500
+          @targetground! 0x105f 'any' 2
+        endwhile
+      endif
+    endif
+  endif
+endif
+@canceltarget
+if not findalias '1h'
+  headmsg 'Choose Sheep-Killer.'
+  promptalias '1h'
+endif
+@equipitem '1h' 1

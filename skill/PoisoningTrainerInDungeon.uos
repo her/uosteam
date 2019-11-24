@@ -1,267 +1,136 @@
-//This macro sends you to a dungeon to macro poisoning 
-//on an item of your choice. restocks your ns for you, 
-//as well as healing and recall regents. it also checks 
-//if youre poisoned and heals and drinks cures accordingly. 
+//This macro sends you to a dungeon to macro poisoning
+//on an item of your choice. restocks your ns for you,
+//as well as healing and recall regents. it also checks
+//if youre poisoned and heals and drinks cures accordingly.
 //tweak and test as you see fit.
-
 //Prompt for Selections
-
 sysmsg 'Select what you want to poison'
-
 promptalias 'targetofpoison'
-
 sysmsg 'Select your restocking bag source'
-
 promptalias 'restockbag'
-
 sysmsg 'Select the runebook to your macro spot'
-
 promptalias 'dungeon'
-
 sysmsg 'Select the runebook to your restock spot'
-
 promptalias 'restock'
-
 //restock your character to 400 NS, 50 of each gheal reg, and 25 of each recall reg before running the macro
-
 //Start at restock spot and recall to bank
-
 while inregion 'guards' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'dungeon'
-
-pause 1000
-
+  cast "Recall"
+  waitfortarget 15000
+  target! 'dungeon'
+  pause 1000
 endwhile
-
 //Keep Running Macro until Poisoning Skill is GM
-
 while skill 'Poisoning' < 100
-
-//Check to see if enough Nightshade is on hand. This counter must be setup separately from this macro.
-
-if counter 'cntr-6' < 10
-
-while inregion 'dungeon' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'restock'
-
-pause 1000
-
-endwhile
-
-msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
-
-pause 1000
-
-movetype 0xf88 'restockbag' 'backpack' 0 0 0 'any' 400
-
-pause 1000
-
-sysmsg 'NS Added!'
-
-pause 1000
-
-while inregion 'guards' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'dungeon'
-
-pause 1000
-
-endwhile
-
-endif
-
-//Make the Poison Potion using Alchemy
-
-//Use Mortar and Pestal
-
-usetype 0xe9b
-
-waitforgump 0x38920abd 1500
-
-replygump 0x38920abd 21
-
-waitforgump 0x38920abd 1500
-
-pause 1000
-
-//If you failed to create a potion, this will keep trying till one is made
-
-while ingump 'any' 'You fail to create'
-
-usetype 0xe9b
-
-waitforgump 0x38920abd 1500
-
-replygump 0x38920abd 21
-
-waitforgump 0x38920abd 1500
-
-pause 1000
-
-endwhile
-
-//Find Potion otherwise use a keg
-
-if findtype 0xf0a
-
-else
-
-usetype 0x1940 'any' 'backpack'
-
-pause 1000
-
-endif
-
-//Poison the item
-
-useskill 'Poisoning'
-
-waitfortarget 15000
-
-findtype 0xf0a
-
-target! 'found'
-
-waitfortarget 15000
-
-target! 'targetofpoison'
-
-pause 5000
-
-//Check if you were clumsy and poisoned yourself
-
-while poisoned
-
-cast 'cure' 'self'
-
-pause 2000
-
-endwhile
-
-while hits < 80
-
-cast 'greater heal' 'self'
-
-pause 2000
-
-endwhile
-
-pause 7000
-
-// Start get Heal regs
-
-if counter 'cntr-2' < 3
-
-while inregion 'dungeon' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'restock'
-
-pause 1000
-
-endwhile
-
-msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
-
-pause 1000
-
-movetype 0xf85 'restockbag' 'backpack' 0 0 0 'any' 50
-
-pause 1000
-
-movetype 0xf84 'restockbag' 'backpack' 0 0 0 'any' 50
-
-pause 1000
-
-movetype 0xf8d 'restockbag' 'backpack' 0 0 0 'any' 25
-
-pause 1000
-
-movetype 0xf86 'restockbag' 'backpack' 0 0 0 'any' 25
-
-pause 1000
-
-sysmsg 'Heals Added!'
-
-while inregion 'guards' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'dungeon'
-
-pause 1000
-
-endwhile
-
-endif
-
-// End Get Heal Regs
-
-// Start Get Recall Regs
-
-if counter 'cntr-4' < 5
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'restock'
-
-pause 1000
-
-msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
-
-pause 1000
-
-useobject 0x410ca528
-
-movetype 0xf7a 'restockbag' 'backpack' 0 0 0 'any' 25
-
-pause 1000
-
-movetype 0xf7b 'restockbag' 'backpack' 0 0 0 'any' 25
-
-pause 1000
-
-movetype 0xf86 'restockbag' 'backpack' 0 0 0 'any' 40
-
-pause 1000
-
-sysmsg 'Recalls Added!'
-
-while inregion 'guards' 'self'
-
-cast "Recall"
-
-waitfortarget 15000
-
-target! 'dungeon'
-
-pause 1000
-
-endwhile
-
-endif
-
-// End Get recall Regs
-
+  //Check to see if enough Nightshade is on hand. This counter must be setup separately from this macro.
+  if counter 'cntr-6' < 10
+    while inregion 'dungeon' 'self'
+      cast "Recall"
+      waitfortarget 15000
+      target! 'restock'
+      pause 1000
+    endwhile
+    msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
+    pause 1000
+    movetype 0xf88 'restockbag' 'backpack' 0 0 0 'any' 400
+    pause 1000
+    sysmsg 'NS Added!'
+    pause 1000
+    while inregion 'guards' 'self'
+      cast "Recall"
+      waitfortarget 15000
+      target! 'dungeon'
+      pause 1000
+    endwhile
+  endif
+  //Make the Poison Potion using Alchemy
+  //Use Mortar and Pestal
+  usetype 0xe9b
+  waitforgump 0x38920abd 1500
+  replygump 0x38920abd 21
+  waitforgump 0x38920abd 1500
+  pause 1000
+  //If you failed to create a potion, this will keep trying till one is made
+  while ingump 'any' 'You fail to create'
+    usetype 0xe9b
+    waitforgump 0x38920abd 1500
+    replygump 0x38920abd 21
+    waitforgump 0x38920abd 1500
+    pause 1000
+  endwhile
+  //Find Potion otherwise use a keg
+  if findtype 0xf0a
+  else
+    usetype 0x1940 'any' 'backpack'
+    pause 1000
+  endif
+  //Poison the item
+  useskill 'Poisoning'
+  waitfortarget 15000
+  findtype 0xf0a
+  target! 'found'
+  waitfortarget 15000
+  target! 'targetofpoison'
+  pause 5000
+  //Check if you were clumsy and poisoned yourself
+  while poisoned
+    cast 'cure' 'self'
+    pause 2000
+  endwhile
+  while hits < 80
+    cast 'greater heal' 'self'
+    pause 2000
+  endwhile
+  pause 7000
+  // Start get Heal regs
+  if counter 'cntr-2' < 3
+    while inregion 'dungeon' 'self'
+      cast "Recall"
+      waitfortarget 15000
+      target! 'restock'
+      pause 1000
+    endwhile
+    msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
+    pause 1000
+    movetype 0xf85 'restockbag' 'backpack' 0 0 0 'any' 50
+    pause 1000
+    movetype 0xf84 'restockbag' 'backpack' 0 0 0 'any' 50
+    pause 1000
+    movetype 0xf8d 'restockbag' 'backpack' 0 0 0 'any' 25
+    pause 1000
+    movetype 0xf86 'restockbag' 'backpack' 0 0 0 'any' 25
+    pause 1000
+    sysmsg 'Heals Added!'
+    while inregion 'guards' 'self'
+      cast "Recall"
+      waitfortarget 15000
+      target! 'dungeon'
+      pause 1000
+    endwhile
+  endif
+  // End Get Heal Regs
+  // Start Get Recall Regs
+  if counter 'cntr-4' < 5
+    cast "Recall"
+    waitfortarget 15000
+    target! 'restock'
+    pause 1000
+    msg 'Vendor Buy The Bank Guards a Beer - I will Take thee'
+    pause 1000
+    useobject 0x410ca528
+    movetype 0xf7a 'restockbag' 'backpack' 0 0 0 'any' 25
+    pause 1000
+    movetype 0xf7b 'restockbag' 'backpack' 0 0 0 'any' 25
+    pause 1000
+    movetype 0xf86 'restockbag' 'backpack' 0 0 0 'any' 40
+    pause 1000
+    sysmsg 'Recalls Added!'
+    while inregion 'guards' 'self'
+      cast "Recall"
+      waitfortarget 15000
+      target! 'dungeon'
+      pause 1000
+    endwhile
+  endif
+  // End Get recall Regs
 endwhile

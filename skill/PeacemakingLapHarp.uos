@@ -1,32 +1,30 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training peacemaking from 0.  // 
-//   This macro uses lap harps.   // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findtype 0xeb2 0x0 'backpack' 
-  headmsg 'Get more lap harps!' 
-  stop 
-endif 
-
-if skill 'peacemaking' < 100 
-  useskill 'peacemaking' 
-  waitfortarget 2000 
-  if @injournal 'what instrument' 
-    targettype! 0xeb2 0x0 'backpack' 
-    waitfortarget 2000 
-    target! 'self' 
-    clearjournal 
-    pause 11000 
-  else 
-    target! 'self' 
-    pause 11000 
-  endif 
-else 
-  headmsg 'Peacemaking Complete!' 
-  stop 
+////////////////////////////////////
+//   This macro is designed for   //
+//  training peacemaking from 0.  //
+//   This macro uses lap harps.   //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findtype 0xeb2 0x0 'backpack'
+  headmsg 'Get more lap harps!'
+  stop
+endif
+if skill 'peacemaking' < 100
+  useskill 'peacemaking'
+  waitfortarget 2000
+  if @injournal 'what instrument'
+    targettype! 0xeb2 0x0 'backpack'
+    waitfortarget 2000
+    target! 'self'
+    clearjournal
+    pause 11000
+  else
+    target! 'self'
+    pause 11000
+  endif
+else
+  headmsg 'Peacemaking Complete!'
+  stop
 endif

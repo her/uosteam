@@ -25,7 +25,6 @@
 //   E) All leather or studded armor reguardless of quality.
 //
 // Run the Macro and follow the prompting instructions.
-
 // Init Data
 @clearjournal
 unsetalias 'bagtosort'
@@ -57,7 +56,6 @@ useobject 'bagtosort'
 useobject 'stufftosell'
 useobject 'stufftokeep'
 clearlist 'ItemTypes'
-
 //Shields
 @pushlist 'ItemTypes' 0x1b72 //BronzeShields
 @pushlist 'ItemTypes' 0x1b73 //Buckler
@@ -66,14 +64,12 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x1b79 //Tear Kite Shield
 @pushlist 'ItemTypes' 0x1b7a //WoodenShield
 @pushlist 'ItemTypes' 0x1b76 //HeaterShield
-
 //Bone Armor
 @pushlist 'ItemTypes' 0x1451 //Bone Helmet
 @pushlist 'ItemTypes' 0x144f //Bone Armor
 @pushlist 'ItemTypes' 0x1452 //Bone Leggings
 @pushlist 'ItemTypes' 0x144e //Bone Arms
 @pushlist 'ItemTypes' 0x1450 //Bone Gloves
-
 //Platemail
 @pushlist 'ItemTypes' 0x1408 //Close Helmet
 @pushlist 'ItemTypes' 0x1410 //Platemail Arms
@@ -85,25 +81,21 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x140a //Helmet
 @pushlist 'ItemTypes' 0x140c //Bascinet
 @pushlist 'ItemTypes' 0x140e //Norse Helm
-
 //Chainmail
 @pushlist 'ItemTypes' 0x13bb //Chainmail Coif
 @pushlist 'ItemTypes' 0x13be //Chainmail Leggins
 @pushlist 'ItemTypes' 0x13bf //Chainmail Tunic
-
 //Ringmail
 @pushlist 'ItemTypes' 0x13ee //Ringmail Sleeves
 @pushlist 'ItemTypes' 0x13eb //Ringmail Gloves
 @pushlist 'ItemTypes' 0x13ec //Ringmail Tunic
 @pushlist 'ItemTypes' 0x13f0 //Ringmail Leggins
-
 //Studded
 @pushlist 'ItemTypes' 0x13da //Studded Leggings
 @pushlist 'ItemTypes' 0x13db //Studded Tunic
 @pushlist 'ItemTypes' 0x13d5 //Studded Gloves
 @pushlist 'ItemTypes' 0x13d6 //Studded Gorget
 @pushlist 'ItemTypes' 0x13dc //Studded Sleeves
-
 //Leather
 @pushlist 'ItemTypes' 0x13c6 //Leather Gloves
 @pushlist 'ItemTypes' 0x13cd //Leather Sleeves
@@ -111,7 +103,6 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x13cb //Leather Pants
 @pushlist 'ItemTypes' 0x13c7 //Leather Gorget
 @pushlist 'ItemTypes' 0x1db9 //Leather Cap
-
 //Female Armor
 @pushlist 'ItemTypes' 0x1c04 //Female Plate
 @pushlist 'ItemTypes' 0x1c0c //Female Studded Bustier
@@ -120,7 +111,6 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x1c08 //Female Leather Skirt
 @pushlist 'ItemTypes' 0x1c06 //Female Leather Armor
 @pushlist 'ItemTypes' 0x1c0a //Female Leather Bustier
-
 //Fencing
 @pushlist 'ItemTypes' 0xf62  //Spear
 @pushlist 'ItemTypes' 0x1403 //Short Spear
@@ -128,7 +118,6 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x1405 //Warfork
 @pushlist 'ItemTypes' 0x1401 //Kryss
 @pushlist 'ItemTypes' 0xf52  //Dagger
-
 //Macing
 @pushlist 'ItemTypes' 0x13b0 //War axe
 @pushlist 'ItemTypes' 0xdf0  //Black Staff
@@ -141,7 +130,6 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0x13f8 //Gnarled Staff
 @pushlist 'ItemTypes' 0xf5c  //Mace
 @pushlist 'ItemTypes' 0x143b //Maul
-
 //Swords
 @pushlist 'ItemTypes' 0x13b9 //Viking Sword
 @pushlist 'ItemTypes' 0xf61  //Longsword
@@ -152,7 +140,6 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0xf5e  //Broadsword
 @pushlist 'ItemTypes' 0x13ff //Katana
 @pushlist 'ItemTypes' 0xec3  //Cleaver
-
 //Axes
 @pushlist 'ItemTypes' 0xf43 //Hatchet
 @pushlist 'ItemTypes' 0xf45 //Executioner's Axe
@@ -165,12 +152,10 @@ clearlist 'ItemTypes'
 @pushlist 'ItemTypes' 0xf49  //Axe
 @pushlist 'ItemTypes' 0xe85  //Pickaxe
 @pushlist 'ItemTypes' 0xe86  //Pickaxe
-
 //Bows
 @pushlist 'ItemTypes' 0x13fd //HeavyXbow
 @pushlist 'ItemTypes' 0xf50  //Xbow
 @pushlist 'ItemTypes' 0x13b2 //bow
-
 // cycle all items listed in var ItemTypes
 for 0 to 'ItemTypes'
   // Process all items found of current cyucled ItemType
@@ -183,12 +168,10 @@ for 0 to 'ItemTypes'
     waitfortarget 15000
     target! found
     pause 1500
-
     // Item to do conditionals
     // If any of these conditions are true
     // The Item is a keeper
     // (Sure wish we could use switches bleh)
-
     if @injournal 'Silver' 'system'
       moveitem found 'stufftokeep'
       headmsg 'Silver' '2213'

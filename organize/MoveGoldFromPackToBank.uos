@@ -1,17 +1,9 @@
 if findtype '0xeed' 'any' 'backpack' 'any' '3'
-
-msg 'bank'
-
-pause 700
-
-moveitem 'found' 'bank'
-
-stop
-
+  msg 'bank'
+  pause 700
+  moveitem 'found' 'bank'
+  stop
 else
-
-headmsg "No Gold Found..."
-
-stop
-
+  headmsg "No Gold Found..."
+  stop
 endif

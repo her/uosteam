@@ -1,79 +1,44 @@
-//////////////////////////////////// 
-//    Uses tongs. This macro is   // 
-//      designed for training     // 
-//      blacksmithy from 50.      // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'Blacksmithy' <  50 
-
-  headmsg 'You should have started with 50 skill!' 
-
-  stop 
-
-elseif skill 'Blacksmithy' <= 93 
-
-  if usetype 0xfbb 'any' 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 50 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 16 
-
-    pause 2000 
-
-  endif 
-
-  if usetype 0xfbb 'any' 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 14 
-
-    waitfortarget 15000 
-
-    @targettype! 0x1403 0x0 'backpack' 
-
-  endif 
-
-elseif skill 'blacksmithy' < 100 
-
-  if usetype 0xfbb 'any' 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 15 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 16 
-
-    pause 2000 
-
-  endif 
-
-  if usetype 0xfbb 'any' 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 14 
-
-    waitfortarget 15000 
-
-    @targettype! 0x1413 0x0 'backpack' 
-
-  endif 
-
-else 
-
-  headmsg 'Blacksmithy complete!' 
-
-  stop 
-
+////////////////////////////////////
+//    Uses tongs. This macro is   //
+//      designed for training     //
+//      blacksmithy from 50.      //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'Blacksmithy' <  50
+  headmsg 'You should have started with 50 skill!'
+  stop
+elseif skill 'Blacksmithy' <= 93
+  if usetype 0xfbb 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 50
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    pause 2000
+  endif
+  if usetype 0xfbb 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 14
+    waitfortarget 15000
+    @targettype! 0x1403 0x0 'backpack'
+  endif
+elseif skill 'blacksmithy' < 100
+  if usetype 0xfbb 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    pause 2000
+  endif
+  if usetype 0xfbb 'any' 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 14
+    waitfortarget 15000
+    @targettype! 0x1413 0x0 'backpack'
+  endif
+else
+  headmsg 'Blacksmithy complete!'
+  stop
 endif

@@ -1,69 +1,35 @@
-//Credit to superminingman with a little modification 
-
-if not findalias 'slayerbag' 
-
-  promptalias 'slayerbag' 
-
-endif 
-
-if not hidden 'self' 
-
-  useskill 'hiding' 
-
-endif 
-
-if listexists 'slayertype' 
-
-  clearlist 'slayertype' 
-
-else 
-
-  createlist 'slayertype' 
-
-endif 
-
-pushlist 'slayertype' 0x1403 
-
-@usetype 0xfbb 0x0 'backpack' 
-
-waitforgump 0x38920abd 15000 
-
-replygump 0x38920abd 21 
-
-pause 2000 
-
-if @injournal 'crafted a slayer' 'system' 
-
-  // Change ↓ 
-
-  @findtype slayertype[0] 0x0 'backpack' 
-
-  moveitem 'found' 'slayerbag' 
-
-  ignoreobject 'found' 
-
-  clearjournal 
-
-  sysmsg 'Slayer crafted!' 33 
-
-  pause 600 
-
-else 
-
-  // Change ↓ 
-
-  @findtype slayertype[0] 0x0 'backpack' 
-
-  @usetype 0xfbb 0x0 'backpack' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 14 
-
-  waitfortarget 5000 
-
-  @target! 'found' 
-
-  pause 600 
-
+//Credit to superminingman with a little modification
+if not findalias 'slayerbag'
+  promptalias 'slayerbag'
+endif
+if not hidden 'self'
+  useskill 'hiding'
+endif
+if listexists 'slayertype'
+  clearlist 'slayertype'
+else
+  createlist 'slayertype'
+endif
+pushlist 'slayertype' 0x1403
+@usetype 0xfbb 0x0 'backpack'
+waitforgump 0x38920abd 15000
+replygump 0x38920abd 21
+pause 2000
+if @injournal 'crafted a slayer' 'system'
+  // Change ↓
+  @findtype slayertype[0] 0x0 'backpack'
+  moveitem 'found' 'slayerbag'
+  ignoreobject 'found'
+  clearjournal
+  sysmsg 'Slayer crafted!' 33
+  pause 600
+else
+  // Change ↓
+  @findtype slayertype[0] 0x0 'backpack'
+  @usetype 0xfbb 0x0 'backpack'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 14
+  waitfortarget 5000
+  @target! 'found'
+  pause 600
 endif

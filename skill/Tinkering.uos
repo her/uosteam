@@ -1,160 +1,86 @@
-//////////////////////////////////// 
-//    Uses a standard tool kit.   // 
-//   This macro is designed for   // 
-//   training tinkering from 30.  // 
-//                                // 
-//  Warning: Throws away newbied  // 
-//      scissors! Bank them!      // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @listexists 'tinkjunk' 
-
-  createlist 'tinkjunk' 
-
-  pushlist 'tinkjunk' 0xf9f // SCISSORS! WATCH OUT! 
-
-  pushlist 'tinkjunk' 0xf9d 
-
-  pushlist 'tinkjunk' 0xfbb 
-
-  pushlist 'tinkjunk' 0x14fc 
-
-  pushlist 'tinkjunk' 0x1849 
-
-endif 
-
-if @counttype 0x1eb8 'any' 'backpack' < 2 
-
-  if usetype 0x1eb8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 23 
-
-    waitforgump 0x38920abd 15000 
-
-  endif 
-
-endif 
-
-if not @findobject 'trash' 
-
-  headmsg 'Select your trash barrel' 
-
-  promptalias 'trash' 
-
-endif 
-
-if skill 'tinkering' < 30 
-
-  headmsg 'Buy more tinkering skill!' 
-
-  stop 
-
-elseif skill 'tinkering' < 40 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 2 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 65 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 44 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 75 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 86 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 94 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 121 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'tinkering' < 100 
-
-  if usetype 0x1eb8 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 29 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 51 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-else 
-
-  headmsg 'Tinkering complete!' 
-
-  stop 
-
-endif 
-
-if contents 'backpack' > 115 or diffweight < 20 
-
-  for 0 to tinkjunk 
-
-    while @movetype tinkjunk[] 'backpack' 'trash' 
-
-    endwhile 
-
-  endfor 
-
+////////////////////////////////////
+//    Uses a standard tool kit.   //
+//   This macro is designed for   //
+//   training tinkering from 30.  //
+//                                //
+//  Warning: Throws away newbied  //
+//      scissors! Bank them!      //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @listexists 'tinkjunk'
+  createlist 'tinkjunk'
+  pushlist 'tinkjunk' 0xf9f // SCISSORS! WATCH OUT!
+  pushlist 'tinkjunk' 0xf9d
+  pushlist 'tinkjunk' 0xfbb
+  pushlist 'tinkjunk' 0x14fc
+  pushlist 'tinkjunk' 0x1849
+endif
+if @counttype 0x1eb8 'any' 'backpack' < 2
+  if usetype 0x1eb8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 23
+    waitforgump 0x38920abd 15000
+  endif
+endif
+if not @findobject 'trash'
+  headmsg 'Select your trash barrel'
+  promptalias 'trash'
+endif
+if skill 'tinkering' < 30
+  headmsg 'Buy more tinkering skill!'
+  stop
+elseif skill 'tinkering' < 40
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 65
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 44
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 75
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 86
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 94
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 121
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'tinkering' < 100
+  if usetype 0x1eb8 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 29
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 51
+    waitforgump 0x38920abd 2000
+  endif
+else
+  headmsg 'Tinkering complete!'
+  stop
+endif
+if contents 'backpack' > 115 or diffweight < 20
+  for 0 to tinkjunk
+    while @movetype tinkjunk[] 'backpack' 'trash'
+    endwhile
+  endfor
 endif

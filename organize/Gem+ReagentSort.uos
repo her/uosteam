@@ -1,97 +1,49 @@
-if not listexists 'gems' 
-
-  createlist 'gems' 
-
-  //Gems 
-
-  pushlist 'gems' 0xf16 // Amethyst 
-
-pushlist 'gems' 0xf15 // Citrine 
-
-pushlist 'gems' 0xf19 // Sapphire 
-
-pushlist 'gems' 0xf25 // Amber 
-
-pushlist 'gems' 0xf21 // Star Sapphire 
-
-pushlist 'gems' 0xf10 // Emerald 
-
-pushlist 'gems' 0xf26 // Diamond 
-
-pushlist 'gems' 0xf2d // Tourmaline 
-
-pushlist 'gems' 0xf13 // Ruby 
-
-endif 
-
-if not listexists 'regs' 
-
-  createlist 'regs' 
-
-  //Gems 
-
-pushlist 'regs' 0xf7a  // Black Pearl 
-
-pushlist 'regs' 0xf7b  // Blood Moss 
-
-pushlist 'regs' 0xf86  // Mandrake Root 
-
-pushlist 'regs' 0xf84  // Garlic 
-
-pushlist 'regs' 0xf85  // Ginseng 
-
-pushlist 'regs' 0xf88  // Nightshade 
-
-pushlist 'regs' 0xf8d  // Spider's Silk 
-
-pushlist 'regs' 0xf8c  // Sulphurous Ash 
-
-endif 
-
-if not findalias 'gem_storage' 
-
-  promptalias 'gem_storage' 
-
-endif 
-
-if not findalias 'reg_storage' 
-
-  promptalias 'reg_storage' 
-
-endif 
-
-clearignorelist 
-
-while @findtype 0xe76 'any' 'backpack' 
-
-  setalias 'current_bag' 'found' 
-
-  ignoreobject 'current_bag' 
-
-  for 0 to 'regs' 
-
-    while @findtype 'regs[]' 'current_bag' 
-
-    moveitem 'found' 'reg_storage' 
-
-    pause 600 
-
-   endwhile 
-
-  endfor 
-
-  for 0 to 'gems' 
-
-    while @findtype 'gems[]' 'current_bag' 
-
-    moveitem 'found' 'gem_storage' 
-
-    pause 600 
-
-endwhile 
-
-  endfor 
-
-endwhile 
-
+if not listexists 'gems'
+  createlist 'gems'
+  //Gems
+  pushlist 'gems' 0xf16 // Amethyst
+  pushlist 'gems' 0xf15 // Citrine
+  pushlist 'gems' 0xf19 // Sapphire
+  pushlist 'gems' 0xf25 // Amber
+  pushlist 'gems' 0xf21 // Star Sapphire
+  pushlist 'gems' 0xf10 // Emerald
+  pushlist 'gems' 0xf26 // Diamond
+  pushlist 'gems' 0xf2d // Tourmaline
+  pushlist 'gems' 0xf13 // Ruby
+endif
+if not listexists 'regs'
+  createlist 'regs'
+  //Gems
+  pushlist 'regs' 0xf7a  // Black Pearl
+  pushlist 'regs' 0xf7b  // Blood Moss
+  pushlist 'regs' 0xf86  // Mandrake Root
+  pushlist 'regs' 0xf84  // Garlic
+  pushlist 'regs' 0xf85  // Ginseng
+  pushlist 'regs' 0xf88  // Nightshade
+  pushlist 'regs' 0xf8d  // Spider's Silk
+  pushlist 'regs' 0xf8c  // Sulphurous Ash
+endif
+if not findalias 'gem_storage'
+  promptalias 'gem_storage'
+endif
+if not findalias 'reg_storage'
+  promptalias 'reg_storage'
+endif
+clearignorelist
+while @findtype 0xe76 'any' 'backpack'
+  setalias 'current_bag' 'found'
+  ignoreobject 'current_bag'
+  for 0 to 'regs'
+    while @findtype 'regs[]' 'current_bag'
+      moveitem 'found' 'reg_storage'
+      pause 600
+    endwhile
+  endfor
+  for 0 to 'gems'
+    while @findtype 'gems[]' 'current_bag'
+      moveitem 'found' 'gem_storage'
+      pause 600
+    endwhile
+  endfor
+endwhile
 clearignorelist

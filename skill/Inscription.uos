@@ -9,22 +9,20 @@
 // Original Credits: kdivers and AreYouKidden //
 // Edited and merged by Gitbytes              //
 ////////////////////////////////////////////////
-
 // SETUP
 // **NOTE** You may have to clear your Active Objects table
 // Create two Organizers and preset the container sources:
-  // 1. 'Restock Scribe'
-    // * 100 of each reagent
-    // * 100 blank scrolls
-  // 2. 'Restock Pen'
-    // * 3 scribe pens
+// 1. 'Restock Scribe'
+// * 100 of each reagent
+// * 100 blank scrolls
+// 2. 'Restock Pen'
+// * 3 scribe pens
 // Select the "Loop" checkbox option
 // Hit "Start"
 // Select a Bulk Reagent source container when prompted
 // Select your character reagent container when prompted
 // Select a Bulk Pen source container when prompted
 // Select a destination container for finished scrolls when prompted
-
 @clearjournal
 @removelist 'Scrolls'
 createlist 'Scrolls'

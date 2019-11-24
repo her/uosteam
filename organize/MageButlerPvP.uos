@@ -46,8 +46,8 @@ useobject! 'Regs_box'
 pause 1000
 //put Regs, Bottles, Bandages in backpack
 organizer 'Butler Resources'
-    while organizing
-    endwhile
+while organizing
+endwhile
 headmsg "Resources in backpack"
 //put Heal Pots in backpack
 while counttype 0xf0c 'any' 'backpack' < 3

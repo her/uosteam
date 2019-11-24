@@ -40,18 +40,16 @@ if @findalias 'Enemypack'
         pause 100
         @pushlist 'bags' 'found'
         pause 100
-
         useobject 'inside'
         useskill 'stealing
         waitfortarget 1500
         target! 'found'
         headmsg 'stole it!'
         ignoreobject 'found'
-
-        endif
-        ignoreobject 'found'
-      endwhile
-      ignoreobject 'inside'
+      endif
+      ignoreobject 'found'
     endwhile
-  endfor
-  @clearignorelist
+    ignoreobject 'inside'
+  endwhile
+endfor
+@clearignorelist

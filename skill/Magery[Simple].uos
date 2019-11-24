@@ -1,49 +1,25 @@
-//you may need to edit mana on line two ! 
-
-while not dead 
-
-  if mana < 60 
-
-    useskill 'meditation' 
-
-    while not mana == maxmana 
-
-    endwhile 
-
-  endif 
-
-  //Set Goal 
-
-  if skill 'Magery' == 100 
-
-    stop 
-
-  endif 
-
-  if skill 'Magery' >= 30 and skill 'Magery' < 50 
-
-    cast 'Bless' 'self' 
-
-  endif 
-
-  if skill 'Magery' >= 50 and skill 'Magery' < 70 
-
-    cast 'Magic Reflection' 
-
-  endif 
-
-  if skill 'Magery' >= 70 and skill 'Magery' < 90 
-
-    cast 'Mass Dispel' 'self' 
-
-  endif 
-
-  if skill 'Magery' >= 90 and skill 'Magery' < 100 
-
-    cast 'earthquake' 
-
-  endif 
-
-  pause '2500' 
-
+//you may need to edit mana on line two !
+while not dead
+  if mana < 60
+    useskill 'meditation'
+    while not mana == maxmana
+    endwhile
+  endif
+  //Set Goal
+  if skill 'Magery' == 100
+    stop
+  endif
+  if skill 'Magery' >= 30 and skill 'Magery' < 50
+    cast 'Bless' 'self'
+  endif
+  if skill 'Magery' >= 50 and skill 'Magery' < 70
+    cast 'Magic Reflection'
+  endif
+  if skill 'Magery' >= 70 and skill 'Magery' < 90
+    cast 'Mass Dispel' 'self'
+  endif
+  if skill 'Magery' >= 90 and skill 'Magery' < 100
+    cast 'earthquake'
+  endif
+  pause '2500'
 endwhile

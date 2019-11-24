@@ -1,11 +1,11 @@
-//Here is the macro the fishing macro, test her out and 
+//Here is the macro the fishing macro, test her out and
 //let me know if it works properly for you.
 //You will need the fishing pole equipped
 //You will need a dagger in your backpack
 //Fish will be turned into steaks as they are fished up
-//If you run out of fish in the spot, you will whistle 
+//If you run out of fish in the spot, you will whistle
 //and give a head message (only you will see this)
-//If you become over weight,you will scream and get a 
+//If you become over weight,you will scream and get a
 //different head message (only you will see this)
 //
 //THIS FISHES 3 TILES DIRECTLY TO YOUR NORTH
@@ -14,95 +14,49 @@
 //http://www.uoforum.com/threads/fishing-macro-w-steaks.68266/
 //
 //Dagger 0xf52
-
 //Fish 1 0x9cc
-
 //Fish 2 0x9cf
-
 //Fish 3 0x9cd
-
 //Fish 4 0x9ce
-
 clearjournal
-
 if @injournal 'That container' 'system'
-
-msg '[e scream'
-
-headmsg 'Damn, I be full of Fish' '1888'
-
-clearjournal
-
+  msg '[e scream'
+  headmsg 'Damn, I be full of Fish' '1888'
+  clearjournal
 endif
-
 if @findtype 0x9cc 'any' 'backpack' 1
-
-@usetype '0xf52' 'any' 'backpack' 1
-
-waitfortarget 1000
-
-@Target! 'found'
-
-pause 600
-
+  @usetype '0xf52' 'any' 'backpack' 1
+  waitfortarget 1000
+  @Target! 'found'
+  pause 600
 endif
-
 if @findtype 0x9cf 'any' 'backpack' 1
-
-@usetype '0xf52' 'any' 'backpack' 1
-
-waitfortarget 1000
-
-@Target! 'found'
-
-pause 600
-
+  @usetype '0xf52' 'any' 'backpack' 1
+  waitfortarget 1000
+  @Target! 'found'
+  pause 600
 endif
-
 if @findtype 0x9cd 'any' 'backpack' 1
-
-@usetype '0xf52' 'any' 'backpack' 1
-
-waitfortarget 1000
-
-@Target! 'found'
-
-pause 600
-
+  @usetype '0xf52' 'any' 'backpack' 1
+  waitfortarget 1000
+  @Target! 'found'
+  pause 600
 endif
-
 if @findtype 0x9ce 'any' 'backpack' 1
-
-@usetype '0xf52' 'any' 'backpack' 1
-
-waitfortarget 1000
-
-@Target! 'found'
-
-pause 600
-
+  @usetype '0xf52' 'any' 'backpack' 1
+  waitfortarget 1000
+  @Target! 'found'
+  pause 600
 endif
-
 canceltarget
-
 useobject 'righthand'
-
 waitfortarget 1500
-
 targettileoffset! '0' '-3' '-3'
-
 pause 600
-
 if @injournal 'seem to be biting' 'system'
-
-msg '[e whistle'
-
-headmsg 'Move Your Ass!' '1545'
-
-clearjournal
-
+  msg '[e whistle'
+  headmsg 'Move Your Ass!' '1545'
+  clearjournal
 endif
-
 pause 9000
-
 replay

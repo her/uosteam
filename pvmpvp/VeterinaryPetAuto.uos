@@ -1,41 +1,33 @@
 if not findalias 'pet'
   promptalias 'pet'
 endif
-
 if not inrange 'pet' 1
   headmsg 'Get closer.'
   unsetalias 'pet'
   stop
 endif
-
 if diffhits 'pet' <= 0
   headmsg 'Pet full health.'
   unsetalias 'pet'
   stop
 endif
-
 if @findtype 0xe21
   @useobject 'found'
-  else
+else
   headmsg 'out of bandages'
   stop
 endif
-
 clearjournal
 waitfortarget 1000
 target! 'pet'
-
 if injournal 'not damaged' 'system'
   headmsg 'not hurt'
   unsetalias 'pet'
   stop
 endif
-
 clearjournal
-
 while not @injournal 'you finish applying' 'system'
   //headmsg 'pausing'
   pause 50
 endwhile
-
 replay

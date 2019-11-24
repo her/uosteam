@@ -2,22 +2,18 @@ if not @findobject 'KegBag'
   headmsg 'Select container with Poison Kegs'
   promptalias 'KegBag'
 endif
-
 if not @findobject 'EKegBag'
   headmsg 'Select a container for Empty kegs'
   promptalias 'EKegBag'
 endif
-
 if not @findobject 'ToPoison'
   headmsg 'Select object you wish to continually poison'
   promptalias 'ToPoison'
 endif
-
 if not @findtype '0xf0e' 'any' 'backpack' '2' '3'
   headmsg 'Gonna need some bottles'
   stop
 endif
-
 while skill 'poisoning' < '100.0'
   if @findtype '0x1940' 'any' 'backpack' 'any' '2'
     @setalias 'Pkeg' 'found'
@@ -31,14 +27,12 @@ while skill 'poisoning' < '100.0'
     pause 600
     @unsetalias 'found'
   endif
-
   if not @findtype '0xf0a' 'any' 'backpack' '2' '3'
     @useobject 'PKeg'
     pause 600
     @useobject 'PKeg'
     pause 600
   endif
-
   while @findtype '0xf0a' 'any' 'backpack' 'any' '3'
     useskill 'poisoning'
     waitfortarget 5000
@@ -47,15 +41,13 @@ while skill 'poisoning' < '100.0'
     target! 'ToPoison'
     pause 11000
   endwhile
-
   if poisoned 'self' and skill 'magery' > 50
     miniheal 'self'
     pause 1500
-    elseif poisoned 'self' and skill 'healing' > '80'
+  elseif poisoned 'self' and skill 'healing' > '80'
     bandageself
     pause 11500
   endif
-
   if @injournal 'The keg is now empty.' 'system' or @injournal 'The keg is empty.' 'system'
     moveitem 'PKeg' 'EKegBag'
     pause 600

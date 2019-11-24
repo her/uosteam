@@ -1,47 +1,37 @@
 //Experience
 //Heals 2 pets.
 //Included health/weight check on self
-
 @cleartargetqueue
 @clearjournal
-
 if dead 'self'
   stop
 endif
-
 if not timerexists 'VetBandage'
   createtimer 'VetBandage'
   settimer 'VetBandage' 0
 endif
-
 while weight > maxweight
   cast 'bless'
   autotargetself!
   pause 2500
-
   if weight >= 428
     headmsg 'OVER MAX'
   endif
 endwhile
-
 //Setup
 if not findalias 'pet1'
   headmsg 'Select first pet'
   promptalias 'pet1'
 endif
-
 if not findalias 'pet2'
   headmsg 'Select second pet'
   promptalias 'pet2'
 endif
-
 //Heal them to full
-
 while not @inrange 'pet1' 2 and not @inrange 'pet2' 2
   headmsg "Get closer"
   pause 300
 endwhile
-
 while hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2'
   if weight > maxweight
     cast 'bless'
@@ -49,13 +39,11 @@ while hits 'pet1' == maxhits 'pet1' and hits 'pet2' == maxhits 'pet2'
   endif
   pause 500
 endwhile
-
 if diffhits 'pet1' > diffhits 'pet2'
   if @inrange 'pet1' 1 and timer 'VetBandage' >= '6300'
     bandage
     autotargetobject! 'pet1'
     settimer 'VetBandage' 0
-
     if poisoned 'pet1'
       pause 1200
     endif
@@ -66,14 +54,12 @@ else
     bandage
     autotargetobject! 'pet2'
     settimer 'VetBandage' 0
-
     if poisoned 'pet2'
       pause 1200
     endif
     @cleartargetqueue
   endif
 endif
-
 if not @injournal 'finish' 'system'
   pause 1100
   replay
@@ -87,5 +73,4 @@ elseif @injournal 'stay close enough' 'system'
   @clearjournal
   replay
 endif
-
 @clearjournal

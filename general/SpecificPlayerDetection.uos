@@ -1,13 +1,7 @@
 //Set "Name" to the exact name you are looking for
-
 @getfriend 'innocent' 'friend'
-
 while @name 'friend' == 'Name' and @inrange 'friend' 10
-
   headmsg 'There!'
-
-headmsg 'Here I am' '35' 'friend'
-
+  headmsg 'Here I am' '35' 'friend'
   pause 1000
-
 endwhile

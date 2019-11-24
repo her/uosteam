@@ -1,49 +1,25 @@
-if not @findalias 'blankrunes' 
-
-  sysmsg 'blank rune bag?' 
-
-  promptalias 'blankrunes' 
-
-endif 
-
-if not @findalias 'markedrunes' 
-
-  sysmsg 'marked rune bag?' 
-
-  promptalias 'markedrunes' 
-
-endif 
-
-while @findtype '0x1f14' 'any' 'blankrunes' 
-
-  if mana < 60 
-
-    pause 1000 
-
-    useskill 'meditation' 
-
-    while mana < 100 
-
-      pause 500 
-
-    endwhile 
-
-  endif 
-
-  cast 'mark' 
-
-  waitfortarget 15000 
-
-  target 'found' 
-
-  pause 1000 
-
-  useobject 'found' 
-
-  waitforprompt 15000 
-
-  promptmsg 'LabelGoesHere' 
-
-  moveitem 'found' 'markedrunes' 
-
-endwhile 
+if not @findalias 'blankrunes'
+  sysmsg 'blank rune bag?'
+  promptalias 'blankrunes'
+endif
+if not @findalias 'markedrunes'
+  sysmsg 'marked rune bag?'
+  promptalias 'markedrunes'
+endif
+while @findtype '0x1f14' 'any' 'blankrunes'
+  if mana < 60
+    pause 1000
+    useskill 'meditation'
+    while mana < 100
+      pause 500
+    endwhile
+  endif
+  cast 'mark'
+  waitfortarget 15000
+  target 'found'
+  pause 1000
+  useobject 'found'
+  waitforprompt 15000
+  promptmsg 'LabelGoesHere'
+  moveitem 'found' 'markedrunes'
+endwhile

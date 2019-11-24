@@ -1,42 +1,27 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//   training resist from 0 on    // 
-//  yourself. I suggest bringing  // 
-//  5 less spider's silk than the // 
-//   rest that way you can still  // 
-//     recall after macroing.     // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'Resisting Spells' < 100 
-
-  if @injournal 'insufficient mana' 
-
-    clearjournal 
-
-    useskill 'meditation' 
-
-    while mana < maxmana 
-
-    endwhile 
-
-  else 
-
-    cast 'mana vampire' 'self' 
-
-    pause 1000 
-
-  endif 
-
-else 
-
-  msg '1122334455' 
-
-  headmsg 'Resisting spells complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//   training resist from 0 on    //
+//  yourself. I suggest bringing  //
+//  5 less spider's silk than the //
+//   rest that way you can still  //
+//     recall after macroing.     //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'Resisting Spells' < 100
+  if @injournal 'insufficient mana'
+    clearjournal
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    cast 'mana vampire' 'self'
+    pause 1000
+  endif
+else
+  msg '1122334455'
+  headmsg 'Resisting spells complete!'
+  stop
 endif

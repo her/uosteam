@@ -1,87 +1,44 @@
-//Experience 
-
-//Makes rune books. Checks resources each time. 
-
-//Drop Bag must be in your pack! 
-
-if not findobject 'Secure' 
-
-  promptalias 'Secure' 
-
-endif 
-
-if not findobject 'Source Container' 
-
-  headmsg 'Select Source Container' 
-
-  promptalias 'Source Container' 
-
-endif 
-
-if not findalias 'Drop Bag' 
-
-  headmsg 'Select Drop Bag' 
-
-  promptalias 'Drop Bag' 
-
-endif 
-
-useobject "Secure" 
-
-pause 1000 
-
-useobject "Source Container" 
-
-pause 800 
-
-if counttype '0x1f60' 'any' 'backpack' == 0 
-
-  headmsg 'Need More Gate Scrolls!' 
-
-  stop 
-
-endif 
-
-if counttype '0x1f4c' 'any' 'backpack' == 0 
-
-  headmsg 'Need More Recall Scrolls!' 
-
-  stop 
-
-endif 
-
-if counttype '0x1f14' 'any' 'backpack' == 0 
-
-  headmsg 'Need More Blank Runes!' 
-
-  stop 
-
-endif 
-
-if counttype '0xef3' 'any' 'backpack' < 8 
-
-  headmsg 'Need more Blank Scrolls!' 
-
-  stop 
-
-endif 
-
-usetype '0xfbf' 'any' 'backpack' '1' 
-
-waitforgump 0x38920abd 5000 
-
-replygump 0x38920abd 57 
-
-waitforgump 0x38920abd 5000 
-
-replygump 0x38920abd 2 
-
-waitforgump 0x38920abd 5000 
-
-pause 800 
-
-if @findtype '0x22c5' 'backpack' 
-
-  movetype! '0x22c5' 'backpack' 'Drop Bag' (0 0 0) '1121' '1' '0' 
-
-endif 
+//Experience
+//Makes rune books. Checks resources each time.
+//Drop Bag must be in your pack!
+if not findobject 'Secure'
+  promptalias 'Secure'
+endif
+if not findobject 'Source Container'
+  headmsg 'Select Source Container'
+  promptalias 'Source Container'
+endif
+if not findalias 'Drop Bag'
+  headmsg 'Select Drop Bag'
+  promptalias 'Drop Bag'
+endif
+useobject "Secure"
+pause 1000
+useobject "Source Container"
+pause 800
+if counttype '0x1f60' 'any' 'backpack' == 0
+  headmsg 'Need More Gate Scrolls!'
+  stop
+endif
+if counttype '0x1f4c' 'any' 'backpack' == 0
+  headmsg 'Need More Recall Scrolls!'
+  stop
+endif
+if counttype '0x1f14' 'any' 'backpack' == 0
+  headmsg 'Need More Blank Runes!'
+  stop
+endif
+if counttype '0xef3' 'any' 'backpack' < 8
+  headmsg 'Need more Blank Scrolls!'
+  stop
+endif
+usetype '0xfbf' 'any' 'backpack' '1'
+waitforgump 0x38920abd 5000
+replygump 0x38920abd 57
+waitforgump 0x38920abd 5000
+replygump 0x38920abd 2
+waitforgump 0x38920abd 5000
+pause 800
+if @findtype '0x22c5' 'backpack'
+  movetype! '0x22c5' 'backpack' 'Drop Bag' (0 0 0) '1121' '1' '0'
+endif

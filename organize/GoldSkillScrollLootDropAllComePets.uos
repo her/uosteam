@@ -1,26 +1,20 @@
 //Author: Experience
 //Added "All Come" for pets
-
 if not @findobject 'Recall Book'
   promptalias 'Recall Book'
 endif
-
 if not @findalias 'Loot Box'
   promptalias 'Loot Box'
 endif
-
 msg 'All Come'
 cast 'recall'
 autotargetobject 'Recall Book'
-
 pause 2000
 msg 'All Come'
 pause 2500
-
 while findtype '0xeed' 'any' 'backpack' 'any' '3'
   moveitem 'found' 'Loot Box' '0 0 0' 'all'
 endwhile
-
 while findtype '0x2260' 'any' 'backpack' 'any' '3'
   moveitem 'found' 'Loot Box' '0 0 0' 'all'
 endwhile

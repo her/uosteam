@@ -1,36 +1,23 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training item identification  // 
-//  from 0. I typically target my // 
-//            dagger.             // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findalias 'itemid' 
-
-  headmsg 'Select the item to train ID on' 
-
-  promptalias 'itemid' 
-
-endif 
-
-if skill 'item identification' < 100 
-
-  useskill 'item identification' 
-
-  waitfortarget 2000 
-
-  target! 'itemid' 
-
-  pause 1000 
-
-else 
-
-  headmsg 'Item Identification Complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//  training item identification  //
+//  from 0. I typically target my //
+//            dagger.             //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findalias 'itemid'
+  headmsg 'Select the item to train ID on'
+  promptalias 'itemid'
+endif
+if skill 'item identification' < 100
+  useskill 'item identification'
+  waitfortarget 2000
+  target! 'itemid'
+  pause 1000
+else
+  headmsg 'Item Identification Complete!'
+  stop
 endif

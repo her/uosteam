@@ -4,819 +4,411 @@
 //want to fill. And set resource type   //
 //to match.                             //
 //////////////////////////////////////////
-
 if not @findobject 'Bulk Source'
-
   promptalias 'Bulk Source'
-
 endif
-
 if not @findobject 'Bulk Destination'
-
   promptalias 'Bulk Destination'
-
 endif
-
 if not @findobject 'Restock'
-
   promptalias 'Restock'
-
 endif
-
 if not @findobject 'Trash Barrel'
-
   promptalias 'Trash Barrel'
-
 endif
-
 // Craft Info
-
 if not listexists 'CraftInfo'
-
   @createlist 'CraftInfo'
-
   // Hats
-
   @pushlist 'CraftInfo' 0x1544
-
   @pushlist 'CraftInfo' 0x1540
-
   @pushlist 'CraftInfo' 0x1713
-
   @pushlist 'CraftInfo' 0x1715
-
   @pushlist 'CraftInfo' 0x1714
-
   @pushlist 'CraftInfo' 0x1716
-
   @pushlist 'CraftInfo' 0x1717
-
   @pushlist 'CraftInfo' 0x1718
-
   @pushlist 'CraftInfo' 0x1719
-
   @pushlist 'CraftInfo' 0x171a
-
   @pushlist 'CraftInfo' 0x171b
-
   @pushlist 'CraftInfo' 0x171c
-
   @pushlist 'CraftInfo' 0x2306
-
   // Shirts
-
   @pushlist 'CraftInfo' 0x1f7b
-
   @pushlist 'CraftInfo' 0x1efd
-
   @pushlist 'CraftInfo' 0x2310
-
   @pushlist 'CraftInfo' 0x1517
-
   @pushlist 'CraftInfo' 0x1fa1
-
   @pushlist 'CraftInfo' 0x1ffd
-
   @pushlist 'CraftInfo' 0x1f01
-
   @pushlist 'CraftInfo' 0x1f00
-
   @pushlist 'CraftInfo' 0x1515
-
   @pushlist 'CraftInfo' 0x1f03
-
   @pushlist 'CraftInfo' 0x1f9f
-
   @pushlist 'CraftInfo' 0x230a
-
   @pushlist 'CraftInfo' 0x230e
-
   // Pants
-
   @pushlist 'CraftInfo' 0x152e
-
   @pushlist 'CraftInfo' 0x1539
-
   @pushlist 'CraftInfo' 0x1537
-
   @pushlist 'CraftInfo' 0x1516
-
   // Miscellaneous
-
   @pushlist 'CraftInfo' 0x1541
-
   @pushlist 'CraftInfo' 0x153b
-
   @pushlist 'CraftInfo' 0x153d
-
   // Footwear
-
   @pushlist 'CraftInfo' 0x2307
-
   @pushlist 'CraftInfo' 0x1711
-
   @pushlist 'CraftInfo' 0x170f
-
   @pushlist 'CraftInfo' 0x170d
-
   @pushlist 'CraftInfo' 0x170b
-
   // Leather
-
   @pushlist 'CraftInfo' 0x13c7
-
   @pushlist 'CraftInfo' 0x1db9
-
   @pushlist 'CraftInfo' 0x13c6
-
   @pushlist 'CraftInfo' 0x13cd
-
   @pushlist 'CraftInfo' 0x13cb
-
   @pushlist 'CraftInfo' 0x13cc
-
   // Studded
-
   @pushlist 'CraftInfo' 0x13d6
-
   @pushlist 'CraftInfo' 0x13d5
-
   @pushlist 'CraftInfo' 0x13dc
-
   @pushlist 'CraftInfo' 0x13da
-
   @pushlist 'CraftInfo' 0x13db
-
   // Female Armor
-
   @pushlist 'CraftInfo' 0x1c00
-
   @pushlist 'CraftInfo' 0x1c08
-
   @pushlist 'CraftInfo' 0x1c0a
-
   @pushlist 'CraftInfo' 0x1c0c
-
   @pushlist 'CraftInfo' 0x1c06
-
   @pushlist 'CraftInfo' 0x1c02
-
 endif
-
 // Search for a Tailoring BOD to fill
-
 if @findtype 0x14ef '1155' 'backpack'
-
   @setalias 'bod' 'found'
-
   useobject! 'bod'
-
   waitforgump 0x5afbd742 15000
-
   // Combine
-
   if not targetexists 'server'
-
     replygump 0x5afbd742 2
-
     waitforgump 0x5afbd742 15000
-
     waitfortarget 5000
-
   endif
-
   // Check for sewing kits
-
   if @findtype 0xf9d 0 'backpack'
-
     pause 1500
-
     @setalias 'sewing kit' 'found'
-
     useobject! 'sewing kit'
-
     waitforgump 0x38920abd 15000
-
     // Craft
-
     while targetexists 'server'
-
       // Check for sewing kit before craft
-
       if not @findobject 'sewing kit'
-
         break
-
       endif
-
       if @ingump '0x5afbd742' 'leather'
-
         headmsg 'Leather'
-
         canceltarget
-
         @unsetalias 'found'
-
         stop
-
       elseif @ingump '0x5afbd742' 'studded'
-
         headmsg 'Leather'
-
         canceltarget
-
         @unsetalias 'found'
-
         stop
-
       elseif @ingump '0x5afbd742' 'boots'
-
         headmsg 'Leather'
-
         canceltarget
-
         @unsetalias 'found'
-
         stop
-
       elseif @ingump '0x5afbd742' 'shoes'
-
         headmsg 'Leather'
-
         canceltarget
-
         @unsetalias 'found'
-
         stop
-
       elseif @ingump '0x5afbd742' 'sandals'
-
         headmsg 'Leather'
-
         canceltarget
-
         @unsetalias 'found'
-
         stop
-
       endif
-
       if not @ingump 0x5afbd742 'leather' and not @ingump 0x5afbd742 'studded'
-
         // Check for cut cloths
-
         if @counttype 0x1766 'any' 'backpack' < 50 and @counttype 0x1767 'any' 'backpack' < 50
-
           if @movetype 0x1766 'Restock' 'backpack' 0 0 0 'any' 100 or @movetype 0x1767 'Restock' 'backpack' 0 0 0 'any' 100
-
             pause 1500
-
           else
-
             sysmsg 'Out of cloths!' 25
-
             @canceltarget
-
             stop
-
           endif
-
         endif
-
         // Hats
-
         if @ingump 0x5afbd742 'skullcap'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 2
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[0]
-
         elseif @ingump 0x5afbd742 'bandana'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 9
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[1]
-
         elseif @ingump 0x5afbd742 'floppy hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 16
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[2]
-
         elseif @ingump 0x5afbd742 'cap'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 23
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[3]
-
         elseif @ingump 0x5afbd742 'wide-brim hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 30
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[4]
-
         elseif @ingump 0x5afbd742 'tall straw hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 44
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[5]
-
         elseif @ingump 0x5afbd742 'straw hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 37
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[6]
-
         elseif @ingump 0x5afbd742 "wizard's hat"
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 51
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[7]
-
         elseif @ingump 0x5afbd742 'bonnet'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 58
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[8]
-
         elseif @ingump 0x5afbd742 'feathered hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 65
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[9]
-
         elseif @ingump 0x5afbd742 'tricorne hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 72
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[10]
-
         elseif @ingump 0x5afbd742 'jester hat'
-
           replygump 0x38920abd 1
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 79
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[11]
-
           // Shirts
-
         elseif @ingump 0x5afbd742 'doublet'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 2
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[13]
-
         elseif @ingump 0x5afbd742 'fancy shirt'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 16
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[14]
-
         elseif @ingump 0x5afbd742 'shirt'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 9
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[16]
-
         elseif @ingump 0x5afbd742 'tunic'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 23
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[17]
-
         elseif @ingump 0x5afbd742 'surcoat'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 30
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[18]
-
         elseif @ingump 0x5afbd742 'plain dress'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 37
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[19]
-
         elseif @ingump 0x5afbd742 'fancy dress'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 44
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[20]
-
         elseif @ingump 0x5afbd742 'cloak'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 51
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[21]
-
         elseif @ingump 0x5afbd742 'robe'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 58
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[22]
-
         elseif @ingump 0x5afbd742 'jester suit'
-
           replygump 0x38920abd 8
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 65
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[23]
-
           // Pants
-
         elseif @ingump 0x5afbd742 'short pants'
-
           replygump 0x38920abd 15
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 2
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[26]
-
         elseif @ingump 0x5afbd742 'long pants'
-
           replygump 0x38920abd 15
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 9
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[27]
-
         elseif @ingump 0x5afbd742 'kilt'
-
           replygump 0x38920abd 15
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 16
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[28]
-
         elseif @ingump 0x5afbd742 'skirt'
-
           replygump 0x38920abd 15
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 23
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[29]
-
           // Miscellaneous
-
         elseif @ingump 0x5afbd742 'body sash'
-
           replygump 0x38920abd 22
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 2
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[30]
-
         elseif @ingump 0x5afbd742 'half apron'
-
           replygump 0x38920abd 22
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 9
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[31]
-
         elseif @ingump 0x5afbd742 'full apron'
-
           replygump 0x38920abd 22
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 16
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[32]
-
           // Footwear
-
         elseif @ingump 0x5afbd742 'fur boots'
-
           replygump 0x38920abd 29
-
           waitforgump 0x38920abd 15000
-
           replygump 0x38920abd 9
-
           waitforgump 0x38920abd 15000
-
           pause 250
-
           @findtype CraftInfo[33]
-
         else
-
           @unsetalias 'found'
-
         endif
-
       endif
-
       // No crafted items were found
-
       if not @findobject 'found'
-
         // Craft failed, try again
-
         if @ingump 0x38920abd 'failed to create the item'
-
           continue
-
         endif
-
       endif
-
       target! 'found'
-
       waitfortarget 5000
-
       if not targetexists and @injournal 'must be exceptional' 'system'
-
         // Recycle this item
-
         if usetype! 0xf9f
-
           waitfortarget 5000
-
           target! 'found'
-
           pause 1500
-
         endif
-
         // Unable to recycle, trash item
-
         if @findobject 'found'
-
           @moveitem! 'found' 'Trash Barrel'
-
           pause 1500
-
         endif
-
         replygump 0x5afbd742 2
-
         waitforgump 0x5afbd742 15000
-
         waitfortarget 5000
-
         clearjournal
-
       endif
-
     endwhile
-
     // BOD is complete, move to destination
-
     if not targetexists 'server'
-
       @moveitem 'bod' 'Bulk Destination'
-
     endif
-
     pause 1500
-
     // Out of sewing kits
-
   elseif @movetype 0xf9d 'Restock' 'backpack'
-
     pause 1500
-
   else
-
     sysmsg 'Out of sewing kits!' 25
-
     @canceltarget
-
     stop
-
   endif
-
 elseif not property 'Deeds In Book: 0' 'Bulk Source'
-
   useobject! 'Bulk Source'
-
   waitforgump 0x54f555df 15000
-
   replygump 0x54f555df 5
-
   pause 1500
-
 else
-
   sysmsg 'Unable to find BODs to fill.' 64
-
   @canceltarget
-
   stop
-
 endif

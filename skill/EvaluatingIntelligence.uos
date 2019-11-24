@@ -1,35 +1,22 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//      training evaluating       // 
-//      intelligence from 0.      // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findalias 'eval' 
-
-  headmsg 'Select the person to train evaluating intelligence on' 
-
-  promptalias 'eval' 
-
-endif 
-
-if skill 'evaluating intelligence' < 100 
-
-  useskill 'evaluating intelligence' 
-
-  waitfortarget 2000 
-
-  target! 'eval' 
-
-  pause 1000 
-
-else 
-
-  headmsg 'Evaluating Intelligence Complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//      training evaluating       //
+//      intelligence from 0.      //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findalias 'eval'
+  headmsg 'Select the person to train evaluating intelligence on'
+  promptalias 'eval'
+endif
+if skill 'evaluating intelligence' < 100
+  useskill 'evaluating intelligence'
+  waitfortarget 2000
+  target! 'eval'
+  pause 1000
+else
+  headmsg 'Evaluating Intelligence Complete!'
+  stop
 endif

@@ -1,16 +1,14 @@
 // Calls another Macro after using.
 // Make sure the commented out section below
-// 'Auto Bandage' exist as another macro 
+// 'Auto Bandage' exist as another macro
 // named "Auto Bandage" for this to work
-
 //Get Enemy Grey Only
 getenemy 'gray' 'criminal' 'closest'
 if @inrange 'enemy' '10'
-attack! 'enemy'
-@clearusequeue
+  attack! 'enemy'
+  @clearusequeue
 endif
 playmacro 'Auto Bandage'
-
 // Auto Bandage
 //
 //while not dead

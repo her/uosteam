@@ -1,56 +1,52 @@
-if not @findobject 'Junk' 
-  headmsg 'Select where you wish to dump junk poles' 
-  promptalias 'Junk' 
-endif 
-
-if not @findalias 'Bent' 
-  headmsg 'Select where you wish to drop Bent Poles' 
-  if mounted 'self' 
-    useobject 'self' 
-    pause 600 
-  endif 
-  promptalias 'Bent'
-endif 
-
-if not @findobject 'Carp Tool' 
-  if @findtype '0x10e5' 'any' 'backpack' 'any' '3' or @findtype '0x1034' 'any' 'backpack' 'any' '3' 
-    setalias 'Carp Tool' 'found' 
-    pause 600 
-  else 
-    headmsg 'No tool found' 
+if not @findobject 'Junk'
+  headmsg 'Select where you wish to dump junk poles'
+  promptalias 'Junk'
+endif
+if not @findalias 'Bent'
+  headmsg 'Select where you wish to drop Bent Poles'
+  if mounted 'self'
+    useobject 'self'
+    pause 600
   endif
-endif 
-
-//Craft Pole 
-@useobject 'Carp Tool' 
-waitforgump 0x38920abd 15000 
-replygump 0x38920abd 22 
-waitforgump 0x38920abd 15000 
-replygump 0x38920abd 37 
-waitforgump 0x38920abd 15000 
-pause 600 
-
-while @findtype '0xdbf' 'any' 'backpack' 'any' '1' 
-  clickobject 'found' 
-  pause 800 
-  if @injournal 'fishing pole' 'system' 
-    headmsg 'Junk Pole' 
-    moveitem 'found' 'Junk' 
-    pause 800 
-    @ignoreobject 'found' 
-    @unsetalias 'found' 
-    @clearjournal 
-  elseif @injournal 'a bent rod' 'system' 
-    headmsg 'Bent Rod!!!!' 
-    sysmsg 'Bent Rod' 69 
-    useobject 'self' 
-    pause 800 
-    moveitem 'found' 'Bent' 
-    pause 800 
-    useobject 'mount' 
-    pause 600 
-    @ignoreobject 'found' 
-    @unsetalias 'found' 
-    @clearjournal 
-  endif 
+  promptalias 'Bent'
+endif
+if not @findobject 'Carp Tool'
+  if @findtype '0x10e5' 'any' 'backpack' 'any' '3' or @findtype '0x1034' 'any' 'backpack' 'any' '3'
+    setalias 'Carp Tool' 'found'
+    pause 600
+  else
+    headmsg 'No tool found'
+  endif
+endif
+//Craft Pole
+@useobject 'Carp Tool'
+waitforgump 0x38920abd 15000
+replygump 0x38920abd 22
+waitforgump 0x38920abd 15000
+replygump 0x38920abd 37
+waitforgump 0x38920abd 15000
+pause 600
+while @findtype '0xdbf' 'any' 'backpack' 'any' '1'
+  clickobject 'found'
+  pause 800
+  if @injournal 'fishing pole' 'system'
+    headmsg 'Junk Pole'
+    moveitem 'found' 'Junk'
+    pause 800
+    @ignoreobject 'found'
+    @unsetalias 'found'
+    @clearjournal
+  elseif @injournal 'a bent rod' 'system'
+    headmsg 'Bent Rod!!!!'
+    sysmsg 'Bent Rod' 69
+    useobject 'self'
+    pause 800
+    moveitem 'found' 'Bent'
+    pause 800
+    useobject 'mount'
+    pause 600
+    @ignoreobject 'found'
+    @unsetalias 'found'
+    @clearjournal
+  endif
 endwhile

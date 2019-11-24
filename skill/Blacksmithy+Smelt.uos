@@ -1,177 +1,89 @@
 //Author: Experience
-
 //Description: Train Blacksmithy
-
 //Uses Smith Hammer to train blacksmithy to 100
-
 //Smelter included
-
 if @findtype '0x13e3' '0' 'backpack' 'any' '2'
-
   @setalias 'Hammer' 'found'
-
   @unsetalias 'found'
-
 else
-
   headmsg "Need a Smith Hammer"
-
   stop
-
 endif
-
 if skill 'Blacksmithy' <  35
-
   headmsg 'Buy more skill and replay'
-
   stop
-
 elseif skill 'Blacksmithy' < 43
-
   //Cutlass
-
   replygump 0x38920abd 43
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 9
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x1441' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 elseif skill 'Blacksmithy' < 47
-
   //Scimitar
-
   replygump 0x38920abd 43
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 44
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x13b6' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 elseif skill 'Blacksmithy' < 52
-
   //Kryss
-
   replygump 0x38920abd 43
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 30
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x1401' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 elseif skill 'Blacksmithy' < 60
-
   //Katana
-
   replygump 0x38920abd 43
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 23
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x13ff' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 elseif skill 'Blacksmithy' < 95
-
   //Short Spear
-
   replygump 0x38920abd 57
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 16
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x1403' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 elseif skill 'Blacksmithy' < 100
-
   //Plate Gorget
-
   replygump 0x38920abd 22
-
   waitforgump 0x38920abd 15000
-
   replygump 0x38920abd 16
-
   waitforgump 0x38920abd 15000
-
   if @findtype '0x1413' 'any' 'backpack' 'any' '2'
-
     replygump 0x38920abd 14
-
     waitfortarget 15000
-
     target! 'found'
-
     waitforgump 0x38920abd 15000
-
   endif
-
 else
-
   headmsg '100 Blacksmith!!!'
-
 endif

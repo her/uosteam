@@ -1,81 +1,41 @@
 //Experience
-
 //LJ script
-
 //cuts tree directly in front and cuts logs into boards
-
 //be sure to equip your axe
-
 if not listexists 'Logs'
-
   createlist 'Logs'
-
   pushlist 'Logs' 0x1bdd
-
 endif
-
 if not findalias 'Axe'
-
   promptalias 'Axe'
-
 endif
-
 while weight >= 360
-
   headmsg 'Time to Unload'
-
   pause 3000
-
 endwhile
-
 useobject 'Axe'
-
 waitfortarget 15000
-
 if direction == 0
-
   targettileoffset 0 -1 0
-
 elseif direction == 1
-
   targettileoffset 1 -1 0
-
 elseif direction == 2
-
   targettileoffset 1 0 0
-
 elseif direction == 3
-
   targettileoffset 1 1 0
-
 elseif direction == 4
-
   targettileoffset 0 1 0
-
 elseif direction == 5
-
   targettileoffset -1 1 0
-
 elseif direction == 6
-
   targettileoffset -1 0 0
-
 elseif direction == 7
-
   targettileoffset -1 -1 0
-
 endif
-
 pause 4000
-
 if @findtype '0x1bdd' 'any' 'backpack' 'any' 'any'
-
   @setalias 'Logs' 'Found'
-
   useobject 'Axe'
-
   autotargetobject 'Logs'
-
   pause 1000
-
 endif

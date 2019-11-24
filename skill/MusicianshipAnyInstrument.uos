@@ -1,5 +1,4 @@
 //Select an instrument automatically to use
-
 if @findtype '0xe9e' '0' 'backpack' 'any' '2'         //Tambourine with red tassle
   @setalias 'instrument' 'found'
 elseif @findtype '0x2805' 'any' 'backpack' 'any' '4'  //Flute

@@ -1,211 +1,106 @@
-// Author: Hawt 
-
-// Description: Automatic Runebook Cloner. 
-
-// You need to insert the names of each rune on the "Names" List. IT will run over and over if a location is blocked untill it makes it passed too the rune. 
-
-//=========================================================== 
-
-//Select runebook to be cloned 
-
-promptalias 'ToBeCloned' 
-
-//Select a blank book 
-
-promptalias 'Blank Runebook' 
-
-//Lists 
-
-clearlist 'Runes' 
-
-clearlist 'Names' 
-
-if not listexists 'Runes' 
-
-  createlist 'Runes' 
-
-endif 
-
-if list 'Runes' == 0 
-
-  pushlist 'Runes' 5 
-
-  pushlist 'Runes' 11 
-
-  pushlist 'Runes' 17 
-
-  pushlist 'Runes' 23 
-
-  pushlist 'Runes' 29 
-
-  pushlist 'Runes' 35 
-
-  pushlist 'Runes' 41 
-
-  pushlist 'Runes' 47 
-
-  pushlist 'Runes' 53 
-
-  pushlist 'Runes' 59 
-
-  pushlist 'Runes' 65 
-
-  pushlist 'Runes' 71 
-
-  pushlist 'Runes' 77 
-
-  pushlist 'Runes' 83 
-
-  pushlist 'Runes' 89 
-
-  pushlist 'Runes' 95 
-
-endif 
-
-if not listexists 'Names' 
-
-  createlist 'Names' 
-
-endif 
-
-if list 'Names' == 0 
-
-  pushlist 'Names' 'Brit West' 
-
-  pushlist 'Names' "Brit East" 
-
-  pushlist 'Names' 'Buccs Den' 
-
-  pushlist 'Names' 'Jhelom' 
-
-  pushlist 'Names' 'Minoc' 
-
-  pushlist 'Names' 'Moonglow' 
-
-  pushlist 'Names' "Magincia" 
-
-  pushlist 'Names' "Nu'Jelm" 
-
-  pushlist 'Names' 'Occlo' 
-
-  pushlist 'Names' "Serp. Hold" 
-
-  pushlist 'Names' 'Skara Brae' 
-
-  pushlist 'Names' 'Trinsic West' 
-
-  pushlist 'Names' "Trinsic East" 
-
-  pushlist 'Names' 'Vesper' 
-
-  pushlist 'Names' 'Wind' 
-
-  pushlist 'Names' 'Yew' 
-
-endif 
-
-if not @findtype 0x1f14 any 'backpack' 
-
-  sysmsg 'Out of blank runes!' 25 
-
-  pause 100 
-
-  playsound 984 
-
-  pause 100 
-
-  playsound 987 
-
-  pause 100 
-
-  playsound 988 
-
-  pause 100 
-
-  messagebox 'Error'  '*No Runes restock & restart*' 
-
-  stop 
-
-endif 
-
-clearjournal 
-
-for 0 to 'Runes' 
-
-  if  mana <= 30 
-
-    useskill 'Meditation' 
-
-    while not mana == maxmana 
-
-    endwhile 
-
-  endif 
-
-  pause 1500 
-
-  useobject! 'ToBeCloned' 
-
-  waitforgump 0x554b87f3 15000 
-
-  pause 900 
-
-  replygump 0x554b87f3 Runes[0] 
-
-  pause '3500' 
-
-  if injournal 'blocked' 'system' 
-
-    replay 
-
-  endif 
-
-  if @findtype 0x1f14 0 'backpack' 1 2 
-
-    autotargetobject 'found' 
-
-    cast 'Mark' 
-
-    pause 3500 
-
-    useobject! 'found' 
-
-    waitforprompt 15000 
-
-    promptmsg Names[0] 
-
-    pause 2000 
-
-    moveitem 'found' 'Blank Runebook' 
-
-    pause 2000 
-
-    if @injournal 'Names[0]' 'system' 
-
-      @poplist 'Names' 'front' 
-
-      @poplist 'Runes' 'front' 
-
-    endif 
-
-  else 
-
-    playsound 984 
-
-    pause 100 
-
-    playsound 987 
-
-    pause 100 
-
-    playsound 988 
-
-    pause 100 
-
-    messagebox 'Error'  '*No Runes restock & restart*' 
-
-    stop 
-
-  endif 
-
-endfor 
+// Author: Hawt
+// Description: Automatic Runebook Cloner.
+// You need to insert the names of each rune on the "Names" List. IT will run over and over if a location is blocked untill it makes it passed too the rune.
+//===========================================================
+//Select runebook to be cloned
+promptalias 'ToBeCloned'
+//Select a blank book
+promptalias 'Blank Runebook'
+//Lists
+clearlist 'Runes'
+clearlist 'Names'
+if not listexists 'Runes'
+  createlist 'Runes'
+endif
+if list 'Runes' == 0
+  pushlist 'Runes' 5
+  pushlist 'Runes' 11
+  pushlist 'Runes' 17
+  pushlist 'Runes' 23
+  pushlist 'Runes' 29
+  pushlist 'Runes' 35
+  pushlist 'Runes' 41
+  pushlist 'Runes' 47
+  pushlist 'Runes' 53
+  pushlist 'Runes' 59
+  pushlist 'Runes' 65
+  pushlist 'Runes' 71
+  pushlist 'Runes' 77
+  pushlist 'Runes' 83
+  pushlist 'Runes' 89
+  pushlist 'Runes' 95
+endif
+if not listexists 'Names'
+  createlist 'Names'
+endif
+if list 'Names' == 0
+  pushlist 'Names' 'Brit West'
+  pushlist 'Names' "Brit East"
+  pushlist 'Names' 'Buccs Den'
+  pushlist 'Names' 'Jhelom'
+  pushlist 'Names' 'Minoc'
+  pushlist 'Names' 'Moonglow'
+  pushlist 'Names' "Magincia"
+  pushlist 'Names' "Nu'Jelm"
+  pushlist 'Names' 'Occlo'
+  pushlist 'Names' "Serp. Hold"
+  pushlist 'Names' 'Skara Brae'
+  pushlist 'Names' 'Trinsic West'
+  pushlist 'Names' "Trinsic East"
+  pushlist 'Names' 'Vesper'
+  pushlist 'Names' 'Wind'
+  pushlist 'Names' 'Yew'
+endif
+if not @findtype 0x1f14 any 'backpack'
+  sysmsg 'Out of blank runes!' 25
+  pause 100
+  playsound 984
+  pause 100
+  playsound 987
+  pause 100
+  playsound 988
+  pause 100
+  messagebox 'Error'  '*No Runes restock & restart*'
+  stop
+endif
+clearjournal
+for 0 to 'Runes'
+  if  mana <= 30
+    useskill 'Meditation'
+    while not mana == maxmana
+    endwhile
+  endif
+  pause 1500
+  useobject! 'ToBeCloned'
+  waitforgump 0x554b87f3 15000
+  pause 900
+  replygump 0x554b87f3 Runes[0]
+  pause '3500'
+  if injournal 'blocked' 'system'
+    replay
+  endif
+  if @findtype 0x1f14 0 'backpack' 1 2
+    autotargetobject 'found'
+    cast 'Mark'
+    pause 3500
+    useobject! 'found'
+    waitforprompt 15000
+    promptmsg Names[0]
+    pause 2000
+    moveitem 'found' 'Blank Runebook'
+    pause 2000
+    if @injournal 'Names[0]' 'system'
+      @poplist 'Names' 'front'
+      @poplist 'Runes' 'front'
+    endif
+  else
+    playsound 984
+    pause 100
+    playsound 987
+    pause 100
+    playsound 988
+    pause 100
+    messagebox 'Error'  '*No Runes restock & restart*'
+    stop
+  endif
+endfor

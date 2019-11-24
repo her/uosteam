@@ -1,223 +1,108 @@
-if not @findalias 'suitcontainer' 
-
-  sysmsg 'select suit container' 
-
-  promptalias 'suitcontainer' 
-
-endif 
-
-if not @findalias 'bagcontainer' 
-
-  sysmsg 'select bag container' 
-
-  promptalias 'bagcontainer' 
-
-endif 
-
-if not listexists 'bags' 
-
-  createlist 'bags' 
-
-endif 
-
-if not listexists 'dyeables' 
-
-  createlist 'dyeables' 
-
-endif 
-
-clearlist 'bags' 
-
-clearlist 'dyeables' 
-
-while @findtype '0xe76' 'any' 'bagcontainer' 
-
-  pushlist 'bags' 'found' 
-
-  moveitem 'found' 'suitcontainer' 
-
-  pause 1000 
-
-endwhile 
-
-//now to start crafting 
-
-for 0 to 'bags' 
-
-  headmsg bags[] 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 36 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 2 
-
-  pause 1600 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 9 
-
-  pause 1600 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 16 
-
-  pause 1600 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 23 
-
-  pause 1600 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 30 
-
-  pause 1600 
-
-  usetype '0xf9d' 
-
-  waitforgump 0x38920abd 15000 
-
-  replygump 0x38920abd 37 
-
-  pause 1600 
-
-  findtype '0x13c7' 'any' 'backpack' // gorget 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-  findtype '0x1db9' 'any' 'backpack' // helmet 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-  findtype '0x13c6' 'any' 'backpack' // gloves 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-  findtype '0x13cd' 'any' 'backpack' // sleeves 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-  findtype '0x13cb' 'any' 'backpack' // leggings 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-  findtype '0x13cc' 'any' 'backpack' // tunic 
-
-  moveitem 'found' bags[] 
-
-  pushlist 'dyeables' 'found' 
-
-  pause 1000 
-
-endfor 
-
-
-
-
-
-//----------------------------- 
-
-
-
-Companion dyeing macro 
-
-
-
-if not @findalias 'suitcontainer' 
-
-  sysmsg 'select suit container' 
-
-  promptalias 'suitcontainer' 
-
-endif 
-
-if not listexists 'leathers' 
-
-  createlist 'leathers' 
-
-  pushlist 'leathers' 0x13c7 // gorget 
-
-  pushlist 'leathers' 0x1db9 // helm 
-
-  pushlist 'leathers' 0x13c6 // gloves 
-
-  pushlist 'leathers' 0x13cd // sleeves 
-
-  pushlist 'leathers' 0x13cb // leggings 
-
-  pushlist 'leathers' 0x13cc //tunic 
-
-endif 
-
-//now to start crafting 
-
-while @findtype '0xe76' 'any' 'suitcontainer' 
-
-  setalias 'bag' 'found' 
-
-  ignoreobject 'bag' 
-
-  useobject 0x402e68fd 
-
-  waitfortarget 5000 
-
-  target 'bag' 
-
-  for 0 to 'leathers' 
-
-    findtype leathers[] 'any' 'bag' 
-
-    ignoreobject 'found' 
-
-    useobject 0x402e68fd 
-
-    waitfortarget 5000 
-
-    target 'found' 
-
-    pause 1000 
-
-  endfor 
-
-endwhile 
-
+if not @findalias 'suitcontainer'
+  sysmsg 'select suit container'
+  promptalias 'suitcontainer'
+endif
+if not @findalias 'bagcontainer'
+  sysmsg 'select bag container'
+  promptalias 'bagcontainer'
+endif
+if not listexists 'bags'
+  createlist 'bags'
+endif
+if not listexists 'dyeables'
+  createlist 'dyeables'
+endif
+clearlist 'bags'
+clearlist 'dyeables'
+while @findtype '0xe76' 'any' 'bagcontainer'
+  pushlist 'bags' 'found'
+  moveitem 'found' 'suitcontainer'
+  pause 1000
+endwhile
+//now to start crafting
+for 0 to 'bags'
+  headmsg bags[]
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 36
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 2
+  pause 1600
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 9
+  pause 1600
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  pause 1600
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 23
+  pause 1600
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 30
+  pause 1600
+  usetype '0xf9d'
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 37
+  pause 1600
+  findtype '0x13c7' 'any' 'backpack' // gorget
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+  findtype '0x1db9' 'any' 'backpack' // helmet
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+  findtype '0x13c6' 'any' 'backpack' // gloves
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+  findtype '0x13cd' 'any' 'backpack' // sleeves
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+  findtype '0x13cb' 'any' 'backpack' // leggings
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+  findtype '0x13cc' 'any' 'backpack' // tunic
+  moveitem 'found' bags[]
+  pushlist 'dyeables' 'found'
+  pause 1000
+endfor
+//-----------------------------
+Companion dyeing macro
+if not @findalias 'suitcontainer'
+  sysmsg 'select suit container'
+  promptalias 'suitcontainer'
+endif
+if not listexists 'leathers'
+  createlist 'leathers'
+  pushlist 'leathers' 0x13c7 // gorget
+  pushlist 'leathers' 0x1db9 // helm
+  pushlist 'leathers' 0x13c6 // gloves
+  pushlist 'leathers' 0x13cd // sleeves
+  pushlist 'leathers' 0x13cb // leggings
+  pushlist 'leathers' 0x13cc //tunic
+endif
+//now to start crafting
+while @findtype '0xe76' 'any' 'suitcontainer'
+  setalias 'bag' 'found'
+  ignoreobject 'bag'
+  useobject 0x402e68fd
+  waitfortarget 5000
+  target 'bag'
+  for 0 to 'leathers'
+    findtype leathers[] 'any' 'bag'
+    ignoreobject 'found'
+    useobject 0x402e68fd
+    waitfortarget 5000
+    target 'found'
+    pause 1000
+  endfor
+endwhile
 clearignorelist

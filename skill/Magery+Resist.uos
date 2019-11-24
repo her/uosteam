@@ -1,93 +1,52 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//    training both magery and    // 
-// resist from 30. It is intended // 
-//     for characters with 40+    // 
-//          intelligence.         // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'magery' < 100 
-
-  if @injournal 'insufficient mana' 
-
-    clearjournal 
-
-    useskill 'meditation' 
-
-    while mana < maxmana 
-
-    endwhile 
-
-  else 
-
-    if skill 'magery' < 30 
-
-      headmsg 'Buy more skill!' 
-
-      stop 
-
-    elseif skill 'magery' < 45 
-
-      cast 'bless' 'self' 
-
-      pause 1000 
-
-    elseif skill 'magery' < 55 
-
-      cast 'mana drain' 'self' 
-
-      pause 1000 
-
-    elseif skill 'magery' < 75 
-
-      cast 'invisibility' 'self' 
-
-      pause 1000 
-
-    elseif skill 'magery' < 100 
-
-      cast 'mana vampire' 'self' 
-
-      pause 1000 
-
-    else 
-
-      headmsg 'Magery complete!' 
-
-      stop 
-
-    endif 
-
-  endif 
-
-elseif skill 'resisting spells' < 100 
-
-  if @injournal 'insufficient mana' 
-
-    clearjournal 
-
-    useskill 'meditation' 
-
-    while mana < maxmana 
-
-    endwhile 
-
-  else 
-
-    cast 'mana vampire' 'self' 
-
-    pause 1000 
-
-  endif 
-
-else 
-
-  headmsg 'Magery and resisting spells complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//    training both magery and    //
+// resist from 30. It is intended //
+//     for characters with 40+    //
+//          intelligence.         //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'magery' < 100
+  if @injournal 'insufficient mana'
+    clearjournal
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    if skill 'magery' < 30
+      headmsg 'Buy more skill!'
+      stop
+    elseif skill 'magery' < 45
+      cast 'bless' 'self'
+      pause 1000
+    elseif skill 'magery' < 55
+      cast 'mana drain' 'self'
+      pause 1000
+    elseif skill 'magery' < 75
+      cast 'invisibility' 'self'
+      pause 1000
+    elseif skill 'magery' < 100
+      cast 'mana vampire' 'self'
+      pause 1000
+    else
+      headmsg 'Magery complete!'
+      stop
+    endif
+  endif
+elseif skill 'resisting spells' < 100
+  if @injournal 'insufficient mana'
+    clearjournal
+    useskill 'meditation'
+    while mana < maxmana
+    endwhile
+  else
+    cast 'mana vampire' 'self'
+    pause 1000
+  endif
+else
+  headmsg 'Magery and resisting spells complete!'
+  stop
 endif

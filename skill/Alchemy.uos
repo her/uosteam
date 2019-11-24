@@ -1,186 +1,99 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-// training alchemy from 30. Have // 
-//  5 empty kegs on you and a lot // 
-//  of mortars and pestals. This  // 
-//   macro only makes PVP worthy  // 
-//   potions to minimize waste.   // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'alchemy' < 60 and not @findobject 'TR' 
-
-  headmsg 'Select Total Refresh Keg' 
-
-  promptalias 'TR' 
-
-endif 
-
-if skill 'alchemy' < 70 and not @findobject 'GA' 
-
-  headmsg 'Select Greater Agility Keg' 
-
-  promptalias 'GA' 
-
-endif 
-
-if skill 'alchemy' < 80 and not @findobject 'GS' 
-
-  headmsg 'Select Greater Strength Keg' 
-
-  promptalias 'GS' 
-
-endif 
-
-if skill 'alchemy' < 90 and not @findobject 'GH' 
-
-  headmsg 'Select Greater Heal Keg' 
-
-  promptalias 'GH' 
-
-endif 
-
-if skill 'alchemy' < 100 and not @findobject 'GC' 
-
-  headmsg 'Select Greater Cure Keg' 
-
-  promptalias 'GC' 
-
-endif 
-
-if skill 'alchemy' < 30 
-
-  headmsg 'Buy more skill!' 
-
-  stop 
-
-elseif skill 'alchemy' < 60 
-
-  if usetype 0xe9b 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 1 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 9 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-  if @findtype 0xf0b 0x0 'backpack' 
-
-    moveitem 'found' 'TR' 
-
-    pause 600 
-
-  endif 
-
-elseif skill 'alchemy' < 70 
-
-  if usetype 0xe9b 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 8 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 9 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-  if @findtype 0xf08 0x0 'backpack' 
-
-    moveitem 'found' 'GA' 
-
-    pause 600 
-
-  endif 
-
-elseif skill 'alchemy' < 80 
-
-  if usetype 0xe9b 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 29 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 9 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-  if @findtype 0xf09 0x0 'backpack' 
-
-    moveitem 'found' 'GS' 
-
-    pause 600 
-
-  endif 
-
-elseif skill 'alchemy' < 90 
-
-  if usetype 0xe9b 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 22 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 16 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-  if @findtype 0xf0c 0x0 'backpack' 
-
-    moveitem 'found' 'GH' 
-
-    pause 600 
-
-  endif 
-
-elseif skill 'alchemy' < 100 
-
-  if usetype 0xe9b 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 43 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 16 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-  if @findtype 0xf07 0x0 'backpack' 
-
-    moveitem 'found' 'GC' 
-
-    pause 600 
-
-  endif 
-
-else 
-
-  headmsg 'Alchemy complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+// training alchemy from 30. Have //
+//  5 empty kegs on you and a lot //
+//  of mortars and pestals. This  //
+//   macro only makes PVP worthy  //
+//   potions to minimize waste.   //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'alchemy' < 60 and not @findobject 'TR'
+  headmsg 'Select Total Refresh Keg'
+  promptalias 'TR'
+endif
+if skill 'alchemy' < 70 and not @findobject 'GA'
+  headmsg 'Select Greater Agility Keg'
+  promptalias 'GA'
+endif
+if skill 'alchemy' < 80 and not @findobject 'GS'
+  headmsg 'Select Greater Strength Keg'
+  promptalias 'GS'
+endif
+if skill 'alchemy' < 90 and not @findobject 'GH'
+  headmsg 'Select Greater Heal Keg'
+  promptalias 'GH'
+endif
+if skill 'alchemy' < 100 and not @findobject 'GC'
+  headmsg 'Select Greater Cure Keg'
+  promptalias 'GC'
+endif
+if skill 'alchemy' < 30
+  headmsg 'Buy more skill!'
+  stop
+elseif skill 'alchemy' < 60
+  if usetype 0xe9b 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+  if @findtype 0xf0b 0x0 'backpack'
+    moveitem 'found' 'TR'
+    pause 600
+  endif
+elseif skill 'alchemy' < 70
+  if usetype 0xe9b 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+  if @findtype 0xf08 0x0 'backpack'
+    moveitem 'found' 'GA'
+    pause 600
+  endif
+elseif skill 'alchemy' < 80
+  if usetype 0xe9b 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 29
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+  if @findtype 0xf09 0x0 'backpack'
+    moveitem 'found' 'GS'
+    pause 600
+  endif
+elseif skill 'alchemy' < 90
+  if usetype 0xe9b 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 22
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 2000
+  endif
+  if @findtype 0xf0c 0x0 'backpack'
+    moveitem 'found' 'GH'
+    pause 600
+  endif
+elseif skill 'alchemy' < 100
+  if usetype 0xe9b 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 43
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 2000
+  endif
+  if @findtype 0xf07 0x0 'backpack'
+    moveitem 'found' 'GC'
+    pause 600
+  endif
+else
+  headmsg 'Alchemy complete!'
+  stop
 endif

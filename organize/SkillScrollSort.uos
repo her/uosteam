@@ -13,12 +13,9 @@
 // Prompts.
 //
 // !!*** Init Data ***!!
-
 unsetalias 'frombag'
-
 // Uncomment the following code to have macro
 // ask everytime for destination containers
-
 //  unsetalias 'minorSSBag'
 //  unsetalias 'brownBag'
 //  unsetalias 'redBag'
@@ -27,56 +24,46 @@ unsetalias 'frombag'
 //  unsetalias 'blackBag'
 //  unsetalias 'blazeBag'
 //
-
 if not @findobject 'frombag'
   headmsg 'Select From Bag' '2124'
   promptalias 'frombag'
 endif
 pause 700
-
 if not @findobject 'minorSSBag'
   headmsg 'Select the +0.1 SS Bag' '2124'
   promptalias 'minorSSBag'
 endif
 pause 700
-
-
 if not @findobject 'brownBag'
   headmsg 'Select the Brown +1 SS Bag' '1355'
   promptalias 'brownBag'
 endif
 pause 700
-
 if not @findobject 'redBag'
   headmsg 'Select the Red +1 SS Bag' '37'
   promptalias 'redBag'
 endif
 pause 700
-
 if not @findobject 'purpleBag'
   headmsg 'Select the Purple +1 SS Bag' '1376'
   promptalias 'purpleBag'
 endif
 pause 700
-
 if not @findobject 'greenBag'
   headmsg 'Select the Green +1 SS Bag' '1368'
   promptalias 'greenBag'
 endif
 pause 700
-
 if not @findobject 'blackBag'
   headmsg 'Select the Black +1 SS Bag' '1904'
   promptalias 'blackBag'
 endif
 pause 700
-
 if not @findobject 'blazeBag'
   headmsg 'Select the Blaze +1 SS Bag' '1161'
   promptalias 'blazeBag'
 endif
 pause 700
-
 useobject 'frombag'
 pause 200
 useobject 'minorSSBag'
@@ -93,12 +80,9 @@ useobject 'blackBag'
 pause 200
 useobject 'blazeBag'
 pause 200
-
 while @findtype '0x2260' 'any' 'frombag'
   @clearjournal
-
   clickobject found
-
   pause 1500
   if @injournal '+0.1' 'system'
     moveitem found 'minorSSBag'
@@ -144,7 +128,6 @@ while @findtype '0x2260' 'any' 'frombag'
     moveitem found 'brownBag'
     headmsg '+1 Lockpicking ss' '1355'
     @clearjournal
-
   elseif @injournal 'MagicResist' 'system'
     moveitem found 'redBag'
     headmsg '+1 MagicResist ss' '37'
@@ -193,7 +176,6 @@ while @findtype '0x2260' 'any' 'frombag'
     moveitem found 'redBag'
     headmsg '+1 Magery ss' '37'
     @clearjournal
-
   elseif @injournal 'Provocation' 'system'
     moveitem found 'purpleBag'
     headmsg '+1 Provocation ss' '1376'
@@ -206,7 +188,6 @@ while @findtype '0x2260' 'any' 'frombag'
     moveitem found 'purpleBag'
     headmsg '+1 Discordance ss' '1376'
     @clearjournal
-
   elseif @injournal 'Herding' 'system'
     moveitem found 'greenBag'
     headmsg '+1 Herding ss' '1368'
@@ -223,7 +204,6 @@ while @findtype '0x2260' 'any' 'frombag'
     moveitem found 'greenBag'
     headmsg '+1 Archery ss' '1368'
     @clearjournal
-
   elseif @injournal 'Stealing' 'system'
     moveitem found 'blackBag'
     headmsg '+1 Stealing ss' '1904'
@@ -240,7 +220,6 @@ while @findtype '0x2260' 'any' 'frombag'
     moveitem found 'blackBag'
     headmsg '+1 Poisoning ss' '1904'
     @clearjournal
-
   elseif @injournal 'AnimalTaming' 'system'
     moveitem found 'blazeBag'
     headmsg '+1 AnimalTaming ss' '1161'
@@ -248,7 +227,6 @@ while @findtype '0x2260' 'any' 'frombag'
   endif
   pause 1000
 endwhile
-
 stop
 headmsg 'done' '58'
 msg '[e whistle'

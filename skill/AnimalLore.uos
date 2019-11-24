@@ -1,8 +1,8 @@
-if not findalias 'pet' 
-sysmsg 'Target a pet' 
-promptalias 'pet' 
-endif 
-useskill 'Animal Lore' 
-waitfortarget 15000 
-target ! 'pet' 
-pause 5000 
+if not findalias 'pet'
+  sysmsg 'Target a pet'
+  promptalias 'pet'
+endif
+useskill 'Animal Lore'
+waitfortarget 15000
+target ! 'pet'
+pause 5000

@@ -1,21 +1,11 @@
-// Set up a Organizer named "Recalls" 
-
-//Set amount to 10 
-
-if not @findobject 'StockBox' 
-
-  promptalias 'StockBox' 
-
-elseif not @findobject 'VendorContainer' 
-
-  promptalias 'VendorContainer' 
-
-endif 
-
-organizer 'Recalls' 'StockBox' 'VendorContainer' 
-
-while organizing 
-
-  pause 100 
-
-endwhile 
+// Set up a Organizer named "Recalls"
+//Set amount to 10
+if not @findobject 'StockBox'
+  promptalias 'StockBox'
+elseif not @findobject 'VendorContainer'
+  promptalias 'VendorContainer'
+endif
+organizer 'Recalls' 'StockBox' 'VendorContainer'
+while organizing
+  pause 100
+endwhile

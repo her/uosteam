@@ -1,1026 +1,531 @@
-//***************************************************************************// 
-// UOSteam Macro                                                             // 
-// The Butler                                                                // 
-// Revision 1c                                                               // 
-// by Casor                                                                  // 
-//   some code taken from macros by darktyle, thanks darktyle!               // 
-//                                                                           // 
-// rev 1: 12.18.2014                                                         // 
-// rev 1a: 12.23.2014                                                        // 
-//   + increased pause time from 650ms to 800ms                              // 
-//   + removed hard-coded serials, it will ask the first time you run.       // 
-//     thanks Experience for showing me this.                                // 
-//   + added leather cap to armor                                            // 
-//   + added bandages                                                        // 
-//   + added trapped pouches (will trap them for you if needed)              // 
-//   + added 1h and 2h weapons (kryss and short spear used in example)       // 
-//     it equips each then toggles hands to put in pack, so you can use      // 
-//     your togglehands left/right hotkeys to equip/unequip each             // 
-// rev1b: 12.24.2014                                                         // 
-//   + noticed a problem with script finding things if the container had     // 
-//     not been opened before. now open containers before checking for items.// 
-//   + added skill checks:                                                   // 
-//     if med > 50, will get 75 of each reag, otherwise will get 50 each     // 
-//     if healing or vet > 50, will get bandages (inc # to 100)              // 
-//     if alchemy > 50, will get 20 explosion pots, otherwise will get 3     // 
-//       changed other default # of potions to higher values                 // 
-//     if tactics > 50, will get 10 str pots, otherwise will get 5           // 
-//                      will get 10 agil pots, otherwise will get 0          // 
-//     if med > 50, will equip leather armor, otherwise will assume melee    // 
-//                  character and equip studded armor and a no-dex loss helm // 
-//     gets weapons based on weapon skills, will check for several weapon    // 
-//       types and get first available. will get axe if lumberjack           // 
-// rev 1c: 12.24.2014                                                        // 
-//   + fixed an issue with selecting a new keg when one runs empty. it will  // 
-//     now only ask for the new keg once.                                    // 
-//***************************************************************************// 
-
-// 
-
-// clear journal & use once agent 
-
-clearjournal 
-
-clearuseonce 
-
-// set aliases 
-
-// set reagent list 
-
-if not listexists 'regs' 
-
-  createlist 'regs' 
-
-  pushlist 'regs' 0xf7a  // Black Pearl 
-
-  pushlist 'regs' 0xf7b  // Blood Moss 
-
-  pushlist 'regs' 0xf86  // Mandrake Root 
-
-  pushlist 'regs' 0xf84  // Garlic 
-
-  pushlist 'regs' 0xf85  // Ginseng 
-
-  pushlist 'regs' 0xf88  // Nightshade 
-
-  pushlist 'regs' 0xf8d  // Spider's Silk 
-
-  pushlist 'regs' 0xf8c  // Sulphurous Ash 
-
-endif 
-
-while not @findobject 'container_regs' 
-
-  headmsg 'Reagents container?' 
-
-  promptalias 'container_regs' 
-
-endwhile 
-
-while not @findobject 'container_armor' 
-
-  headmsg 'Armor container?' 
-
-  promptalias 'container_armor' 
-
-endwhile 
-
-while not @findobject 'container_bottles' 
-
-  headmsg 'Empty bottles container?' 
-
-  promptalias 'container_bottles' 
-
-endwhile 
-
-while not @findobject 'cure_keg' 
-
-  headmsg 'Cure Keg?' 
-
-  promptalias 'cure_keg' 
-
-endwhile 
-
-while not @findobject 'heal_keg' 
-
-  headmsg 'Heal Keg?' 
-
-  promptalias 'heal_keg' 
-
-endwhile 
-
-while not @findobject 'refresh_keg' 
-
-  headmsg 'Refresh Keg?' 
-
-  promptalias 'refresh_keg' 
-
-endwhile 
-
-while not @findobject 'str_keg' 
-
-  headmsg 'Strength Keg?' 
-
-  promptalias 'str_keg' 
-
-endwhile 
-
-while not @findobject 'agil_keg' 
-
-  headmsg 'Agility Keg?' 
-
-  promptalias 'agil_keg' 
-
-endwhile 
-
-while not @findobject 'expl_keg' 
-
-  headmsg 'Explosion Keg?' 
-
-  promptalias 'expl_keg' 
-
-endwhile 
-
-while not @findobject 'container_bandages' 
-
-  headmsg 'Bandage container?' 
-
-  promptalias 'container_bandages' 
-
-endwhile 
-
-while not @findobject 'container_pouches' 
-
-  headmsg 'Pouch container?' 
-
-  promptalias 'container_pouches' 
-
-endwhile 
-
-while not @findobject 'container_weapon' 
-
-  headmsg 'Weapon container?' 
-
-  promptalias 'container_weapon' 
-
-endwhile 
-
-// get reagents, get 75 each if med > 50, else get 50 each 
-
-@useobject 'container_regs' 
-
-pause 1000 
-
-if skill 'Meditation' > 50 
-
-  for 0 to 'regs' 
-
-    if @findtype 'regs[]' 'any' 'container_regs' 75 2 
-
-      @movetype 'regs[]' 'container_regs' 'backpack' 0 0 0 'any' 75 2 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find enough reagents!' 
-
-    endif 
-
-  endfor 
-
-else 
-
-  for 0 to 'regs' 
-
-    if @findtype 'regs[]' 'any' 'container_regs' 50 2 
-
-      @movetype 'regs[]' 'container_regs' 'backpack' 0 0 0 'any' 50 2 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find enough reagents!' 
-
-    endif 
-
-  endfor 
-
-endif 
-
-// equip armor 
-
-@useobject 'container_armor' 
-
-pause 1000 
-
-if skill 'Meditation' > 50 
-
-  // 0x13cb = Leather Leggings, 4 = leg slot 
-
-  // 0x13cc = Leather Tunic, 13 = chest slot 
-
-  // 0x13cd = Leather Sleeves, 19 = arm slot 
-
-  // 0x13c6 = Leather Gloves, 7 = hand slot 
-
-  // 0x13c7 = Leather Gorget, 10 = neck slot 
-
-  // 0x1db9 = Leather Cap, 6 = head slot 
-
-  if not @findlayer 'self' 4 
-
-    if @findtype '0x13cb' 'any' 'container_armor' 
-
-      equipitem 'found' 4 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 13 
-
-    if @findtype '0x13cc' 'any' 'container_armor' 
-
-      equipitem 'found' 13 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 19 
-
-    if @findtype '0x13cd' 'any' 'container_armor' 
-
-      equipitem 'found' 19 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 7 
-
-    if @findtype '0x13c6' 'any' 'container_armor' 
-
-      equipitem 'found' 7 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 10 
-
-    if @findtype '0x13c7' 'any' 'container_armor' 
-
-      equipitem 'found' 10 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 6 
-
-    if @findtype '0x1db9' 'any' 'container_armor' 
-
-      equipitem 'found' 6 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-else 
-
-  // 0x13da = Studded Leggings, 4 = leg slot 
-
-  // 0x13db = Studded Tunic, 13 = chest slot 
-
-  // 0x13dc = Studded Sleeves, 19 = arm slot 
-
-  // 0x13d5 = Studded Gloves, 7 = hand slot 
-
-  // 0x13d6 = Studded Gorget, 10 = neck slot 
-
-  // 0x140a = Helmet, 6 = head slot 
-
-  // 0x140e = Norse Helm 
-
-  // 0x1408 = Close Helmet 
-
-  if not @findlayer 'self' 4 
-
-    if @findtype '0x13da' 'any' 'container_armor' 
-
-      equipitem 'found' 4 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 13 
-
-    if @findtype '0x13db' 'any' 'container_armor' 
-
-      equipitem 'found' 13 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 19 
-
-    if @findtype '0x13dc' 'any' 'container_armor' 
-
-      equipitem 'found' 19 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 7 
-
-    if @findtype '0x13d5' 'any' 'container_armor' 
-
-      equipitem 'found' 7 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 10 
-
-    if @findtype '0x13d6' 'any' 'container_armor' 
-
-      equipitem 'found' 10 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 6 
-
-    if @findtype '0x140a' 'any' 'container_armor' or @findtype '0x140e' 'any' 'container_armor' or @findtype '0x1408' 'any' 'container_armor' 
-
-      equipitem 'found' 6 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find armor!" 
-
-    endif 
-
-  endif 
-
-endif 
-
-// get empty bottles 
-
-// 38 is total # of pots for non-alchemists/non-weapon users 
-
-@useobject 'container_bottles' 
-
-pause 1000 
-
-if @findtype 0xf0e 'any' 'container_bottles' 38 2 
-
-  @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 38 2 
-
-  pause 800 
-
-else 
-
-  sysmsg 'Could not find enough empty bottles!' 
-
-endif 
-
-// get extra bottles for alchemists (more exp pots!) 
-
-if skill 'Alchemy' > 50 
-
-  if @findtype 0xf0e 'any' 'container_bottles' 17 2 
-
-    @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 17 2 
-
-    pause 800 
-
-  else 
-
-    sysmsg 'Could not find enough empty bottles!' 
-
-  endif 
-
-endif 
-
-// get extra bottles for weapon users (more str & agil pots!) 
-
-if skill 'Tactics' > 50 
-
-  if @findtype 0xf0e 'any' 'container_bottles' 15 2 
-
-    @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 15 2 
-
-    pause 800 
-
-  else 
-
-    sysmsg 'Could not find enough empty bottles!' 
-
-  endif 
-
-endif 
-
-// get cure potions 
-
-// 10 is the # of cure pots 
-
-while counttype 0xf07 'any' 'backpack' < 10 
-
-  @useobject! 'cure_keg' 
-
-  if @injournal 'The keg is empty.' 'system' 
-
-    headmsg 'Cure keg is empty!' 38 
-
-    unsetalias 'cure_keg' 
-
-    headmsg 'Cure Keg?' 
-
-    promptalias 'cure_keg' 
-
-    clearjournal 
-
-  endif 
-
-  pause 800 
-
-endwhile 
-
-// get heal potions 
-
-// 10 is the # of heal pots 
-
-while counttype 0xf0c 'any' 'backpack' < 10 
-
-  @useobject! 'heal_keg' 
-
-  if @injournal 'The keg is empty.' 'system' 
-
-    headmsg 'Heal keg is empty!' 38 
-
-    unsetalias 'heal_keg' 
-
-    headmsg 'Heal Keg?' 
-
-    promptalias 'heal_keg' 
-
-    clearjournal 
-
-  endif 
-
-  pause 800 
-
-endwhile 
-
-// get refresh potions 
-
-// 10 is the # of refresh pots 
-
-while counttype 0xf0b 'any' 'backpack' < 10 
-
-  @useobject! 'refresh_keg' 
-
-  if @injournal 'The keg is empty.' 'system' 
-
-    headmsg 'Refresh keg is empty!' 38 
-
-    unsetalias 'refresh_keg' 
-
-    headmsg 'Refresh Keg?' 
-
-    promptalias 'refresh_keg' 
-
-    clearjournal 
-
-  endif 
-
-  pause 800 
-
-endwhile 
-
-// get strength potions 
-
-// 5 is the # of str pots for non-weapon users, 10 is the # for weapon users 
-
-if skill 'Tactics' < 50 
-
-  while counttype 0xf09 'any' 'backpack' < 5 
-
-    @useobject! 'str_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Strength keg is empty!' 38 
-
-      unsetalias 'str_keg' 
-
-      headmsg 'Strength Keg?' 
-
-      promptalias 'str_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-else 
-
-  while counttype 0xf09 'any' 'backpack' < 10 
-
-    @useobject! 'str_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Strength keg is empty!' 38 
-
-      unsetalias 'str_keg' 
-
-      headmsg 'Strength Keg?' 
-
-      promptalias 'str_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-endif 
-
-// get agility potions 
-
-// 0 is the # of agil pots for non-weapon users, 10 is the # for weapon users 
-
-if skill 'Tactics' < 50 
-
-  while counttype 0xf08 'any' 'backpack' < 0 
-
-    @useobject! 'agil_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Agility keg is empty!' 38 
-
-      unsetalias 'agil_keg' 
-
-      headmsg 'Agility Keg?' 
-
-      promptalias 'agil_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-else 
-
-  while counttype 0xf08 'any' 'backpack' < 10 
-
-    @useobject! 'agil_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Agility keg is empty!' 38 
-
-      unsetalias 'agil_keg' 
-
-      headmsg 'Agility Keg?' 
-
-      promptalias 'agil_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-endif 
-
-// get explosion potions 
-
-// 3 is the # of expl pots for non-alchemists, 20 is the # for alchemists 
-
-if skill 'Alchemy' < 50 
-
-  while counttype 0xf0d 'any' 'backpack' < 3 
-
-    @useobject! 'expl_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Explosion keg is empty!' 38 
-
-      unsetalias 'expl_keg' 
-
-      headmsg 'Explosion Keg?' 
-
-      promptalias 'expl_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-else 
-
-  while counttype 0xf0d 'any' 'backpack' < 20 
-
-    @useobject! 'expl_keg' 
-
-    if @injournal 'The keg is empty.' 'system' 
-
-      headmsg 'Explosion keg is empty!' 38 
-
-      unsetalias 'expl_keg' 
-
-      headmsg 'Explosion Keg?' 
-
-      promptalias 'expl_keg' 
-
-     clearjournal 
-
-    endif 
-
-    pause 800 
-
-  endwhile 
-
-endif 
-
-// get bandages if have healing or vet skills 
-
-// 100 is # of bandages to get 
-
-@useobject 'container_bandages' 
-
-pause 1000 
-
-if skill "Healing" > 50 or skill "Veterinary" > 50 
-
-  if @findtype 0xe21 'any' 'container_bandages' 100 2 
-
-    @movetype 0xe21 'container_bandages' 'backpack' 0 0 0 'any' 100 2 
-
-    pause 800 
-
-  else 
-
-    sysmsg 'Could not find enough bandages!' 
-
-  endif 
-
-endif 
-
-// get pouches 
-
-// 3 is # of pouches to get 
-
-@useobject 'container_pouches' 
-
-pause 1000 
-
-for 0 to 3 
-
-  if @findtype 0xe79 'any' 'container_pouches' 
-
-    @moveitem 'found' 'backpack' 
-
-    pause 800 
-
-  else 
-
-    sysmsg 'Could not find enough pouches!' 
-
-  endif 
-
-endfor 
-
-// trap any un-trapped pouches 
-
-while @findtype 0xe79 0 'backpack' > 0 
-
-  cast 'Magic Trap' 
-
-  waitfortarget 3000 
-
-  target! 'found' 
-
-  pause 2000 
-
-endwhile 
-
-// equip weapon 
-
-@useobject 'container_weapon' 
-
-pause 1000 
-
-if skill 'Fencing' > 50 
-
-  // 0x1401 = Kryss, 1 = right hand slot (1h weapon) 
-
-  // 0x1405 = War Fork 
-
-  // 0x1403 = Short Spear, 2 = left hand slot (2h weapon) 
-
-  // 0xf62  = Spear 
-
-  if not @findlayer 'self' 1 
-
-    if @findtype '0x1401' 'any' 'container_weapon' or @findtype '0x1405' 'any' 'container_weapon' 
-
-      equipitem 'found' 1 
-
-      pause 800 
-
-      togglehands 'right' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 1h weapon!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 2 
-
-    if @findtype '0x1403' 'any' 'container_weapon' or @findtype '0xf62' 'any' 'container_weapon' 
-
-      equipitem 'found' 2 
-
-      pause 800 
-
-      togglehands 'left' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 2h weapon!" 
-
-    endif 
-
-  endif 
-
-endif 
-
-if skill 'Mace Fighting' > 50 
-
-  // 0x13b0 = War Axe, 1 = right hand slot (1h weapon) 
-
-  // 0x1407 = War Mace 
-
-  // 0xe89  = Quarter Staff, 2 = left hand slot (2h weapon) 
-
-  // 0x1439 = War Hammer 
-
-  if not @findlayer 'self' 1 
-
-    if @findtype '0x13b0' 'any' 'container_weapon' or @findtype '0x1407' 'any' 'container_weapon' 
-
-      equipitem 'found' 1 
-
-      pause 800 
-
-      togglehands 'right' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 1h weapon!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 2 
-
-    if @findtype '0xe89' 'any' 'container_weapon' or @findtype '0x1439' 'any' 'container_weapon' 
-
-      equipitem 'found' 2 
-
-      pause 800 
-
-      togglehands 'left' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 2h weapon!" 
-
-    endif 
-
-  endif 
-
-endif 
-
-if skill 'Swordsmanship' > 50 
-
-  // 0x13ff = Katana, 1 = right hand slot (1h weapon) 
-
-  // 0xf5e  = Broadsword 
-
-  // 0x143e = Halberd, 2 = left hand slot (2h weapon) 
-
-  // 0xf4d  = Bardiche 
-
-  if not @findlayer 'self' 1 
-
-    if @findtype '0x13ff' 'any' 'container_weapon' or @findtype '0xf5e' 'any' 'container_weapon' 
-
-      equipitem 'found' 1 
-
-      pause 800 
-
-      togglehands 'right' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 1h weapon!" 
-
-    endif 
-
-  endif 
-
-  if not @findlayer 'self' 2 
-
-    if @findtype '0x143e' 'any' 'container_weapon' or @findtype '0xf4d' 'any' 'container_weapon' 
-
-      equipitem 'found' 2 
-
-      pause 800 
-
-      togglehands 'left' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find 2h weapon!" 
-
-    endif 
-
-  endif 
-
-endif 
-
-if skill 'Archery' > 50 
-
-  // 0x13b2 = Bow, 2 = left hand slot (2h weapon) 
-
-  // 0xf50  = Crossbow 
-
-  if not @findlayer 'self' 2 
-
-    if @findtype '0x13b2' 'any' 'container_weapon' or @findtype '0xf50' 'any' 'container_weapon' 
-
-      equipitem 'found' 2 
-
-      pause 800 
-
-      togglehands 'left' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find bow!" 
-
-    endif 
-
-  endif 
-
-endif 
-
-if skill 'Lumberjacking' > 50 
-
-  // 0xf4b  = Double Axe, 2 = left hand slot (2h weapon) 
-
-  // 0xf49  = Axe 
-
-  // 0xf45  = Executioner's Axe 
-
-  // 0x1443 = Two Handed Axe 
-
-  // 0xf47  = Battle Axe 
-
-  // 0x13fb = Large Battle Axe 
-
-  if not @findlayer 'self' 2 
-
-    if @findtype '0xf4b' 'any' 'container_weapon' or @findtype '0xf49' 'any' 'container_weapon' or @findtype '0xf45' 'any' 'container_weapon' or @findtype '0x1443' 'any' 'container_weapon' or @findtype '0xf47' 'any' 'container_weapon' or @findtype '0x13fb' 'any' 'container_weapon' 
-
-      equipitem 'found' 2 
-
-      pause 800 
-
-      togglehands 'left' 
-
-      pause 800 
-
-    else 
-
-      sysmsg 'Could not find axe!" 
-
-    endif 
-
-  endif 
-
+//***************************************************************************//
+// UOSteam Macro                                                             //
+// The Butler                                                                //
+// Revision 1c                                                               //
+// by Casor                                                                  //
+//   some code taken from macros by darktyle, thanks darktyle!               //
+//                                                                           //
+// rev 1: 12.18.2014                                                         //
+// rev 1a: 12.23.2014                                                        //
+//   + increased pause time from 650ms to 800ms                              //
+//   + removed hard-coded serials, it will ask the first time you run.       //
+//     thanks Experience for showing me this.                                //
+//   + added leather cap to armor                                            //
+//   + added bandages                                                        //
+//   + added trapped pouches (will trap them for you if needed)              //
+//   + added 1h and 2h weapons (kryss and short spear used in example)       //
+//     it equips each then toggles hands to put in pack, so you can use      //
+//     your togglehands left/right hotkeys to equip/unequip each             //
+// rev1b: 12.24.2014                                                         //
+//   + noticed a problem with script finding things if the container had     //
+//     not been opened before. now open containers before checking for items.//
+//   + added skill checks:                                                   //
+//     if med > 50, will get 75 of each reag, otherwise will get 50 each     //
+//     if healing or vet > 50, will get bandages (inc # to 100)              //
+//     if alchemy > 50, will get 20 explosion pots, otherwise will get 3     //
+//       changed other default # of potions to higher values                 //
+//     if tactics > 50, will get 10 str pots, otherwise will get 5           //
+//                      will get 10 agil pots, otherwise will get 0          //
+//     if med > 50, will equip leather armor, otherwise will assume melee    //
+//                  character and equip studded armor and a no-dex loss helm //
+//     gets weapons based on weapon skills, will check for several weapon    //
+//       types and get first available. will get axe if lumberjack           //
+// rev 1c: 12.24.2014                                                        //
+//   + fixed an issue with selecting a new keg when one runs empty. it will  //
+//     now only ask for the new keg once.                                    //
+//***************************************************************************//
+//
+// clear journal & use once agent
+clearjournal
+clearuseonce
+// set aliases
+// set reagent list
+if not listexists 'regs'
+  createlist 'regs'
+  pushlist 'regs' 0xf7a  // Black Pearl
+  pushlist 'regs' 0xf7b  // Blood Moss
+  pushlist 'regs' 0xf86  // Mandrake Root
+  pushlist 'regs' 0xf84  // Garlic
+  pushlist 'regs' 0xf85  // Ginseng
+  pushlist 'regs' 0xf88  // Nightshade
+  pushlist 'regs' 0xf8d  // Spider's Silk
+  pushlist 'regs' 0xf8c  // Sulphurous Ash
+endif
+while not @findobject 'container_regs'
+  headmsg 'Reagents container?'
+  promptalias 'container_regs'
+endwhile
+while not @findobject 'container_armor'
+  headmsg 'Armor container?'
+  promptalias 'container_armor'
+endwhile
+while not @findobject 'container_bottles'
+  headmsg 'Empty bottles container?'
+  promptalias 'container_bottles'
+endwhile
+while not @findobject 'cure_keg'
+  headmsg 'Cure Keg?'
+  promptalias 'cure_keg'
+endwhile
+while not @findobject 'heal_keg'
+  headmsg 'Heal Keg?'
+  promptalias 'heal_keg'
+endwhile
+while not @findobject 'refresh_keg'
+  headmsg 'Refresh Keg?'
+  promptalias 'refresh_keg'
+endwhile
+while not @findobject 'str_keg'
+  headmsg 'Strength Keg?'
+  promptalias 'str_keg'
+endwhile
+while not @findobject 'agil_keg'
+  headmsg 'Agility Keg?'
+  promptalias 'agil_keg'
+endwhile
+while not @findobject 'expl_keg'
+  headmsg 'Explosion Keg?'
+  promptalias 'expl_keg'
+endwhile
+while not @findobject 'container_bandages'
+  headmsg 'Bandage container?'
+  promptalias 'container_bandages'
+endwhile
+while not @findobject 'container_pouches'
+  headmsg 'Pouch container?'
+  promptalias 'container_pouches'
+endwhile
+while not @findobject 'container_weapon'
+  headmsg 'Weapon container?'
+  promptalias 'container_weapon'
+endwhile
+// get reagents, get 75 each if med > 50, else get 50 each
+@useobject 'container_regs'
+pause 1000
+if skill 'Meditation' > 50
+  for 0 to 'regs'
+    if @findtype 'regs[]' 'any' 'container_regs' 75 2
+      @movetype 'regs[]' 'container_regs' 'backpack' 0 0 0 'any' 75 2
+      pause 800
+    else
+      sysmsg 'Could not find enough reagents!'
+    endif
+  endfor
+else
+  for 0 to 'regs'
+    if @findtype 'regs[]' 'any' 'container_regs' 50 2
+      @movetype 'regs[]' 'container_regs' 'backpack' 0 0 0 'any' 50 2
+      pause 800
+    else
+      sysmsg 'Could not find enough reagents!'
+    endif
+  endfor
+endif
+// equip armor
+@useobject 'container_armor'
+pause 1000
+if skill 'Meditation' > 50
+  // 0x13cb = Leather Leggings, 4 = leg slot
+  // 0x13cc = Leather Tunic, 13 = chest slot
+  // 0x13cd = Leather Sleeves, 19 = arm slot
+  // 0x13c6 = Leather Gloves, 7 = hand slot
+  // 0x13c7 = Leather Gorget, 10 = neck slot
+  // 0x1db9 = Leather Cap, 6 = head slot
+  if not @findlayer 'self' 4
+    if @findtype '0x13cb' 'any' 'container_armor'
+      equipitem 'found' 4
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 13
+    if @findtype '0x13cc' 'any' 'container_armor'
+      equipitem 'found' 13
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 19
+    if @findtype '0x13cd' 'any' 'container_armor'
+      equipitem 'found' 19
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 7
+    if @findtype '0x13c6' 'any' 'container_armor'
+      equipitem 'found' 7
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 10
+    if @findtype '0x13c7' 'any' 'container_armor'
+      equipitem 'found' 10
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 6
+    if @findtype '0x1db9' 'any' 'container_armor'
+      equipitem 'found' 6
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+else
+  // 0x13da = Studded Leggings, 4 = leg slot
+  // 0x13db = Studded Tunic, 13 = chest slot
+  // 0x13dc = Studded Sleeves, 19 = arm slot
+  // 0x13d5 = Studded Gloves, 7 = hand slot
+  // 0x13d6 = Studded Gorget, 10 = neck slot
+  // 0x140a = Helmet, 6 = head slot
+  // 0x140e = Norse Helm
+  // 0x1408 = Close Helmet
+  if not @findlayer 'self' 4
+    if @findtype '0x13da' 'any' 'container_armor'
+      equipitem 'found' 4
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 13
+    if @findtype '0x13db' 'any' 'container_armor'
+      equipitem 'found' 13
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 19
+    if @findtype '0x13dc' 'any' 'container_armor'
+      equipitem 'found' 19
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 7
+    if @findtype '0x13d5' 'any' 'container_armor'
+      equipitem 'found' 7
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 10
+    if @findtype '0x13d6' 'any' 'container_armor'
+      equipitem 'found' 10
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+  if not @findlayer 'self' 6
+    if @findtype '0x140a' 'any' 'container_armor' or @findtype '0x140e' 'any' 'container_armor' or @findtype '0x1408' 'any' 'container_armor'
+      equipitem 'found' 6
+      pause 800
+    else
+      sysmsg 'Could not find armor!"
+    endif
+  endif
+endif
+// get empty bottles
+// 38 is total # of pots for non-alchemists/non-weapon users
+@useobject 'container_bottles'
+pause 1000
+if @findtype 0xf0e 'any' 'container_bottles' 38 2
+  @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 38 2
+  pause 800
+else
+  sysmsg 'Could not find enough empty bottles!'
+endif
+// get extra bottles for alchemists (more exp pots!)
+if skill 'Alchemy' > 50
+  if @findtype 0xf0e 'any' 'container_bottles' 17 2
+    @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 17 2
+    pause 800
+  else
+    sysmsg 'Could not find enough empty bottles!'
+  endif
+endif
+// get extra bottles for weapon users (more str & agil pots!)
+if skill 'Tactics' > 50
+  if @findtype 0xf0e 'any' 'container_bottles' 15 2
+    @movetype 0xf0e 'container_bottles' 'backpack' 0 0 0 'any' 15 2
+    pause 800
+  else
+    sysmsg 'Could not find enough empty bottles!'
+  endif
+endif
+// get cure potions
+// 10 is the # of cure pots
+while counttype 0xf07 'any' 'backpack' < 10
+  @useobject! 'cure_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Cure keg is empty!' 38
+    unsetalias 'cure_keg'
+    headmsg 'Cure Keg?'
+    promptalias 'cure_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+// get heal potions
+// 10 is the # of heal pots
+while counttype 0xf0c 'any' 'backpack' < 10
+  @useobject! 'heal_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Heal keg is empty!' 38
+    unsetalias 'heal_keg'
+    headmsg 'Heal Keg?'
+    promptalias 'heal_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+// get refresh potions
+// 10 is the # of refresh pots
+while counttype 0xf0b 'any' 'backpack' < 10
+  @useobject! 'refresh_keg'
+  if @injournal 'The keg is empty.' 'system'
+    headmsg 'Refresh keg is empty!' 38
+    unsetalias 'refresh_keg'
+    headmsg 'Refresh Keg?'
+    promptalias 'refresh_keg'
+    clearjournal
+  endif
+  pause 800
+endwhile
+// get strength potions
+// 5 is the # of str pots for non-weapon users, 10 is the # for weapon users
+if skill 'Tactics' < 50
+  while counttype 0xf09 'any' 'backpack' < 5
+    @useobject! 'str_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Strength keg is empty!' 38
+      unsetalias 'str_keg'
+      headmsg 'Strength Keg?'
+      promptalias 'str_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+else
+  while counttype 0xf09 'any' 'backpack' < 10
+    @useobject! 'str_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Strength keg is empty!' 38
+      unsetalias 'str_keg'
+      headmsg 'Strength Keg?'
+      promptalias 'str_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+endif
+// get agility potions
+// 0 is the # of agil pots for non-weapon users, 10 is the # for weapon users
+if skill 'Tactics' < 50
+  while counttype 0xf08 'any' 'backpack' < 0
+    @useobject! 'agil_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Agility keg is empty!' 38
+      unsetalias 'agil_keg'
+      headmsg 'Agility Keg?'
+      promptalias 'agil_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+else
+  while counttype 0xf08 'any' 'backpack' < 10
+    @useobject! 'agil_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Agility keg is empty!' 38
+      unsetalias 'agil_keg'
+      headmsg 'Agility Keg?'
+      promptalias 'agil_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+endif
+// get explosion potions
+// 3 is the # of expl pots for non-alchemists, 20 is the # for alchemists
+if skill 'Alchemy' < 50
+  while counttype 0xf0d 'any' 'backpack' < 3
+    @useobject! 'expl_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Explosion keg is empty!' 38
+      unsetalias 'expl_keg'
+      headmsg 'Explosion Keg?'
+      promptalias 'expl_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+else
+  while counttype 0xf0d 'any' 'backpack' < 20
+    @useobject! 'expl_keg'
+    if @injournal 'The keg is empty.' 'system'
+      headmsg 'Explosion keg is empty!' 38
+      unsetalias 'expl_keg'
+      headmsg 'Explosion Keg?'
+      promptalias 'expl_keg'
+      clearjournal
+    endif
+    pause 800
+  endwhile
+endif
+// get bandages if have healing or vet skills
+// 100 is # of bandages to get
+@useobject 'container_bandages'
+pause 1000
+if skill "Healing" > 50 or skill "Veterinary" > 50
+  if @findtype 0xe21 'any' 'container_bandages' 100 2
+    @movetype 0xe21 'container_bandages' 'backpack' 0 0 0 'any' 100 2
+    pause 800
+  else
+    sysmsg 'Could not find enough bandages!'
+  endif
+endif
+// get pouches
+// 3 is # of pouches to get
+@useobject 'container_pouches'
+pause 1000
+for 0 to 3
+  if @findtype 0xe79 'any' 'container_pouches'
+    @moveitem 'found' 'backpack'
+    pause 800
+  else
+    sysmsg 'Could not find enough pouches!'
+  endif
+endfor
+// trap any un-trapped pouches
+while @findtype 0xe79 0 'backpack' > 0
+  cast 'Magic Trap'
+  waitfortarget 3000
+  target! 'found'
+  pause 2000
+endwhile
+// equip weapon
+@useobject 'container_weapon'
+pause 1000
+if skill 'Fencing' > 50
+  // 0x1401 = Kryss, 1 = right hand slot (1h weapon)
+  // 0x1405 = War Fork
+  // 0x1403 = Short Spear, 2 = left hand slot (2h weapon)
+  // 0xf62  = Spear
+  if not @findlayer 'self' 1
+    if @findtype '0x1401' 'any' 'container_weapon' or @findtype '0x1405' 'any' 'container_weapon'
+      equipitem 'found' 1
+      pause 800
+      togglehands 'right'
+      pause 800
+    else
+      sysmsg 'Could not find 1h weapon!"
+    endif
+  endif
+  if not @findlayer 'self' 2
+    if @findtype '0x1403' 'any' 'container_weapon' or @findtype '0xf62' 'any' 'container_weapon'
+      equipitem 'found' 2
+      pause 800
+      togglehands 'left'
+      pause 800
+    else
+      sysmsg 'Could not find 2h weapon!"
+    endif
+  endif
+endif
+if skill 'Mace Fighting' > 50
+  // 0x13b0 = War Axe, 1 = right hand slot (1h weapon)
+  // 0x1407 = War Mace
+  // 0xe89  = Quarter Staff, 2 = left hand slot (2h weapon)
+  // 0x1439 = War Hammer
+  if not @findlayer 'self' 1
+    if @findtype '0x13b0' 'any' 'container_weapon' or @findtype '0x1407' 'any' 'container_weapon'
+      equipitem 'found' 1
+      pause 800
+      togglehands 'right'
+      pause 800
+    else
+      sysmsg 'Could not find 1h weapon!"
+    endif
+  endif
+  if not @findlayer 'self' 2
+    if @findtype '0xe89' 'any' 'container_weapon' or @findtype '0x1439' 'any' 'container_weapon'
+      equipitem 'found' 2
+      pause 800
+      togglehands 'left'
+      pause 800
+    else
+      sysmsg 'Could not find 2h weapon!"
+    endif
+  endif
+endif
+if skill 'Swordsmanship' > 50
+  // 0x13ff = Katana, 1 = right hand slot (1h weapon)
+  // 0xf5e  = Broadsword
+  // 0x143e = Halberd, 2 = left hand slot (2h weapon)
+  // 0xf4d  = Bardiche
+  if not @findlayer 'self' 1
+    if @findtype '0x13ff' 'any' 'container_weapon' or @findtype '0xf5e' 'any' 'container_weapon'
+      equipitem 'found' 1
+      pause 800
+      togglehands 'right'
+      pause 800
+    else
+      sysmsg 'Could not find 1h weapon!"
+    endif
+  endif
+  if not @findlayer 'self' 2
+    if @findtype '0x143e' 'any' 'container_weapon' or @findtype '0xf4d' 'any' 'container_weapon'
+      equipitem 'found' 2
+      pause 800
+      togglehands 'left'
+      pause 800
+    else
+      sysmsg 'Could not find 2h weapon!"
+    endif
+  endif
+endif
+if skill 'Archery' > 50
+  // 0x13b2 = Bow, 2 = left hand slot (2h weapon)
+  // 0xf50  = Crossbow
+  if not @findlayer 'self' 2
+    if @findtype '0x13b2' 'any' 'container_weapon' or @findtype '0xf50' 'any' 'container_weapon'
+      equipitem 'found' 2
+      pause 800
+      togglehands 'left'
+      pause 800
+    else
+      sysmsg 'Could not find bow!"
+    endif
+  endif
+endif
+if skill 'Lumberjacking' > 50
+  // 0xf4b  = Double Axe, 2 = left hand slot (2h weapon)
+  // 0xf49  = Axe
+  // 0xf45  = Executioner's Axe
+  // 0x1443 = Two Handed Axe
+  // 0xf47  = Battle Axe
+  // 0x13fb = Large Battle Axe
+  if not @findlayer 'self' 2
+    if @findtype '0xf4b' 'any' 'container_weapon' or @findtype '0xf49' 'any' 'container_weapon' or @findtype '0xf45' 'any' 'container_weapon' or @findtype '0x1443' 'any' 'container_weapon' or @findtype '0xf47' 'any' 'container_weapon' or @findtype '0x13fb' 'any' 'container_weapon'
+      equipitem 'found' 2
+      pause 800
+      togglehands 'left'
+      pause 800
+    else
+      sysmsg 'Could not find axe!"
+    endif
+  endif
 endif

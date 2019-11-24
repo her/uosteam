@@ -1,243 +1,122 @@
 /Author: Experience
-
 //Title: Recalling Lumberjack
-
 //Description: Recalling Lumberjack. Must have a Double Axe.
-
 //You will need a book with the default rune marked right next to your wood storage.
-
 //All Books must have 16 runes to run properly!!
-
 //To add more books simply add 'Wood4' findalias and to pushlist
-
 removelist 'Runes'
-
 removelist 'WoodBook'
-
 @clearjournal
-
 if not @findalias 'Wood Storage'
-
   promptalias 'Wood Storage'
-
 endif
-
 if not @findobject 'Wood1'
-
   promptalias 'Wood1'
-
 endif
-
 if not @findobject 'Wood2'
-
   promptalias 'Wood2'
-
 endif
-
 if not @findobject 'Wood3'
-
   promptalias 'Wood3'
-
 endif
-
 if not @findobject 'HomeWood'
-
   promptalias 'HomeWood'
-
 endif
-
 if not listexists 'WoodBook'
-
   createlist 'WoodBook'
-
 endif
-
 if list 'WoodBook' == 0
-
   pushlist 'WoodBook' 'Wood1'
-
   pushlist 'WoodBook' 'Wood2'
-
   pushlist 'WoodBook' 'Wood3'
-
 endif
-
 if @findtype '0xf4b' 'any' 'backpack' 'any' '2' or findlayer 'self' '2'
-
   setalias 'Axe' 'found'
-
   headmsg 'Axe Found'
-
 else
-
   headmsg 'No Axe Found'
-
   pause 800
-
 endif
-
 if not listexists 'Runes'
-
   createlist 'Runes'
-
 endif
-
 if list 'Runes' == 0
-
   pushlist 'Runes' 5
-
   pushlist 'Runes' 11
-
   pushlist 'Runes' 17
-
   pushlist 'Runes' 23
-
   pushlist 'Runes' 29
-
   pushlist 'Runes' 35
-
   pushlist 'Runes' 41
-
   pushlist 'Runes' 47
-
   pushlist 'Runes' 53
-
   pushlist 'Runes' 59
-
   pushlist 'Runes' 65
-
   pushlist 'Runes' 71
-
   pushlist 'Runes' 77
-
   pushlist 'Runes' 83
-
   pushlist 'Runes' 89
-
   pushlist 'Runes' 95
-
 endif
-
 for 0 to WoodBook
-
   for 0 to 'Runes'
-
     pause 500
-
     @clearjournal
-
     pause 500
-
     useobject WoodBook[]
-
     waitforgump 0x554b87f3 5000
-
     replygump 0x554b87f3 Runes[]
-
     pause 4000
-
     if injournal 'blocked' 'system'
-
       @clearjournal
-
       replay
-
     endif
-
     //tells you which rune you are on, see runelist above
-
     sysmsg 'Rune' 33
-
     sysmsg Runes[] 33
-
     pause 2000
-
     while not @injournal 'not enough wood here' 'system'
-
       if not @findlayer 'self' '2'
-
         equipitem 'Axe' '2'
-
         pause 800
-
       endif
-
       //use axe to northern tile until specified weight is reached
-
       pause 300
-
       useobject 'Axe'
-
       waitfortarget 1000
-
       targettileoffset 0 -1 0
-
       pause 1000
-
       //Snake check
-
       if @injournal 'dislodged' 'system'
-
         headmsg 'SNAKE!!!'
-
         headmsg 'Kill IT!!'
-
         pause 60000
-
         @clearjournal
-
       endif
-
       // once weight is reached go home, if getting overweight, lower it
-
       if weight > '360'
-
         useobject 'HomeWood'
-
         waitforgump 0x554b87f3 5000
-
         replygump 0x554b87f3 5
-
         pause 2000
-
         //put up Wood
-
         while @findtype '0x1bdd' 'any' 'backpack' 'any' '2'
-
           moveitem 'found' 'Wood Storage'
-
           pause 800
-
         endwhile
-
         //recall back to where you were
-
         useobject WoodBook[]
-
         waitforgump 0x554b87f3 5000
-
         replygump 0x554b87f3 Runes[]
-
         pause 2000
-
       endif
-
     endwhile
-
   endfor
-
   poplist 'Runes' 'front'
-
 endfor
-
 //recall home so Wood container is found
-
 pause 1000
-
 cast 'recall'
-
 autotargetobject 'HomeWood'
-
 pause 4000
-
 poplist 'WoodBook' 'front'

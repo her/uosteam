@@ -1,64 +1,39 @@
-//////////////////////////////////// 
-//    The easiest way to train    // 
-// stealing is in your own house, // 
-//   from a secure container. If  // 
-// you train in a dungeon, remove // 
-//    the '//' from the last 2    // 
-//  lines and stand 1 tile north  // 
-//  of the container. This macro  // 
-//  uses empty bottles to train.  // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findalias 'host' 
-
-  headmsg 'Select host container to steal from, typically a secured house container' 
-
-  promptalias 'host' 
-
-  useobject 'host' 
-
-  pause 600 
-
-endif 
-
-if skill 'stealing' < 100 
-
-  @findtype 0xf0e 0x0 'host' 
-
-  useskill 'stealing' 
-
-  waitfortarget 2000 
-
-  target! 'found' 
-
-  pause 600 
-
-  if @injournal 'You success' 
-
-    movetype 0xf0e 'backpack' 'host' 
-
-    clearjournal 
-
-    pause 10000 
-
-  else 
-
-    pause 10000 
-
-  endif 
-
-else 
-
-  headmsg 'Stealing complete!' 
-
-  stop 
-
-endif 
-
-//moveitemoffset 'host' 'ground' 0 1 0 
-
+////////////////////////////////////
+//    The easiest way to train    //
+// stealing is in your own house, //
+//   from a secure container. If  //
+// you train in a dungeon, remove //
+//    the '//' from the last 2    //
+//  lines and stand 1 tile north  //
+//  of the container. This macro  //
+//  uses empty bottles to train.  //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findalias 'host'
+  headmsg 'Select host container to steal from, typically a secured house container'
+  promptalias 'host'
+  useobject 'host'
+  pause 600
+endif
+if skill 'stealing' < 100
+  @findtype 0xf0e 0x0 'host'
+  useskill 'stealing'
+  waitfortarget 2000
+  target! 'found'
+  pause 600
+  if @injournal 'You success'
+    movetype 0xf0e 'backpack' 'host'
+    clearjournal
+    pause 10000
+  else
+    pause 10000
+  endif
+else
+  headmsg 'Stealing complete!'
+  stop
+endif
+//moveitemoffset 'host' 'ground' 0 1 0
 //pause 600

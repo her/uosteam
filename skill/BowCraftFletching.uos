@@ -1,137 +1,69 @@
-// you need enough tinkering to craft fletching kit 
-
-// carry something like 150 ingots to craft the kits 
-
-// you need minimum 30 fletching to start 
-
-// it will craft bow, crossbow and heavy crossbow 
-
-// set your resource container 
-
-if skill 'bowcraft' == 100 
-
-stop 
-
-endif 
-
-if not @listexists 'junk' 
-
-createlist 'junk' 
-
-pushlist 'junk' 0x13b2 
-
-pushlist 'junk' 0xf50 
-
-pushlist 'junk' 0x13fd 
-
-endif 
-
-if not @findobject 'trash' 
-
-headmsg 'Select your trash barrel' 
-
-promptalias 'trash' 
-
-endif 
-
-if not @findobject 'restock' 
-
-headmsg 'Select the container with your boards' 
-
-promptalias 'restock' 
-
-useobject 'restock' 
-
-pause 1000 
-
-endif 
-
-if @counttype 0x1bd7 0x0 'backpack' < 20 
-
-movetype 0x1bd7 'restock' 'backpack' 0 0 0 0x0 150 
-
-pause 1000 
-
-endif 
-
-if not @findtype '0x1022' '0' 'backpack' 
-
-while @counttype '0x1022' '0' 'backpack' < '5' 
-
-usetype '0x1eb8' 'any' 'backpack' 
-
-pause 200 
-
-waitforgump 0x38920abd 15000 
-
-replygump 0x38920abd 142 
-
-waitforgump 0x38920abd 15000 
-
-pause 200 
-
-endwhile 
-
-endif 
-
-if skill 'bowcraft' < 30 
-
-headmsg 'Buy More Skill' 
-
-endif 
-
-if skill 'bowcraft' < 60 
-
-usetype '0x1022' 'any' 'backpack' '2' 
-
-pause 200 
-
-replygump 0x38920abd 15 
-
-waitforgump 0x38920abd 15000 
-
-replygump 0x38920abd 2 
-
-waitforgump 0x38920abd 15000 
-
-elseif skill 'bowcraft' < 80 
-
-usetype '0x1022' 'any' 'backpack' '2' 
-
-pause 200 
-
-replygump 0x38920abd 15 
-
-waitforgump 0x38920abd 15000 
-
-replygump 0x38920abd 9 
-
-waitforgump 0x38920abd 15000 
-
-elseif skill 'bowcraft' < 100 
-
-usetype '0x1022' 'any' 'backpack' '2' 
-
-pause 200 
-
-replygump 0x38920abd 15 
-
-waitforgump 0x38920abd 15000 
-
-replygump 0x38920abd 16 
-
-waitforgump 0x38920abd 15000 
-
-endif 
-
-if contents 'backpack' > 50 
-
-for 0 to junk 
-
-while @movetype junk[] 'backpack' 'trash' 
-
-endwhile 
-
-endfor 
-
+// you need enough tinkering to craft fletching kit
+// carry something like 150 ingots to craft the kits
+// you need minimum 30 fletching to start
+// it will craft bow, crossbow and heavy crossbow
+// set your resource container
+if skill 'bowcraft' == 100
+  stop
+endif
+if not @listexists 'junk'
+  createlist 'junk'
+  pushlist 'junk' 0x13b2
+  pushlist 'junk' 0xf50
+  pushlist 'junk' 0x13fd
+endif
+if not @findobject 'trash'
+  headmsg 'Select your trash barrel'
+  promptalias 'trash'
+endif
+if not @findobject 'restock'
+  headmsg 'Select the container with your boards'
+  promptalias 'restock'
+  useobject 'restock'
+  pause 1000
+endif
+if @counttype 0x1bd7 0x0 'backpack' < 20
+  movetype 0x1bd7 'restock' 'backpack' 0 0 0 0x0 150
+  pause 1000
+endif
+if not @findtype '0x1022' '0' 'backpack'
+  while @counttype '0x1022' '0' 'backpack' < '5'
+    usetype '0x1eb8' 'any' 'backpack'
+    pause 200
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 142
+    waitforgump 0x38920abd 15000
+    pause 200
+  endwhile
+endif
+if skill 'bowcraft' < 30
+  headmsg 'Buy More Skill'
+endif
+if skill 'bowcraft' < 60
+  usetype '0x1022' 'any' 'backpack' '2'
+  pause 200
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 2
+  waitforgump 0x38920abd 15000
+elseif skill 'bowcraft' < 80
+  usetype '0x1022' 'any' 'backpack' '2'
+  pause 200
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 9
+  waitforgump 0x38920abd 15000
+elseif skill 'bowcraft' < 100
+  usetype '0x1022' 'any' 'backpack' '2'
+  pause 200
+  replygump 0x38920abd 15
+  waitforgump 0x38920abd 15000
+  replygump 0x38920abd 16
+  waitforgump 0x38920abd 15000
+endif
+if contents 'backpack' > 50
+  for 0 to junk
+    while @movetype junk[] 'backpack' 'trash'
+    endwhile
+  endfor
 endif

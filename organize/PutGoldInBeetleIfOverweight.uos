@@ -1,11 +1,9 @@
 //Author: Experience
 //This will drop all gold to beetle when overweight
-
 if not findalias 'mount'
   useobject 'self'
   promptalias 'mount'
 endif
-
 while weight >= maxweight
   if mounted 'self'
     useobject 'self'

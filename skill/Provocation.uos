@@ -1,10 +1,10 @@
-  if not findalias 'npc'
-   sysmsg 'Target an NPC'
-   promptalias 'npc'
- endif
- useskill 'Provocation'
- waitfortarget 3000
- target!  'Npc'
- waitfortarget 3000
- target!  'Self'
- pauses 10000 
+if not findalias 'npc'
+  sysmsg 'Target an NPC'
+  promptalias 'npc'
+endif
+useskill 'Provocation'
+waitfortarget 3000
+target!  'Npc'
+waitfortarget 3000
+target!  'Self'
+pauses 10000

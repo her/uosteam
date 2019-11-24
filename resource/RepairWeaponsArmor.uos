@@ -1,16 +1,13 @@
 //Author: Experience
 //Useage: Repair Weapons/Armor
-
 if not listexists 'Bows'
   createlist 'Bows'
   @pushlist 'Bows' '0x13b2' //Bow
   @pushlist 'Bows' '0x13fd' //Heavy X-bow
   @pushlist 'Bows' '0xf50' //X-bow
 endif
-
 if not listexists 'Smith'
   createlist 'Smith'
-
   //Axes
   @pushlist 'Smith' 0xf43
   @pushlist 'Smith' 0xf45
@@ -21,7 +18,6 @@ if not listexists 'Smith'
   @pushlist 'Smith' 0xf4d
   @pushlist 'Smith' 0x143e
   @pushlist 'Smith' 0xf4b
-
   //Swords
   @pushlist 'Smith' 0xf5e
   @pushlist 'Smith' 0x13ff
@@ -31,17 +27,14 @@ if not listexists 'Smith'
   @pushlist 'Smith' 0x1441
   @pushlist 'Smith' 0xf61
   @pushlist 'Smith' 0xf61
-
   //Fencing
   @pushlist 'Smith' 0x1401
   @pushlist 'Smith' 0x1405
-
   //2 Handed
   @pushlist 'Smith' 0xf62
   @pushlist 'Smith' 0x1403
   @pushlist 'Smith' 0xf52
   @pushlist 'Smith' 0xe87
-
   //Maces
   @pushlist 'Smith' 0x143d
   @pushlist 'Smith' 0xe89
@@ -51,12 +44,10 @@ if not listexists 'Smith'
   @pushlist 'Smith' 0x13b0
   @pushlist 'Smith' 0xf5c
   @pushlist 'Smith' 0xdf0
-
   //2 Handed
   @pushlist 'Smith' 0x1439
   @pushlist 'Smith' 0x13f8
   @pushlist 'Smith' 0xe81
-
   //Shields
   @pushlist 'Smith' 0x1b76
   @pushlist 'Smith' 0x1b7b
@@ -65,7 +56,6 @@ if not listexists 'Smith'
   @pushlist 'Smith' 0x1b74
   @pushlist 'Smith' 0x1b79
   @pushlist 'Smith' 0x1b7a
-
   //Platemail
   @pushlist 'Smith' 0x1408 //Close Helmet
   @pushlist 'Smith' 0x1410 //Platemail Arms
@@ -77,32 +67,26 @@ if not listexists 'Smith'
   @pushlist 'Smith' 0x140a //Helmet
   @pushlist 'Smith' 0x140c //Bascinet
   @pushlist 'Smith' 0x140e //Norse Helm
-
   //Chainmail
   @pushlist 'Smith' 0x13bb //Chainmail Coif
   @pushlist 'Smith' 0x13be //Chainmail Leggins
   @pushlist 'Smith' 0x13bf //Chainmail Tunic
-
   //Ringmail
   @pushlist 'Smith' 0x13ee //Ringmail Sleeves
   @pushlist 'Smith' 0x13eb //Ringmail Gloves
   @pushlist 'Smith' 0x13ec //Ringmail Tunic
   @pushlist 'Smith' 0x13f0 //Ringmail Leggins
-
   //Female Armor
   @pushlist 'Smith' 0x1c04 //Female Plate
 endif
-
 if not listexists 'Tailor'
   createlist 'Tailor'
-
   //Studded
   @pushlist 'Tailor' 0x13da //Studded Leggings
   @pushlist 'Tailor' 0x13db //Studded Tunic
   @pushlist 'Tailor' 0x13d5 //Studded Gloves
   @pushlist 'Tailor' 0x13d6 //Studded Gorget
   @pushlist 'Tailor' 0x13dc //Studded Sleeves
-
   //Leather
   @pushlist 'Tailor' 0x13c6 //Leather Gloves
   @pushlist 'Tailor' 0x13cd //Leather Sleeves
@@ -110,7 +94,6 @@ if not listexists 'Tailor'
   @pushlist 'Tailor' 0x13cb //Leather Pants
   @pushlist 'Tailor' 0x13c7 //Leather Gorget
   @pushlist 'Tailor' 0x1db9 //Leather Cap
-
   //Female Armor
   @pushlist 'Tailor' 0x1c0c //Female Studded Bustier
   @pushlist 'Tailor' 0x1c02 //Female Studded Armor
@@ -119,38 +102,31 @@ if not listexists 'Tailor'
   @pushlist 'Tailor' 0x1c06 //Female Leather Armor
   @pushlist 'Tailor' 0x1c0a //Female Leather Bustier
 endif
-
 //Fletching
 if not @findobject 'FRD'
   headmsg 'Select the bag with Fletching Repair Deeds'
   promptalias 'FRD'
 endif
-
 if not @findobject 'BRD'
   headmsg 'Select the bag with Blacksmith Repair Deeds'
   promptalias 'BRD'
 endif
-
 if not @findobject 'TRD'
   headmsg 'Select the bag with Tailor Repair Deeds'
   promptalias 'TRD'
 endif
-
 if not @findobject 'RepairedBow'
   headmsg 'Select bag for repaired Bows'
   promptalias 'RepairedBow'
 endif
-
 if not @findobject 'RepairedSmith'
   headmsg 'Select bag for repaired Smith items'
   promptalias 'RepairedSmith'
 endif
-
 if not @findobject 'RepairedTailor'
   headmsg 'Select bag for repaired Tailor items'
   promptalias 'RepairedTailor'
 endif
-
 if @findtype '0x14f0' '444' 'FRD' 'any' '1'
   @clearjournal
   clickobject 'found'
@@ -171,7 +147,6 @@ if @findtype '0x14f0' '444' 'FRD' 'any' '1'
     headmsg 'Fletching deed found'
   endif
 endif
-
 for 0 to 'Bows'
   usetype '0x14f0' '444' 'FRD' '1'
   waitfortarget 5000
@@ -185,11 +160,10 @@ for 0 to 'Bows'
     moveitem 'found' 'RepairedBow'
     pause 700
     @clearjournal
-    else
+  else
     replay
   endif
 endfor
-
 //Blacksmith
 if @findtype '0x14f0' '444' 'BRD' 'any' '1'
   @clearjournal
@@ -210,7 +184,6 @@ if @findtype '0x14f0' '444' 'BRD' 'any' '1'
     pause 700
   endif
 endif
-
 for 0 to 'Smith'
   usetype '0x14f0' '444' 'SRD' '1'
   waitfortarget 5000
@@ -228,7 +201,6 @@ for 0 to 'Smith'
     replay
   endif
 endfor
-
 //Tailoring
 if @findtype '0x14f0' '444' 'TRD' 'any' '1'
   @clearjournal
@@ -251,7 +223,6 @@ if @findtype '0x14f0' '444' 'TRD' 'any' '1'
     @unsetalias 'found'
   endif
 endif
-
 for 0 to 'Tailor'
   usetype '0x14f0' '444' 'TRD' '1'
   waitfortarget 5000

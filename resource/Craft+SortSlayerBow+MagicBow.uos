@@ -1,95 +1,49 @@
 //have 3 containers ready to assign.  1 for slayers, magic bows, and junk
 //Script assumes the only bow in your main backpack will be the one it crafted.
-
 if not @findalias 'slayerbag'
-
   promptalias 'slayerbag'
-
 endif
-
 if not @findalias 'Magicbag'
-
   promptalias 'Magicbag'
-
 endif
-
 if not @findobject 'Sell Bag'
-
   promptalias 'Sell Bag'
-
 endif
-
 if not hidden 'self' and skill 'hiding' >= '50'
-
   useskill 'hiding'
-
 endif
-
 if not @findtype '0x1022' 'any' 'backpack' 'any' '2'
-
   headmsg 'Need more tools!'
-
   stop
-
 endif
-
 @usetype '0x1022' 'any' 'backpack' '2'
-
 waitforgump 0x38920abd 15000
-
 replygump 0x38920abd 21
-
 pause 2000
-
 if @injournal 'crafted a slayer' 'system'
-
   @findtype '0x13b2' 'any' 'backpack' '1' '2'
-
   moveitem 'found' 'slayerbag'
-
   ignoreobject 'found'
-
   clearjournal
-
   headmsg 'Slayer crafted!' 33
-
   pause 600
-
 else
-
-if @injournal 'crafted a magical' 'system'
-
-  @findtype '0x13b2' 'any' 'backpack' '1' '2'
-
-  moveitem 'found' 'Magicbag'
-
-  ignoreobject 'found'
-
-  clearjournal
-
-  headmsg 'Magic Bow crafted!' 33
-
-  pause 600
-
-else
-
-  @findtype '0x13b2' 'any' 'backpack' '1' '2'
-
-  moveitem 'found' 'Sell Bag'
-
-  pause 200
-
-  @ignoreobject 'found'
-
+  if @injournal 'crafted a magical' 'system'
+    @findtype '0x13b2' 'any' 'backpack' '1' '2'
+    moveitem 'found' 'Magicbag'
+    ignoreobject 'found'
+    clearjournal
+    headmsg 'Magic Bow crafted!' 33
+    pause 600
+  else
+    @findtype '0x13b2' 'any' 'backpack' '1' '2'
+    moveitem 'found' 'Sell Bag'
+    pause 200
+    @ignoreobject 'found'
+  endif
 endif
-endif
-
 while weight >= maxweight
-
   headmsg 'Time to Sell'
-
   sysmsg 'Time to Sell'
-
   stop
-
 endwhile

@@ -1,5 +1,4 @@
 //This checks health to make sure you don't die
-
 while not dead
   if mana < 80
     useskill 'meditation'

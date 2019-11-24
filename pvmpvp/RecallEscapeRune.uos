@@ -1,8 +1,7 @@
-// Escape Rune Recall 
+// Escape Rune Recall
 // Author: Melanie Berkley <http://berkley.io>
 // Version: 2.0.0
 // License: BSD-2-Clause
-
 clearjournal
 while not findalias 'rune'
   setalias 'rune'

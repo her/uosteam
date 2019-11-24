@@ -156,9 +156,9 @@ while not @ingump '0x38920abd' 'exceptional'
   endif
 endwhile
 if @ingump '0x38920abd' 'You do not have sufficient leather'
-    headmsg 'Out of leather!'
-    stop
-  endif
+  headmsg 'Out of leather!'
+  stop
+endif
 replygump 0x38920abd 0
 pause 2000
 for 0 to 'Suit'

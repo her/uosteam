@@ -1,7 +1,6 @@
-//What's missing or could be improved: 
-//* for some reason it asked for a new keg twice when one keg //is full. Does anyone know why? 
-//* specific pot identification //(lesser/normal/greater[/deadly]) is missing. I could do that //with clickobject and injournal but that would slow things //down a lot. Any ideas? 
-
+//What's missing or could be improved:
+//* for some reason it asked for a new keg twice when one keg //is full. Does anyone know why?
+//* specific pot identification //(lesser/normal/greater[/deadly]) is missing. I could do that //with clickobject and injournal but that would slow things //down a lot. Any ideas?
 clearjournal
 while not @findobject 'WhiteKeg'
   headmsg 'Strength Keg?'

@@ -9,7 +9,6 @@
 //
 // ~~LeMix~~
 ////////////////////////////////////
-
 if not @findtype 0xeb2 'backpack'
   headmsg 'I need more harps!'
   stop

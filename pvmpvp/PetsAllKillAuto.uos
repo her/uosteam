@@ -1,7 +1,5 @@
 // auto targets enemies and all kills
-
 @getenemy 'gray' 'grey' 'closest'
-
 if @inrange 'enemy' '12'
   if graphic 'enemy' != '0xa7' or graphic 'enemy' != ''
     msg 'all kill'

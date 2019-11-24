@@ -16,7 +16,6 @@
 //
 //  When done the macro will automatically
 //  re-equip the weapon you were using..
-
 // Check if holding a weapon
 if @findlayer 'self' 2
   // Unequip wep

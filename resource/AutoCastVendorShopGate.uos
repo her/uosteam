@@ -1,39 +1,23 @@
-/////////////////////////////////////////////////////////////////// 
-//Author: Experience 
-//Set-up: Put a stack of Mandrake, Pearl, and Sulfurous 
-//in the MAIN level of your Bank. 
-//Setup an organizer named "Vendor" with Mandrake, Pearl, 
-//and Sulfurous in the list, and set amounts to between 2 and 5 
-/////////////////////////////////////////////////////////////////// 
-
-if not @findobject 'VendorBook' 
-
-  promptalias 'VendorBook' 
-
-endif 
-
-//EDIT THIS LINE TO WHAT YOU NEED 
-
-yellmsg 'Snoop my bag for a gate to XXXXX' 
-
-pause 5000 
-
-if @injournal 'peek into your belongings' 'system' and mana >= 80 
-
-  msg 'bank' 
-
-  pause 800 
-
-  organizer 'Vendor' 'bank' 'backpack' 
-
-  pause 3000 
-
-  cast 'gate travel' 
-
-  autotargetobject 'VendorBook' 
-
-  @clearjournal 
-
-endif 
-
+///////////////////////////////////////////////////////////////////
+//Author: Experience
+//Set-up: Put a stack of Mandrake, Pearl, and Sulfurous
+//in the MAIN level of your Bank.
+//Setup an organizer named "Vendor" with Mandrake, Pearl,
+//and Sulfurous in the list, and set amounts to between 2 and 5
+///////////////////////////////////////////////////////////////////
+if not @findobject 'VendorBook'
+  promptalias 'VendorBook'
+endif
+//EDIT THIS LINE TO WHAT YOU NEED
+yellmsg 'Snoop my bag for a gate to XXXXX'
+pause 5000
+if @injournal 'peek into your belongings' 'system' and mana >= 80
+  msg 'bank'
+  pause 800
+  organizer 'Vendor' 'bank' 'backpack'
+  pause 3000
+  cast 'gate travel'
+  autotargetobject 'VendorBook'
+  @clearjournal
+endif
 pause 5000

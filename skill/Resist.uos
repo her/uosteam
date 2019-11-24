@@ -1,71 +1,47 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  the caster(s) of the resist.  // 
-//   This macro can train from 0  // 
-//      and is to be used in      // 
-//   conjunction with the below   // 
-//       recipient's macro.       // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if not @findobject 'training' 
-
-  headmsg 'Target the person who is training resist' 
-
-  promptalias 'training' 
-
-endif 
-
-if @injournal 'insufficient mana' 
-
-  clearjournal 
-
-  useskill 'meditation' 
-
-  while mana < maxmana 
-
-  endwhile 
-
-else 
-
-  cast 'mana vampire' 'training' 
-
-  pause 1000 
-
-endif 
-
-if @injournal '1122334455' 
-
-  headmsg 'Resist complete!' 
-
-  stop 
-
-endif 
-
-Code: 
-
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  the recipient of the resist.  // 
-//   This macro can train from 0  // 
-//      and is to be used in      // 
-//   conjunction with the above   // 
-//         caster's macro.        // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-//////////////////////////////////// 
-
-if skill 'Resisting spells' == 100 
-
-  msg '1122334455' 
-
-  headmsg 'Resist complete!' 
-
-  stop 
-
+////////////////////////////////////
+//   This macro is designed for   //
+//  the caster(s) of the resist.  //
+//   This macro can train from 0  //
+//      and is to be used in      //
+//   conjunction with the below   //
+//       recipient's macro.       //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if not @findobject 'training'
+  headmsg 'Target the person who is training resist'
+  promptalias 'training'
+endif
+if @injournal 'insufficient mana'
+  clearjournal
+  useskill 'meditation'
+  while mana < maxmana
+  endwhile
+else
+  cast 'mana vampire' 'training'
+  pause 1000
+endif
+if @injournal '1122334455'
+  headmsg 'Resist complete!'
+  stop
+endif
+Code:
+////////////////////////////////////
+//   This macro is designed for   //
+//  the recipient of the resist.  //
+//   This macro can train from 0  //
+//      and is to be used in      //
+//   conjunction with the above   //
+//         caster's macro.        //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+////////////////////////////////////
+if skill 'Resisting spells' == 100
+  msg '1122334455'
+  headmsg 'Resist complete!'
+  stop
 endif

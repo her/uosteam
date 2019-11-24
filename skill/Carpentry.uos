@@ -1,108 +1,101 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-//  training carpentry from 30.   // 
-// It uses standard saws. Due to  // 
-//  the weight of boards, it is   // 
-// written to be used in a house  // 
-// with a chest to restock from.  // 
-//                                // 
-//   Warning: Throws away deeds!  // 
-//           Bank them!           // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
+////////////////////////////////////
+//   This macro is designed for   //
+//  training carpentry from 30.   //
+// It uses standard saws. Due to  //
+//  the weight of boards, it is   //
+// written to be used in a house  //
+// with a chest to restock from.  //
+//                                //
+//   Warning: Throws away deeds!  //
+//           Bank them!           //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
 //      ~~Made by kdivers~~       //
-//////////////////////////////////// 
-
-if not @listexists 'carpjunk' 
-  createlist 'carpjunk' 
+////////////////////////////////////
+if not @listexists 'carpjunk'
+  createlist 'carpjunk'
   pushlist 'carpjunk' '0x13b4' //Club
   pushlist 'carpjunk' '0xexe' //Medium Crate
   pushlist 'carpjunk' '0x14f0' // DEED! WATCH OUT! Ballot Box
   pushlist 'carpjunk' '0xb4a' //Writing Table
   pushlist 'carpjunk' 0xe89 //Quarter Staff
-  pushlist 'carpjunk' '0x13f8' //Gnarled Staff 
-endif 
-
-if not @findtype 0x1034 0x0 'backpack' 
-  headmsg 'Get more saws!' 
-  stop 
-endif 
-
-if not @findobject 'trash' 
-  headmsg 'Select your trash barrel' 
-  promptalias 'trash' 
-endif 
-
-if not @findobject 'restock' 
-  headmsg 'Select the container with your boards' 
-  promptalias 'restock' 
-  useobject 'restock' 
-endif 
-
-if @counttype 0x1bd7 0x0 'backpack' < 20 
-  movetype 0x1bd7 'restock' 'backpack' 0 0 0 0x0 150 
-  pause 1000 
-endif 
-
-if skill 'carpentry' < 30 
-  headmsg 'Buy more skill!' 
-  stop 
-elseif skill 'carpentry' < 40 
-  if usetype 0x1034 0x0 'backpack' 
+  pushlist 'carpjunk' '0x13f8' //Gnarled Staff
+endif
+if not @findtype 0x1034 0x0 'backpack'
+  headmsg 'Get more saws!'
+  stop
+endif
+if not @findobject 'trash'
+  headmsg 'Select your trash barrel'
+  promptalias 'trash'
+endif
+if not @findobject 'restock'
+  headmsg 'Select the container with your boards'
+  promptalias 'restock'
+  useobject 'restock'
+endif
+if @counttype 0x1bd7 0x0 'backpack' < 20
+  movetype 0x1bd7 'restock' 'backpack' 0 0 0 0x0 150
+  pause 1000
+endif
+if skill 'carpentry' < 30
+  headmsg 'Buy more skill!'
+  stop
+elseif skill 'carpentry' < 40
+  if usetype 0x1034 0x0 'backpack'
     replygump 0x38920abd 22
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 30
     waitforgump 0x38920abd 15000
-  endif 
-elseif skill 'carpentry' < 50 
-  if usetype 0x1034 0x0 'backpack' 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 15 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 16 
-    waitforgump 0x38920abd 2000 
-  endif 
-elseif skill 'carpentry' < 70 
-  if usetype 0x1034 0x0 'backpack' 
+  endif
+elseif skill 'carpentry' < 50
+  if usetype 0x1034 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 15
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'carpentry' < 70
+  if usetype 0x1034 0x0 'backpack'
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 36
     waitforgump 0x38920abd 15000
     replygump 0x38920abd 58
     waitforgump 0x38920abd 15000
-  endif 
-elseif skill 'carpentry' < 75 
-  if usetype 0x1034 0x0 'backpack' 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 8 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 72 
-    waitforgump 0x38920abd 2000 
-  endif 
-elseif skill 'carpentry' < 90 
-  if usetype 0x1034 0x0 'backpack' 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 22 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 9 
-    waitforgump 0x38920abd 2000 
-  endif 
-elseif skill 'carpentry' < 100 
-  if usetype 0x1034 0x0 'backpack' 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 22 
-    waitforgump 0x38920abd 15000 
-    replygump 0x38920abd 16 
-    waitforgump 0x38920abd 2000 
-  endif 
-else 
-  headmsg 'Carpentry completed!' 
-  stop 
-endif 
-
-if contents 'backpack' > 115 or diffweight < 20 
-  for 0 to carpjunk 
-    while @movetype carpjunk[] 'backpack' 'trash' 
-    endwhile 
-  endfor 
+  endif
+elseif skill 'carpentry' < 75
+  if usetype 0x1034 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 8
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 72
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'carpentry' < 90
+  if usetype 0x1034 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 22
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'carpentry' < 100
+  if usetype 0x1034 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 22
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 16
+    waitforgump 0x38920abd 2000
+  endif
+else
+  headmsg 'Carpentry completed!'
+  stop
+endif
+if contents 'backpack' > 115 or diffweight < 20
+  for 0 to carpjunk
+    while @movetype carpjunk[] 'backpack' 'trash'
+    endwhile
+  endfor
 endif

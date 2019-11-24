@@ -1,16 +1,8 @@
-//I got tired of pricing repair deeds one at a time. 
-//This macro just runs continuously and as soon as you drop something, it sets the price. 
-
-//Note: You might want to run a clearjounal before running this. 
-
-
-
-if @injournal 'type in a price' 'system' 
-
-  promptmsg '200' 
-
-  clearjournal 
-
-endif 
-
+//I got tired of pricing repair deeds one at a time.
+//This macro just runs continuously and as soon as you drop something, it sets the price.
+//Note: You might want to run a clearjounal before running this.
+if @injournal 'type in a price' 'system'
+  promptmsg '200'
+  clearjournal
+endif
 pause 100

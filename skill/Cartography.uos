@@ -1,117 +1,64 @@
-//////////////////////////////////// 
-//   This macro is designed for   // 
-// training cartography from 30.  // 
-//  Make sure you have mapmakers  // 
-//  pens on you and not scribes!  // 
-//                                // 
-//  Turn on loop and click play!  // 
-//                                // 
-//      ~~Made by kdivers~~       // 
-// ~~ With thanks to Roshambo ~~  // 
-//////////////////////////////////// 
-
-if not @findtype 0xfbf 0x0 'backpack' 
-
-  headmsg 'Get more Pens!' 
-
-  stop 
-
-endif 
-
-if not @findobject 'trash' 
-
-  headmsg 'Select your trash barrel' 
-
-  promptalias 'trash' 
-
-endif 
-
-if not @findobject 'restock' 
-
-  headmsg 'Select the container with your blank scrolls' 
-
-  promptalias 'restock' 
-
-  useobject 'restock' 
-
-endif 
-
-if @counttype 0xef3 0x0 'backpack' == 0 
-
-  movetype 0xef3 'restock' 'backpack' 0 0 0 0x0 150 
-
-  pause 1000 
-
-endif 
-
-if skill 'Cartography' < 30 
-
-  headmsg 'Buy more skill from NPC!' 
-
-  stop 
-
-elseif skill 'Cartography' < 50 
-
-  if usetype 0xfbf 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 1 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 2 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'Cartography' < 65 
-
-  if usetype 0xfbf 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 1 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 9 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-elseif skill 'Cartography' < 99.5 
-
-  if usetype 0xfbf 0x0 'backpack' 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 1 
-
-    waitforgump 0x38920abd 15000 
-
-    replygump 0x38920abd 23 
-
-    waitforgump 0x38920abd 2000 
-
-  endif 
-
-else 
-
-  headmsg 'Macro complete! Train to 100 by deciphering level 3 and 4 treasure maps.' 
-
-  stop 
-
-endif 
-
-if contents 'backpack' > 115 or diffweight < 20 
-
-  while movetype 0x14ec 'backpack' 'trash' 
-
-    pause 500 
-
-  endwhile 
-
+////////////////////////////////////
+//   This macro is designed for   //
+// training cartography from 30.  //
+//  Make sure you have mapmakers  //
+//  pens on you and not scribes!  //
+//                                //
+//  Turn on loop and click play!  //
+//                                //
+//      ~~Made by kdivers~~       //
+// ~~ With thanks to Roshambo ~~  //
+////////////////////////////////////
+if not @findtype 0xfbf 0x0 'backpack'
+  headmsg 'Get more Pens!'
+  stop
+endif
+if not @findobject 'trash'
+  headmsg 'Select your trash barrel'
+  promptalias 'trash'
+endif
+if not @findobject 'restock'
+  headmsg 'Select the container with your blank scrolls'
+  promptalias 'restock'
+  useobject 'restock'
+endif
+if @counttype 0xef3 0x0 'backpack' == 0
+  movetype 0xef3 'restock' 'backpack' 0 0 0 0x0 150
+  pause 1000
+endif
+if skill 'Cartography' < 30
+  headmsg 'Buy more skill from NPC!'
+  stop
+elseif skill 'Cartography' < 50
+  if usetype 0xfbf 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 2
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'Cartography' < 65
+  if usetype 0xfbf 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 9
+    waitforgump 0x38920abd 2000
+  endif
+elseif skill 'Cartography' < 99.5
+  if usetype 0xfbf 0x0 'backpack'
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 1
+    waitforgump 0x38920abd 15000
+    replygump 0x38920abd 23
+    waitforgump 0x38920abd 2000
+  endif
+else
+  headmsg 'Macro complete! Train to 100 by deciphering level 3 and 4 treasure maps.'
+  stop
+endif
+if contents 'backpack' > 115 or diffweight < 20
+  while movetype 0x14ec 'backpack' 'trash'
+    pause 500
+  endwhile
 endif

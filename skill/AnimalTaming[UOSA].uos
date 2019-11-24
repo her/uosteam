@@ -1,96 +1,96 @@
-//TamerHelpervUOF By Vlek, Grunt of the Bloodclan (Bloodclan.org) 
-//Get close to your target, press your associated key. 
-//CAUTION: Must watch this script. It's not as intelligent as the regular one. 
-if not listexists 'NameTheTamed' 
-  //Set this name to whatever you want. 
-  createlist 'NameTheTamed' 
-  pushlist 'NameTheTamed' 'earth' 
-endif 
-if not listexists 'tameables' 
-  createlist 'tameables' 
-  pushlist 'tameables' 0x7t //Hellcat (Large) 
-  pushlist 'tameables' 0x62 //Hellhound 
-  pushlist 'tameables' 0x17 //Dire Wolf 
-  pushlist 'tameables' 0xce //Lava Lizard 
-  pushlist 'tameables' 0x14 //Frost spider 
-  pushlist 'tameables' 0xc9 //Hellcat (Small) 
-  pushlist 'tameables' 0xda //Frenzied Ostard 
-  pushlist 'tameables' 0x50 //Giant Toad 
-  pushlist 'tameables' 0xe8 //Bull 
-  pushlist 'tameables' 0xe9 //Bull2 
-  pushlist 'tameables' 0x22 //White Wolf 
-  pushlist 'tameables' 0x25 //White Wolf2 
-  pushlist 'tameables' 0x1c //Giant Spider 
-  pushlist 'tameables' 0xd4 //Grizzly Bear 
-  pushlist 'tameables' 0xea //Great Hart 
-  pushlist 'tameables' 0x41 //Snow leopard 
-  pushlist 'tameables' 0x40 //Snow leopard 
-  pushlist 'tameables' 0x19 //Gray wolf 
-  pushlist 'tameables' 0x1b //Gray wolf2 
-  pushlist 'tameables' 0x30 //Scorpion 
-  pushlist 'tameables' 0xca //Alligator 
-  pushlist 'tameables' 0x3f //Cougar 
-  pushlist 'tameables' 0xd6 //Panther 
-  pushlist 'tameables' 0xa7 //Brown Bear 
-  pushlist 'tameables' 0xdd //Walrus 
-  pushlist 'tameables' 0xd5 //Polar Bear 
-  pushlist 'tameables' 0xd3 //Black Bear 
-  pushlist 'tameables' 0xdc //Llama 
-  pushlist 'tameables' 0x124 //Pack Llama 
-  pushlist 'tameables' 0x123 //Pack Horse 
-  pushlist 'tameables' 0xc8 //Horse 
-  pushlist 'tameables' 0xe2 //Horse2 
-  pushlist 'tameables' 0xcc //Horse3 
-  pushlist 'tameables' 0xed //Giant Rat 
-  pushlist 'tameables' 0xdb //Forest Ostard 
-  pushlist 'tameables' 0xd2 //Desert Ostard 
-  pushlist 'tameables' 0x122 //Boar 
-  pushlist 'tameables' 0xe1 //Timber Wolf 
-  pushlist 'tameables' 0xed //Hind 
-  pushlist 'tameables' 0x51 //Bullfrog 
-endif 
-if not @inrange 'tobetamed' 2 
-  @unsetalias 'tobetamed' 
-  for 0 in 'tameables' 
-    if @findtype tameables[] 'any' 'ground' 1 2 
-      @setalias 'tobetamed' 'found' 
-      break 
-    endif 
-  endfor 
-endif 
-if not @inrange 'tobetamed' 2 
-  headmsg 'No new creatures near you!' 
-  replay 
-endif 
-clearjournal 
-while name 'tobetamed' != NameTheTamed[0] 
-  autotargetobject 'tobetamed' 
-  useskill 'animal taming' 
-  @rename 'tobetamed' NameTheTamed[0] 
-  pause 1000 
-  if not @inrange 'tobetamed' 1 
-    if @x 'tobetamed' > x 'self' and @y 'tobetamed' > y 'self' 
-      walk 'Southeast' 
-    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' > y 'self' 
-      walk 'Southwest' 
-    elseif @x 'tobetamed' > x 'self' and @y 'tobetamed' < y 'self' 
-      walk 'Northeast' 
-    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' < y 'self' 
-      walk 'Northwest' 
-    elseif @x 'tobetamed' > x 'self' and @y 'tobetamed' == y 'self' 
-      walk 'East' 
-    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' == y 'self' 
-      walk 'West' 
-    elseif @x 'tobetamed' == x 'self' and @y 'tobetamed' > y 'self' 
-      walk 'South' 
-    elseif @x 'tobetamed' == x 'self' and @y 'tobetamed' < y 'self' 
-      walk 'North' 
-    endif 
-  endif 
-endwhile 
-waitforcontext 'tobetamed' 8 20000 
-waitforgump 0x909cc741 15000 
-@replygump 0x909cc741 2 
-@ignoreobject 'tobetamed' 
-@unsetalias 'tobetamed' 
-replay 
+//TamerHelpervUOF By Vlek, Grunt of the Bloodclan (Bloodclan.org)
+//Get close to your target, press your associated key.
+//CAUTION: Must watch this script. It's not as intelligent as the regular one.
+if not listexists 'NameTheTamed'
+  //Set this name to whatever you want.
+  createlist 'NameTheTamed'
+  pushlist 'NameTheTamed' 'earth'
+endif
+if not listexists 'tameables'
+  createlist 'tameables'
+  pushlist 'tameables' 0x7t //Hellcat (Large)
+  pushlist 'tameables' 0x62 //Hellhound
+  pushlist 'tameables' 0x17 //Dire Wolf
+  pushlist 'tameables' 0xce //Lava Lizard
+  pushlist 'tameables' 0x14 //Frost spider
+  pushlist 'tameables' 0xc9 //Hellcat (Small)
+  pushlist 'tameables' 0xda //Frenzied Ostard
+  pushlist 'tameables' 0x50 //Giant Toad
+  pushlist 'tameables' 0xe8 //Bull
+  pushlist 'tameables' 0xe9 //Bull2
+  pushlist 'tameables' 0x22 //White Wolf
+  pushlist 'tameables' 0x25 //White Wolf2
+  pushlist 'tameables' 0x1c //Giant Spider
+  pushlist 'tameables' 0xd4 //Grizzly Bear
+  pushlist 'tameables' 0xea //Great Hart
+  pushlist 'tameables' 0x41 //Snow leopard
+  pushlist 'tameables' 0x40 //Snow leopard
+  pushlist 'tameables' 0x19 //Gray wolf
+  pushlist 'tameables' 0x1b //Gray wolf2
+  pushlist 'tameables' 0x30 //Scorpion
+  pushlist 'tameables' 0xca //Alligator
+  pushlist 'tameables' 0x3f //Cougar
+  pushlist 'tameables' 0xd6 //Panther
+  pushlist 'tameables' 0xa7 //Brown Bear
+  pushlist 'tameables' 0xdd //Walrus
+  pushlist 'tameables' 0xd5 //Polar Bear
+  pushlist 'tameables' 0xd3 //Black Bear
+  pushlist 'tameables' 0xdc //Llama
+  pushlist 'tameables' 0x124 //Pack Llama
+  pushlist 'tameables' 0x123 //Pack Horse
+  pushlist 'tameables' 0xc8 //Horse
+  pushlist 'tameables' 0xe2 //Horse2
+  pushlist 'tameables' 0xcc //Horse3
+  pushlist 'tameables' 0xed //Giant Rat
+  pushlist 'tameables' 0xdb //Forest Ostard
+  pushlist 'tameables' 0xd2 //Desert Ostard
+  pushlist 'tameables' 0x122 //Boar
+  pushlist 'tameables' 0xe1 //Timber Wolf
+  pushlist 'tameables' 0xed //Hind
+  pushlist 'tameables' 0x51 //Bullfrog
+endif
+if not @inrange 'tobetamed' 2
+  @unsetalias 'tobetamed'
+  for 0 in 'tameables'
+    if @findtype tameables[] 'any' 'ground' 1 2
+      @setalias 'tobetamed' 'found'
+      break
+    endif
+  endfor
+endif
+if not @inrange 'tobetamed' 2
+  headmsg 'No new creatures near you!'
+  replay
+endif
+clearjournal
+while name 'tobetamed' != NameTheTamed[0]
+  autotargetobject 'tobetamed'
+  useskill 'animal taming'
+  @rename 'tobetamed' NameTheTamed[0]
+  pause 1000
+  if not @inrange 'tobetamed' 1
+    if @x 'tobetamed' > x 'self' and @y 'tobetamed' > y 'self'
+      walk 'Southeast'
+    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' > y 'self'
+      walk 'Southwest'
+    elseif @x 'tobetamed' > x 'self' and @y 'tobetamed' < y 'self'
+      walk 'Northeast'
+    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' < y 'self'
+      walk 'Northwest'
+    elseif @x 'tobetamed' > x 'self' and @y 'tobetamed' == y 'self'
+      walk 'East'
+    elseif @x 'tobetamed' < x 'self' and @y 'tobetamed' == y 'self'
+      walk 'West'
+    elseif @x 'tobetamed' == x 'self' and @y 'tobetamed' > y 'self'
+      walk 'South'
+    elseif @x 'tobetamed' == x 'self' and @y 'tobetamed' < y 'self'
+      walk 'North'
+    endif
+  endif
+endwhile
+waitforcontext 'tobetamed' 8 20000
+waitforgump 0x909cc741 15000
+@replygump 0x909cc741 2
+@ignoreobject 'tobetamed'
+@unsetalias 'tobetamed'
+replay
