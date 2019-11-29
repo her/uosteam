@@ -2,6 +2,7 @@
 //by Root Sun - 2019.11.28
 //just in case you want to minimize the wast of smelting
 //it'll cycling all 3 high-end Ore in 4 different kind of piles
+//do not loop!
 removelist 'OreType'
 removelist 'OreColor'
 if not listexists 'OreType'
