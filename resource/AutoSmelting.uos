@@ -1,0 +1,48 @@
+//UOSteam Ore Smelting Macro
+//by Root Sun - 2019.11.28
+//just in case you want to minimize the wast of smelting
+//it'll cycling all 3 high-end Ore in 4 different kind of piles
+//do not loop!
+removelist 'OreType'
+removelist 'OreColor'
+if not listexists 'OreType'
+  createlist 'OreType'
+endif
+if not listexists 'OreColor'
+  createlist 'OreColor'
+endif
+if not @findalias 'OreToSmeltStore'
+  promptalias 'OreToSmeltStore'
+endif
+if not @findalias 'IngotsStorage'
+  promptalias 'IngotsStorage'
+endif
+if list 'OreType' == 0
+  pushlist 'OreType' 0x19b7
+  pushlist 'OreType' 0x19b8
+  pushlist 'OreType' 0x19ba
+  pushlist 'OreType' 0x19b9
+endif
+if list 'OreColor' == 0
+  pushlist 'OreColor' 2425
+  pushlist 'OreColor' 2207
+  pushlist 'OreColor' 2219
+endif
+for 0 to 'OreType'
+  for 0 to 'OreColor'
+    while @counttype OreType[] OreColor[] 'OreToSmeltStore' >= 4
+      if @counttype OreType[] OreColor[] 'backpack' < 4
+        movetype OreType[]  'OreToSmeltStore' 'backpack' 0 0 0 OreColor[] 4 '2'
+        pause 1200
+      endif
+      usetype OreType[] OreColor[] 'backpack' '2'
+      waitfortarget 15000
+      target! 0x403475e7
+      pause 1200
+      while @counttype '0x1bf2' 'any' 'backpack' >= 500
+        movetype 0x1bf2 'backpack' 'IngotsStorage'
+        pause 1200
+      endwhile
+    endwhile
+  endfor
+endfor
