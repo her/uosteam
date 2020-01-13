@@ -1,0 +1,27 @@
+/////
+///github: joshuaalayon
+///I searched everywhere for a script to use Combat Training Mastery to train Animal Taming from 90.0 onwards. I could not find one, so I
+///decided to make this one.
+///Make sure that you single-click on the book to set your mastery via its context menu: simply double-clicking the book and selecting the
+///mastery will not work.
+///This script will cast Combat Training repeatedly until your mana is too low, at which point it will attempt to meditate to restore mana.
+///When your mana reaches >143, whether by successful meditation or just waiting, it will then begin to cast Combat Training again.
+///My meditation is 0.0 and I still see a speed increase using meditation, so don't worry about raising your Meditation skill for this script!
+///You may need to modify the mana line: My character has 145, so I chose >143; YMMV.
+///I hope you enjoy this!
+/////
+while @injournal 'must have at least' and not buffexists 'meditation'
+  useskill 'meditation'
+  pause 40
+endwhile
+if mana > 143
+  clearjournal
+endif
+while skill 'animal taming' < 120 and not @injournal 'must have at least'
+  if not @findobject 'pet'
+    promptalias 'pet'
+  endif
+  autotargetobject 'pet'
+  cast 'combat training'
+  pause 100
+endwhile
