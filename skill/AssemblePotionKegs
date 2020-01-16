@@ -1,0 +1,66 @@
+/////
+/// github: joshuaalyon
+/// This script will assemble potion kegs from wooden kegs, empty bottles, barrel lids, and keg taps.
+/// Because of the weight of the kegs, the best way to use this script is going to be at home.
+/// The script assumes you have a tinker tool in your backpack, that you have your wooden kegs in a container named "kegbag",
+/// that you have the empty bottles, barrel lids, and keg taps in a container named "partsbag"
+/// and that you want to store your potion kegs in a container called "potionkegbag"
+/// I hope you enjoy!
+/////
+if not @findobject 'partsbag'
+  headmsg 'Select your parts bag'
+  promptalias 'partsbag'
+endif
+pause 200
+if not @findobject 'kegbag'
+  headmsg 'Select your keg bag'
+  promptalias 'kegbag'
+endif
+pause 200
+if not @findobject 'potionkegbag'
+  headmsg 'Select your potion keg bag'
+  promptalias 'potionkegbag'
+endif
+pause 200
+if @findtype 0x1940 0x0 'backpack'
+  movetype 0x1940 'backpack' 'potionkegbag' 0 0 0 0x0
+  pause 1000
+endif
+pause 200
+if @findtype 0x1940 0x0 'backpack'
+  movetype 0x1940 'backpack' 'potionkegbag' 0 0 0 0x0
+  pause 1000
+endif
+pause 200
+if @findtype 0x1940 0x0 'backpack'
+  movetype 0x1940 'backpack' 'potionkegbag' 0 0 0 0x0
+  pause 1000
+endif
+pause 200
+if not @findtype 0xe7f 0x0 'backpack'
+  movetype 0xe7f 'kegbag' 'backpack' 0 0 0 0x0
+  pause 1000
+endif
+pause 200
+if @counttype 0x1004 0x0 'backpack' < 1
+  movetype 0x1004 'partsbag' 'backpack' 0 0 0 0x0 1
+  pause 1000
+endif
+pause 200
+if @counttype 0x1db8 0x0 'backpack' < 1
+  movetype 0x1db8 'partsbag' 'backpack' 0 0 0 0x0 1
+  pause 1000
+endif
+pause 200
+if @counttype 0xf0e 0x0 'backpack' < 10
+  movetype 0xf0e 'partsbag' 'backpack' 0 0 0 0x0 10
+  pause 1000
+endif
+pause 200
+if usetype 0x1eb9 0x0 'backpack'
+  replygump 0x1cc 9007
+  waitforgump 0x1cc 15000
+  replygump 0x1cc 300
+  waitforgump 0x1cc 15000
+endif
+pause 200
