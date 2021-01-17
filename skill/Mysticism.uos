@@ -1,0 +1,55 @@
+////////////////////////////////////
+//   This macro is designed for   //
+// training Mysticism from 0.     //
+//                                //
+//  Turn off loop and click play! //
+//                                //
+//      ~~Made by Torruin~~       //
+////////////////////////////////////
+while not dead
+  if mana < 20
+    useskill 'meditation'
+    while not mana == maxmana
+    endwhile
+  endif
+  if hits < 50
+    pause 7000
+    while not findtype 0x4078
+      cast "Healing Stone"
+      pause 5000
+    endwhile
+    while not hits == maxhits
+      if not findtype 0x4078
+        cast "Healing Stone"
+      endif
+      usetype 0x4078
+      pause 3000
+    endwhile
+  endif
+  //Set Goal
+  if skill 'Mysticism' == 100
+    stop
+  endif
+  if skill 'Mysticism' < 8
+    cast "Healing Stone"
+  endif
+  if skill 'Mysticism' >= 8 and skill 'Mysticism' < 20
+    cast "Purge Magic" "self"
+  endif
+  if skill 'Mysticism' >= 20 and skill 'Mysticism' < 33
+    cast "Eagle Strike" "self"
+  endif
+  if skill 'Mysticism' >= 33 and skill 'Mysticism' < 63
+    cast "Stone Form"
+  endif
+  if skill 'Mysticism' >= 63 and skill 'Mysticism' < 80
+    cast "Cleansing Winds" "self"
+  endif
+  if skill 'Mysticism' >= 80 and skill 'Mysticism' < 95
+    cast "Hail Storm" "self"
+  endif
+  if skill 'Mysticism' >= 95 and skill 'Mysticism' < 100
+    cast "Nether Cyclone"
+  endif
+  pause '2700'
+endwhile
