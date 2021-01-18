@@ -39,17 +39,17 @@ while not dead
   if skill 'Mysticism' >= 20 and skill 'Mysticism' < 33
     cast "Eagle Strike" "self"
   endif
-  if skill 'Mysticism' >= 33 and skill 'Mysticism' < 63
+  if skill 'Mysticism' >= 33 and skill 'Mysticism' < 62.9
     cast "Stone Form"
   endif
-  if skill 'Mysticism' >= 63 and skill 'Mysticism' < 80
+  if skill 'Mysticism' >= 62.9 and skill 'Mysticism' < 80
     cast "Cleansing Winds" "self"
   endif
   if skill 'Mysticism' >= 80 and skill 'Mysticism' < 95
     cast "Hail Storm" "self"
   endif
   if skill 'Mysticism' >= 95 and skill 'Mysticism' < 100
-    cast "Nether Cyclone"
+    cast "Nether Cyclone" "self"
   endif
   pause '2700'
 endwhile
